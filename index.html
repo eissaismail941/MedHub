@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedHub | Block 2 Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #0057FF;
+            --cyan: #0EA5E9;
+            --correct: #10b981;
+            --wrong: #ef4444;
+            --bg-mesh: #f8fbff;
+            --primary: #0057FF;
+            /* HDSF palette */
+            --hdsf: #7C3AED;
+            --hdsf-light: #a78bfa;
+            --hdsf-bg: #f5f3ff;
+            /* BBB palette */
+            --bbb: #0057FF;
+            --bbb-light: #60a5fa;
+            --bbb-bg: #eff6ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ─── HERO PAGE ─── */
+        #hero-page {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: fixed;
+            top: 0; left: 0; z-index: 1000;
+            background: #ffffff;
+            transition: transform 0.9s cubic-bezier(0.8, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,87,255,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 100% 100%, rgba(14,165,233,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 0% 80%, rgba(124,58,237,0.05) 0%, transparent 70%),
+                #ffffff;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,87,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,87,255,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 20s linear infinite;
+        }
+
+        @keyframes gridDrift {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(60px); }
+        }
+
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+        }
+        .glow-blob-1 {
+            width: 550px; height: 550px;
+            background: radial-gradient(circle, rgba(0,87,255,0.12) 0%, transparent 70%);
+            top: -150px; left: -120px;
+            animation: blobFloat1 9s ease-in-out infinite;
+        }
+        .glow-blob-2 {
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(124,58,237,0.09) 0%, transparent 70%);
+            bottom: -100px; right: -100px;
+            animation: blobFloat2 11s ease-in-out infinite;
+        }
+        .glow-blob-3 {
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blobFloat3 13s ease-in-out infinite;
+        }
+
+        @keyframes blobFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,30px)} }
+        @keyframes blobFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,-40px)} }
+        @keyframes blobFloat3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.15)} }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-mark {
+            width: 76px; height: 76px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 32px rgba(0,87,255,0.25), 0 2px 8px rgba(0,87,255,0.15);
+            animation: logoPulse 3s ease-in-out infinite;
+            position: relative;
+        }
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 23px;
+            background: linear-gradient(135deg, rgba(0,87,255,0.3), rgba(14,165,233,0.3));
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0.6;
+        }
+        @keyframes logoPulse {
+            0%,100%{box-shadow:0 8px 32px rgba(0,87,255,0.25),0 2px 8px rgba(0,87,255,0.15)}
+            50%{box-shadow:0 12px 48px rgba(0,87,255,0.38),0 4px 16px rgba(0,87,255,0.2)}
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3.8rem, 12vw, 7.5rem);
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: 8px;
+            animation: fadeUp 0.7s ease both;
+        }
+        .brand-name span {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,87,255,0.06);
+            border: 1.5px solid rgba(0,87,255,0.15);
+            border-radius: 100px;
+            padding: 7px 20px;
+            margin-bottom: 28px;
+            animation: fadeUp 0.7s 0.12s ease both;
+        }
+        .brand-tag-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--blue);
+            animation: dotBlink 2s ease-in-out infinite;
+        }
+        @keyframes dotBlink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(0.8)} }
+        .brand-tag span {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--blue);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-sub {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-bottom: 44px;
+            letter-spacing: 0.2px;
+            animation: fadeUp 0.7s 0.22s ease both;
+        }
+
+        .enter-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            color: white;
+            padding: 18px 52px;
+            border-radius: 14px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0,87,255,0.3), 0 2px 8px rgba(0,87,255,0.15), 0 0 0 1px rgba(255,255,255,0.5) inset;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeUp 0.7s 0.32s ease both;
+        }
+        .enter-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,87,255,0.38), 0 4px 16px rgba(0,87,255,0.2); }
+        .enter-btn:active { transform: translateY(0); }
+        .enter-btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            animation: sweep 3.5s ease infinite;
+        }
+        .enter-btn-arrow { width: 20px; height: 20px; transition: transform 0.2s; }
+        .enter-btn:hover .enter-btn-arrow { transform: translateX(4px); }
+
+        .hero-copy {
+            margin-top: 26px;
+            font-size: 0.78rem;
+            color: #c0ccd8;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            animation: fadeUp 0.7s 0.42s ease both;
+        }
+
+        .float-badges {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .float-badge {
+            position: absolute;
+            background: rgba(0,87,255,0.05);
+            border: 1.5px solid rgba(0,87,255,0.1);
+            border-radius: 100px;
+            padding: 8px 18px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: rgba(0,87,255,0.45);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .float-badge.purple {
+            background: rgba(124,58,237,0.05);
+            border-color: rgba(124,58,237,0.12);
+            color: rgba(124,58,237,0.5);
+        }
+        .float-badge:nth-child(1){top:27%;left:11%;animation:floatA 7s ease-in-out infinite}
+        .float-badge:nth-child(2){top:53%;left:8%;animation:floatB 9s ease-in-out infinite}
+        .float-badge:nth-child(3){bottom:22%;left:13%;animation:floatC 8s ease-in-out infinite}
+        .float-badge:nth-child(4){bottom:18%;right:6%;animation:floatA 11s ease-in-out infinite reverse}
+        .float-badge:nth-child(5){top:11%;left:38%;animation:floatB 10s ease-in-out infinite}
+        .float-badge:nth-child(6){top:25%;right:7%;animation:floatC 9s ease-in-out infinite}
+        .float-badge:nth-child(7){top:42%;right:4%;animation:floatA 8s ease-in-out infinite}
+        .float-badge:nth-child(8){top:57%;right:18%;animation:floatB 10s ease-in-out infinite}
+
+        /* ── MOBILE: only show 3 well-spaced badges ── */
+        @media (max-width: 600px) {
+            .float-badge:nth-child(2),
+            .float-badge:nth-child(3),
+            .float-badge:nth-child(7),
+            .float-badge:nth-child(8) {
+                display: none;
+            }
+
+            .float-badge:nth-child(1) {
+                top: 12%;
+                left: 4%;
+            }   /* 🧬 Genetics */
+
+            .float-badge:nth-child(5) {
+                top: 12%;
+                right: 4%;
+                left: auto;
+            }   /* 🫀 Anatomy */
+
+            .float-badge:nth-child(6) {
+                bottom: 12%;
+                left: 4%;
+                top: auto;
+                right: auto;
+            }   /* 🦠 Microbiology */
+
+            .float-badge:nth-child(4) {
+                bottom: 12%;
+                right: 4%;
+                top: auto;
+                left: auto;
+            }   /* 🧪 Biochemistry */
+        }
+
+        @keyframes floatA{0%,100%{transform:translateY(0px) rotate(-1deg)} 50%{transform:translateY(-14px) rotate(1deg)}}
+        @keyframes floatB{0%,100%{transform:translateY(0px) rotate(1deg)} 50%{transform:translateY(-18px) rotate(-1deg)}}
+        @keyframes floatC{0%,100%{transform:translateY(0px)} 50%{transform:translateY(-12px)}}
+
+        .hero-line {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,87,255,0.2), rgba(14,165,233,0.2), transparent);
+        }
+
+        @keyframes sweep { 0%{left:-100%} 40%{left:100%} 100%{left:100%} }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ─── SUBJECTS PAGE ─── */
+        #subject-page {
+            display: none;
+            min-height: 100vh;
+            padding: 60px 20px 80px;
+            background: var(--bg-mesh);
+        }
+
+        .subjects-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .subjects-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .subjects-header p {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        /* Group sections */
+        .group-section {
+            max-width: 1100px;
+            margin: 0 auto 55px;
+        }
+
+        .group-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            padding: 0 4px;
+        }
+
+        .group-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .group-badge.hdsf {
+            background: rgba(124,58,237,0.08);
+            border: 2px solid rgba(124,58,237,0.18);
+            color: var(--hdsf);
+        }
+
+        .group-badge.bbb {
+            background: rgba(0,87,255,0.07);
+            border: 2px solid rgba(0,87,255,0.15);
+            color: var(--blue);
+        }
+
+        .group-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .group-divider {
+            width: 100%;
+            height: 1.5px;
+            border-radius: 10px;
+            margin-bottom: 28px;
+        }
+
+        .group-divider.hdsf {
+            background: linear-gradient(90deg, rgba(124,58,237,0.25), rgba(167,139,250,0.1), transparent);
+        }
+
+        .group-divider.bbb {
+            background: linear-gradient(90deg, rgba(0,87,255,0.25), rgba(14,165,233,0.1), transparent);
+        }
+
+        /* Subject grid */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .subject-card {
+            background: white;
+            padding: 28px 22px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 22px;
+        }
+
+        .subject-card.hdsf-card:hover {
+            border-color: var(--hdsf);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(124,58,237,0.12), 0 4px 12px rgba(124,58,237,0.08);
+        }
+        .subject-card.hdsf-card::before {
+            background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
+        }
+        .subject-card.hdsf-card:hover::before { opacity: 1; }
+
+        .subject-card.bbb-card:hover {
+            border-color: var(--blue);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,87,255,0.1), 0 4px 12px rgba(0,87,255,0.07);
+        }
+        .subject-card.bbb-card::before {
+            background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
+        }
+        .subject-card.bbb-card:hover::before { opacity: 1; }
+
+        .subject-card:active { transform: translateY(-2px) scale(0.98); }
+
+        .card-icon {
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .card-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+        }
+
+        .card-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: auto;
+        }
+
+        .card-chip.hdsf {
+            background: rgba(124,58,237,0.08);
+            color: var(--hdsf);
+        }
+
+        .card-chip.bbb {
+            background: rgba(0,87,255,0.07);
+            color: var(--blue);
+        }
+
+        /* Coming soon state */
+        .subject-card.coming-soon {
+            opacity: 0.55;
+            cursor: default;
+        }
+        .subject-card.coming-soon:hover {
+            transform: none;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+
+        /* ─── RESOURCES PAGE ─── */
+        #resources-page {
+            display: none;
+            min-height: 100vh;
+            padding: 60px 20px 80px;
+            background: var(--bg-mesh);
+        }
+
+        .resources-header {
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto 60px;
+        }
+
+        .resources-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .resources-header p {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .resource-topbar {
+            max-width: 1100px;
+            margin: 0 auto 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .back-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #475569;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 10px 14px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+        }
+
+        .resource-meta {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 8px 14px;
+            background: white;
+            color: #475569;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+        }
+
+        .resource-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 28px 22px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 22px;
+            background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
+        }
+
+        .resource-card:hover {
+            border-color: var(--hdsf);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(124,58,237,0.12), 0 4px 12px rgba(124,58,237,0.08);
+        }
+
+        .resource-card:hover::before { opacity: 1; }
+
+        .resource-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(167,139,250,0.18));
+            font-size: 1.5rem;
+            color: var(--hdsf);
+        }
+
+        .resource-index {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--hdsf);
+        }
+
+        .resource-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.02rem;
+            line-height: 1.4;
+            color: #0f172a;
+        }
+
+        .resource-card p {
+            color: #94a3b8;
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 6px;
+            width: 100%;
+        }
+
+        .btn-link {
+            flex: 1;
+            min-width: 110px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: 0.22s ease;
+            text-decoration: none;
+        }
+
+        .btn-open {
+            background: linear-gradient(135deg, var(--hdsf) 0%, var(--hdsf-light) 100%);
+            color: white;
+            box-shadow: 0 10px 22px rgba(124,58,237,0.18);
+        }
+
+        .btn-download {
+            background: var(--hdsf-bg);
+            color: var(--hdsf);
+            border: 1px solid rgba(124,58,237,0.12);
+        }
+
+        .btn-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .hosting-note {
+            max-width: 1100px;
+            margin: 32px auto 0;
+            background: white;
+            border: 1px solid #ebe9fe;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(15,23,42,0.04);
+        }
+
+        .hosting-note h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        .hosting-note ul {
+            margin-left: 18px;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        /* ─── QUIZ ─── */
+        #main-quiz {
+            display: none;
+            background: var(--bg-mesh);
+            min-height: 100vh;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #ffffff;
+            padding: 18px 0 15px 0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+            border-bottom: 1px solid #edf2f7;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .nav-container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: var(--primary); }
+
+        .subject-title {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .stats-badge {
+            background: #f1f5f9;
+            padding: 4px 14px;
+            border-radius: 20px;
+            color: #475569;
+            font-weight: 700;
+            font-size: 0.85rem;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .progress-wrapper {
+            position: relative;
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            border-radius: 50px;
+            transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .quiz-container { max-width: 800px; margin: 40px auto; padding: 0 20px 100px; }
+
+        .card {
+            background: white;
+            border-radius: 35px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,87,255,0.04);
+            text-align: left;
+        }
+
+        .q-label {
+            display: inline-flex;
+            padding: 6px 20px;
+            background-color: #eef6ff;
+            color: var(--blue);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.2px;
+            margin-bottom: 25px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .q-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #0f172a;
+            line-height: 1.5;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .opt {
+            background: #ffffff;
+            border: 2px solid #f1f5f9;
+            padding: 18px 20px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 14px;
+            transition: 0.25s;
+            text-align: left;
+        }
+        .opt:hover { border-color: var(--blue); background: #f8fbff; }
+        .opt.correct { background: #ecfdf5; border-color: var(--correct); color: #064e3b; }
+        .opt.wrong { background: #fef2f2; border-color: var(--wrong); color: #7f1d1d; }
+
+        .opt-letter {
+            width: 34px; height: 34px; min-width: 34px;
+            border-radius: 50%;
+            border: 2px solid #cbd5e1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #475569;
+            background: #ffffff;
+            transition: 0.25s;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .opt-text { flex: 1; }
+        .opt.correct .opt-letter { border-color: var(--correct); background: var(--correct); color: white; }
+        .opt.wrong .opt-letter { border-color: var(--wrong); background: var(--wrong); color: white; }
+        .disabled { pointer-events: none; }
+
+        #finish-screen { display: none; text-align: center; }
+
+        .start-btn {
+            position: relative;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            color: white;
+            padding: 18px 65px;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,87,255,0.25);
+            transition: 0.3s;
+            font-family: 'Syne', sans-serif;
+        }
+        .start-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,87,255,0.35); }
+
+        /* Empty subject placeholder */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+        }
+        .empty-state .empty-icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
+        .empty-state p { color: #94a3b8; }
+
+        @media (max-width: 760px) {
+            .card, .resource-card { padding: 22px; }
+            .nav-header { align-items: flex-start; }
+            .subject-title { font-size: 0.88rem; }
+            .resource-topbar { flex-direction: column; align-items: stretch; }
+            .resource-actions { flex-direction: column; }
+            .btn-link { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero-page">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="glow-blob glow-blob-1"></div>
+    <div class="glow-blob glow-blob-2"></div>
+    <div class="glow-blob glow-blob-3"></div>
+
+    <div class="float-badges">
+        <div class="float-badge purple">🧬 Genetics</div>
+        <div class="float-badge">⚡ Biophysics</div>
+        <div class="float-badge purple">🔭 Histology</div>
+        <div class="float-badge">🧪 Biochemistry</div>
+        <div class="float-badge purple">🫀 Anatomy</div>
+        <div class="float-badge purple">🦠 Microbiology</div>
+        <div class="float-badge">🚑 BEC</div>
+        <div class="float-badge purple">🧠 Physiology</div>
+    </div>
+
+    <div class="hero-content">
+        <div class="logo-mark">
+            <svg width="38" height="38" viewBox="0 0 36 36" fill="none">
+                <path d="M18 4C18 4 8 8 8 18C8 24 12 29 18 32C24 29 28 24 28 18C28 8 18 4 18 4Z" fill="white" fill-opacity="0.3" stroke="white" stroke-width="1.5"/>
+                <path d="M14 18H22M18 14V22" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="brand-name">Med<span>Hub</span></div>
+
+        <div class="brand-tag">
+            <div class="brand-tag-dot"></div>
+            <span>Stage 1 Revision Portal</span>
+        </div>
+
+        <p class="hero-sub">All your subjects, in One place.</p>
+
+        <button class="enter-btn" onclick="showSubjects()">
+            Enter Portal
+            <svg class="enter-btn-arrow" viewBox="0 0 20 20" fill="none">
+                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
+    </div>
+
+    <div class="hero-line"></div>
+</section>
+
+<!-- ═══════════ SUBJECTS ═══════════ -->
+<section id="subject-page">
+    <div class="subjects-header">
+        <h2>Choose Your Subject</h2>
+        <p>Select a track and subject to begin your revision session</p>
+    </div>
+
+    <!-- HDSF Group -->
+    <div class="group-section">
+        <div class="group-label">
+            <span class="group-badge hdsf">🧬 HDSF</span>
+        </div>
+        <div class="group-divider hdsf"></div>
+        <div class="subject-grid">
+            <div class="subject-card hdsf-card" onclick="loadResources('anatomy')">
+                <div class="card-icon">🫀</div>
+                <div class="card-name">Anatomy</div>
+                <div class="card-chip hdsf">10 PDF Files</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🧠</div>
+                <div class="card-name">Physiology</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🦠</div>
+                <div class="card-name">Microbiology</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🔭</div>
+                <div class="card-name">Histology</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🧬</div>
+                <div class="card-name">Molecular Biology</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🔬</div>
+                <div class="card-name">Genetics</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🔵</div>
+                <div class="card-name">Cytology</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+            <div class="subject-card hdsf-card coming-soon">
+                <div class="card-icon">🥚</div>
+                <div class="card-name">Embryology</div>
+                <div class="card-chip hdsf">Coming Soon</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BBB Group -->
+    <div class="group-section">
+        <div class="group-label">
+            <span class="group-badge bbb">⚡ BBB</span>
+        </div>
+        <div class="group-divider bbb"></div>
+        <div class="subject-grid">
+            <div class="subject-card bbb-card coming-soon">
+                <div class="card-icon">⚡</div>
+                <div class="card-name">Biophysics</div>
+                <div class="card-chip bbb">Coming Soon</div>
+            </div>
+            <div class="subject-card bbb-card coming-soon">
+                <div class="card-icon">🧪</div>
+                <div class="card-name">Biochemistry</div>
+                <div class="card-chip bbb">Coming Soon</div>
+            </div>
+            <div class="subject-card bbb-card" onclick="loadQuiz('practical')">
+                <div class="card-icon">🚑</div>
+                <div class="card-name">Basic Emergency Care</div>
+                <div class="card-chip bbb">Start Quiz</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ RESOURCES ═══════════ -->
+<section id="resources-page">
+    <div class="resources-header">
+        <h2 id="resources-title">Anatomy Resource Library</h2>
+        <p id="resources-subtitle">Professional PDF access for students. Every file can be opened in-browser or downloaded directly.</p>
+    </div>
+
+    <div class="resource-topbar">
+        <div class="back-inline" onclick="backToSubjects()">← Back to subjects</div>
+        <div class="resource-meta">
+            <div class="pill" id="resources-count">10 files</div>
+            <div class="pill">Public access ready</div>
+        </div>
+    </div>
+
+    <div class="resource-wrapper">
+        <div id="resource-grid" class="resource-grid"></div>
+    </div>
+
+    <div class="hosting-note">
+        <h4>Important setup for working links</h4>
+        <ul>
+            <li>Put your PDFs inside a folder like <strong>pdfs/anatomy/</strong> in the same website project.</li>
+            <li>Keep file names simple, for example: <strong>anatomy-01-introduction.pdf</strong>.</li>
+            <li>Replace every sample <strong>url</strong> below with the real path to your PDF file.</li>
+            <li>For the most reliable public access, deploy this project as a static site on GitHub Pages, Netlify, or Vercel.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ═══════════ QUIZ ═══════════ -->
+<div id="main-quiz">
+    <div class="top-nav">
+        <div class="nav-container">
+            <div class="nav-header">
+                <div class="back-btn" onclick="goBack()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back
+                </div>
+                <div id="active-subject-name" class="subject-title">SUBJECT</div>
+                <div id="counter" class="stats-badge">0 / 0</div>
+            </div>
+            <div class="progress-wrapper">
+                <div id="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="quiz-mount"></div>
+
+    <div class="quiz-container">
+        <div id="finish-screen" class="card" style="text-align:center;">
+            <div style="font-size:4rem;margin-bottom:20px;">🏆</div>
+            <h2 style="font-family:'Syne',sans-serif;margin-bottom:10px;">Revision Complete!</h2>
+            <p style="color:#64748b;">You've answered all questions for this subject.</p>
+            <button class="start-btn" style="margin-top:30px;" onclick="goBack()">Choose Another Subject</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const anatomyResources = [
+    { title: 'Anatomy Lecture 01', description: 'Introduction to anatomy and anatomical terminology.', url: 'pdfs/anatomy/lecture-01.pdf' },
+    { title: 'Anatomy Lecture 02', description: 'Upper limb overview and surface anatomy.', url: 'pdfs/anatomy/lecture-02.pdf' },
+    { title: 'Anatomy Lecture 03', description: 'Lower limb bones, joints, and muscle groups.', url: 'pdfs/anatomy/lecture-03.pdf' },
+    { title: 'Anatomy Lecture 04', description: 'Thorax structures, mediastinum, and lungs.', url: 'pdfs/anatomy/lecture-04.pdf' },
+    { title: 'Anatomy Lecture 05', description: 'Heart anatomy, pericardium, and great vessels.', url: 'pdfs/anatomy/lecture-05.pdf' },
+    { title: 'Anatomy Lecture 06', description: 'Abdomen walls, organs, and peritoneum.', url: 'pdfs/anatomy/lecture-06.pdf' },
+    { title: 'Anatomy Lecture 07', description: 'Pelvis, perineum, and reproductive anatomy.', url: 'pdfs/anatomy/lecture-07.pdf' },
+    { title: 'Anatomy Lecture 08', description: 'Head and neck spaces, muscles, and vessels.', url: 'pdfs/anatomy/lecture-08.pdf' },
+    { title: 'Anatomy Lecture 09', description: 'Brain, meninges, ventricles, and cranial nerves.', url: 'pdfs/anatomy/lecture-09.pdf' },
+    { title: 'Anatomy Lecture 10', description: 'Clinical anatomy summary and exam-focused review.', url: 'pdfs/anatomy/lecture-10.pdf' }
+];
+
+    const allData = {
+        biophysics: [],
+        biochemistry: [],
+        bec: [],
+        practical: [
+            { q: "Which physiotherapy method uses light to produce superficial heat?", options: ["Ultrasound", "Infrared", "Electrical stimulation", "Microwave"], correct: 1 },
+            { q: "Which therapy is mainly used for skin diseases like psoriasis and eczema?", options: ["Infrared", "Short-wave", "Ultraviolet", "Ultrasound"], correct: 2 },
+            { q: "Which of the following stimulates collagen production?", options: ["Microwave", "Infrared", "Ultraviolet", "Electrical stimulation"], correct: 2 },
+            { q: "Which therapy uses high-frequency electromagnetic waves to produce deep heat?", options: ["Diathermy", "TENS", "Ultrasound", "UV"], correct: 0 },
+            { q: "Short-wave diathermy is characterized by:", options: ["Single applicator", "Use of sound waves", "Two electrodes/plates", "Use of UV rays"], correct: 2 },
+            { q: "Microwave diathermy mainly produces:", options: ["Deep wide heating", "Localized heating", "No heat", "Electrical stimulation"], correct: 1 },
+            { q: "Which tissue is heated more by microwave diathermy?", options: ["Bone", "Fat", "Muscle", "Skin only"], correct: 2 },
+            { q: "Which therapy uses electrical current to stimulate muscles?", options: ["Infrared", "Ultrasound", "Electrical stimulation", "UV"], correct: 2 },
+            { q: "TENS works by:", options: ["Heating tissues", "Destroying cells", "Blocking pain signals", "Producing collagen"], correct: 2 },
+            { q: "Ultrasound therapy uses:", options: ["Light waves", "Sound waves", "Electrical waves", "UV radiation"], correct: 1 },
+            { q: "Which ultrasound frequency penetrates deeper tissues?", options: ["3 MHz", "1 MHz", "Both same", "None"], correct: 1 },
+            { q: "Which ultrasound frequency is more superficial?", options: ["1 MHz", "3 MHz", "Both deep", "None"], correct: 1 },
+            { q: "Which therapy involves mechanical vibration of tissues?", options: ["Infrared", "Microwave", "Ultrasound", "UV"], correct: 2 },
+            { q: "Which therapy has a risk of burns due to heat?", options: ["Infrared", "UV", "TENS", "None"], correct: 0 },
+            { q: "UV rays are divided into:", options: ["X and Y", "A and B", "1 and 2", "Alpha and Beta"], correct: 1 },
+            { q: "UV-A penetrates:", options: ["Only surface", "Deep into dermis", "Bone", "No penetration"], correct: 1 },
+            { q: "Collagen is:", options: ["Hormone", "Enzyme", "Structural protein", "Vitamin"], correct: 2 },
+            { q: "Collagen is produced by:", options: ["Neurons", "Fibroblasts", "RBCs", "Platelets"], correct: 1 },
+            { q: "Which therapy is best for deep wide-area heating?", options: ["Microwave", "Short-wave", "UV", "TENS"], correct: 1 },
+            { q: "Which of the following uses gel and a probe?", options: ["Infrared", "Ultrasound", "Microwave", "UV"], correct: 1 },
+            { q: "Piezoelectric effect converts:", options: ["Light to sound", "Heat to sound", "Electrical to sound and vice versa", "Sound to heat"], correct: 2 },
+            { q: "Which happens at tissue boundaries?", options: ["Absorption", "Reflection", "No effect", "Heating only"], correct: 1 },
+            { q: "Attenuation means:", options: ["Increase energy", "No change", "Loss of energy", "Reflection only"], correct: 2 },
+            { q: "Which tissue appears black?", options: ["Bone", "Muscle", "Fluid", "Fat"], correct: 2 },
+            { q: "Which tissue appears white?", options: ["Fluid", "Bone", "Air", "Skin"], correct: 1 },
+            { q: "Hyperechoic means:", options: ["Black", "Dark", "White", "Invisible"], correct: 2 },
+            { q: "Anechoic means:", options: ["White", "Black", "Gray", "Bright"], correct: 1 },
+            { q: "High frequency ultrasound:", options: ["Goes deeper", "Loses energy quickly", "No interaction", "No image"], correct: 1 },
+            { q: "Scattering means:", options: ["Straight wave", "Reflection", "Spreading in many directions", "Absorption only"], correct: 2 },
+            { q: "Transmission means:", options: ["Wave stops", "Wave reflects", "Wave continues deeper", "Wave disappears"], correct: 2 },
+            { q: "Ultrasound is a type of:", options: ["Electromagnetic wave", "Mechanical wave", "Electrical wave", "Light wave"], correct: 1 },
+            { q: "Ultrasound requires:", options: ["Vacuum", "Medium", "Light", "Electricity only"], correct: 1 },
+            { q: "Ultrasound frequency is:", options: ["< 20 Hz", "< 20 kHz", "> 20 kHz", "> 1 Hz"], correct: 2 },
+            { q: "Medical ultrasound frequency is usually:", options: ["Hz", "kHz", "MHz", "GHz"], correct: 2 },
+            { q: "Speed of ultrasound in body is about:", options: ["340 m/s", "1000 m/s", "1540 m/s", "3000 m/s"], correct: 2 },
+            { q: "Low frequency ultrasound:", options: ["Superficial", "Deep penetration", "No penetration", "Only reflection"], correct: 1 },
+            { q: "High frequency ultrasound gives:", options: ["Deep penetration", "Poor image", "Better resolution", "No image"], correct: 2 },
+            { q: "The main principle of ultrasound imaging is:", options: ["Absorption", "Reflection", "Refraction", "Diffusion"], correct: 1 },
+            { q: "Pulse-echo method means:", options: ["Only sending waves", "Only receiving waves", "Sending and receiving waves", "No waves"], correct: 2 },
+            { q: "Echo in ultrasound means:", options: ["Absorption", "Reflection", "Transmission", "Heat"], correct: 1 },
+            { q: "The piezoelectric effect is responsible for:", options: ["Producing heat", "Converting electrical energy into sound", "Absorbing sound waves", "Increasing frequency"], correct: 1 },
+            { q: "In ultrasound, the transducer mainly works by:", options: ["Magnetic waves", "Light waves", "Piezoelectric effect", "Radiation"], correct: 2 },
+            { q: "The pulse-echo method is used to:", options: ["Generate electricity", "Form images", "Increase penetration", "Reduce noise"], correct: 1 },
+            { q: "Which sequence is correct in pulse-echo method?", options: ["Echo → Send → Image", "Send → Echo → Image", "Image → Send → Echo", "Echo → Image → Send"], correct: 1 },
+            { q: "What does the probe FIRST do in ultrasound?", options: ["Receive echoes", "Convert sound to image", "Send sound waves", "Store data"], correct: 2 },
+            { q: "The returning sound waves in ultrasound are called:", options: ["Pulses", "Echoes", "Signals", "Vibrations"], correct: 1 },
+            { q: "Piezoelectric crystals convert:", options: ["Sound → Light", "Electrical → Sound", "Heat → Sound", "Light → Electrical"], correct: 1 },
+            { q: "Which method is similar to shouting in a cave?", options: ["Piezoelectric effect", "Pulse-echo method", "Attenuation", "Scattering"], correct: 1 },
+            { q: "In ultrasound imaging, image formation mainly depends on:", options: ["Transmission", "Reflection (echoes)", "Absorption", "Refraction"], correct: 1 },
+            { q: "The probe receives echoes and converts them into:", options: ["Heat", "Electrical signals", "Light", "Pressure"], correct: 1 },
+            { q: "Coagulation waveform is:", options: ["Continuous", "Intermittent", "No current", "Constant", "DC"], correct: 1 },
+            { q: "Cutting waveform is:", options: ["Intermittent", "Continuous", "No current", "Pulsed", "DC"], correct: 1 },
+            { q: "Which has highest duty cycle?", options: ["Coag", "Blend", "Cut", "Fulguration", "Desiccation"], correct: 2 },
+            { q: "Grounded system risk:", options: ["No heat", "No current", "Alternate site burn", "No effect", "Safe"], correct: 2 },
+            { q: "Isolated system advantage:", options: ["More burns", "No current", "Prevent alternate path", "No heat", "No circuit"], correct: 2 },
+            { q: "Function of return electrode:", options: ["Produce heat", "Cut tissue", "Remove current safely", "Increase voltage", "Reduce frequency"], correct: 2 },
+            { q: "Burn at pad site occurs when:", options: ["Large area", "Good contact", "Poor contact", "No current", "Low heat"], correct: 2 },
+            { q: "Burn formula depends on:", options: ["Voltage only", "Current and time", "Frequency only", "Pressure", "Light"], correct: 1 },
+            { q: "In fulguration, voltage is:", options: ["Low", "Medium", "High", "Zero", "Constant"], correct: 2 },
+            { q: "In desiccation, tissue effect is:", options: ["Vaporization", "Drying", "Explosion", "No change", "Melting"], correct: 1 },
+            { q: "Most common electrosurgery type:", options: ["Bipolar", "Monopolar", "Fulguration", "Desiccation", "Blend"], correct: 1 },
+            { q: "What is electrosurgery?", options: ["Heat without current", "Light therapy", "Use of electric current to produce heat", "Sound waves", "Magnetic waves"], correct: 2 },
+            { q: "Difference between electrocautery and electrosurgery:", options: ["Both same", "Electrocautery uses AC", "Electrosurgery does not use current", "Electrocautery current does not enter patient", "No difference"], correct: 3 },
+            { q: "In electrosurgery, the patient is:", options: ["Not involved", "Ground only", "Part of circuit", "Insulator", "Generator"], correct: 2 },
+            { q: "Circuit means:", options: ["Open path", "Closed loop of current", "Heat only", "Voltage only", "Resistance only"], correct: 1 },
+            { q: "Electrosurgery uses which frequency?", options: ["60 Hz", "100 Hz", "<100 Hz", ">100 kHz", "10 Hz"], correct: 3 },
+            { q: "Why high frequency is used?", options: ["Increase pain", "Cause shock", "Avoid muscle stimulation", "Reduce heat", "Stop current"], correct: 2 },
+            { q: "In monopolar electrosurgery:", options: ["No electrode", "Two forceps tips", "No current", "One active + return pad", "No patient"], correct: 3 },
+            { q: "In bipolar electrosurgery:", options: ["Pad required", "Current through body", "Two electrodes in forceps", "No current", "High voltage only"], correct: 2 },
+            { q: "Which requires a return electrode (pad)?", options: ["Bipolar", "Monopolar", "Both", "None", "Only fulguration"], correct: 1 },
+            { q: "Cutting occurs due to:", options: ["Slow heat", "Low voltage", "Fast heat", "No heat", "Pressure"], correct: 2 },
+            { q: "Coagulation occurs due to:", options: ["Fast heat", "Slow heat", "No current", "Light", "Sound"], correct: 1 },
+            { q: "Desiccation occurs when:", options: ["No contact", "Spark", "Electrode touches tissue", "No current", "Low frequency"], correct: 2 },
+            { q: "Fulguration occurs when:", options: ["Contact", "No contact", "No heat", "Low voltage", "No current"], correct: 1 },
+            { q: "Which produces spark?", options: ["Desiccation", "Cut", "Coag", "Fulguration", "Bipolar"], correct: 3 },
+            { q: "X-rays are a form of:", options: ["Sound waves", "Mechanical waves", "Electromagnetic radiation", "Magnetic waves", "Heat waves"], correct: 2 },
+            { q: "X-rays originate from:", options: ["Nucleus", "Protons", "Electrons", "Neutrons", "Ions"], correct: 2 },
+            { q: "Gamma rays originate from:", options: ["Electrons", "Shell", "Nucleus", "Orbit", "Surface"], correct: 2 },
+            { q: "X-rays can:", options: ["Stop in air", "Travel long distances", "Only pass through bone", "Only pass through water", "Cannot penetrate"], correct: 1 },
+            { q: "The most hazardous X-ray exposure is:", options: ["Leakage radiation", "Scatter radiation", "Primary beam", "Background radiation", "Reflected rays"], correct: 2 },
+            { q: "Leakage radiation occurs due to:", options: ["Good equipment", "Perfect shielding", "Cracks or defects", "Distance", "Time"], correct: 2 },
+            { q: "Diffracted rays are:", options: ["Large beams", "Regular beams", "Small irregular beams", "Non-harmful", "Constant beams"], correct: 2 },
+            { q: "Radiograph means:", options: ["Moving image", "Static image", "3D image", "Sound image", "Magnetic image"], correct: 1 },
+            { q: "Fluoroscopy provides:", options: ["Static image", "No image", "Moving real-time image", "3D image", "Thermal image"], correct: 2 },
+            { q: "X-ray effects depend on:", options: ["Color", "Shape", "Duration, energy, dose", "Position", "Weight"], correct: 2 },
+            { q: "Low-energy X-rays affect:", options: ["Organs", "Bones", "Skin", "Brain", "Blood"], correct: 2 },
+            { q: "High-energy X-rays affect:", options: ["Skin only", "Internal organs", "Hair", "Nails", "Eyes"], correct: 1 },
+            { q: "ALARA stands for:", options: ["Always Low Radiation", "As Low As Reasonably Achievable", "All Levels Radiation Allowed", "Avoid Large Radiation Area", "None"], correct: 1 },
+            { q: "The first rule to reduce exposure is:", options: ["Distance", "Shielding", "Time", "Temperature", "Speed"], correct: 2 },
+            { q: "Increasing distance:", options: ["Increases radiation", "Decreases radiation", "No effect", "Stops radiation", "Double radiation"], correct: 1 },
+            { q: "Shielding is done using:", options: ["Plastic", "Glass", "Lead", "Wood", "Paper"], correct: 2 },
+            { q: "Lead apron blocks:", options: ["10% radiation", "30% radiation", "50% radiation", "90–99% radiation", "100% radiation"], correct: 3 },
+            { q: "Soft tissue appears:", options: ["White", "Black", "Yellow", "Blue", "Bright"], correct: 1 },
+            { q: "Bones appear:", options: ["Black", "Gray", "White", "Transparent", "Red"], correct: 2 },
+            { q: "CT scan produces:", options: ["2D images", "Sound waves", "Cross-sectional images", "Heat maps", "Magnetic images"], correct: 2 },
+            { q: "Blood pressure is defined as:", options: ["Volume of blood in veins", "Force of blood against artery walls", "Speed of blood flow", "Heart rate", "Oxygen level"], correct: 1 },
+            { q: "Blood pressure mainly occurs in:", options: ["Veins", "Capillaries", "Arteries", "Lymph vessels", "Nerves"], correct: 2 },
+            { q: "Blood pressure normally:", options: ["Stays constant", "Only increases", "Only decreases", "Rises and falls during the day", "Stops at night"], correct: 3 },
+            { q: "The physical principle of blood pressure is:", options: ["Ohm's law", "Boyle's law", "P = ρgh", "Newton's law", "Hooke's law"], correct: 2 },
+            { q: "In the equation P = ρgh, 'h' represents:", options: ["Heat", "Height of fluid", "Heart rate", "Hemoglobin", "Humidity"], correct: 1 },
+            { q: "Blood pressure is measured using:", options: ["One value", "Two values", "Three values", "Four values", "No values"], correct: 1 },
+            { q: "The first BP number represents:", options: ["Diastolic pressure", "Venous pressure", "Systolic pressure", "Pulse rate", "Mean pressure"], correct: 2 },
+            { q: "Systolic pressure occurs when:", options: ["Heart relaxes", "Heart contracts", "Blood stops", "Lungs expand", "Veins collapse"], correct: 1 },
+            { q: "Diastolic pressure occurs when:", options: ["Heart contracts", "Heart relaxes", "Blood pressure is zero", "Oxygen increases", "Heart stops"], correct: 1 },
+            { q: "A normal blood pressure reading is approximately:", options: ["90/60", "100/70", "120/80", "140/90", "160/100"], correct: 2 },
+            { q: "Korotkoff sounds are:", options: ["Electrical signals", "Heartbeats", "Sounds heard during cuff deflation", "Lung sounds", "Muscle sounds"], correct: 2 },
+            { q: "Korotkoff sounds are heard using:", options: ["Thermometer", "ECG", "Stethoscope", "X-ray", "Ultrasound"], correct: 2 },
+            { q: "The first Korotkoff sound indicates:", options: ["Diastolic pressure", "Systolic pressure", "Zero pressure", "Pulse rate", "Oxygen level"], correct: 1 },
+            { q: "The last Korotkoff sound indicates:", options: ["Systolic pressure", "Diastolic pressure", "Mean pressure", "Pulse pressure", "Heart rate"], correct: 1 },
+            { q: "The device used to measure BP is called:", options: ["Thermometer", "Sphygmomanometer", "Spirometer", "Endoscope", "ECG"], correct: 1 },
+            { q: "A mercury BP device contains:", options: ["Air only", "Water", "Mercury column", "Gas", "Oil"], correct: 2 },
+            { q: "An aneroid BP device has:", options: ["Digital screen", "Glass tube", "Dial and needle", "Sound sensor", "Laser"], correct: 2 },
+            { q: "Digital BP devices:", options: ["Use mercury", "Have no display", "Show readings on screen", "Use stethoscope", "Use sound waves"], correct: 2 },
+            { q: "The cuff should be placed:", options: ["On wrist", "On leg", "Around upper arm", "On chest", "On neck"], correct: 2 },
+            { q: "The cuff should be at:", options: ["Head level", "Heart level", "Knee level", "Floor level", "Eye level"], correct: 1 },
+            { q: "The stethoscope is placed over:", options: ["Radial artery", "Carotid artery", "Brachial artery", "Femoral artery", "Aorta"], correct: 2 },
+            { q: "During measurement, the cuff is:", options: ["Quickly deflated", "Slowly deflated", "Not deflated", "Removed immediately", "Heated"], correct: 1 },
+            { q: "The manometer should be:", options: ["Hidden", "Below heart", "At eye level", "On floor", "Moving"], correct: 2 },
+            { q: "The main function of the cuff is to:", options: ["Measure temperature", "Block blood flow", "Increase heart rate", "Measure oxygen", "Produce sound"], correct: 1 },
+            { q: "Blood pressure mainly measures:", options: ["Blood sugar", "Heart electrical activity", "Force of blood circulation", "Oxygen level", "Brain activity"], correct: 2 },
+            { q: "ECG is used to measure:", options: ["Blood pressure", "Electrical activity of the heart", "Oxygen level", "Blood volume", "Temperature"], correct: 1 },
+            { q: "The natural pacemaker of the heart is:", options: ["AV node", "Bundle of His", "Purkinje fibers", "SA node", "Ventricles"], correct: 3 },
+            { q: "The correct conduction pathway is:", options: ["AV → SA → His → Purkinje", "SA → AV → His → Purkinje", "His → SA → AV → Purkinje", "Purkinje → SA → AV → His", "AV → His → SA → Purkinje"], correct: 1 },
+            { q: "The AV node function is:", options: ["Start impulse", "Delay impulse", "Stop impulse", "Increase pressure", "Pump blood"], correct: 1 },
+            { q: "Bipolar leads include:", options: ["aVR, aVL", "V1–V6", "I, II, III", "Only V leads", "All leads"], correct: 2 },
+            { q: "Unipolar chest leads are:", options: ["I, II, III", "aVR, aVL", "V1–V6", "Only aVF", "None"], correct: 2 },
+            { q: "Augmented leads are:", options: ["I, II, III", "V1–V6", "aVR, aVL, aVF", "Only Lead I", "None"], correct: 2 },
+            { q: "'Augmented' means:", options: ["Reduced signal", "Amplified signal", "Electrical wire", "Mechanical force", "Pressure"], correct: 1 },
+            { q: "Lead I measures between:", options: ["LA → LL", "RA → LL", "RA → LA", "Chest → leg", "Arm → chest"], correct: 2 },
+            { q: "ECG paper speed is:", options: ["10 mm/s", "20 mm/s", "25 mm/s", "50 mm/s", "100 mm/s"], correct: 2 },
+            { q: "One small square horizontally equals:", options: ["0.1 sec", "0.2 sec", "0.04 sec", "1 sec", "0.5 sec"], correct: 2 },
+            { q: "One small square vertically equals:", options: ["1 mV", "0.5 mV", "0.1 mV", "2 mV", "5 mV"], correct: 2 },
+            { q: "P wave represents:", options: ["Ventricular contraction", "Atrial depolarization", "Ventricular relaxation", "Blood flow", "Pressure"], correct: 1 },
+            { q: "QRS complex represents:", options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular relaxation", "Heart rate", "Oxygen level"], correct: 1 },
+            { q: "T wave represents:", options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular repolarization", "Blood pressure", "Pulse"], correct: 2 },
+            { q: "Heart rate is calculated using:", options: ["100 rule", "200 rule", "300 rule", "400 rule", "500 rule"], correct: 2 },
+            { q: "Heart rate formula is:", options: ["HR = boxes × 300", "HR = 300 / big squares", "HR = 25 × squares", "HR = voltage/time", "HR = current × resistance"], correct: 1 },
+            { q: "If there are 4 big squares between QRS:", options: ["50 bpm", "60 bpm", "75 bpm", "100 bpm", "120 bpm"], correct: 2 },
+            { q: "ECG components include:", options: ["Lens, probe", "Leads, wires, amplifier, display", "X-ray tube", "Electrodes only", "Screen only"], correct: 1 },
+            { q: "The amplifier function is to:", options: ["Reduce signal", "Block signal", "Strengthen signal", "Measure pressure", "Produce sound"], correct: 2 },
+            { q: "NaOH cannot be used directly because:", options: ["It is volatile", "It absorbs moisture", "It is liquid", "It is heavy"], correct: 1 },
+            { q: "HCl is difficult to use directly because:", options: ["It is solid", "It is stable", "It is volatile", "It is heavy"], correct: 2 },
+            { q: "Volatile substances:", options: ["Absorb water", "Evaporate easily", "Are solid", "Are stable"], correct: 1 },
+            { q: "Correct method for such substances:", options: ["Direct preparation", "Heating", "Approximate then standardization", "Cooling"], correct: 2 },
+            { q: "Titration is used to:", options: ["Heat solution", "Find unknown concentration", "Measure temperature", "Separate solids"], correct: 1 },
+            { q: "The known solution in titration is called:", options: ["Analyte", "Indicator", "Titrant", "Solvent"], correct: 2 },
+            { q: "The unknown solution is called:", options: ["Titrant", "Indicator", "Analyte", "Solute"], correct: 2 },
+            { q: "Titrant is added from:", options: ["Flask", "Beaker", "Burette", "Pipette"], correct: 2 },
+            { q: "Indicator is:", options: ["Colorless liquid", "Substance that changes color", "Solid", "Gas"], correct: 1 },
+            { q: "End point means:", options: ["Start of reaction", "Color change", "Heating", "Mixing"], correct: 1 },
+            { q: "Which is a type of titration?", options: ["Distillation", "Acid-base", "Filtration", "Evaporation"], correct: 1 },
+            { q: "Redox titration is based on:", options: ["Heat", "Electron transfer", "Color", "Pressure"], correct: 1 },
+            { q: "Precipitation titration involves:", options: ["Gas formation", "Solid formation", "Color change only", "Heat"], correct: 1 },
+            { q: "Complexometric titration is based on:", options: ["Heat", "Complex formation", "Evaporation", "Filtration"], correct: 1 },
+            { q: "Acid-base titration involves:", options: ["Electron transfer", "Neutralization", "Precipitation", "Evaporation"], correct: 1 },
+            { q: "Neutralization means:", options: ["Heating", "Acid + Base reaction", "Cooling", "Evaporation"], correct: 1 },
+            { q: "Phenolphthalein is used when:", options: ["Strong acid", "Strong base", "Gas reaction", "Solid reaction"], correct: 1 },
+            { q: "Methyl orange is used when:", options: ["Strong base", "Strong acid", "Solid reaction", "Heat reaction"], correct: 1 },
+            { q: "Phenolphthalein color change:", options: ["Yellow → red", "Pink → colorless", "Blue → green", "Red → blue"], correct: 1 },
+            { q: "Antacids are:", options: ["Acids", "Bases", "Salts", "Gases"], correct: 1 },
+            { q: "Stomach acid is:", options: ["NaOH", "HCl", "CO₂", "NaCl"], correct: 1 },
+            { q: "Antacids are used to:", options: ["Increase acidity", "Neutralize acid", "Heat stomach", "Reduce water"], correct: 1 },
+            { q: "Which is an antacid?", options: ["NaCl", "NaHCO₃", "HCl", "CO₂"], correct: 1 },
+            { q: "Which is NOT an antacid?", options: ["CaCO₃", "Mg(OH)₂", "HCl", "Al(OH)₃"], correct: 2 },
+            { q: "Which test is a general test for carbohydrates?", options: ["Benedict", "Iodine", "Molisch", "Barfoed"], correct: 2 },
+            { q: "Which test is used to detect starch?", options: ["Benedict", "Iodine", "Bial", "Seliwanoff"], correct: 1 },
+            { q: "Which test is used to detect reducing sugars?", options: ["Molisch", "Benedict", "Iodine", "Barfoed"], correct: 1 },
+            { q: "Which test distinguishes between monosaccharide and disaccharide?", options: ["Benedict", "Iodine", "Barfoed", "Bial"], correct: 2 },
+            { q: "Which test is used to detect pentose sugars?", options: ["Barfoed", "Bial", "Iodine", "Benedict"], correct: 1 },
+            { q: "Which test is used to detect ketohexose?", options: ["Molisch", "Seliwanoff", "Bial", "Iodine"], correct: 1 },
+            { q: "Which test distinguishes between glucose and maltose?", options: ["Benedict", "Barfoed", "Iodine", "Molisch"], correct: 1 },
+            { q: "Which of the following is a non-reducing sugar?", options: ["Glucose", "Maltose", "Sucrose", "Fructose"], correct: 2 },
+            { q: "Which of the following is a monosaccharide?", options: ["Sucrose", "Maltose", "Glucose", "Lactose"], correct: 2 },
+            { q: "Which of the following is a disaccharide?", options: ["Glucose", "Fructose", "Maltose", "Ribose"], correct: 2 },
+            { q: "Which test gives a blue color with starch?", options: ["Benedict", "Iodine", "Molisch", "Barfoed"], correct: 1 },
+            { q: "Benedict's test is based on:", options: ["Acid reaction", "Formation of complex", "Reduction of Cu²⁺ to Cu₂O", "Formation of starch"], correct: 2 },
+            { q: "In Barfoed's test, the reaction occurs:", options: ["In alkaline medium", "In acidic medium", "In neutral medium", "In gaseous state"], correct: 1 },
+            { q: "Barfoed's test distinguishes sugars based on:", options: ["Color", "Speed of reaction", "Temperature", "Weight"], correct: 1 },
+            { q: "In Bial's test, furfural reacts with:", options: ["Resorcinol", "Orcinol", "α-Naphthol", "Iodine"], correct: 1 },
+            { q: "In Seliwanoff's test, ketohexose reacts with:", options: ["Orcinol", "Resorcinol", "α-Naphthol", "Phenol"], correct: 1 },
+            { q: "Which test involves formation of hydroxymethyl furfural?", options: ["Benedict", "Iodine", "Seliwanoff", "Barfoed"], correct: 2 },
+            { q: "Which test is based on reduction reaction?", options: ["Iodine", "Benedict", "Molisch", "Bial"], correct: 1 },
+            { q: "Which test uses α-naphthol?", options: ["Bial", "Molisch", "Benedict", "Seliwanoff"], correct: 1 },
+            { q: "Which test uses orcinol?", options: ["Molisch", "Bial", "Seliwanoff", "Iodine"], correct: 1 },
+            { q: "Which test uses resorcinol?", options: ["Bial", "Seliwanoff", "Benedict", "Molisch"], correct: 1 }
+        ]
+    };
+
+    function getExtraOption(questionText, existingOptions) {
+        const q = questionText.toLowerCase();
+        const topicOptions = [
+            { keys: ["ultrasound","probe","echo","transducer","piezoelectric"], value: "Transducer gel" },
+            { keys: ["infrared","uv","microwave","diathermy","tens"], value: "Laser therapy" },
+            { keys: ["x-ray","ct","radiograph","fluoroscopy","lead apron","radiation"], value: "MRI" },
+            { keys: ["blood pressure","korotkoff","cuff","sphygmomanometer"], value: "Pulse oximeter" },
+            { keys: ["ecg","lead","p wave","qrs","t wave","av node","sa node"], value: "Defibrillator" },
+            { keys: ["electrosurgery","fulguration","desiccation","coagulation","monopolar","bipolar"], value: "Cryosurgery" },
+            { keys: ["titration","indicator","end point","burette","analyte","titrant"], value: "Pipette" },
+            { keys: ["acid","base","neutralization","phenolphthalein","methyl orange","antacid"], value: "Buffer solution" },
+            { keys: ["carbohydrate","molisch","benedict","barfoed","bial","seliwanoff","starch","sugar"], value: "Biuret test" },
+            { keys: ["iodine"], value: "Biuret reagent" }
+        ];
+        for (const item of topicOptions) {
+            if (item.keys.some(key => q.includes(key)) && !existingOptions.includes(item.value)) return item.value;
+        }
+        const fallbacks = ["All of the above", "None of the above", "Buffer solution", "Distilled water", "Laboratory error"];
+        for (const option of fallbacks) {
+            if (!existingOptions.includes(option)) return option;
+        }
+        return "Related option";
+    }
+
+    function normalizeQuestionsToFiveOptions() {
+        Object.keys(allData).forEach(subject => {
+            allData[subject] = allData[subject].map(item => {
+                const newItem = { ...item, options: [...item.options] };
+                while (newItem.options.length < 5) {
+                    const extra = getExtraOption(newItem.q, newItem.options);
+                    newItem.options.push(!newItem.options.includes(extra) ? extra : `Related choice ${newItem.options.length + 1}`);
+                }
+                return newItem;
+            });
+        });
+    }
+
+    normalizeQuestionsToFiveOptions();
+    let currentQuestions = [], completedCount = 0;
+
+    function showSubjects() {
+        document.getElementById('hero-page').style.transform = "translateY(-100%)";
+        setTimeout(() => {
+            document.getElementById('subject-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }, 600);
+    }
+
+    function backToSubjects() {
+        document.getElementById('resources-page').style.display = 'none';
+        document.getElementById('main-quiz').style.display = 'none';
+        document.getElementById('subject-page').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function goBack() {
+        document.getElementById('main-quiz').style.display = 'none';
+        document.getElementById('resources-page').style.display = 'none';
+        document.getElementById('subject-page').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function loadResources(subjectKey) {
+        document.getElementById('subject-page').style.display = 'none';
+        document.getElementById('main-quiz').style.display = 'none';
+        document.getElementById('resources-page').style.display = 'block';
+
+        if (subjectKey === 'anatomy') {
+            document.getElementById('resources-title').textContent = 'Anatomy Resource Library';
+            document.getElementById('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
+            document.getElementById('resources-count').textContent = `${anatomyResources.length} files`;
+            renderResources(anatomyResources);
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    function renderResources(items) {
+        const grid = document.getElementById('resource-grid');
+        grid.innerHTML = items.map((item, index) => `
+            <article class="resource-card">
+                <div class="resource-icon">📄</div>
+                <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+                <div class="resource-actions">
+                    <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>
+                    <a class="btn-link btn-download" href="${item.url}" download>Download</a>
+                </div>
+            </article>
+        `).join('');
+    }
+
+    function loadQuiz(subjectKey) {
+        currentQuestions = allData[subjectKey];
+        completedCount = 0;
+        document.getElementById('subject-page').style.display = 'none';
+        document.getElementById('resources-page').style.display = 'none';
+        document.getElementById('main-quiz').style.display = 'block';
+
+        const names = {
+            practical: 'BEC · Practical',
+            biophysics: 'Biophysics',
+            biochemistry: 'Biochemistry',
+            bec: 'BEC'
+        };
+        document.getElementById('active-subject-name').innerText = (names[subjectKey] || subjectKey).toUpperCase();
+
+        if (currentQuestions.length === 0) {
+            document.getElementById('quiz-mount').innerHTML = '';
+            document.getElementById('finish-screen').style.display = 'block';
+            document.getElementById('counter').innerText = `0 / 0`;
+            document.getElementById('progress-fill').style.width = '0%';
+            return;
+        }
+        initQuiz();
+    }
+
+    function initQuiz() {
+        const mount = document.getElementById('quiz-mount');
+        mount.innerHTML = '';
+        document.getElementById('finish-screen').style.display = 'none';
+        document.getElementById('progress-fill').style.width = '0%';
+        document.getElementById('counter').innerText = `0 / ${currentQuestions.length}`;
+        currentQuestions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="q-label">Question ${idx + 1}</div>
+                <div class="q-text">${q.q}</div>
+                <div class="options-list">
+                    ${q.options.map((opt, oIdx) => `
+                        <div class="opt" onclick="check(this,${idx},${oIdx},${q.correct})">
+                            <span class="opt-letter">${String.fromCharCode(65+oIdx)}</span>
+                            <span class="opt-text">${opt}</span>
+                        </div>`).join('')}
+                </div>`;
+            mount.appendChild(card);
+        });
+        window.scrollTo(0, 0);
+    }
+
+    function check(el, qIdx, selected, correct) {
+        const opts = el.parentElement.querySelectorAll('.opt');
+        opts.forEach(o => o.classList.add('disabled'));
+        el.classList.add(selected === correct ? 'correct' : 'wrong');
+        if (selected !== correct) opts[correct].classList.add('correct');
+        completedCount++;
+        document.getElementById('progress-fill').style.width = `${(completedCount/currentQuestions.length)*100}%`;
+        document.getElementById('counter').innerText = `${completedCount} / ${currentQuestions.length}`;
+        if (completedCount === currentQuestions.length) {
+            setTimeout(() => {
+                document.getElementById('finish-screen').style.display = 'block';
+                document.getElementById('finish-screen').scrollIntoView({ behavior: 'smooth' });
+            }, 800);
+        }
+    }
+</script>
+</body>
+</html>
