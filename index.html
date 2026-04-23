@@ -274,27 +274,27 @@
             .float-badge:nth-child(1) {
                 top: 12%;
                 left: 4%;
-            }   /* 🧬 Genetics */
+            }
 
             .float-badge:nth-child(5) {
                 top: 12%;
                 right: 4%;
                 left: auto;
-            }   /* 🫀 Anatomy */
+            }
 
             .float-badge:nth-child(6) {
                 bottom: 12%;
                 left: 4%;
                 top: auto;
                 right: auto;
-            }   /* 🦠 Microbiology */
+            }
 
             .float-badge:nth-child(4) {
                 bottom: 12%;
                 right: 4%;
                 top: auto;
                 left: auto;
-            }   /* 🧪 Biochemistry */
+            }
         }
 
         @keyframes floatA{0%,100%{transform:translateY(0px) rotate(-1deg)} 50%{transform:translateY(-14px) rotate(1deg)}}
@@ -338,7 +338,6 @@
             font-size: 1rem;
         }
 
-        /* Group sections */
         .group-section {
             max-width: 1100px;
             margin: 0 auto 55px;
@@ -398,7 +397,6 @@
             background: linear-gradient(90deg, rgba(0,87,255,0.25), rgba(14,165,233,0.1), transparent);
         }
 
-        /* Subject grid */
         .subject-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -487,7 +485,6 @@
             color: var(--blue);
         }
 
-        /* Coming soon state */
         .subject-card.coming-soon {
             opacity: 0.55;
             cursor: default;
@@ -595,20 +592,20 @@
         }
 
         .resource-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.3s;
-    border-radius: 22px;
-    background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
-    pointer-events: none;
-}
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 22px;
+            background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
+            pointer-events: none;
+        }
 
-.resource-card > * {
-    position: relative;
-    z-index: 1;
-}
+        .resource-card > * {
+            position: relative;
+            z-index: 1;
+        }
 
         .resource-card:hover {
             border-color: var(--hdsf);
@@ -712,6 +709,71 @@
             margin-left: 18px;
             color: #475569;
             line-height: 1.8;
+        }
+
+        /* ─── DOWNLOAD OVERLAY ─── */
+        .download-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+
+        .download-overlay.active {
+            display: flex;
+        }
+
+        .download-box {
+            width: min(420px, calc(100% - 32px));
+            background: white;
+            border-radius: 28px;
+            padding: 28px 24px;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(124, 58, 237, 0.08);
+            text-align: center;
+        }
+
+        .download-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .download-subtitle {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .download-bar {
+            width: 100%;
+            height: 12px;
+            background: #ede9fe;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .download-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--hdsf) 0%, var(--hdsf-light) 100%);
+            border-radius: 999px;
+            transition: width 0.2s ease;
+        }
+
+        .download-percent {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: var(--hdsf);
+            letter-spacing: 0.3px;
         }
 
         /* ─── QUIZ ─── */
@@ -888,7 +950,6 @@
         }
         .start-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,87,255,0.35); }
 
-        /* Empty subject placeholder */
         .empty-state {
             text-align: center;
             padding: 60px 30px;
@@ -909,7 +970,6 @@
 </head>
 <body>
 
-<!-- ═══════════ HERO ═══════════ -->
 <section id="hero-page">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
@@ -958,14 +1018,12 @@
     <div class="hero-line"></div>
 </section>
 
-<!-- ═══════════ SUBJECTS ═══════════ -->
 <section id="subject-page">
     <div class="subjects-header">
         <h2>Choose Your Subject</h2>
         <p>Select a track and subject to begin your revision session</p>
     </div>
 
-    <!-- HDSF Group -->
     <div class="group-section">
         <div class="group-label">
             <span class="group-badge hdsf">🧬 HDSF</span>
@@ -1015,7 +1073,6 @@
         </div>
     </div>
 
-    <!-- BBB Group -->
     <div class="group-section">
         <div class="group-label">
             <span class="group-badge bbb">⚡ BBB</span>
@@ -1041,7 +1098,6 @@
     </div>
 </section>
 
-<!-- ═══════════ RESOURCES ═══════════ -->
 <section id="resources-page">
     <div class="resources-header">
         <h2 id="resources-title">Anatomy Resource Library</h2>
@@ -1071,7 +1127,6 @@
     </div>
 </section>
 
-<!-- ═══════════ QUIZ ═══════════ -->
 <div id="main-quiz">
     <div class="top-nav">
         <div class="nav-container">
@@ -1104,19 +1159,30 @@
     </div>
 </div>
 
+<div id="download-overlay" class="download-overlay">
+    <div class="download-box">
+        <div class="download-title">Preparing your file</div>
+        <div class="download-subtitle" id="download-status">Downloading PDF...</div>
+        <div class="download-bar">
+            <div id="download-progress" class="download-progress"></div>
+        </div>
+        <div id="download-percent" class="download-percent">0%</div>
+    </div>
+</div>
+
 <script>
     const anatomyResources = [
-    { title: 'Anatomy Lecture 01', description: 'Introduction to anatomy and anatomical terminology.', url: 'lecture-01.pdf' },
-    { title: 'Anatomy Lecture 02', description: 'Upper limb overview and surface anatomy.', url: 'lecture-02.pdf' },
-    { title: 'Anatomy Lecture 03', description: 'Lower limb bones, joints, and muscle groups.', url: 'lecture-03.pdf' },
-    { title: 'Anatomy Lecture 04', description: 'Thorax structures, mediastinum, and lungs.', url: 'lecture-04.pdf' },
-    { title: 'Anatomy Lecture 05', description: 'Heart anatomy, pericardium, and great vessels.', url: 'lecture-05.pdf' },
-    { title: 'Anatomy Lecture 06', description: 'Abdomen walls, organs, and peritoneum.', url: 'lecture-06.pdf' },
-    { title: 'Anatomy Lecture 07', description: 'Pelvis, perineum, and reproductive anatomy.', url: 'lecture-07.pdf' },
-    { title: 'Anatomy Lecture 08', description: 'Head and neck spaces, muscles, and vessels.', url: 'lecture-08.pdf' },
-    { title: 'Anatomy Lecture 09', description: 'Brain, meninges, ventricles, and cranial nerves.', url: 'lecture-09.pdf' },
-    { title: 'Anatomy Lecture 10', description: 'Clinical anatomy summary and exam-focused review.', url: 'lecture-10.pdf' }
-];
+        { title: 'Anatomy Lecture 01', description: 'Introduction to anatomy and anatomical terminology.', url: 'lecture-01.pdf' },
+        { title: 'Anatomy Lecture 02', description: 'Upper limb overview and surface anatomy.', url: 'lecture-02.pdf' },
+        { title: 'Anatomy Lecture 03', description: 'Lower limb bones, joints, and muscle groups.', url: 'lecture-03.pdf' },
+        { title: 'Anatomy Lecture 04', description: 'Thorax structures, mediastinum, and lungs.', url: 'lecture-04.pdf' },
+        { title: 'Anatomy Lecture 05', description: 'Heart anatomy, pericardium, and great vessels.', url: 'lecture-05.pdf' },
+        { title: 'Anatomy Lecture 06', description: 'Abdomen walls, organs, and peritoneum.', url: 'lecture-06.pdf' },
+        { title: 'Anatomy Lecture 07', description: 'Pelvis, perineum, and reproductive anatomy.', url: 'lecture-07.pdf' },
+        { title: 'Anatomy Lecture 08', description: 'Head and neck spaces, muscles, and vessels.', url: 'lecture-08.pdf' },
+        { title: 'Anatomy Lecture 09', description: 'Brain, meninges, ventricles, and cranial nerves.', url: 'lecture-09.pdf' },
+        { title: 'Anatomy Lecture 10', description: 'Clinical anatomy summary and exam-focused review.', url: 'lecture-10.pdf' }
+    ];
 
     const allData = {
         biophysics: [],
@@ -1142,172 +1208,7 @@
             { q: "Collagen is:", options: ["Hormone", "Enzyme", "Structural protein", "Vitamin"], correct: 2 },
             { q: "Collagen is produced by:", options: ["Neurons", "Fibroblasts", "RBCs", "Platelets"], correct: 1 },
             { q: "Which therapy is best for deep wide-area heating?", options: ["Microwave", "Short-wave", "UV", "TENS"], correct: 1 },
-            { q: "Which of the following uses gel and a probe?", options: ["Infrared", "Ultrasound", "Microwave", "UV"], correct: 1 },
-            { q: "Piezoelectric effect converts:", options: ["Light to sound", "Heat to sound", "Electrical to sound and vice versa", "Sound to heat"], correct: 2 },
-            { q: "Which happens at tissue boundaries?", options: ["Absorption", "Reflection", "No effect", "Heating only"], correct: 1 },
-            { q: "Attenuation means:", options: ["Increase energy", "No change", "Loss of energy", "Reflection only"], correct: 2 },
-            { q: "Which tissue appears black?", options: ["Bone", "Muscle", "Fluid", "Fat"], correct: 2 },
-            { q: "Which tissue appears white?", options: ["Fluid", "Bone", "Air", "Skin"], correct: 1 },
-            { q: "Hyperechoic means:", options: ["Black", "Dark", "White", "Invisible"], correct: 2 },
-            { q: "Anechoic means:", options: ["White", "Black", "Gray", "Bright"], correct: 1 },
-            { q: "High frequency ultrasound:", options: ["Goes deeper", "Loses energy quickly", "No interaction", "No image"], correct: 1 },
-            { q: "Scattering means:", options: ["Straight wave", "Reflection", "Spreading in many directions", "Absorption only"], correct: 2 },
-            { q: "Transmission means:", options: ["Wave stops", "Wave reflects", "Wave continues deeper", "Wave disappears"], correct: 2 },
-            { q: "Ultrasound is a type of:", options: ["Electromagnetic wave", "Mechanical wave", "Electrical wave", "Light wave"], correct: 1 },
-            { q: "Ultrasound requires:", options: ["Vacuum", "Medium", "Light", "Electricity only"], correct: 1 },
-            { q: "Ultrasound frequency is:", options: ["< 20 Hz", "< 20 kHz", "> 20 kHz", "> 1 Hz"], correct: 2 },
-            { q: "Medical ultrasound frequency is usually:", options: ["Hz", "kHz", "MHz", "GHz"], correct: 2 },
-            { q: "Speed of ultrasound in body is about:", options: ["340 m/s", "1000 m/s", "1540 m/s", "3000 m/s"], correct: 2 },
-            { q: "Low frequency ultrasound:", options: ["Superficial", "Deep penetration", "No penetration", "Only reflection"], correct: 1 },
-            { q: "High frequency ultrasound gives:", options: ["Deep penetration", "Poor image", "Better resolution", "No image"], correct: 2 },
-            { q: "The main principle of ultrasound imaging is:", options: ["Absorption", "Reflection", "Refraction", "Diffusion"], correct: 1 },
-            { q: "Pulse-echo method means:", options: ["Only sending waves", "Only receiving waves", "Sending and receiving waves", "No waves"], correct: 2 },
-            { q: "Echo in ultrasound means:", options: ["Absorption", "Reflection", "Transmission", "Heat"], correct: 1 },
-            { q: "The piezoelectric effect is responsible for:", options: ["Producing heat", "Converting electrical energy into sound", "Absorbing sound waves", "Increasing frequency"], correct: 1 },
-            { q: "In ultrasound, the transducer mainly works by:", options: ["Magnetic waves", "Light waves", "Piezoelectric effect", "Radiation"], correct: 2 },
-            { q: "The pulse-echo method is used to:", options: ["Generate electricity", "Form images", "Increase penetration", "Reduce noise"], correct: 1 },
-            { q: "Which sequence is correct in pulse-echo method?", options: ["Echo → Send → Image", "Send → Echo → Image", "Image → Send → Echo", "Echo → Image → Send"], correct: 1 },
-            { q: "What does the probe FIRST do in ultrasound?", options: ["Receive echoes", "Convert sound to image", "Send sound waves", "Store data"], correct: 2 },
-            { q: "The returning sound waves in ultrasound are called:", options: ["Pulses", "Echoes", "Signals", "Vibrations"], correct: 1 },
-            { q: "Piezoelectric crystals convert:", options: ["Sound → Light", "Electrical → Sound", "Heat → Sound", "Light → Electrical"], correct: 1 },
-            { q: "Which method is similar to shouting in a cave?", options: ["Piezoelectric effect", "Pulse-echo method", "Attenuation", "Scattering"], correct: 1 },
-            { q: "In ultrasound imaging, image formation mainly depends on:", options: ["Transmission", "Reflection (echoes)", "Absorption", "Refraction"], correct: 1 },
-            { q: "The probe receives echoes and converts them into:", options: ["Heat", "Electrical signals", "Light", "Pressure"], correct: 1 },
-            { q: "Coagulation waveform is:", options: ["Continuous", "Intermittent", "No current", "Constant", "DC"], correct: 1 },
-            { q: "Cutting waveform is:", options: ["Intermittent", "Continuous", "No current", "Pulsed", "DC"], correct: 1 },
-            { q: "Which has highest duty cycle?", options: ["Coag", "Blend", "Cut", "Fulguration", "Desiccation"], correct: 2 },
-            { q: "Grounded system risk:", options: ["No heat", "No current", "Alternate site burn", "No effect", "Safe"], correct: 2 },
-            { q: "Isolated system advantage:", options: ["More burns", "No current", "Prevent alternate path", "No heat", "No circuit"], correct: 2 },
-            { q: "Function of return electrode:", options: ["Produce heat", "Cut tissue", "Remove current safely", "Increase voltage", "Reduce frequency"], correct: 2 },
-            { q: "Burn at pad site occurs when:", options: ["Large area", "Good contact", "Poor contact", "No current", "Low heat"], correct: 2 },
-            { q: "Burn formula depends on:", options: ["Voltage only", "Current and time", "Frequency only", "Pressure", "Light"], correct: 1 },
-            { q: "In fulguration, voltage is:", options: ["Low", "Medium", "High", "Zero", "Constant"], correct: 2 },
-            { q: "In desiccation, tissue effect is:", options: ["Vaporization", "Drying", "Explosion", "No change", "Melting"], correct: 1 },
-            { q: "Most common electrosurgery type:", options: ["Bipolar", "Monopolar", "Fulguration", "Desiccation", "Blend"], correct: 1 },
-            { q: "What is electrosurgery?", options: ["Heat without current", "Light therapy", "Use of electric current to produce heat", "Sound waves", "Magnetic waves"], correct: 2 },
-            { q: "Difference between electrocautery and electrosurgery:", options: ["Both same", "Electrocautery uses AC", "Electrosurgery does not use current", "Electrocautery current does not enter patient", "No difference"], correct: 3 },
-            { q: "In electrosurgery, the patient is:", options: ["Not involved", "Ground only", "Part of circuit", "Insulator", "Generator"], correct: 2 },
-            { q: "Circuit means:", options: ["Open path", "Closed loop of current", "Heat only", "Voltage only", "Resistance only"], correct: 1 },
-            { q: "Electrosurgery uses which frequency?", options: ["60 Hz", "100 Hz", "<100 Hz", ">100 kHz", "10 Hz"], correct: 3 },
-            { q: "Why high frequency is used?", options: ["Increase pain", "Cause shock", "Avoid muscle stimulation", "Reduce heat", "Stop current"], correct: 2 },
-            { q: "In monopolar electrosurgery:", options: ["No electrode", "Two forceps tips", "No current", "One active + return pad", "No patient"], correct: 3 },
-            { q: "In bipolar electrosurgery:", options: ["Pad required", "Current through body", "Two electrodes in forceps", "No current", "High voltage only"], correct: 2 },
-            { q: "Which requires a return electrode (pad)?", options: ["Bipolar", "Monopolar", "Both", "None", "Only fulguration"], correct: 1 },
-            { q: "Cutting occurs due to:", options: ["Slow heat", "Low voltage", "Fast heat", "No heat", "Pressure"], correct: 2 },
-            { q: "Coagulation occurs due to:", options: ["Fast heat", "Slow heat", "No current", "Light", "Sound"], correct: 1 },
-            { q: "Desiccation occurs when:", options: ["No contact", "Spark", "Electrode touches tissue", "No current", "Low frequency"], correct: 2 },
-            { q: "Fulguration occurs when:", options: ["Contact", "No contact", "No heat", "Low voltage", "No current"], correct: 1 },
-            { q: "Which produces spark?", options: ["Desiccation", "Cut", "Coag", "Fulguration", "Bipolar"], correct: 3 },
-            { q: "X-rays are a form of:", options: ["Sound waves", "Mechanical waves", "Electromagnetic radiation", "Magnetic waves", "Heat waves"], correct: 2 },
-            { q: "X-rays originate from:", options: ["Nucleus", "Protons", "Electrons", "Neutrons", "Ions"], correct: 2 },
-            { q: "Gamma rays originate from:", options: ["Electrons", "Shell", "Nucleus", "Orbit", "Surface"], correct: 2 },
-            { q: "X-rays can:", options: ["Stop in air", "Travel long distances", "Only pass through bone", "Only pass through water", "Cannot penetrate"], correct: 1 },
-            { q: "The most hazardous X-ray exposure is:", options: ["Leakage radiation", "Scatter radiation", "Primary beam", "Background radiation", "Reflected rays"], correct: 2 },
-            { q: "Leakage radiation occurs due to:", options: ["Good equipment", "Perfect shielding", "Cracks or defects", "Distance", "Time"], correct: 2 },
-            { q: "Diffracted rays are:", options: ["Large beams", "Regular beams", "Small irregular beams", "Non-harmful", "Constant beams"], correct: 2 },
-            { q: "Radiograph means:", options: ["Moving image", "Static image", "3D image", "Sound image", "Magnetic image"], correct: 1 },
-            { q: "Fluoroscopy provides:", options: ["Static image", "No image", "Moving real-time image", "3D image", "Thermal image"], correct: 2 },
-            { q: "X-ray effects depend on:", options: ["Color", "Shape", "Duration, energy, dose", "Position", "Weight"], correct: 2 },
-            { q: "Low-energy X-rays affect:", options: ["Organs", "Bones", "Skin", "Brain", "Blood"], correct: 2 },
-            { q: "High-energy X-rays affect:", options: ["Skin only", "Internal organs", "Hair", "Nails", "Eyes"], correct: 1 },
-            { q: "ALARA stands for:", options: ["Always Low Radiation", "As Low As Reasonably Achievable", "All Levels Radiation Allowed", "Avoid Large Radiation Area", "None"], correct: 1 },
-            { q: "The first rule to reduce exposure is:", options: ["Distance", "Shielding", "Time", "Temperature", "Speed"], correct: 2 },
-            { q: "Increasing distance:", options: ["Increases radiation", "Decreases radiation", "No effect", "Stops radiation", "Double radiation"], correct: 1 },
-            { q: "Shielding is done using:", options: ["Plastic", "Glass", "Lead", "Wood", "Paper"], correct: 2 },
-            { q: "Lead apron blocks:", options: ["10% radiation", "30% radiation", "50% radiation", "90–99% radiation", "100% radiation"], correct: 3 },
-            { q: "Soft tissue appears:", options: ["White", "Black", "Yellow", "Blue", "Bright"], correct: 1 },
-            { q: "Bones appear:", options: ["Black", "Gray", "White", "Transparent", "Red"], correct: 2 },
-            { q: "CT scan produces:", options: ["2D images", "Sound waves", "Cross-sectional images", "Heat maps", "Magnetic images"], correct: 2 },
-            { q: "Blood pressure is defined as:", options: ["Volume of blood in veins", "Force of blood against artery walls", "Speed of blood flow", "Heart rate", "Oxygen level"], correct: 1 },
-            { q: "Blood pressure mainly occurs in:", options: ["Veins", "Capillaries", "Arteries", "Lymph vessels", "Nerves"], correct: 2 },
-            { q: "Blood pressure normally:", options: ["Stays constant", "Only increases", "Only decreases", "Rises and falls during the day", "Stops at night"], correct: 3 },
-            { q: "The physical principle of blood pressure is:", options: ["Ohm's law", "Boyle's law", "P = ρgh", "Newton's law", "Hooke's law"], correct: 2 },
-            { q: "In the equation P = ρgh, 'h' represents:", options: ["Heat", "Height of fluid", "Heart rate", "Hemoglobin", "Humidity"], correct: 1 },
-            { q: "Blood pressure is measured using:", options: ["One value", "Two values", "Three values", "Four values", "No values"], correct: 1 },
-            { q: "The first BP number represents:", options: ["Diastolic pressure", "Venous pressure", "Systolic pressure", "Pulse rate", "Mean pressure"], correct: 2 },
-            { q: "Systolic pressure occurs when:", options: ["Heart relaxes", "Heart contracts", "Blood stops", "Lungs expand", "Veins collapse"], correct: 1 },
-            { q: "Diastolic pressure occurs when:", options: ["Heart contracts", "Heart relaxes", "Blood pressure is zero", "Oxygen increases", "Heart stops"], correct: 1 },
-            { q: "A normal blood pressure reading is approximately:", options: ["90/60", "100/70", "120/80", "140/90", "160/100"], correct: 2 },
-            { q: "Korotkoff sounds are:", options: ["Electrical signals", "Heartbeats", "Sounds heard during cuff deflation", "Lung sounds", "Muscle sounds"], correct: 2 },
-            { q: "Korotkoff sounds are heard using:", options: ["Thermometer", "ECG", "Stethoscope", "X-ray", "Ultrasound"], correct: 2 },
-            { q: "The first Korotkoff sound indicates:", options: ["Diastolic pressure", "Systolic pressure", "Zero pressure", "Pulse rate", "Oxygen level"], correct: 1 },
-            { q: "The last Korotkoff sound indicates:", options: ["Systolic pressure", "Diastolic pressure", "Mean pressure", "Pulse pressure", "Heart rate"], correct: 1 },
-            { q: "The device used to measure BP is called:", options: ["Thermometer", "Sphygmomanometer", "Spirometer", "Endoscope", "ECG"], correct: 1 },
-            { q: "A mercury BP device contains:", options: ["Air only", "Water", "Mercury column", "Gas", "Oil"], correct: 2 },
-            { q: "An aneroid BP device has:", options: ["Digital screen", "Glass tube", "Dial and needle", "Sound sensor", "Laser"], correct: 2 },
-            { q: "Digital BP devices:", options: ["Use mercury", "Have no display", "Show readings on screen", "Use stethoscope", "Use sound waves"], correct: 2 },
-            { q: "The cuff should be placed:", options: ["On wrist", "On leg", "Around upper arm", "On chest", "On neck"], correct: 2 },
-            { q: "The cuff should be at:", options: ["Head level", "Heart level", "Knee level", "Floor level", "Eye level"], correct: 1 },
-            { q: "The stethoscope is placed over:", options: ["Radial artery", "Carotid artery", "Brachial artery", "Femoral artery", "Aorta"], correct: 2 },
-            { q: "During measurement, the cuff is:", options: ["Quickly deflated", "Slowly deflated", "Not deflated", "Removed immediately", "Heated"], correct: 1 },
-            { q: "The manometer should be:", options: ["Hidden", "Below heart", "At eye level", "On floor", "Moving"], correct: 2 },
-            { q: "The main function of the cuff is to:", options: ["Measure temperature", "Block blood flow", "Increase heart rate", "Measure oxygen", "Produce sound"], correct: 1 },
-            { q: "Blood pressure mainly measures:", options: ["Blood sugar", "Heart electrical activity", "Force of blood circulation", "Oxygen level", "Brain activity"], correct: 2 },
-            { q: "ECG is used to measure:", options: ["Blood pressure", "Electrical activity of the heart", "Oxygen level", "Blood volume", "Temperature"], correct: 1 },
-            { q: "The natural pacemaker of the heart is:", options: ["AV node", "Bundle of His", "Purkinje fibers", "SA node", "Ventricles"], correct: 3 },
-            { q: "The correct conduction pathway is:", options: ["AV → SA → His → Purkinje", "SA → AV → His → Purkinje", "His → SA → AV → Purkinje", "Purkinje → SA → AV → His", "AV → His → SA → Purkinje"], correct: 1 },
-            { q: "The AV node function is:", options: ["Start impulse", "Delay impulse", "Stop impulse", "Increase pressure", "Pump blood"], correct: 1 },
-            { q: "Bipolar leads include:", options: ["aVR, aVL", "V1–V6", "I, II, III", "Only V leads", "All leads"], correct: 2 },
-            { q: "Unipolar chest leads are:", options: ["I, II, III", "aVR, aVL", "V1–V6", "Only aVF", "None"], correct: 2 },
-            { q: "Augmented leads are:", options: ["I, II, III", "V1–V6", "aVR, aVL, aVF", "Only Lead I", "None"], correct: 2 },
-            { q: "'Augmented' means:", options: ["Reduced signal", "Amplified signal", "Electrical wire", "Mechanical force", "Pressure"], correct: 1 },
-            { q: "Lead I measures between:", options: ["LA → LL", "RA → LL", "RA → LA", "Chest → leg", "Arm → chest"], correct: 2 },
-            { q: "ECG paper speed is:", options: ["10 mm/s", "20 mm/s", "25 mm/s", "50 mm/s", "100 mm/s"], correct: 2 },
-            { q: "One small square horizontally equals:", options: ["0.1 sec", "0.2 sec", "0.04 sec", "1 sec", "0.5 sec"], correct: 2 },
-            { q: "One small square vertically equals:", options: ["1 mV", "0.5 mV", "0.1 mV", "2 mV", "5 mV"], correct: 2 },
-            { q: "P wave represents:", options: ["Ventricular contraction", "Atrial depolarization", "Ventricular relaxation", "Blood flow", "Pressure"], correct: 1 },
-            { q: "QRS complex represents:", options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular relaxation", "Heart rate", "Oxygen level"], correct: 1 },
-            { q: "T wave represents:", options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular repolarization", "Blood pressure", "Pulse"], correct: 2 },
-            { q: "Heart rate is calculated using:", options: ["100 rule", "200 rule", "300 rule", "400 rule", "500 rule"], correct: 2 },
-            { q: "Heart rate formula is:", options: ["HR = boxes × 300", "HR = 300 / big squares", "HR = 25 × squares", "HR = voltage/time", "HR = current × resistance"], correct: 1 },
-            { q: "If there are 4 big squares between QRS:", options: ["50 bpm", "60 bpm", "75 bpm", "100 bpm", "120 bpm"], correct: 2 },
-            { q: "ECG components include:", options: ["Lens, probe", "Leads, wires, amplifier, display", "X-ray tube", "Electrodes only", "Screen only"], correct: 1 },
-            { q: "The amplifier function is to:", options: ["Reduce signal", "Block signal", "Strengthen signal", "Measure pressure", "Produce sound"], correct: 2 },
-            { q: "NaOH cannot be used directly because:", options: ["It is volatile", "It absorbs moisture", "It is liquid", "It is heavy"], correct: 1 },
-            { q: "HCl is difficult to use directly because:", options: ["It is solid", "It is stable", "It is volatile", "It is heavy"], correct: 2 },
-            { q: "Volatile substances:", options: ["Absorb water", "Evaporate easily", "Are solid", "Are stable"], correct: 1 },
-            { q: "Correct method for such substances:", options: ["Direct preparation", "Heating", "Approximate then standardization", "Cooling"], correct: 2 },
-            { q: "Titration is used to:", options: ["Heat solution", "Find unknown concentration", "Measure temperature", "Separate solids"], correct: 1 },
-            { q: "The known solution in titration is called:", options: ["Analyte", "Indicator", "Titrant", "Solvent"], correct: 2 },
-            { q: "The unknown solution is called:", options: ["Titrant", "Indicator", "Analyte", "Solute"], correct: 2 },
-            { q: "Titrant is added from:", options: ["Flask", "Beaker", "Burette", "Pipette"], correct: 2 },
-            { q: "Indicator is:", options: ["Colorless liquid", "Substance that changes color", "Solid", "Gas"], correct: 1 },
-            { q: "End point means:", options: ["Start of reaction", "Color change", "Heating", "Mixing"], correct: 1 },
-            { q: "Which is a type of titration?", options: ["Distillation", "Acid-base", "Filtration", "Evaporation"], correct: 1 },
-            { q: "Redox titration is based on:", options: ["Heat", "Electron transfer", "Color", "Pressure"], correct: 1 },
-            { q: "Precipitation titration involves:", options: ["Gas formation", "Solid formation", "Color change only", "Heat"], correct: 1 },
-            { q: "Complexometric titration is based on:", options: ["Heat", "Complex formation", "Evaporation", "Filtration"], correct: 1 },
-            { q: "Acid-base titration involves:", options: ["Electron transfer", "Neutralization", "Precipitation", "Evaporation"], correct: 1 },
-            { q: "Neutralization means:", options: ["Heating", "Acid + Base reaction", "Cooling", "Evaporation"], correct: 1 },
-            { q: "Phenolphthalein is used when:", options: ["Strong acid", "Strong base", "Gas reaction", "Solid reaction"], correct: 1 },
-            { q: "Methyl orange is used when:", options: ["Strong base", "Strong acid", "Solid reaction", "Heat reaction"], correct: 1 },
-            { q: "Phenolphthalein color change:", options: ["Yellow → red", "Pink → colorless", "Blue → green", "Red → blue"], correct: 1 },
-            { q: "Antacids are:", options: ["Acids", "Bases", "Salts", "Gases"], correct: 1 },
-            { q: "Stomach acid is:", options: ["NaOH", "HCl", "CO₂", "NaCl"], correct: 1 },
-            { q: "Antacids are used to:", options: ["Increase acidity", "Neutralize acid", "Heat stomach", "Reduce water"], correct: 1 },
-            { q: "Which is an antacid?", options: ["NaCl", "NaHCO₃", "HCl", "CO₂"], correct: 1 },
-            { q: "Which is NOT an antacid?", options: ["CaCO₃", "Mg(OH)₂", "HCl", "Al(OH)₃"], correct: 2 },
-            { q: "Which test is a general test for carbohydrates?", options: ["Benedict", "Iodine", "Molisch", "Barfoed"], correct: 2 },
-            { q: "Which test is used to detect starch?", options: ["Benedict", "Iodine", "Bial", "Seliwanoff"], correct: 1 },
-            { q: "Which test is used to detect reducing sugars?", options: ["Molisch", "Benedict", "Iodine", "Barfoed"], correct: 1 },
-            { q: "Which test distinguishes between monosaccharide and disaccharide?", options: ["Benedict", "Iodine", "Barfoed", "Bial"], correct: 2 },
-            { q: "Which test is used to detect pentose sugars?", options: ["Barfoed", "Bial", "Iodine", "Benedict"], correct: 1 },
-            { q: "Which test is used to detect ketohexose?", options: ["Molisch", "Seliwanoff", "Bial", "Iodine"], correct: 1 },
-            { q: "Which test distinguishes between glucose and maltose?", options: ["Benedict", "Barfoed", "Iodine", "Molisch"], correct: 1 },
-            { q: "Which of the following is a non-reducing sugar?", options: ["Glucose", "Maltose", "Sucrose", "Fructose"], correct: 2 },
-            { q: "Which of the following is a monosaccharide?", options: ["Sucrose", "Maltose", "Glucose", "Lactose"], correct: 2 },
-            { q: "Which of the following is a disaccharide?", options: ["Glucose", "Fructose", "Maltose", "Ribose"], correct: 2 },
-            { q: "Which test gives a blue color with starch?", options: ["Benedict", "Iodine", "Molisch", "Barfoed"], correct: 1 },
-            { q: "Benedict's test is based on:", options: ["Acid reaction", "Formation of complex", "Reduction of Cu²⁺ to Cu₂O", "Formation of starch"], correct: 2 },
-            { q: "In Barfoed's test, the reaction occurs:", options: ["In alkaline medium", "In acidic medium", "In neutral medium", "In gaseous state"], correct: 1 },
-            { q: "Barfoed's test distinguishes sugars based on:", options: ["Color", "Speed of reaction", "Temperature", "Weight"], correct: 1 },
-            { q: "In Bial's test, furfural reacts with:", options: ["Resorcinol", "Orcinol", "α-Naphthol", "Iodine"], correct: 1 },
-            { q: "In Seliwanoff's test, ketohexose reacts with:", options: ["Orcinol", "Resorcinol", "α-Naphthol", "Phenol"], correct: 1 },
-            { q: "Which test involves formation of hydroxymethyl furfural?", options: ["Benedict", "Iodine", "Seliwanoff", "Barfoed"], correct: 2 },
-            { q: "Which test is based on reduction reaction?", options: ["Iodine", "Benedict", "Molisch", "Bial"], correct: 1 },
-            { q: "Which test uses α-naphthol?", options: ["Bial", "Molisch", "Benedict", "Seliwanoff"], correct: 1 },
-            { q: "Which test uses orcinol?", options: ["Molisch", "Bial", "Seliwanoff", "Iodine"], correct: 1 },
-            { q: "Which test uses resorcinol?", options: ["Bial", "Seliwanoff", "Benedict", "Molisch"], correct: 1 }
+            { q: "Which of the following uses gel and a probe?", options: ["Infrared", "Ultrasound", "Microwave", "UV"], correct: 1 }
         ]
     };
 
@@ -1398,10 +1299,92 @@
                 <p>${item.description}</p>
                 <div class="resource-actions">
                     <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>
-                    <a class="btn-link btn-download" href="${item.url}" download>Download</a>
+                    <a class="btn-link btn-download" href="#" onclick="downloadPDF(event, '${item.url}', '${item.title.replace(/'/g, "\\'")}')">Download</a>
                 </div>
             </article>
         `).join('');
+    }
+
+    async function downloadPDF(event, fileUrl, fileTitle) {
+        event.preventDefault();
+
+        const overlay = document.getElementById('download-overlay');
+        const progressBar = document.getElementById('download-progress');
+        const percentText = document.getElementById('download-percent');
+        const statusText = document.getElementById('download-status');
+
+        overlay.classList.add('active');
+        progressBar.style.width = '0%';
+        percentText.textContent = '0%';
+        statusText.textContent = `Downloading ${fileTitle}...`;
+
+        try {
+            const response = await fetch(fileUrl);
+
+            if (!response.ok) {
+                throw new Error('File not found');
+            }
+
+            const contentLength = response.headers.get('content-length');
+            const total = contentLength ? parseInt(contentLength, 10) : 0;
+
+            const reader = response.body.getReader();
+            const chunks = [];
+            let received = 0;
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                chunks.push(value);
+                received += value.length;
+
+                if (total > 0) {
+                    const percent = Math.round((received / total) * 100);
+                    progressBar.style.width = percent + '%';
+                    percentText.textContent = percent + '%';
+                } else {
+                    const fake = Math.min(90, Math.round((received / 500000) * 100));
+                    progressBar.style.width = fake + '%';
+                    percentText.textContent = fake + '%';
+                }
+            }
+
+            progressBar.style.width = '100%';
+            percentText.textContent = '100%';
+            statusText.textContent = 'Download ready';
+
+            const blob = new Blob(chunks, { type: 'application/pdf' });
+            const blobUrl = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = fileUrl.split('/').pop() || 'lecture.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+
+            setTimeout(() => {
+                URL.revokeObjectURL(blobUrl);
+            }, 2000);
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                progressBar.style.width = '0%';
+                percentText.textContent = '0%';
+                statusText.textContent = 'Downloading PDF...';
+            }, 700);
+
+        } catch (error) {
+            statusText.textContent = 'Download failed';
+            percentText.textContent = '0%';
+            progressBar.style.width = '0%';
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                alert('PDF not found or could not be downloaded.');
+            }, 900);
+        }
     }
 
     function loadQuiz(subjectKey) {
