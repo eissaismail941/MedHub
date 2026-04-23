@@ -595,14 +595,20 @@
         }
 
         .resource-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border-radius: 22px;
-            background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
-        }
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 22px;
+    background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
+    pointer-events: none;
+}
+
+.resource-card > * {
+    position: relative;
+    z-index: 1;
+}
 
         .resource-card:hover {
             border-color: var(--hdsf);
