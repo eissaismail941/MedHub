@@ -13,11 +13,9 @@
             --wrong: #ef4444;
             --bg-mesh: #f8fbff;
             --primary: #0057FF;
-            /* HDSF palette */
             --hdsf: #7C3AED;
             --hdsf-light: #a78bfa;
             --hdsf-bg: #f5f3ff;
-            /* BBB palette */
             --bbb: #0057FF;
             --bbb-light: #60a5fa;
             --bbb-bg: #eff6ff;
@@ -31,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* ─── HERO PAGE ─── */
         #hero-page {
             height: 100vh;
             width: 100%;
@@ -78,18 +75,21 @@
             filter: blur(90px);
             pointer-events: none;
         }
+
         .glow-blob-1 {
             width: 550px; height: 550px;
             background: radial-gradient(circle, rgba(0,87,255,0.12) 0%, transparent 70%);
             top: -150px; left: -120px;
             animation: blobFloat1 9s ease-in-out infinite;
         }
+
         .glow-blob-2 {
             width: 450px; height: 450px;
             background: radial-gradient(circle, rgba(124,58,237,0.09) 0%, transparent 70%);
             bottom: -100px; right: -100px;
             animation: blobFloat2 11s ease-in-out infinite;
         }
+
         .glow-blob-3 {
             width: 350px; height: 350px;
             background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%);
@@ -122,6 +122,7 @@
             animation: logoPulse 3s ease-in-out infinite;
             position: relative;
         }
+
         .logo-mark::after {
             content: '';
             position: absolute;
@@ -132,6 +133,7 @@
             filter: blur(12px);
             opacity: 0.6;
         }
+
         @keyframes logoPulse {
             0%,100%{box-shadow:0 8px 32px rgba(0,87,255,0.25),0 2px 8px rgba(0,87,255,0.15)}
             50%{box-shadow:0 12px 48px rgba(0,87,255,0.38),0 4px 16px rgba(0,87,255,0.2)}
@@ -147,6 +149,7 @@
             margin-bottom: 8px;
             animation: fadeUp 0.7s ease both;
         }
+
         .brand-name span {
             background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
             -webkit-background-clip: text;
@@ -164,13 +167,16 @@
             margin-bottom: 28px;
             animation: fadeUp 0.7s 0.12s ease both;
         }
+
         .brand-tag-dot {
             width: 7px; height: 7px;
             border-radius: 50%;
             background: var(--blue);
             animation: dotBlink 2s ease-in-out infinite;
         }
+
         @keyframes dotBlink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(0.8)} }
+
         .brand-tag span {
             font-size: 0.78rem;
             font-weight: 600;
@@ -208,8 +214,14 @@
             transition: transform 0.2s, box-shadow 0.2s;
             animation: fadeUp 0.7s 0.32s ease both;
         }
-        .enter-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,87,255,0.38), 0 4px 16px rgba(0,87,255,0.2); }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(0,87,255,0.38), 0 4px 16px rgba(0,87,255,0.2);
+        }
+
         .enter-btn:active { transform: translateY(0); }
+
         .enter-btn::after {
             content: "";
             position: absolute;
@@ -218,7 +230,13 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
             animation: sweep 3.5s ease infinite;
         }
-        .enter-btn-arrow { width: 20px; height: 20px; transition: transform 0.2s; }
+
+        .enter-btn-arrow {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s;
+        }
+
         .enter-btn:hover .enter-btn-arrow { transform: translateX(4px); }
 
         .hero-copy {
@@ -236,6 +254,7 @@
             pointer-events: none;
             overflow: hidden;
         }
+
         .float-badge {
             position: absolute;
             background: rgba(0,87,255,0.05);
@@ -248,11 +267,13 @@
             letter-spacing: 0.5px;
             white-space: nowrap;
         }
+
         .float-badge.purple {
             background: rgba(124,58,237,0.05);
             border-color: rgba(124,58,237,0.12);
             color: rgba(124,58,237,0.5);
         }
+
         .float-badge:nth-child(1){top:27%;left:11%;animation:floatA 7s ease-in-out infinite}
         .float-badge:nth-child(2){top:53%;left:8%;animation:floatB 9s ease-in-out infinite}
         .float-badge:nth-child(3){bottom:22%;left:13%;animation:floatC 8s ease-in-out infinite}
@@ -262,7 +283,6 @@
         .float-badge:nth-child(7){top:42%;right:4%;animation:floatA 8s ease-in-out infinite}
         .float-badge:nth-child(8){top:57%;right:18%;animation:floatB 10s ease-in-out infinite}
 
-        /* ── MOBILE: only show 3 well-spaced badges ── */
         @media (max-width: 600px) {
             .float-badge:nth-child(2),
             .float-badge:nth-child(3),
@@ -311,7 +331,6 @@
         @keyframes sweep { 0%{left:-100%} 40%{left:100%} 100%{left:100%} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
-        /* ─── SUBJECTS PAGE ─── */
         #subject-page {
             display: none;
             min-height: 100vh;
@@ -376,12 +395,6 @@
             color: var(--blue);
         }
 
-        .group-desc {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
         .group-divider {
             width: 100%;
             height: 1.5px;
@@ -433,9 +446,11 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 50px rgba(124,58,237,0.12), 0 4px 12px rgba(124,58,237,0.08);
         }
+
         .subject-card.hdsf-card::before {
             background: radial-gradient(ellipse at top left, rgba(124,58,237,0.04), transparent 60%);
         }
+
         .subject-card.hdsf-card:hover::before { opacity: 1; }
 
         .subject-card.bbb-card:hover {
@@ -443,9 +458,11 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 50px rgba(0,87,255,0.1), 0 4px 12px rgba(0,87,255,0.07);
         }
+
         .subject-card.bbb-card::before {
             background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
         }
+
         .subject-card.bbb-card:hover::before { opacity: 1; }
 
         .subject-card:active { transform: translateY(-2px) scale(0.98); }
@@ -489,13 +506,13 @@
             opacity: 0.55;
             cursor: default;
         }
+
         .subject-card.coming-soon:hover {
             transform: none;
             border-color: transparent;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
-        /* ─── RESOURCES PAGE ─── */
         #resources-page {
             display: none;
             min-height: 100vh;
@@ -678,14 +695,87 @@
             box-shadow: 0 10px 22px rgba(124,58,237,0.18);
         }
 
+        .btn-link:hover {
+            transform: translateY(-2px);
+        }
+
+        /* --- SUPER AESTHETIC DOWNLOAD BUTTON --- */
         .btn-download {
+            position: relative;
+            overflow: hidden;
             background: var(--hdsf-bg);
             color: var(--hdsf);
             border: 1px solid rgba(124,58,237,0.12);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
         }
 
-        .btn-link:hover {
+        /* The Progress Bar Fill Effect */
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 0%;
+            background: rgba(124,58,237,0.2);
+            z-index: -1;
+            transition: width 2s ease-in-out;
+        }
+
+        .btn-download:hover {
             transform: translateY(-2px);
+            background: white;
+            box-shadow: 0 8px 20px rgba(124,58,237,0.1);
+        }
+
+        /* Step 1: Active Downloading State */
+        .btn-download.is-downloading {
+            color: var(--hdsf);
+            border-color: rgba(124,58,237,0.3);
+            pointer-events: none;
+            transform: scale(0.96); /* Satisfying click-in effect */
+        }
+
+        .btn-download.is-downloading::before {
+            width: 100%; /* Triggers the progress bar to fill */
+        }
+
+        /* Step 2: Success State */
+        .btn-download.is-success {
+            background: var(--correct);
+            color: white;
+            border-color: var(--correct);
+            pointer-events: none;
+            transform: scale(1);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+        }
+        .btn-download.is-success::before {
+    width: 0%;
+    opacity: 0;
+    transition: none;
+}
+
+        /* Smooth Custom Icons */
+        .btn-download svg {
+            position: relative;
+            top: -1px;
+        }
+
+        @keyframes spinAndScale { 
+            0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
+            10% { transform: rotate(36deg) scale(1); opacity: 1; }
+            100% { transform: rotate(360deg) scale(1); opacity: 1; } 
+        }
+        .spin-icon { 
+            animation: spinAndScale 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .check-icon {
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         .hosting-note {
@@ -711,263 +801,15 @@
             line-height: 1.8;
         }
 
-        /* ─── DOWNLOAD OVERLAY ─── */
-        .download-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-        }
-
-        .download-overlay.active {
-            display: flex;
-        }
-
-        .download-box {
-            width: min(420px, calc(100% - 32px));
-            background: white;
-            border-radius: 28px;
-            padding: 28px 24px;
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
-            border: 1px solid rgba(124, 58, 237, 0.08);
-            text-align: center;
-        }
-
-        .download-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .download-subtitle {
-            font-size: 0.95rem;
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-
-        .download-bar {
-            width: 100%;
-            height: 12px;
-            background: #ede9fe;
-            border-radius: 999px;
-            overflow: hidden;
-            margin-bottom: 14px;
-        }
-
-        .download-progress {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--hdsf) 0%, var(--hdsf-light) 100%);
-            border-radius: 999px;
-            transition: width 0.2s ease;
-        }
-
-        .download-percent {
-            font-size: 0.92rem;
-            font-weight: 800;
-            color: var(--hdsf);
-            letter-spacing: 0.3px;
-        }
-
-        /* ─── QUIZ ─── */
-        #main-quiz {
-            display: none;
-            background: var(--bg-mesh);
-            min-height: 100vh;
-        }
-
-        .top-nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: #ffffff;
-            padding: 18px 0 15px 0;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
-            border-bottom: 1px solid #edf2f7;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .nav-container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-
-        .nav-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            gap: 10px;
-        }
-
-        .back-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            color: #64748b;
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
-        .back-btn:hover { color: var(--primary); }
-
-        .subject-title {
-            font-weight: 800;
-            color: var(--primary);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            font-family: 'Syne', sans-serif;
-        }
-
-        .stats-badge {
-            background: #f1f5f9;
-            padding: 4px 14px;
-            border-radius: 20px;
-            color: #475569;
-            font-weight: 700;
-            font-size: 0.85rem;
-            min-width: 70px;
-            text-align: center;
-        }
-
-        .progress-wrapper {
-            position: relative;
-            width: 100%;
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 50px;
-            overflow: hidden;
-        }
-
-        #progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-            border-radius: 50px;
-            transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .quiz-container { max-width: 800px; margin: 40px auto; padding: 0 20px 100px; }
-
-        .card {
-            background: white;
-            border-radius: 35px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 40px rgba(0,87,255,0.04);
-            text-align: left;
-        }
-
-        .q-label {
-            display: inline-flex;
-            padding: 6px 20px;
-            background-color: #eef6ff;
-            color: var(--blue);
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 0.2px;
-            margin-bottom: 25px;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .q-text {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: #0f172a;
-            line-height: 1.5;
-            font-family: 'Syne', sans-serif;
-        }
-
-        .opt {
-            background: #ffffff;
-            border: 2px solid #f1f5f9;
-            padding: 18px 20px;
-            border-radius: 18px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 14px;
-            transition: 0.25s;
-            text-align: left;
-        }
-        .opt:hover { border-color: var(--blue); background: #f8fbff; }
-        .opt.correct { background: #ecfdf5; border-color: var(--correct); color: #064e3b; }
-        .opt.wrong { background: #fef2f2; border-color: var(--wrong); color: #7f1d1d; }
-
-        .opt-letter {
-            width: 34px; height: 34px; min-width: 34px;
-            border-radius: 50%;
-            border: 2px solid #cbd5e1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.95rem;
-            color: #475569;
-            background: #ffffff;
-            transition: 0.25s;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .opt-text { flex: 1; }
-        .opt.correct .opt-letter { border-color: var(--correct); background: var(--correct); color: white; }
-        .opt.wrong .opt-letter { border-color: var(--wrong); background: var(--wrong); color: white; }
-        .disabled { pointer-events: none; }
-
-        #finish-screen { display: none; text-align: center; }
-
-        .start-btn {
-            position: relative;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-            color: white;
-            padding: 18px 65px;
-            border-radius: 16px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,87,255,0.25);
-            transition: 0.3s;
-            font-family: 'Syne', sans-serif;
-        }
-        .start-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,87,255,0.35); }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 30px;
-        }
-        .empty-state .empty-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
-        .empty-state p { color: #94a3b8; }
-
         @media (max-width: 760px) {
-            .card, .resource-card { padding: 22px; }
-            .nav-header { align-items: flex-start; }
-            .subject-title { font-size: 0.88rem; }
+            .resource-card { padding: 22px; }
             .resource-topbar { flex-direction: column; align-items: stretch; }
             .resource-actions { flex-direction: column; }
             .btn-link { width: 100%; }
         }
     </style>
 </head>
+
 <body>
 
 <section id="hero-page">
@@ -1029,42 +871,50 @@
             <span class="group-badge hdsf">🧬 HDSF</span>
         </div>
         <div class="group-divider hdsf"></div>
+
         <div class="subject-grid">
             <div class="subject-card hdsf-card" onclick="loadResources('anatomy')">
                 <div class="card-icon">🫀</div>
                 <div class="card-name">Anatomy</div>
                 <div class="card-chip hdsf">10 PDF Files</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🧠</div>
                 <div class="card-name">Physiology</div>
                 <div class="card-chip hdsf">Coming Soon</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🦠</div>
                 <div class="card-name">Microbiology</div>
                 <div class="card-chip hdsf">Coming Soon</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🔭</div>
                 <div class="card-name">Histology</div>
                 <div class="card-chip hdsf">Coming Soon</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🧬</div>
                 <div class="card-name">Molecular Biology</div>
                 <div class="card-chip hdsf">Coming Soon</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🔬</div>
                 <div class="card-name">Genetics</div>
                 <div class="card-chip hdsf">Coming Soon</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🔵</div>
                 <div class="card-name">Cytology</div>
                 <div class="card-chip hdsf">Coming Soon</div>
             </div>
+
             <div class="subject-card hdsf-card coming-soon">
                 <div class="card-icon">🥚</div>
                 <div class="card-name">Embryology</div>
@@ -1078,21 +928,24 @@
             <span class="group-badge bbb">⚡ BBB</span>
         </div>
         <div class="group-divider bbb"></div>
+
         <div class="subject-grid">
             <div class="subject-card bbb-card coming-soon">
                 <div class="card-icon">⚡</div>
                 <div class="card-name">Biophysics</div>
                 <div class="card-chip bbb">Coming Soon</div>
             </div>
+
             <div class="subject-card bbb-card coming-soon">
                 <div class="card-icon">🧪</div>
                 <div class="card-name">Biochemistry</div>
                 <div class="card-chip bbb">Coming Soon</div>
             </div>
-            <div class="subject-card bbb-card" onclick="loadQuiz('practical')">
+
+            <div class="subject-card bbb-card coming-soon">
                 <div class="card-icon">🚑</div>
                 <div class="card-name">Basic Emergency Care</div>
-                <div class="card-chip bbb">Start Quiz</div>
+                <div class="card-chip bbb">Coming Soon</div>
             </div>
         </div>
     </div>
@@ -1127,49 +980,6 @@
     </div>
 </section>
 
-<div id="main-quiz">
-    <div class="top-nav">
-        <div class="nav-container">
-            <div class="nav-header">
-                <div class="back-btn" onclick="goBack()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                    Back
-                </div>
-                <div id="active-subject-name" class="subject-title">SUBJECT</div>
-                <div id="counter" class="stats-badge">0 / 0</div>
-            </div>
-            <div class="progress-wrapper">
-                <div id="progress-fill"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="quiz-container" id="quiz-mount"></div>
-
-    <div class="quiz-container">
-        <div id="finish-screen" class="card" style="text-align:center;">
-            <div style="font-size:4rem;margin-bottom:20px;">🏆</div>
-            <h2 style="font-family:'Syne',sans-serif;margin-bottom:10px;">Revision Complete!</h2>
-            <p style="color:#64748b;">You've answered all questions for this subject.</p>
-            <button class="start-btn" style="margin-top:30px;" onclick="goBack()">Choose Another Subject</button>
-        </div>
-    </div>
-</div>
-
-<div id="download-overlay" class="download-overlay">
-    <div class="download-box">
-        <div class="download-title">Preparing your file</div>
-        <div class="download-subtitle" id="download-status">Downloading PDF...</div>
-        <div class="download-bar">
-            <div id="download-progress" class="download-progress"></div>
-        </div>
-        <div id="download-percent" class="download-percent">0%</div>
-    </div>
-</div>
-
 <script>
     const anatomyResources = [
         { title: 'Anatomy Lecture 01', description: 'Introduction to anatomy and anatomical terminology.', url: 'lecture-01.pdf' },
@@ -1184,74 +994,6 @@
         { title: 'Anatomy Lecture 10', description: 'Clinical anatomy summary and exam-focused review.', url: 'lecture-10.pdf' }
     ];
 
-    const allData = {
-        biophysics: [],
-        biochemistry: [],
-        bec: [],
-        practical: [
-            { q: "Which physiotherapy method uses light to produce superficial heat?", options: ["Ultrasound", "Infrared", "Electrical stimulation", "Microwave"], correct: 1 },
-            { q: "Which therapy is mainly used for skin diseases like psoriasis and eczema?", options: ["Infrared", "Short-wave", "Ultraviolet", "Ultrasound"], correct: 2 },
-            { q: "Which of the following stimulates collagen production?", options: ["Microwave", "Infrared", "Ultraviolet", "Electrical stimulation"], correct: 2 },
-            { q: "Which therapy uses high-frequency electromagnetic waves to produce deep heat?", options: ["Diathermy", "TENS", "Ultrasound", "UV"], correct: 0 },
-            { q: "Short-wave diathermy is characterized by:", options: ["Single applicator", "Use of sound waves", "Two electrodes/plates", "Use of UV rays"], correct: 2 },
-            { q: "Microwave diathermy mainly produces:", options: ["Deep wide heating", "Localized heating", "No heat", "Electrical stimulation"], correct: 1 },
-            { q: "Which tissue is heated more by microwave diathermy?", options: ["Bone", "Fat", "Muscle", "Skin only"], correct: 2 },
-            { q: "Which therapy uses electrical current to stimulate muscles?", options: ["Infrared", "Ultrasound", "Electrical stimulation", "UV"], correct: 2 },
-            { q: "TENS works by:", options: ["Heating tissues", "Destroying cells", "Blocking pain signals", "Producing collagen"], correct: 2 },
-            { q: "Ultrasound therapy uses:", options: ["Light waves", "Sound waves", "Electrical waves", "UV radiation"], correct: 1 },
-            { q: "Which ultrasound frequency penetrates deeper tissues?", options: ["3 MHz", "1 MHz", "Both same", "None"], correct: 1 },
-            { q: "Which ultrasound frequency is more superficial?", options: ["1 MHz", "3 MHz", "Both deep", "None"], correct: 1 },
-            { q: "Which therapy involves mechanical vibration of tissues?", options: ["Infrared", "Microwave", "Ultrasound", "UV"], correct: 2 },
-            { q: "Which therapy has a risk of burns due to heat?", options: ["Infrared", "UV", "TENS", "None"], correct: 0 },
-            { q: "UV rays are divided into:", options: ["X and Y", "A and B", "1 and 2", "Alpha and Beta"], correct: 1 },
-            { q: "UV-A penetrates:", options: ["Only surface", "Deep into dermis", "Bone", "No penetration"], correct: 1 },
-            { q: "Collagen is:", options: ["Hormone", "Enzyme", "Structural protein", "Vitamin"], correct: 2 },
-            { q: "Collagen is produced by:", options: ["Neurons", "Fibroblasts", "RBCs", "Platelets"], correct: 1 },
-            { q: "Which therapy is best for deep wide-area heating?", options: ["Microwave", "Short-wave", "UV", "TENS"], correct: 1 },
-            { q: "Which of the following uses gel and a probe?", options: ["Infrared", "Ultrasound", "Microwave", "UV"], correct: 1 }
-        ]
-    };
-
-    function getExtraOption(questionText, existingOptions) {
-        const q = questionText.toLowerCase();
-        const topicOptions = [
-            { keys: ["ultrasound","probe","echo","transducer","piezoelectric"], value: "Transducer gel" },
-            { keys: ["infrared","uv","microwave","diathermy","tens"], value: "Laser therapy" },
-            { keys: ["x-ray","ct","radiograph","fluoroscopy","lead apron","radiation"], value: "MRI" },
-            { keys: ["blood pressure","korotkoff","cuff","sphygmomanometer"], value: "Pulse oximeter" },
-            { keys: ["ecg","lead","p wave","qrs","t wave","av node","sa node"], value: "Defibrillator" },
-            { keys: ["electrosurgery","fulguration","desiccation","coagulation","monopolar","bipolar"], value: "Cryosurgery" },
-            { keys: ["titration","indicator","end point","burette","analyte","titrant"], value: "Pipette" },
-            { keys: ["acid","base","neutralization","phenolphthalein","methyl orange","antacid"], value: "Buffer solution" },
-            { keys: ["carbohydrate","molisch","benedict","barfoed","bial","seliwanoff","starch","sugar"], value: "Biuret test" },
-            { keys: ["iodine"], value: "Biuret reagent" }
-        ];
-        for (const item of topicOptions) {
-            if (item.keys.some(key => q.includes(key)) && !existingOptions.includes(item.value)) return item.value;
-        }
-        const fallbacks = ["All of the above", "None of the above", "Buffer solution", "Distilled water", "Laboratory error"];
-        for (const option of fallbacks) {
-            if (!existingOptions.includes(option)) return option;
-        }
-        return "Related option";
-    }
-
-    function normalizeQuestionsToFiveOptions() {
-        Object.keys(allData).forEach(subject => {
-            allData[subject] = allData[subject].map(item => {
-                const newItem = { ...item, options: [...item.options] };
-                while (newItem.options.length < 5) {
-                    const extra = getExtraOption(newItem.q, newItem.options);
-                    newItem.options.push(!newItem.options.includes(extra) ? extra : `Related choice ${newItem.options.length + 1}`);
-                }
-                return newItem;
-            });
-        });
-    }
-
-    normalizeQuestionsToFiveOptions();
-    let currentQuestions = [], completedCount = 0;
-
     function showSubjects() {
         document.getElementById('hero-page').style.transform = "translateY(-100%)";
         setTimeout(() => {
@@ -1262,21 +1004,12 @@
 
     function backToSubjects() {
         document.getElementById('resources-page').style.display = 'none';
-        document.getElementById('main-quiz').style.display = 'none';
-        document.getElementById('subject-page').style.display = 'block';
-        window.scrollTo(0, 0);
-    }
-
-    function goBack() {
-        document.getElementById('main-quiz').style.display = 'none';
-        document.getElementById('resources-page').style.display = 'none';
         document.getElementById('subject-page').style.display = 'block';
         window.scrollTo(0, 0);
     }
 
     function loadResources(subjectKey) {
         document.getElementById('subject-page').style.display = 'none';
-        document.getElementById('main-quiz').style.display = 'none';
         document.getElementById('resources-page').style.display = 'block';
 
         if (subjectKey === 'anatomy') {
@@ -1291,6 +1024,7 @@
 
     function renderResources(items) {
         const grid = document.getElementById('resource-grid');
+
         grid.innerHTML = items.map((item, index) => `
             <article class="resource-card">
                 <div class="resource-icon">📄</div>
@@ -1299,158 +1033,48 @@
                 <p>${item.description}</p>
                 <div class="resource-actions">
                     <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>
-                    <a class="btn-link btn-download" href="#" onclick="downloadPDF(event, '${item.url}', '${item.title.replace(/'/g, "\\'")}')">Download</a>
+                    <a class="btn-link btn-download" href="${item.url}" download onclick="showDownloadState(this)">Download</a>
                 </div>
             </article>
         `).join('');
     }
 
-    async function downloadPDF(event, fileUrl, fileTitle) {
-        event.preventDefault();
+    /* --- SUPER AESTHETIC DOWNLOAD LOGIC --- */
+    function showDownloadState(btn) {
+        // Prevent clicking again if it's already animating
+        if (btn.classList.contains('is-downloading') || btn.classList.contains('is-success')) return;
 
-        const overlay = document.getElementById('download-overlay');
-        const progressBar = document.getElementById('download-progress');
-        const percentText = document.getElementById('download-percent');
-        const statusText = document.getElementById('download-status');
+        const originalText = "Download";
+        
+        // 1. Start the Downloading phase (Progress Bar & Spinner)
+        btn.classList.add('is-downloading');
+        btn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="spin-icon">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+            </svg> 
+            <span>Downloading...</span>
+        `;
 
-        overlay.classList.add('active');
-        progressBar.style.width = '0%';
-        percentText.textContent = '0%';
-        statusText.textContent = `Downloading ${fileTitle}...`;
+        // 2. Trigger the Success phase (Green Checkmark) after 2 seconds
+        setTimeout(() => {
+            btn.classList.remove('is-downloading');
+            btn.classList.add('is-success');
+            btn.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Complete!</span>
+            `;
 
-        try {
-            const response = await fetch(fileUrl);
-
-            if (!response.ok) {
-                throw new Error('File not found');
-            }
-
-            const contentLength = response.headers.get('content-length');
-            const total = contentLength ? parseInt(contentLength, 10) : 0;
-
-            const reader = response.body.getReader();
-            const chunks = [];
-            let received = 0;
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                chunks.push(value);
-                received += value.length;
-
-                if (total > 0) {
-                    const percent = Math.round((received / total) * 100);
-                    progressBar.style.width = percent + '%';
-                    percentText.textContent = percent + '%';
-                } else {
-                    const fake = Math.min(90, Math.round((received / 500000) * 100));
-                    progressBar.style.width = fake + '%';
-                    percentText.textContent = fake + '%';
-                }
-            }
-
-            progressBar.style.width = '100%';
-            percentText.textContent = '100%';
-            statusText.textContent = 'Download ready';
-
-            const blob = new Blob(chunks, { type: 'application/pdf' });
-            const blobUrl = URL.createObjectURL(blob);
-
-            const a = document.createElement('a');
-            a.href = blobUrl;
-            a.download = fileUrl.split('/').pop() || 'lecture.pdf';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
+            // 3. Revert button back to normal after 1.5 more seconds
             setTimeout(() => {
-                URL.revokeObjectURL(blobUrl);
-            }, 2000);
+                btn.classList.remove('is-success');
+                btn.innerHTML = originalText;
+            }, 1500);
 
-            setTimeout(() => {
-                overlay.classList.remove('active');
-                progressBar.style.width = '0%';
-                percentText.textContent = '0%';
-                statusText.textContent = 'Downloading PDF...';
-            }, 700);
-
-        } catch (error) {
-            statusText.textContent = 'Download failed';
-            percentText.textContent = '0%';
-            progressBar.style.width = '0%';
-
-            setTimeout(() => {
-                overlay.classList.remove('active');
-                alert('PDF not found or could not be downloaded.');
-            }, 900);
-        }
-    }
-
-    function loadQuiz(subjectKey) {
-        currentQuestions = allData[subjectKey];
-        completedCount = 0;
-        document.getElementById('subject-page').style.display = 'none';
-        document.getElementById('resources-page').style.display = 'none';
-        document.getElementById('main-quiz').style.display = 'block';
-
-        const names = {
-            practical: 'BEC · Practical',
-            biophysics: 'Biophysics',
-            biochemistry: 'Biochemistry',
-            bec: 'BEC'
-        };
-        document.getElementById('active-subject-name').innerText = (names[subjectKey] || subjectKey).toUpperCase();
-
-        if (currentQuestions.length === 0) {
-            document.getElementById('quiz-mount').innerHTML = '';
-            document.getElementById('finish-screen').style.display = 'block';
-            document.getElementById('counter').innerText = `0 / 0`;
-            document.getElementById('progress-fill').style.width = '0%';
-            return;
-        }
-        initQuiz();
-    }
-
-    function initQuiz() {
-        const mount = document.getElementById('quiz-mount');
-        mount.innerHTML = '';
-        document.getElementById('finish-screen').style.display = 'none';
-        document.getElementById('progress-fill').style.width = '0%';
-        document.getElementById('counter').innerText = `0 / ${currentQuestions.length}`;
-        currentQuestions.forEach((q, idx) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="q-label">Question ${idx + 1}</div>
-                <div class="q-text">${q.q}</div>
-                <div class="options-list">
-                    ${q.options.map((opt, oIdx) => `
-                        <div class="opt" onclick="check(this,${idx},${oIdx},${q.correct})">
-                            <span class="opt-letter">${String.fromCharCode(65+oIdx)}</span>
-                            <span class="opt-text">${opt}</span>
-                        </div>`).join('')}
-                </div>`;
-            mount.appendChild(card);
-        });
-        window.scrollTo(0, 0);
-    }
-
-    function check(el, qIdx, selected, correct) {
-        const opts = el.parentElement.querySelectorAll('.opt');
-        opts.forEach(o => o.classList.add('disabled'));
-        el.classList.add(selected === correct ? 'correct' : 'wrong');
-        if (selected !== correct) opts[correct].classList.add('correct');
-        completedCount++;
-        document.getElementById('progress-fill').style.width = `${(completedCount/currentQuestions.length)*100}%`;
-        document.getElementById('counter').innerText = `${completedCount} / ${currentQuestions.length}`;
-        if (completedCount === currentQuestions.length) {
-            setTimeout(() => {
-                document.getElementById('finish-screen').style.display = 'block';
-                document.getElementById('finish-screen').scrollIntoView({ behavior: 'smooth' });
-            }, 800);
-        }
+        }, 2000); // The 2000ms perfectly matches the CSS progress bar transition
     }
 </script>
+
 </body>
 </html>
