@@ -644,12 +644,40 @@
             color: var(--hdsf);
         }
 
+        /* ── PDF label + epic watermark number ── */
         .resource-index {
             font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 1.3px;
             text-transform: uppercase;
             color: var(--hdsf);
+            position: relative;
+            z-index: 2;
+        }
+
+        .resource-number {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -3px;
+            background: linear-gradient(180deg, rgba(124,58,237,0.18) 0%, rgba(196,181,253,0.07) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            pointer-events: none;
+            z-index: 0;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .resource-card:hover .resource-number {
+            background: linear-gradient(180deg, rgba(124,58,237,0.40) 0%, rgba(196,181,253,0.18) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
         }
 
         .resource-card h3 {
@@ -732,11 +760,11 @@
             color: var(--hdsf);
             border-color: rgba(124,58,237,0.3);
             pointer-events: none;
-            transform: scale(0.96); /* Satisfying click-in effect */
+            transform: scale(0.96);
         }
 
         .btn-download.is-downloading::before {
-            width: 100%; /* Triggers the progress bar to fill */
+            width: 100%;
         }
 
         /* Step 2: Success State */
@@ -749,10 +777,10 @@
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
         }
         .btn-download.is-success::before {
-    width: 0%;
-    opacity: 0;
-    transition: none;
-}
+            width: 0%;
+            opacity: 0;
+            transition: none;
+        }
 
         /* Smooth Custom Icons */
         .btn-download svg {
@@ -982,16 +1010,16 @@
 
 <script>
     const anatomyResources = [
-        { title: 'Anatomy Lecture 01', description: 'Introduction to anatomy and anatomical terminology.', url: 'lecture-001.pdf' },
-        { title: 'Anatomy Lecture 02', description: 'Upper limb overview and surface anatomy.', url: 'lecture-002.pdf' },
-        { title: 'Anatomy Lecture 03', description: 'Lower limb bones, joints, and muscle groups.', url: 'lecture-003.pdf' },
-        { title: 'Anatomy Lecture 04', description: 'Thorax structures, mediastinum, and lungs.', url: 'lecture-004.pdf' },
-        { title: 'Anatomy Lecture 05', description: 'Heart anatomy, pericardium, and great vessels.', url: 'lecture-005.pdf' },
-        { title: 'Anatomy Lecture 06', description: 'Abdomen walls, organs, and peritoneum.', url: 'lecture-006.pdf' },
-        { title: 'Anatomy Lecture 07', description: 'Pelvis, perineum, and reproductive anatomy.', url: 'lecture-007.pdf' },
-        { title: 'Anatomy Lecture 08', description: 'Head and neck spaces, muscles, and vessels.', url: 'lecture-008.pdf' },
-        { title: 'Anatomy Lecture 09', description: 'Brain, meninges, ventricles, and cranial nerves.', url: 'lecture-009.pdf' },
-        { title: 'Anatomy Lecture 10', description: 'Clinical anatomy summary and exam-focused review.', url: 'lecture-0010.pdf' }
+        { title: 'Introduction to Human Anatomy', description: 'Introduction to anatomy and anatomical terminology.', url: 'lecture-01v1.pdf' },
+        { title: 'Skeletal System', description: 'Bone structure, classification, and body framework', url: 'lecture-02v2.pdf' },
+        { title: 'Upper & Lower Limbs', description: 'Shoulder, arm, forearm, hip, thigh, leg, and foot structures', url: 'lecture-03v3.pdf' },
+        { title: 'Muscular System', description: 'Muscle types, structure, and major muscle groups', url: 'lecture-04v4.pdf' },
+        { title: 'Joints', description: 'Types, structure, and movements of articulations', url: 'lecture-05v5.pdf' },
+        { title: 'Nervous System', description: 'Brain, spinal cord, nerves, and body control mechanisms', url: 'lecture-06v6.pdf' },
+        { title: 'Cardiovascular System', description: 'Heart, blood vessels, and systemic circulation', url: 'lecture-07v7.pdf' },
+        { title: 'Respiratory System', description: 'Upper and lower airways, lungs, and gas exchange', url: 'lecture-08v8.pdf' },
+        { title: 'Digestive System', description: 'Alimentary tract, organs, and digestive glands', url: 'lecture-09v9.pdf' },
+        { title: 'Genitourinary System', description: 'Kidneys, urinary tract, and reproductive organs', url: 'lecture-10v10.pdf' }
     ];
 
     function showSubjects() {
@@ -1027,8 +1055,9 @@
 
         grid.innerHTML = items.map((item, index) => `
             <article class="resource-card">
+                <span class="resource-number">${String(index + 1).padStart(2, '0')}</span>
                 <div class="resource-icon">📄</div>
-                <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
+                <div class="resource-index">PDF</div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
@@ -1041,12 +1070,10 @@
 
     /* --- SUPER AESTHETIC DOWNLOAD LOGIC --- */
     function showDownloadState(btn) {
-        // Prevent clicking again if it's already animating
         if (btn.classList.contains('is-downloading') || btn.classList.contains('is-success')) return;
 
         const originalText = "Download";
         
-        // 1. Start the Downloading phase (Progress Bar & Spinner)
         btn.classList.add('is-downloading');
         btn.innerHTML = `
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="spin-icon">
@@ -1055,7 +1082,6 @@
             <span>Downloading...</span>
         `;
 
-        // 2. Trigger the Success phase (Green Checkmark) after 2 seconds
         setTimeout(() => {
             btn.classList.remove('is-downloading');
             btn.classList.add('is-success');
@@ -1066,13 +1092,12 @@
                 <span>Complete!</span>
             `;
 
-            // 3. Revert button back to normal after 1.5 more seconds
             setTimeout(() => {
                 btn.classList.remove('is-success');
                 btn.innerHTML = originalText;
             }, 1500);
 
-        }, 2000); // The 2000ms perfectly matches the CSS progress bar transition
+        }, 2000);
     }
 </script>
 
