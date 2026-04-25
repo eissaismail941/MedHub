@@ -644,7 +644,6 @@
             color: var(--hdsf);
         }
 
-        /* ── PDF label + epic watermark number ── */
         .resource-index {
             font-size: 0.78rem;
             font-weight: 800;
@@ -653,31 +652,6 @@
             color: var(--hdsf);
             position: relative;
             z-index: 2;
-        }
-
-        .resource-number {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 800;
-            line-height: 1;
-            letter-spacing: -3px;
-            background: linear-gradient(180deg, rgba(124,58,237,0.18) 0%, rgba(196,181,253,0.07) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            pointer-events: none;
-            z-index: 0;
-            transition: background 0.3s ease;
-            user-select: none;
-        }
-
-        .resource-card:hover .resource-number {
-            background: linear-gradient(180deg, rgba(124,58,237,0.40) 0%, rgba(196,181,253,0.18) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
         }
 
         .resource-card h3 {
@@ -727,7 +701,6 @@
             transform: translateY(-2px);
         }
 
-        /* --- SUPER AESTHETIC DOWNLOAD BUTTON --- */
         .btn-download {
             position: relative;
             overflow: hidden;
@@ -738,7 +711,6 @@
             z-index: 1;
         }
 
-        /* The Progress Bar Fill Effect */
         .btn-download::before {
             content: '';
             position: absolute;
@@ -755,7 +727,6 @@
             box-shadow: 0 8px 20px rgba(124,58,237,0.1);
         }
 
-        /* Step 1: Active Downloading State */
         .btn-download.is-downloading {
             color: var(--hdsf);
             border-color: rgba(124,58,237,0.3);
@@ -767,7 +738,6 @@
             width: 100%;
         }
 
-        /* Step 2: Success State */
         .btn-download.is-success {
             background: var(--correct);
             color: white;
@@ -782,7 +752,6 @@
             transition: none;
         }
 
-        /* Smooth Custom Icons */
         .btn-download svg {
             position: relative;
             top: -1px;
@@ -1055,9 +1024,8 @@
 
         grid.innerHTML = items.map((item, index) => `
             <article class="resource-card">
-                <span class="resource-number">${String(index + 1).padStart(2, '0')}</span>
                 <div class="resource-icon">📄</div>
-                <div class="resource-index">PDF</div>
+                <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
@@ -1068,7 +1036,6 @@
         `).join('');
     }
 
-    /* --- SUPER AESTHETIC DOWNLOAD LOGIC --- */
     function showDownloadState(btn) {
         if (btn.classList.contains('is-downloading') || btn.classList.contains('is-success')) return;
 
