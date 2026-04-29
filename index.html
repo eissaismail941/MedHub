@@ -1073,25 +1073,53 @@ const physiologyResources = [
     }));
 
     /* ───────────── HISTOLOGY (update count when ready) ───────────── */
-    const histologyResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Histology Lecture ${i + 1}`,
-        description: `Histology lecture ${i + 1}`,
-        url: `./histology-lecture-${String(i + 1).padStart(2, '00')}.pdf`
-    }));
+    const histologyResources = [
+    { title: 'Histology Lecture 1', description: 'Histology lecture 1', url: './histology-lecture-01.pdf' },
+    { title: 'Histology Lecture 2', description: 'Histology lecture 2', url: './histology-lecture-02.pdf' },
+    { title: 'Histology Lecture 3', description: 'Histology lecture 3', url: './histology-lecture-03.pdf' },
+    { title: 'Histology Lecture 4', description: 'Histology lecture 4', url: './histology-lecture-04.pdf' },
+    { title: 'Histology Lecture 5', description: 'Histology lecture 5', url: './histology-lecture-05.pdf' },
+    { title: 'Histology Lecture 6', description: 'Histology lecture 6', url: './histology-lecture-06.pdf' },
+    { title: 'Histology Lecture 7', description: 'Histology lecture 7', url: './histology-lecture-07.pdf' },
+    { title: 'Histology Lecture 8', description: 'Histology lecture 8', url: './histology-lecture-08.pdf' }
+];
 
-    /* ───────────── MOLECULAR BIOLOGY (update count when ready) ───────────── */
-    const molecularBiologyResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Molecular Biology Lecture ${i + 1}`,
-        description: `Molecular biology lecture ${i + 1}`,
-        url: `./molecular-biology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
+    /* ─────if (true) {
+        
+    }──────── MOLECULAR BIOLOGY (update count when ready) ───────────── */
+    const molecularBiologyResources = [
+    { title: 'Molecular Biology Lecture 1', description: 'Molecular biology lecture 1', url: './molecular-biology-lecture-01.pdf' },
+    { title: 'Molecular Biology Lecture 2', description: 'Molecular biology lecture 2', url: './molecular-biology-lecture-02.pdf' },
+    { title: 'Molecular Biology Lecture 3', description: 'Molecular biology lecture 3', url: './molecular-biology-lecture-03.pdf' },
+    { title: 'Molecular Biology Lecture 4', description: 'Molecular biology lecture 4', url: './molecular-biology-lecture-04.pdf' },
+    { title: 'Molecular Biology Lecture 5', description: 'Molecular biology lecture 5', url: './molecular-biology-lecture-05.pdf' },
+    { title: 'Molecular Biology Lecture 6', description: 'Molecular biology lecture 6', url: './molecular-biology-lecture-06.pdf' },
+    { title: 'Molecular Biology Lecture 7', description: 'Molecular biology lecture 7', url: './molecular-biology-lecture-07.pdf' },
+    { title: 'Molecular Biology Lecture 8', description: 'Molecular biology lecture 8', url: './molecular-biology-lecture-08.pdf' },
+    { title: 'Molecular Biology Lecture 9', description: 'Molecular biology lecture 9', url: './molecular-biology-lecture-09.pdf' },
+    { title: 'Molecular Biology Lecture 10', description: 'Molecular biology lecture 10', url: './molecular-biology-lecture-10.pdf' },
+    { title: 'Molecular Biology Lecture 11', description: 'Molecular biology lecture 11', url: './molecular-biology-lecture-11.pdf' },
+    { title: 'Molecular Biology Lecture 12', description: 'Molecular biology lecture 12', url: './molecular-biology-lecture-12.pdf' },
+    { title: 'Molecular Biology Lecture 13', description: 'Molecular biology lecture 13', url: './molecular-biology-lecture-13.pdf' },
+    { title: 'Molecular Biology Lecture 14', description: 'Molecular biology lecture 14', url: './molecular-biology-lecture-14.pdf' },
+    { title: 'Molecular Biology Lecture 15', description: 'Molecular biology lecture 15', url: './molecular-biology-lecture-15.pdf' }
+];
 
     /* ───────────── GENETICS (update count when ready) ───────────── */
-    const geneticsResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Genetics Lecture ${i + 1}`,
-        description: `Genetics lecture ${i + 1}`,
-        url: `./genetics-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
+    const geneticsResources = [
+    { title: 'Genetics Lecture 1', description: 'Genetics lecture 1', url: './genetics-lecture-01.pdf' },
+    { title: 'Genetics Lecture 2', description: 'Genetics lecture 2', url: './genetics-lecture-02.pdf' },
+    { title: 'Genetics Lecture 3', description: 'Genetics lecture 3', url: './genetics-lecture-03.pdf' },
+    { title: 'Genetics Lecture 4', description: 'Genetics lecture 4', url: './genetics-lecture-04.pdf' },
+    { title: 'Genetics Lecture 5', description: 'Genetics lecture 5', url: './genetics-lecture-05.pdf' },
+    { title: 'Genetics Lecture 6', description: 'Genetics lecture 6', url: './genetics-lecture-06.pdf' },
+    { title: 'Genetics Lecture 7', description: 'Genetics lecture 7', url: './genetics-lecture-07.pdf' },
+    { title: 'Genetics Lecture 8', description: 'Genetics lecture 8', url: './genetics-lecture-08.pdf' },
+    { title: 'Genetics Lecture 9', description: 'Genetics lecture 9', url: './genetics-lecture-09.pdf' },
+    { title: 'Genetics Lecture 10', description: 'Genetics lecture 10', url: './genetics-lecture-10.pdf' },
+    { title: 'Genetics Lecture 11', description: 'Genetics lecture 11', url: './genetics-lecture-11.pdf' },
+    { title: 'Genetics Lecture 12', description: 'Genetics lecture 12', url: './genetics-lecture-12.pdf' }
+];
 
     /* ───────────── CYTOLOGY (update count when ready) ───────────── */
     const cytologyResources = Array.from({ length: 1 }, (_, i) => ({
