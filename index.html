@@ -331,7 +331,7 @@
         @keyframes sweep { 0%{left:-100%} 40%{left:100%} 100%{left:100%} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
-        #subject-page {
+        #subject-page, #split-page {
             display: none;
             min-height: 100vh;
             padding: 60px 20px 80px;
@@ -501,6 +501,64 @@
             background: rgba(0,87,255,0.07);
             color: var(--blue);
         }
+
+        /* ── Split Page (Theory/Practic) Styles ── */
+        .split-topbar {
+            max-width: 650px;
+            margin: 0 auto 40px;
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .split-card {
+            background: white;
+            padding: 45px 30px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 22px;
+        }
+
+        .split-card .card-icon { font-size: 3.5rem; margin-bottom: 18px; }
+        .split-card .card-name { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        .split-card .card-desc { color: #94a3b8; font-size: 0.95rem; }
+
+        .split-card.theory-card.hdsf-theme::before { background: radial-gradient(ellipse at top left, rgba(124,58,237,0.05), transparent 60%); }
+        .split-card.theory-card.hdsf-theme:hover { border-color: var(--hdsf); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(124,58,237,0.12); }
+        .split-card.theory-card.hdsf-theme:hover::before { opacity: 1; }
+
+        .split-card.theory-card.bbb-theme::before { background: radial-gradient(ellipse at top left, rgba(0,87,255,0.05), transparent 60%); }
+        .split-card.theory-card.bbb-theme:hover { border-color: var(--blue); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,87,255,0.1); }
+        .split-card.theory-card.bbb-theme:hover::before { opacity: 1; }
+
+        /* Beautiful Green Vibe for Practical */
+        .split-card.practical-card::before { background: radial-gradient(ellipse at top left, rgba(16,185,129,0.06), transparent 60%); }
+        .split-card.practical-card:hover { border-color: var(--correct); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(16,185,129,0.15); }
+        .split-card.practical-card:hover::before { opacity: 1; }
+        .split-card.practical-card .card-name { color: var(--correct); }
 
         #resources-page {
             display: none;
@@ -932,10 +990,10 @@
                 <div class="card-chip hdsf">18 PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card" onclick="loadResources('microbiology')">
+            <div class="subject-card hdsf-card" onclick="showSplitCards('microbiology', 'hdsf', 'Microbiology')">
                 <div class="card-icon">🦠</div>
                 <div class="card-name">Microbiology</div>
-                <div class="card-chip hdsf">PDF Files</div>
+                <div class="card-chip hdsf">Split Format</div>
             </div>
 
             <div class="subject-card hdsf-card" onclick="loadResources('histology')">
@@ -977,16 +1035,16 @@
         <div class="group-divider bbb"></div>
 
         <div class="subject-grid">
-            <div class="subject-card bbb-card" onclick="loadResources('biophysics')">
+            <div class="subject-card bbb-card" onclick="showSplitCards('biophysics', 'bbb', 'Biophysics')">
                 <div class="card-icon">⚡</div>
                 <div class="card-name">Biophysics</div>
-                <div class="card-chip bbb">23 PDF Files</div>
+                <div class="card-chip bbb">Split Format</div>
             </div>
 
-            <div class="subject-card bbb-card" onclick="loadResources('biochemistry')">
+            <div class="subject-card bbb-card" onclick="showSplitCards('biochemistry', 'bbb', 'Biochemistry')">
                 <div class="card-icon">🧪</div>
                 <div class="card-name">Biochemistry</div>
-                <div class="card-chip bbb">18 PDF Files</div>
+                <div class="card-chip bbb">Split Format</div>
             </div>
 
             <div class="subject-card bbb-card" onclick="loadResources('bec')">
@@ -998,6 +1056,20 @@
     </div>
 </section>
 
+<section id="split-page">
+    <div class="split-topbar">
+        <div class="back-inline" onclick="backToSubjectsFromSplit()">← Back to subjects</div>
+    </div>
+    
+    <div class="subjects-header">
+        <h2 id="split-title">Subject Name</h2>
+        <p>Choose between Theory and Practical resources</p>
+    </div>
+
+    <div class="split-grid" id="split-grid">
+        </div>
+</section>
+
 <section id="resources-page">
     <div class="resources-header">
         <h2 id="resources-title">Resource Library</h2>
@@ -1005,7 +1077,7 @@
     </div>
 
     <div class="resource-topbar">
-        <div class="back-inline" onclick="backToSubjects()">← Back to subjects</div>
+        <div class="back-inline" onclick="backFromResources()">← Back</div>
         <div class="resource-meta">
             <div class="pill" id="resources-count">0 files</div>
             <div class="pill">Public access ready</div>
@@ -1044,141 +1116,172 @@
     ];
 
     /* ───────────── PHYSIOLOGY (18 lectures) ───────────── */
-const physiologyResources = [
-    { title: 'Physiology Lecture 1', description: 'Physiology lecture 1', url: './physiology-lecture-01.pdf' },
-    { title: 'Physiology Lecture 2', description: 'Physiology lecture 2', url: './physiology-lecture-02.pdf' },
-    { title: 'Physiology Lecture 3', description: 'Physiology lecture 3', url: './physiology-lecture-03.pdf' },
-    { title: 'Physiology Lecture 4', description: 'Physiology lecture 4', url: './physiology-lecture-04.pdf' },
-    { title: 'Physiology Lecture 5', description: 'Physiology lecture 5', url: './physiology-lecture-05.pdf' },
-    { title: 'Physiology Lecture 6', description: 'Physiology lecture 6', url: './physiology-lecture-06.pdf' },
-    { title: 'Physiology Lecture 7', description: 'Physiology lecture 7', url: './physiology-lecture-07.pdf' },
-    { title: 'Physiology Lecture 8', description: 'Physiology lecture 8', url: './physiology-lecture-08.pdf' },
-    { title: 'Physiology Lecture 9', description: 'Physiology lecture 9', url: './physiology-lecture-09.pdf' },
-    { title: 'Physiology Lecture 10', description: 'Physiology lecture 10', url: './physiology-lecture-10.pdf' },
-    { title: 'Physiology Lecture 11', description: 'Physiology lecture 11', url: './physiology-lecture-11.pdf' },
-    { title: 'Physiology Lecture 12', description: 'Physiology lecture 12', url: './physiology-lecture-12.pdf' },
-    { title: 'Physiology Lecture 13', description: 'Physiology lecture 13', url: './physiology-lecture-13.pdf' },
-    { title: 'Physiology Lecture 14', description: 'Physiology lecture 14', url: './physiology-lecture-14.pdf' },
-    { title: 'Physiology Lecture 15', description: 'Physiology lecture 15', url: './physiology-lecture-15.pdf' },
-    { title: 'Physiology Lecture 16', description: 'Physiology lecture 16', url: './physiology-lecture-16.pdf' },
-    { title: 'Physiology Lecture 17', description: 'Physiology lecture 17', url: './physiology-lecture-17.pdf' },
-    { title: 'Physiology Lecture 18', description: 'Physiology lecture 18', url: './physiology-lecture-18.pdf' }
-];
+    const physiologyResources = [
+        { title: 'Physiology Lecture 1', description: 'Physiology lecture 1', url: './physiology-lecture-01.pdf' },
+        { title: 'Physiology Lecture 2', description: 'Physiology lecture 2', url: './physiology-lecture-02.pdf' },
+        { title: 'Physiology Lecture 3', description: 'Physiology lecture 3', url: './physiology-lecture-03.pdf' },
+        { title: 'Physiology Lecture 4', description: 'Physiology lecture 4', url: './physiology-lecture-04.pdf' },
+        { title: 'Physiology Lecture 5', description: 'Physiology lecture 5', url: './physiology-lecture-05.pdf' },
+        { title: 'Physiology Lecture 6', description: 'Physiology lecture 6', url: './physiology-lecture-06.pdf' },
+        { title: 'Physiology Lecture 7', description: 'Physiology lecture 7', url: './physiology-lecture-07.pdf' },
+        { title: 'Physiology Lecture 8', description: 'Physiology lecture 8', url: './physiology-lecture-08.pdf' },
+        { title: 'Physiology Lecture 9', description: 'Physiology lecture 9', url: './physiology-lecture-09.pdf' },
+        { title: 'Physiology Lecture 10', description: 'Physiology lecture 10', url: './physiology-lecture-10.pdf' },
+        { title: 'Physiology Lecture 11', description: 'Physiology lecture 11', url: './physiology-lecture-11.pdf' },
+        { title: 'Physiology Lecture 12', description: 'Physiology lecture 12', url: './physiology-lecture-12.pdf' },
+        { title: 'Physiology Lecture 13', description: 'Physiology lecture 13', url: './physiology-lecture-13.pdf' },
+        { title: 'Physiology Lecture 14', description: 'Physiology lecture 14', url: './physiology-lecture-14.pdf' },
+        { title: 'Physiology Lecture 15', description: 'Physiology lecture 15', url: './physiology-lecture-15.pdf' },
+        { title: 'Physiology Lecture 16', description: 'Physiology lecture 16', url: './physiology-lecture-16.pdf' },
+        { title: 'Physiology Lecture 17', description: 'Physiology lecture 17', url: './physiology-lecture-17.pdf' },
+        { title: 'Physiology Lecture 18', description: 'Physiology lecture 18', url: './physiology-lecture-18.pdf' }
+    ];
 
-    /* ───────────── MICROBIOLOGY (update count when ready) ───────────── */
-    const microbiologyResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Microbiology Lecture ${i + 1}`,
-        description: `Microbiology lecture ${i + 1}`,
-        url: `./microbiology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    /* ───────────── MICROBIOLOGY (Split) ───────────── */
+    const microbiologyTheoryResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Microbiology Theory ${i + 1}`, description: `Theory lecture ${i + 1}`, url: `./microbiology-theory-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+    const microbiologyPracticalResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Microbiology Practical ${i + 1}`, description: `Lab manual ${i + 1}`, url: `./microbiology-practical-${String(i + 1).padStart(2, '0')}.pdf`
     }));
 
-    /* ───────────── HISTOLOGY (update count when ready) ───────────── */
+    /* ───────────── HISTOLOGY ───────────── */
     const histologyResources = [
-    { title: 'Histology Lecture 1', description: 'Histology lecture 1', url: './histology-lecture-01.pdf' },
-    { title: 'Histology Lecture 2', description: 'Histology lecture 2', url: './histology-lecture-02.pdf' },
-    { title: 'Histology Lecture 3', description: 'Histology lecture 3', url: './histology-lecture-03.pdf' },
-    { title: 'Histology Lecture 4', description: 'Histology lecture 4', url: './histology-lecture-04.pdf' },
-    { title: 'Histology Lecture 5', description: 'Histology lecture 5', url: './histology-lecture-05.pdf' },
-    { title: 'Histology Lecture 6', description: 'Histology lecture 6', url: './histology-lecture-06.pdf' },
-    { title: 'Histology Lecture 7', description: 'Histology lecture 7', url: './histology-lecture-07.pdf' },
-    { title: 'Histology Lecture 8', description: 'Histology lecture 8', url: './histology-lecture-08.pdf' }
-];
+        { title: 'Histology Lecture 1', description: 'Histology lecture 1', url: './histology-lecture-01.pdf' },
+        { title: 'Histology Lecture 2', description: 'Histology lecture 2', url: './histology-lecture-02.pdf' },
+        { title: 'Histology Lecture 3', description: 'Histology lecture 3', url: './histology-lecture-03.pdf' },
+        { title: 'Histology Lecture 4', description: 'Histology lecture 4', url: './histology-lecture-04.pdf' },
+        { title: 'Histology Lecture 5', description: 'Histology lecture 5', url: './histology-lecture-05.pdf' },
+        { title: 'Histology Lecture 6', description: 'Histology lecture 6', url: './histology-lecture-06.pdf' },
+        { title: 'Histology Lecture 7', description: 'Histology lecture 7', url: './histology-lecture-07.pdf' },
+        { title: 'Histology Lecture 8', description: 'Histology lecture 8', url: './histology-lecture-08.pdf' }
+    ];
 
-    /* ─────if (true) {
-        
-    }──────── MOLECULAR BIOLOGY (update count when ready) ───────────── */
+    /* ───────────── MOLECULAR BIOLOGY ───────────── */
     const molecularBiologyResources = [
-    { title: 'Molecular Biology Lecture 1', description: 'Molecular biology lecture 1', url: './molecular-biology-lecture-01.pdf' },
-    { title: 'Molecular Biology Lecture 2', description: 'Molecular biology lecture 2', url: './molecular-biology-lecture-02.pdf' },
-    { title: 'Molecular Biology Lecture 3', description: 'Molecular biology lecture 3', url: './molecular-biology-lecture-03.pdf' },
-    { title: 'Molecular Biology Lecture 4', description: 'Molecular biology lecture 4', url: './molecular-biology-lecture-04.pdf' },
-    { title: 'Molecular Biology Lecture 5', description: 'Molecular biology lecture 5', url: './molecular-biology-lecture-05.pdf' },
-    { title: 'Molecular Biology Lecture 6', description: 'Molecular biology lecture 6', url: './molecular-biology-lecture-06.pdf' },
-    { title: 'Molecular Biology Lecture 7', description: 'Molecular biology lecture 7', url: './molecular-biology-lecture-07.pdf' },
-    { title: 'Molecular Biology Lecture 8', description: 'Molecular biology lecture 8', url: './molecular-biology-lecture-08.pdf' },
-    { title: 'Molecular Biology Lecture 9', description: 'Molecular biology lecture 9', url: './molecular-biology-lecture-09.pdf' },
-    { title: 'Molecular Biology Lecture 10', description: 'Molecular biology lecture 10', url: './molecular-biology-lecture-10.pdf' },
-    { title: 'Molecular Biology Lecture 11', description: 'Molecular biology lecture 11', url: './molecular-biology-lecture-11.pdf' },
-    { title: 'Molecular Biology Lecture 12', description: 'Molecular biology lecture 12', url: './molecular-biology-lecture-12.pdf' },
-    { title: 'Molecular Biology Lecture 13', description: 'Molecular biology lecture 13', url: './molecular-biology-lecture-13.pdf' },
-    { title: 'Molecular Biology Lecture 14', description: 'Molecular biology lecture 14', url: './molecular-biology-lecture-14.pdf' },
-    { title: 'Molecular Biology Lecture 15', description: 'Molecular biology lecture 15', url: './molecular-biology-lecture-15.pdf' }
-];
+        { title: 'Molecular Biology Lecture 1', description: 'Molecular biology lecture 1', url: './molecular-biology-lecture-01.pdf' },
+        { title: 'Molecular Biology Lecture 2', description: 'Molecular biology lecture 2', url: './molecular-biology-lecture-02.pdf' },
+        { title: 'Molecular Biology Lecture 3', description: 'Molecular biology lecture 3', url: './molecular-biology-lecture-03.pdf' },
+        { title: 'Molecular Biology Lecture 4', description: 'Molecular biology lecture 4', url: './molecular-biology-lecture-04.pdf' },
+        { title: 'Molecular Biology Lecture 5', description: 'Molecular biology lecture 5', url: './molecular-biology-lecture-05.pdf' },
+        { title: 'Molecular Biology Lecture 6', description: 'Molecular biology lecture 6', url: './molecular-biology-lecture-06.pdf' },
+        { title: 'Molecular Biology Lecture 7', description: 'Molecular biology lecture 7', url: './molecular-biology-lecture-07.pdf' },
+        { title: 'Molecular Biology Lecture 8', description: 'Molecular biology lecture 8', url: './molecular-biology-lecture-08.pdf' },
+        { title: 'Molecular Biology Lecture 9', description: 'Molecular biology lecture 9', url: './molecular-biology-lecture-09.pdf' },
+        { title: 'Molecular Biology Lecture 10', description: 'Molecular biology lecture 10', url: './molecular-biology-lecture-10.pdf' },
+        { title: 'Molecular Biology Lecture 11', description: 'Molecular biology lecture 11', url: './molecular-biology-lecture-11.pdf' },
+        { title: 'Molecular Biology Lecture 12', description: 'Molecular biology lecture 12', url: './molecular-biology-lecture-12.pdf' },
+        { title: 'Molecular Biology Lecture 13', description: 'Molecular biology lecture 13', url: './molecular-biology-lecture-13.pdf' },
+        { title: 'Molecular Biology Lecture 14', description: 'Molecular biology lecture 14', url: './molecular-biology-lecture-14.pdf' },
+        { title: 'Molecular Biology Lecture 15', description: 'Molecular biology lecture 15', url: './molecular-biology-lecture-15.pdf' }
+    ];
 
-    /* ───────────── GENETICS (update count when ready) ───────────── */
+    /* ───────────── GENETICS ───────────── */
     const geneticsResources = [
-    { title: 'Genetics Lecture 1', description: 'Genetics lecture 1', url: './genetics-lecture-01.pdf' },
-    { title: 'Genetics Lecture 2', description: 'Genetics lecture 2', url: './genetics-lecture-02.pdf' },
-    { title: 'Genetics Lecture 3', description: 'Genetics lecture 3', url: './genetics-lecture-03.pdf' },
-    { title: 'Genetics Lecture 4', description: 'Genetics lecture 4', url: './genetics-lecture-04.pdf' },
-    { title: 'Genetics Lecture 5', description: 'Genetics lecture 5', url: './genetics-lecture-05.pdf' },
-    { title: 'Genetics Lecture 6', description: 'Genetics lecture 6', url: './genetics-lecture-06.pdf' },
-    { title: 'Genetics Lecture 7', description: 'Genetics lecture 7', url: './genetics-lecture-07.pdf' },
-    { title: 'Genetics Lecture 8', description: 'Genetics lecture 8', url: './genetics-lecture-08.pdf' },
-    { title: 'Genetics Lecture 9', description: 'Genetics lecture 9', url: './genetics-lecture-09.pdf' },
-    { title: 'Genetics Lecture 10', description: 'Genetics lecture 10', url: './genetics-lecture-10.pdf' },
-    { title: 'Genetics Lecture 11', description: 'Genetics lecture 11', url: './genetics-lecture-11.pdf' },
-    { title: 'Genetics Lecture 12', description: 'Genetics lecture 12', url: './genetics-lecture-12.pdf' }
-];
+        { title: 'Genetics Lecture 1', description: 'Genetics lecture 1', url: './genetics-lecture-01.pdf' },
+        { title: 'Genetics Lecture 2', description: 'Genetics lecture 2', url: './genetics-lecture-02.pdf' },
+        { title: 'Genetics Lecture 3', description: 'Genetics lecture 3', url: './genetics-lecture-03.pdf' },
+        { title: 'Genetics Lecture 4', description: 'Genetics lecture 4', url: './genetics-lecture-04.pdf' },
+        { title: 'Genetics Lecture 5', description: 'Genetics lecture 5', url: './genetics-lecture-05.pdf' },
+        { title: 'Genetics Lecture 6', description: 'Genetics lecture 6', url: './genetics-lecture-06.pdf' },
+        { title: 'Genetics Lecture 7', description: 'Genetics lecture 7', url: './genetics-lecture-07.pdf' },
+        { title: 'Genetics Lecture 8', description: 'Genetics lecture 8', url: './genetics-lecture-08.pdf' },
+        { title: 'Genetics Lecture 9', description: 'Genetics lecture 9', url: './genetics-lecture-09.pdf' },
+        { title: 'Genetics Lecture 10', description: 'Genetics lecture 10', url: './genetics-lecture-10.pdf' },
+        { title: 'Genetics Lecture 11', description: 'Genetics lecture 11', url: './genetics-lecture-11.pdf' },
+        { title: 'Genetics Lecture 12', description: 'Genetics lecture 12', url: './genetics-lecture-12.pdf' }
+    ];
 
-    /* ───────────── CYTOLOGY (update count when ready) ───────────── */
+    /* ───────────── CYTOLOGY ───────────── */
     const cytologyResources = [
-    { title: 'Cytology Lecture 1', description: 'Cytology lecture 1', url: './cytology-lecture-01.pdf' },
-    { title: 'Cytology Lecture 2', description: 'Cytology lecture 2', url: './cytology-lecture-02.pdf' },
-    { title: 'Cytology Lecture 3', description: 'Cytology lecture 3', url: './cytology-lecture-03.pdf' },
-    { title: 'Cytology Lecture 4', description: 'Cytology lecture 4', url: './cytology-lecture-04.pdf' },
-    { title: 'Cytology Lecture 5', description: 'Cytology lecture 5', url: './cytology-lecture-05.pdf' },
-    { title: 'Cytology Lecture 6', description: 'Cytology lecture 6', url: './cytology-lecture-06.pdf' },
-    { title: 'Cytology Lecture 7', description: 'Cytology lecture 7', url: './cytology-lecture-07.pdf' },
-    { title: 'Cytology Lecture 8', description: 'Cytology lecture 8', url: './cytology-lecture-08.pdf' },
-    { title: 'Cytology Lecture 9', description: 'Cytology lecture 9', url: './cytology-lecture-09.pdf' },
-    { title: 'Cytology Lecture 10', description: 'Cytology lecture 10', url: './cytology-lecture-10.pdf' }
+        { title: 'Cytology Lecture 1', description: 'Cytology lecture 1', url: './cytology-lecture-01.pdf' },
+        { title: 'Cytology Lecture 2', description: 'Cytology lecture 2', url: './cytology-lecture-02.pdf' },
+        { title: 'Cytology Lecture 3', description: 'Cytology lecture 3', url: './cytology-lecture-03.pdf' },
+        { title: 'Cytology Lecture 4', description: 'Cytology lecture 4', url: './cytology-lecture-04.pdf' },
+        { title: 'Cytology Lecture 5', description: 'Cytology lecture 5', url: './cytology-lecture-05.pdf' },
+        { title: 'Cytology Lecture 6', description: 'Cytology lecture 6', url: './cytology-lecture-06.pdf' },
+        { title: 'Cytology Lecture 7', description: 'Cytology lecture 7', url: './cytology-lecture-07.pdf' },
+        { title: 'Cytology Lecture 8', description: 'Cytology lecture 8', url: './cytology-lecture-08.pdf' },
+        { title: 'Cytology Lecture 9', description: 'Cytology lecture 9', url: './cytology-lecture-09.pdf' },
+        { title: 'Cytology Lecture 10', description: 'Cytology lecture 10', url: './cytology-lecture-10.pdf' }
+    ];
+
+    /* ───────────── EMBRYOLOGY ───────────── */
+    const embryologyResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Embryology Lecture ${i + 1}`, description: `Embryology lecture ${i + 1}`, url: `./embryology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── BIOPHYSICS (Split) ───────────── */
+    const biophysicsTheoryResources = Array.from({ length: 23 }, (_, i) => ({
+        title: `Biophysics Theory ${i + 1}`, description: `Theory lecture ${i + 1}`, url: `./biophysics-theory-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+    const biophysicsPracticalResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Biophysics Practical ${i + 1}`, description: `Lab manual ${i + 1}`, url: `./biophysics-practical-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── BIOCHEMISTRY THEORY (18 lectures) ───────────── */
+const biochemistryTheoryResources = [
+    { title: 'Biochemistry Theory 1', description: 'Biochemistry theory lecture 1', url: './biochemistry-theory-01.pdf' },
+    { title: 'Biochemistry Theory 2', description: 'Biochemistry theory lecture 2', url: './biochemistry-theory-02.pdf' },
+    { title: 'Biochemistry Theory 3', description: 'Biochemistry theory lecture 3', url: './biochemistry-theory-03.pdf' },
+    { title: 'Biochemistry Theory 4', description: 'Biochemistry theory lecture 4', url: './biochemistry-theory-04.pdf' },
+    { title: 'Biochemistry Theory 5', description: 'Biochemistry theory lecture 5', url: './biochemistry-theory-05.pdf' },
+    { title: 'Biochemistry Theory 6', description: 'Biochemistry theory lecture 6', url: './biochemistry-theory-06.pdf' },
+    { title: 'Biochemistry Theory 7', description: 'Biochemistry theory lecture 7', url: './biochemistry-theory-07.pdf' },
+    { title: 'Biochemistry Theory 8', description: 'Biochemistry theory lecture 8', url: './biochemistry-theory-08.pdf' },
+    { title: 'Biochemistry Theory 9', description: 'Biochemistry theory lecture 9', url: './biochemistry-theory-09.pdf' },
+    { title: 'Biochemistry Theory 10', description: 'Biochemistry theory lecture 10', url: './biochemistry-theory-10.pdf' },
+    { title: 'Biochemistry Theory 11', description: 'Biochemistry theory lecture 11', url: './biochemistry-theory-11.pdf' },
+    { title: 'Biochemistry Theory 12', description: 'Biochemistry theory lecture 12', url: './biochemistry-theory-12.pdf' },
+    { title: 'Biochemistry Theory 13', description: 'Biochemistry theory lecture 13', url: './biochemistry-theory-13.pdf' },
+    { title: 'Biochemistry Theory 14', description: 'Biochemistry theory lecture 14', url: './biochemistry-theory-14.pdf' },
+    { title: 'Biochemistry Theory 15', description: 'Biochemistry theory lecture 15', url: './biochemistry-theory-15.pdf' },
+    { title: 'Biochemistry Theory 16', description: 'Biochemistry theory lecture 16', url: './biochemistry-theory-16.pdf' },
+    { title: 'Biochemistry Theory 17', description: 'Biochemistry theory lecture 17', url: './biochemistry-theory-17.pdf' },
+    { title: 'Biochemistry Theory 18', description: 'Biochemistry theory lecture 18', url: './biochemistry-theory-18.pdf' }
 ];
 
-    /* ───────────── EMBRYOLOGY (update count when ready) ───────────── */
-    const embryologyResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Embryology Lecture ${i + 1}`,
-        description: `Embryology lecture ${i + 1}`,
-        url: `./embryology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
+/* ───────────── BIOCHEMISTRY PRACTICAL (6 lectures) ───────────── */
+const biochemistryPracticalResources = [
+    { title: 'Biochemistry Practical 1', description: 'Biochemistry practical lecture 1', url: './biochemistry-practical-01.pdf' },
+    { title: 'Biochemistry Practical 2', description: 'Biochemistry practical lecture 2', url: './biochemistry-practical-02.pdf' },
+    { title: 'Biochemistry Practical 3', description: 'Biochemistry practical lecture 3', url: './biochemistry-practical-03.pdf' },
+    { title: 'Biochemistry Practical 4', description: 'Biochemistry practical lecture 4', url: './biochemistry-practical-04.pdf' },
+    { title: 'Biochemistry Practical 5', description: 'Biochemistry practical lecture 5', url: './biochemistry-practical-05.pdf' },
+    { title: 'Biochemistry Practical 6', description: 'Biochemistry practical lecture 6', url: './biochemistry-practical-06.pdf' }
+];
 
-    /* ───────────── BIOPHYSICS (23 lectures) ───────────── */
-    const biophysicsResources = Array.from({ length: 23 }, (_, i) => ({
-        title: `Biophysics Lecture ${i + 1}`,
-        description: `Biophysics lecture ${i + 1}`,
-        url: `./biophysics-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
-
-    /* ───────────── BIOCHEMISTRY (18 lectures) ───────────── */
-    const biochemistryResources = Array.from({ length: 18 }, (_, i) => ({
-        title: `Biochemistry Lecture ${i + 1}`,
-        description: `Biochemistry lecture ${i + 1}`,
-        url: `./biochemistry-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
-
-    /* ───────────── BEC (12 lectures) ───────────── */
+    /* ───────────── BEC ───────────── */
     const becResources = Array.from({ length: 12 }, (_, i) => ({
-        title: `Basic Emergency Care Lecture ${i + 1}`,
-        description: `Basic emergency care lecture ${i + 1}`,
-        url: `./bec-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+        title: `Basic Emergency Care Lecture ${i + 1}`, description: `Basic emergency care lecture ${i + 1}`, url: `./bec-lecture-${String(i + 1).padStart(2, '0')}.pdf`
     }));
 
-    /* ───────────── subject map ───────────── */
+    /* ───────────── SUBJECT MAP ───────────── */
     const subjectMap = {
-        'anatomy':          { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
-        'physiology':       { title: 'Physiology Resource Library',           group: 'hdsf', resources: physiologyResources },
-        'microbiology':     { title: 'Microbiology Resource Library',         group: 'hdsf', resources: microbiologyResources },
-        'histology':        { title: 'Histology Resource Library',            group: 'hdsf', resources: histologyResources },
-        'molecular-biology':{ title: 'Molecular Biology Resource Library',    group: 'hdsf', resources: molecularBiologyResources },
-        'genetics':         { title: 'Genetics Resource Library',             group: 'hdsf', resources: geneticsResources },
-        'cytology':         { title: 'Cytology Resource Library',             group: 'hdsf', resources: cytologyResources },
-        'embryology':       { title: 'Embryology Resource Library',           group: 'hdsf', resources: embryologyResources },
-        'biophysics':       { title: 'Biophysics Resource Library',           group: 'bbb',  resources: biophysicsResources },
-        'biochemistry':     { title: 'Biochemistry Resource Library',         group: 'bbb',  resources: biochemistryResources },
-        'bec':              { title: 'Basic Emergency Care Resource Library',  group: 'bbb',  resources: becResources }
+        'anatomy':                { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
+        'physiology':             { title: 'Physiology Resource Library',           group: 'hdsf', resources: physiologyResources },
+        
+        'microbiology-theory':    { title: 'Microbiology (Theory)',                 group: 'hdsf', resources: microbiologyTheoryResources },
+        'microbiology-practical': { title: 'Microbiology (Practical)',              group: 'hdsf', resources: microbiologyPracticalResources },
+        
+        'histology':              { title: 'Histology Resource Library',            group: 'hdsf', resources: histologyResources },
+        'molecular-biology':      { title: 'Molecular Biology Resource Library',    group: 'hdsf', resources: molecularBiologyResources },
+        'genetics':               { title: 'Genetics Resource Library',             group: 'hdsf', resources: geneticsResources },
+        'cytology':               { title: 'Cytology Resource Library',             group: 'hdsf', resources: cytologyResources },
+        'embryology':             { title: 'Embryology Resource Library',           group: 'hdsf', resources: embryologyResources },
+        
+        'biophysics-theory':      { title: 'Biophysics (Theory)',                   group: 'bbb',  resources: biophysicsTheoryResources },
+        'biophysics-practical':   { title: 'Biophysics (Practical)',                group: 'bbb',  resources: biophysicsPracticalResources },
+        
+        'biochemistry-theory':    { title: 'Biochemistry (Theory)',                 group: 'bbb',  resources: biochemistryTheoryResources },
+        'biochemistry-practical': { title: 'Biochemistry (Practical)',              group: 'bbb',  resources: biochemistryPracticalResources },
+        
+        'bec':                    { title: 'Basic Emergency Care Resource Library',  group: 'bbb',  resources: becResources }
     };
 
-    /* ───────────── navigation ───────────── */
+    /* ───────────── NAVIGATION STATE ───────────── */
+    let lastSplitData = null; // Remembers if we came from a Split Page
+
     function showSubjects() {
         document.getElementById('hero-page').style.transform = "translateY(-100%)";
         setTimeout(() => {
@@ -1187,9 +1290,51 @@ const physiologyResources = [
         }, 600);
     }
 
-    function backToSubjects() {
+    // Handles triggering the Theory/Practical Screen
+    function showSplitCards(subjectKey, group, title) {
+        lastSplitData = { subjectKey, group, title }; // Remember for the Back button
+        
+        document.getElementById('subject-page').style.display = 'none';
         document.getElementById('resources-page').style.display = 'none';
+        document.getElementById('split-page').style.display = 'block';
+        
+        document.getElementById('split-title').textContent = title;
+        
+        const grid = document.getElementById('split-grid');
+        const theoryTheme = group === 'hdsf' ? 'hdsf-theme' : 'bbb-theme';
+        
+        grid.innerHTML = `
+            <div class="split-card theory-card ${theoryTheme}" onclick="loadResources('${subjectKey}-theory')">
+                <div class="card-icon">📚</div>
+                <div class="card-name">Theory</div>
+                <div class="card-desc">Lectures and theoretical materials</div>
+            </div>
+            <div class="split-card practical-card" onclick="loadResources('${subjectKey}-practical')">
+                <div class="card-icon">🥼</div>
+                <div class="card-name">Practical</div>
+                <div class="card-desc">Lab manuals and practical guides</div>
+            </div>
+        `;
+        window.scrollTo(0, 0);
+    }
+
+    function backToSubjectsFromSplit() {
+        document.getElementById('split-page').style.display = 'none';
         document.getElementById('subject-page').style.display = 'block';
+        lastSplitData = null;
+        window.scrollTo(0, 0);
+    }
+
+    function backFromResources() {
+        document.getElementById('resources-page').style.display = 'none';
+        
+        // If we opened a split category (theory/practic), go back to the split menu.
+        // Otherwise, go straight to subjects.
+        if (lastSplitData) {
+            document.getElementById('split-page').style.display = 'block';
+        } else {
+            document.getElementById('subject-page').style.display = 'block';
+        }
         window.scrollTo(0, 0);
     }
 
@@ -1197,7 +1342,13 @@ const physiologyResources = [
         const subject = subjectMap[subjectKey];
         if (!subject) return;
 
+        // Reset split memory if this isn't a split subject
+        if (!subjectKey.includes('-theory') && !subjectKey.includes('-practical')) {
+            lastSplitData = null;
+        }
+
         document.getElementById('subject-page').style.display = 'none';
+        document.getElementById('split-page').style.display = 'none';
         document.getElementById('resources-page').style.display = 'block';
 
         document.getElementById('resources-title').textContent = subject.title;
