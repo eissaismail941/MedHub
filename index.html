@@ -502,17 +502,6 @@
             color: var(--blue);
         }
 
-        .subject-card.coming-soon {
-            opacity: 0.55;
-            cursor: default;
-        }
-
-        .subject-card.coming-soon:hover {
-            transform: none;
-            border-color: transparent;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-        }
-
         #resources-page {
             display: none;
             min-height: 100vh;
@@ -593,6 +582,7 @@
             gap: 18px;
         }
 
+        /* ── HDSF resource cards (purple) ── */
         .resource-card {
             background: white;
             padding: 28px 22px;
@@ -654,6 +644,66 @@
             z-index: 2;
         }
 
+        /* ── BBB resource cards (blue) ── */
+        .resource-card.bbb-resource::before {
+            background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
+        }
+
+        .resource-card.bbb-resource:hover {
+            border-color: var(--blue);
+            box-shadow: 0 20px 50px rgba(0,87,255,0.1), 0 4px 12px rgba(0,87,255,0.07);
+        }
+
+        .resource-card.bbb-resource .resource-icon {
+            background: linear-gradient(135deg, rgba(0,87,255,0.1), rgba(96,165,250,0.18));
+            color: var(--blue);
+        }
+
+        .resource-card.bbb-resource .resource-index {
+            color: var(--blue);
+        }
+
+        .resource-card.bbb-resource .btn-open {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--bbb-light) 100%);
+            box-shadow: 0 10px 22px rgba(0,87,255,0.18);
+        }
+
+        .resource-card.bbb-resource .btn-download {
+            background: var(--bbb-bg);
+            color: var(--blue);
+            border: 1px solid rgba(0,87,255,0.12);
+        }
+
+        .resource-card.bbb-resource .btn-download::before {
+            background: rgba(0,87,255,0.15);
+        }
+
+        .resource-card.bbb-resource .btn-download:hover {
+            box-shadow: 0 8px 20px rgba(0,87,255,0.1);
+        }
+
+        .resource-card.bbb-resource .btn-download.is-downloading {
+            color: var(--blue);
+            border-color: rgba(0,87,255,0.3);
+        }
+
+        /* ── BBB success state — same green as HDSF ── */
+        .resource-card.bbb-resource .btn-download.is-success {
+            background: var(--correct);
+            color: white;
+            border-color: var(--correct);
+            pointer-events: none;
+            transform: scale(1);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+        }
+
+        .resource-card.bbb-resource .btn-download.is-success::before {
+            width: 0%;
+            opacity: 0;
+            transition: none;
+        }
+
+        /* ── shared button styles ── */
         .resource-card h3 {
             font-family: 'Syne', sans-serif;
             font-size: 1.02rem;
@@ -865,7 +915,7 @@
 
     <div class="group-section">
         <div class="group-label">
-            <span class="group-badge hdsf">🧬 HDSF</span>
+            <span class="group-badge hdsf">HDSF</span>
         </div>
         <div class="group-divider hdsf"></div>
 
@@ -873,76 +923,76 @@
             <div class="subject-card hdsf-card" onclick="loadResources('anatomy')">
                 <div class="card-icon">🫀</div>
                 <div class="card-name">Anatomy</div>
-                <div class="card-chip hdsf">10 PDF Files</div>
+                <div class="card-chip hdsf">11 PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('physiology')">
                 <div class="card-icon">🧠</div>
                 <div class="card-name">Physiology</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">18 PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('microbiology')">
                 <div class="card-icon">🦠</div>
                 <div class="card-name">Microbiology</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('histology')">
                 <div class="card-icon">🔭</div>
                 <div class="card-name">Histology</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('molecular-biology')">
                 <div class="card-icon">🧬</div>
                 <div class="card-name">Molecular Biology</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('genetics')">
                 <div class="card-icon">🔬</div>
                 <div class="card-name">Genetics</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('cytology')">
                 <div class="card-icon">🔵</div>
                 <div class="card-name">Cytology</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">PDF Files</div>
             </div>
 
-            <div class="subject-card hdsf-card coming-soon">
+            <div class="subject-card hdsf-card" onclick="loadResources('embryology')">
                 <div class="card-icon">🥚</div>
                 <div class="card-name">Embryology</div>
-                <div class="card-chip hdsf">Coming Soon</div>
+                <div class="card-chip hdsf">PDF Files</div>
             </div>
         </div>
     </div>
 
     <div class="group-section">
         <div class="group-label">
-            <span class="group-badge bbb">⚡ BBB</span>
+            <span class="group-badge bbb">BBB</span>
         </div>
         <div class="group-divider bbb"></div>
 
         <div class="subject-grid">
-            <div class="subject-card bbb-card coming-soon">
+            <div class="subject-card bbb-card" onclick="loadResources('biophysics')">
                 <div class="card-icon">⚡</div>
                 <div class="card-name">Biophysics</div>
-                <div class="card-chip bbb">Coming Soon</div>
+                <div class="card-chip bbb">23 PDF Files</div>
             </div>
 
-            <div class="subject-card bbb-card coming-soon">
+            <div class="subject-card bbb-card" onclick="loadResources('biochemistry')">
                 <div class="card-icon">🧪</div>
                 <div class="card-name">Biochemistry</div>
-                <div class="card-chip bbb">Coming Soon</div>
+                <div class="card-chip bbb">18 PDF Files</div>
             </div>
 
-            <div class="subject-card bbb-card coming-soon">
+            <div class="subject-card bbb-card" onclick="loadResources('bec')">
                 <div class="card-icon">🚑</div>
                 <div class="card-name">Basic Emergency Care</div>
-                <div class="card-chip bbb">Coming Soon</div>
+                <div class="card-chip bbb">12 PDF Files</div>
             </div>
         </div>
     </div>
@@ -950,14 +1000,14 @@
 
 <section id="resources-page">
     <div class="resources-header">
-        <h2 id="resources-title">Anatomy Resource Library</h2>
+        <h2 id="resources-title">Resource Library</h2>
         <p id="resources-subtitle">Professional PDF access for students. Every file can be opened in-browser or downloaded directly.</p>
     </div>
 
     <div class="resource-topbar">
         <div class="back-inline" onclick="backToSubjects()">← Back to subjects</div>
         <div class="resource-meta">
-            <div class="pill" id="resources-count">10 files</div>
+            <div class="pill" id="resources-count">0 files</div>
             <div class="pill">Public access ready</div>
         </div>
     </div>
@@ -978,6 +1028,7 @@
 </section>
 
 <script>
+    /* ───────────── ANATOMY (11 lectures) ───────────── */
     const anatomyResources = [
         { title: 'Introduction to Human Anatomy', description: 'Introduction to anatomy and anatomical terminology.', url: './lecture-001.pdf' },
         { title: 'Skeletal System', description: 'Bone structure, classification, and body framework', url: './lecture-002.pdf' },
@@ -988,9 +1039,111 @@
         { title: 'Cardiovascular System', description: 'Heart, blood vessels, and systemic circulation', url: './lecture-007.pdf' },
         { title: 'Respiratory System', description: 'Upper and lower airways, lungs, and gas exchange', url: './lecture-008.pdf' },
         { title: 'Digestive System', description: 'Alimentary tract, organs, and digestive glands', url: './lecture-009.pdf' },
-        { title: 'Genitourinary System', description: 'Kidneys, urinary tract, and reproductive organs', url: './lecture-0010.pdf' }
+        { title: 'Genitourinary System', description: 'Kidneys, urinary tract, and reproductive organs', url: './lecture-0010.pdf' },
+        { title: 'Lecture 11', description: 'Anatomy lecture 11', url: './lecture-0011.pdf' }
     ];
 
+    /* ───────────── PHYSIOLOGY (18 lectures) ───────────── */
+const physiologyResources = [
+    { title: 'Physiology Lecture 1', description: 'Physiology lecture 1', url: './physiology-lecture-01.pdf' },
+    { title: 'Physiology Lecture 2', description: 'Physiology lecture 2', url: './physiology-lecture-02.pdf' },
+    { title: 'Physiology Lecture 3', description: 'Physiology lecture 3', url: './physiology-lecture-03.pdf' },
+    { title: 'Physiology Lecture 4', description: 'Physiology lecture 4', url: './physiology-lecture-04.pdf' },
+    { title: 'Physiology Lecture 5', description: 'Physiology lecture 5', url: './physiology-lecture-05.pdf' },
+    { title: 'Physiology Lecture 6', description: 'Physiology lecture 6', url: './physiology-lecture-06.pdf' },
+    { title: 'Physiology Lecture 7', description: 'Physiology lecture 7', url: './physiology-lecture-07.pdf' },
+    { title: 'Physiology Lecture 8', description: 'Physiology lecture 8', url: './physiology-lecture-08.pdf' },
+    { title: 'Physiology Lecture 9', description: 'Physiology lecture 9', url: './physiology-lecture-09.pdf' },
+    { title: 'Physiology Lecture 10', description: 'Physiology lecture 10', url: './physiology-lecture-10.pdf' },
+    { title: 'Physiology Lecture 11', description: 'Physiology lecture 11', url: './physiology-lecture-11.pdf' },
+    { title: 'Physiology Lecture 12', description: 'Physiology lecture 12', url: './physiology-lecture-12.pdf' },
+    { title: 'Physiology Lecture 13', description: 'Physiology lecture 13', url: './physiology-lecture-13.pdf' },
+    { title: 'Physiology Lecture 14', description: 'Physiology lecture 14', url: './physiology-lecture-14.pdf' },
+    { title: 'Physiology Lecture 15', description: 'Physiology lecture 15', url: './physiology-lecture-15.pdf' },
+    { title: 'Physiology Lecture 16', description: 'Physiology lecture 16', url: './physiology-lecture-16.pdf' },
+    { title: 'Physiology Lecture 17', description: 'Physiology lecture 17', url: './physiology-lecture-17.pdf' },
+    { title: 'Physiology Lecture 18', description: 'Physiology lecture 18', url: './physiology-lecture-18.pdf' }
+];
+
+    /* ───────────── MICROBIOLOGY (update count when ready) ───────────── */
+    const microbiologyResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Microbiology Lecture ${i + 1}`,
+        description: `Microbiology lecture ${i + 1}`,
+        url: `./microbiology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── HISTOLOGY (update count when ready) ───────────── */
+    const histologyResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Histology Lecture ${i + 1}`,
+        description: `Histology lecture ${i + 1}`,
+        url: `./histology-lecture-${String(i + 1).padStart(2, '00')}.pdf`
+    }));
+
+    /* ───────────── MOLECULAR BIOLOGY (update count when ready) ───────────── */
+    const molecularBiologyResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Molecular Biology Lecture ${i + 1}`,
+        description: `Molecular biology lecture ${i + 1}`,
+        url: `./molecular-biology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── GENETICS (update count when ready) ───────────── */
+    const geneticsResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Genetics Lecture ${i + 1}`,
+        description: `Genetics lecture ${i + 1}`,
+        url: `./genetics-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── CYTOLOGY (update count when ready) ───────────── */
+    const cytologyResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Cytology Lecture ${i + 1}`,
+        description: `Cytology lecture ${i + 1}`,
+        url: `./cytology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── EMBRYOLOGY (update count when ready) ───────────── */
+    const embryologyResources = Array.from({ length: 1 }, (_, i) => ({
+        title: `Embryology Lecture ${i + 1}`,
+        description: `Embryology lecture ${i + 1}`,
+        url: `./embryology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── BIOPHYSICS (23 lectures) ───────────── */
+    const biophysicsResources = Array.from({ length: 23 }, (_, i) => ({
+        title: `Biophysics Lecture ${i + 1}`,
+        description: `Biophysics lecture ${i + 1}`,
+        url: `./biophysics-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── BIOCHEMISTRY (18 lectures) ───────────── */
+    const biochemistryResources = Array.from({ length: 18 }, (_, i) => ({
+        title: `Biochemistry Lecture ${i + 1}`,
+        description: `Biochemistry lecture ${i + 1}`,
+        url: `./biochemistry-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── BEC (12 lectures) ───────────── */
+    const becResources = Array.from({ length: 12 }, (_, i) => ({
+        title: `Basic Emergency Care Lecture ${i + 1}`,
+        description: `Basic emergency care lecture ${i + 1}`,
+        url: `./bec-lecture-${String(i + 1).padStart(2, '0')}.pdf`
+    }));
+
+    /* ───────────── subject map ───────────── */
+    const subjectMap = {
+        'anatomy':          { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
+        'physiology':       { title: 'Physiology Resource Library',           group: 'hdsf', resources: physiologyResources },
+        'microbiology':     { title: 'Microbiology Resource Library',         group: 'hdsf', resources: microbiologyResources },
+        'histology':        { title: 'Histology Resource Library',            group: 'hdsf', resources: histologyResources },
+        'molecular-biology':{ title: 'Molecular Biology Resource Library',    group: 'hdsf', resources: molecularBiologyResources },
+        'genetics':         { title: 'Genetics Resource Library',             group: 'hdsf', resources: geneticsResources },
+        'cytology':         { title: 'Cytology Resource Library',             group: 'hdsf', resources: cytologyResources },
+        'embryology':       { title: 'Embryology Resource Library',           group: 'hdsf', resources: embryologyResources },
+        'biophysics':       { title: 'Biophysics Resource Library',           group: 'bbb',  resources: biophysicsResources },
+        'biochemistry':     { title: 'Biochemistry Resource Library',         group: 'bbb',  resources: biochemistryResources },
+        'bec':              { title: 'Basic Emergency Care Resource Library',  group: 'bbb',  resources: becResources }
+    };
+
+    /* ───────────── navigation ───────────── */
     function showSubjects() {
         document.getElementById('hero-page').style.transform = "translateY(-100%)";
         setTimeout(() => {
@@ -1006,24 +1159,26 @@
     }
 
     function loadResources(subjectKey) {
+        const subject = subjectMap[subjectKey];
+        if (!subject) return;
+
         document.getElementById('subject-page').style.display = 'none';
         document.getElementById('resources-page').style.display = 'block';
 
-        if (subjectKey === 'anatomy') {
-            document.getElementById('resources-title').textContent = 'Anatomy Resource Library';
-            document.getElementById('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
-            document.getElementById('resources-count').textContent = `${anatomyResources.length} files`;
-            renderResources(anatomyResources);
-        }
+        document.getElementById('resources-title').textContent = subject.title;
+        document.getElementById('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
+        document.getElementById('resources-count').textContent = `${subject.resources.length} files`;
+        renderResources(subject.resources, subject.group);
 
         window.scrollTo(0, 0);
     }
 
-    function renderResources(items) {
+    function renderResources(items, group) {
         const grid = document.getElementById('resource-grid');
+        const isBBB = group === 'bbb';
 
         grid.innerHTML = items.map((item, index) => `
-            <article class="resource-card">
+            <article class="resource-card${isBBB ? ' bbb-resource' : ''}">
                 <div class="resource-icon">📄</div>
                 <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
                 <h3>${item.title}</h3>
@@ -1070,3 +1225,4 @@
 
 </body>
 </html>
+
