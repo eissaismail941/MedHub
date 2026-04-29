@@ -1122,11 +1122,18 @@ const physiologyResources = [
 ];
 
     /* ───────────── CYTOLOGY (update count when ready) ───────────── */
-    const cytologyResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Cytology Lecture ${i + 1}`,
-        description: `Cytology lecture ${i + 1}`,
-        url: `./cytology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
+    const cytologyResources = [
+    { title: 'Cytology Lecture 1', description: 'Cytology lecture 1', url: './cytology-lecture-01.pdf' },
+    { title: 'Cytology Lecture 2', description: 'Cytology lecture 2', url: './cytology-lecture-02.pdf' },
+    { title: 'Cytology Lecture 3', description: 'Cytology lecture 3', url: './cytology-lecture-03.pdf' },
+    { title: 'Cytology Lecture 4', description: 'Cytology lecture 4', url: './cytology-lecture-04.pdf' },
+    { title: 'Cytology Lecture 5', description: 'Cytology lecture 5', url: './cytology-lecture-05.pdf' },
+    { title: 'Cytology Lecture 6', description: 'Cytology lecture 6', url: './cytology-lecture-06.pdf' },
+    { title: 'Cytology Lecture 7', description: 'Cytology lecture 7', url: './cytology-lecture-07.pdf' },
+    { title: 'Cytology Lecture 8', description: 'Cytology lecture 8', url: './cytology-lecture-08.pdf' },
+    { title: 'Cytology Lecture 9', description: 'Cytology lecture 9', url: './cytology-lecture-09.pdf' },
+    { title: 'Cytology Lecture 10', description: 'Cytology lecture 10', url: './cytology-lecture-10.pdf' }
+];
 
     /* ───────────── EMBRYOLOGY (update count when ready) ───────────── */
     const embryologyResources = Array.from({ length: 1 }, (_, i) => ({
@@ -1253,4 +1260,3 @@ const physiologyResources = [
 
 </body>
 </html>
-
