@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedHub | Block 2 Portal</title>
-    
     <style>
         :root {
             --blue: #0057FF;
@@ -239,14 +238,44 @@
 
         .enter-btn:hover .enter-btn-arrow { transform: translateX(4px); }
 
-        .hero-copy {
+                /* This container holds both your name and the sponsor link */
+        .footer-credits {
             margin-top: 26px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px; /* Space between your name and the sponsor */
+            animation: fadeUp 0.7s 0.42s ease both;
+        }
+
+        .hero-copy {
             font-size: 0.78rem;
             color: #c0ccd8;
             font-weight: 400;
             letter-spacing: 0.3px;
-            animation: fadeUp 0.7s 0.42s ease both;
+            margin: 0;
         }
+
+        .sponsor-copy {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            margin: 0;
+        }
+
+        .sponsor-copy a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-copy a:hover {
+            color: var(--blue);
+            text-shadow: 0 0 12px rgba(0, 87, 255, 0.4);
+        }
+
 
         .float-badges {
             position: absolute;
@@ -959,7 +988,11 @@
             </svg>
         </button>
 
-        <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
+                <div class="footer-credits">
+            <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
+            <p class="sponsor-copy">Sponsored by <a href="https://shabazrasheed10-rgb.github.io/Med-test/index.html" target="_blank" rel="noopener noreferrer">Med-Q App</a></p>
+        </div>
+
     </div>
 
     <div class="hero-line"></div>
