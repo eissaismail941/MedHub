@@ -1207,9 +1207,10 @@
     ];
 
     /* ───────────── EMBRYOLOGY ───────────── */
-    const embryologyResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Embryology Lecture ${i + 1}`, description: `Embryology lecture ${i + 1}`, url: `./embryology-lecture-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
+    const embryologyResources = [
+    { title: 'Embryology Lecture 1', description: 'Embryology lecture 1', url: './embryology-lecture-01.pdf' },
+    { title: 'Embryology Lecture 2', description: 'Embryology lecture 2', url: './embryology-lecture-02.pdf' }
+];
 
     /* ───────────── BIOPHYSICS (Split) ───────────── */
     const biophysicsTheoryResources = Array.from({ length: 23 }, (_, i) => ({
