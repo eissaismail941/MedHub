@@ -1536,7 +1536,7 @@ const biochemistryPracticalResources = [
                 <p>${item.description}</p>
                 <div class="resource-actions">
                     <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>
-                    <a class="btn-link btn-download" href="${item.url}" download onclick="showDownloadState(this)">Download</a>
+                    <a class="btn-link btn-download" href="${item.url}" onclick="downloadPDF(event, this, '${item.url}')">Download</a>
                 </div>
             </article>
         `).join('');
@@ -1572,6 +1572,31 @@ const biochemistryPracticalResources = [
 
         }, 2000);
     }
+    async function downloadPDF(event, btn, url) {
+    event.preventDefault();
+
+    showDownloadState(btn);
+
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = url.split('/').pop();
+        document.body.appendChild(a);
+
+        a.click();
+
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(blobUrl);
+
+    } catch (error) {
+        window.location.href = url;
+    }
+}
 </script>
 
 </body>
