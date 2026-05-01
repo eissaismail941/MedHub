@@ -987,7 +987,24 @@
     .btn-link:hover,
     .btn-download:hover {
         transform: none !important;
-        background: inherit;
+    }
+
+    .btn-open,
+    .btn-open:hover,
+    .btn-open:focus,
+    .btn-open:active,
+    .btn-open:visited {
+        background: linear-gradient(135deg, var(--hdsf) 0%, var(--hdsf-light) 100%) !important;
+        color: white !important;
+    }
+
+    .resource-card.bbb-resource .btn-open,
+    .resource-card.bbb-resource .btn-open:hover,
+    .resource-card.bbb-resource .btn-open:focus,
+    .resource-card.bbb-resource .btn-open:active,
+    .resource-card.bbb-resource .btn-open:visited {
+        background: linear-gradient(135deg, var(--blue) 0%, var(--bbb-light) 100%) !important;
+        color: white !important;
     }
 }
 
@@ -1028,19 +1045,22 @@ button,
 @media (hover: none) and (pointer: coarse) {
 
     .subject-card:hover,
-    .subject-card.hdsf-card:hover,
-    .subject-card.bbb-card:hover,
-    .split-card:hover,
-    .split-card.theory-card.hdsf-theme:hover,
-    .split-card.theory-card.bbb-theme:hover,
-    .split-card.practical-card:hover,
-    .resource-card:hover,
-    .resource-card.bbb-resource:hover,
-    .btn-link:hover,
-    .btn-download:hover {
-        transform: none;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-    }
+.subject-card.hdsf-card:hover,
+.subject-card.bbb-card:hover,
+.split-card:hover,
+.split-card.theory-card.hdsf-theme:hover,
+.split-card.theory-card.bbb-theme:hover,
+.split-card.practical-card:hover,
+.resource-card:hover,
+.resource-card.bbb-resource:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.btn-link:hover,
+.btn-download:hover {
+    transform: none;
+}
 
     .subject-card:hover,
     .subject-card.hdsf-card:hover,
