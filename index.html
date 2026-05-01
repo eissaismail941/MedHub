@@ -1148,27 +1148,29 @@
         { title: 'Lecture 11', description: 'Anatomy lecture 11', url: './lecture-0011.pdf' }
     ];
 
-    /* ───────────── PHYSIOLOGY (18 lectures) ───────────── */
     const physiologyResources = [
-        { title: 'Feedback Systems', description: 'SGL', url: './physiology-lecture-01.pdf' },
-        { title: 'Thermoregulation', description: 'LG', url: './physiology-lecture-02.pdf' },
-        { title: 'Receptor Physiology', description: 'SGL', url: './physiology-lecture-03.pdf' },
-        { title: 'Cell Physiology', description: 'SGL', url: './physiology-lecture-04.pdf' },
-        { title: 'Introduction to Physiology', description: 'LG', url: './physiology-lecture-05.pdf' },
-        { title: 'Apoptosis', description: 'LG', url: './physiology-lecture-06.pdf' },
-        { title: 'Plasma Membrane', description: 'SGL', url: './physiology-lecture-07.pdf' },
-        { title: 'Physiology Of Hormones', description: 'SGL', url: './physiology-lecture-08.pdf' },
-        { title: 'Nutrition', description: 'LG', url: './physiology-lecture-09.pdf' },
-        { title: 'Obesity', description: 'LG', url: './physiology-lecture-10.pdf' },
-        { title: 'Physiology Of Inflammation', description: 'LG', url: './physiology-lecture-11.pdf' },
-        { title: 'Physiology of Metabolism I', description: 'SGL', url: './physiology-lecture-12.pdf' },
-        { title: 'Physiology of Metabolism II', description: 'SGL', url: './physiology-lecture-13.pdf' },
-        { title: 'Physiology Of Neurons', description: 'LG', url: './physiology-lecture-14.pdf' },
-        { title: 'Passive transport', description: 'SGL', url: './physiology-lecture-15.pdf' },
-        { title: 'Physiology Of Immune System', description: 'LG', url: './physiology-lecture-16.pdf' },
-        { title: 'Signal Transduction', description: 'SGL', url: './physiology-lecture-17.pdf' },
-        { title: 'Active transport', description: 'SGL', url: './physiology-lecture-18.pdf' }
-    ];
+    /* ── SGL ── */
+    { title: 'Feedback Systems', description: 'SGL', url: './physiology-lecture-01.pdf' },
+    { title: 'Receptor Physiology', description: 'SGL', url: './physiology-lecture-03.pdf' },
+    { title: 'Cell Physiology', description: 'SGL', url: './physiology-lecture-04.pdf' },
+    { title: 'Plasma Membrane', description: 'SGL', url: './physiology-lecture-07.pdf' },
+    { title: 'Physiology Of Hormones', description: 'SGL', url: './physiology-lecture-08.pdf' },
+    { title: 'Physiology of Metabolism I', description: 'SGL', url: './physiology-lecture-12.pdf' },
+    { title: 'Physiology of Metabolism II', description: 'SGL', url: './physiology-lecture-13.pdf' },
+    { title: 'Passive transport', description: 'SGL', url: './physiology-lecture-15.pdf' },
+    { title: 'Signal Transduction', description: 'SGL', url: './physiology-lecture-17.pdf' },
+    { title: 'Active transport', description: 'SGL', url: './physiology-lecture-18.pdf' },
+    
+    /* ── LG ── */
+    { title: 'Thermoregulation', description: 'LG', url: './physiology-lecture-02.pdf' },
+    { title: 'Introduction to Physiology', description: 'LG', url: './physiology-lecture-05.pdf' },
+    { title: 'Apoptosis', description: 'LG', url: './physiology-lecture-06.pdf' },
+    { title: 'Nutrition', description: 'LG', url: './physiology-lecture-09.pdf' },
+    { title: 'Obesity', description: 'LG', url: './physiology-lecture-10.pdf' },
+    { title: 'Physiology Of Inflammation', description: 'LG', url: './physiology-lecture-11.pdf' },
+    { title: 'Physiology Of Neurons', description: 'LG', url: './physiology-lecture-14.pdf' },
+    { title: 'Physiology Of Immune System', description: 'LG', url: './physiology-lecture-16.pdf' }
+];
 
     /* ───────────── MICROBIOLOGY (Split) ───────────── */
     const microbiologyTheoryResources = Array.from({ length: 1 }, (_, i) => ({
@@ -1180,64 +1182,75 @@
 
     /* ───────────── HISTOLOGY ───────────── */
     const histologyResources = [
-        { title: 'Histology Lecture 1', description: 'Histology lecture 1', url: './histology-lecture-01.pdf' },
-        { title: 'Histology Lecture 2', description: 'Histology lecture 2', url: './histology-lecture-02.pdf' },
-        { title: 'Histology Lecture 3', description: 'Histology lecture 3', url: './histology-lecture-03.pdf' },
-        { title: 'Histology Lecture 4', description: 'Histology lecture 4', url: './histology-lecture-04.pdf' },
-        { title: 'Histology Lecture 5', description: 'Histology lecture 5', url: './histology-lecture-05.pdf' },
-        { title: 'Histology Lecture 6', description: 'Histology lecture 6', url: './histology-lecture-06.pdf' },
-        { title: 'Histology Lecture 7', description: 'Histology lecture 7', url: './histology-lecture-07.pdf' },
-        { title: 'Histology Lecture 8', description: 'Histology lecture 8', url: './histology-lecture-08.pdf' }
-    ];
+    /* ───────────── SGL ───────────── */
+    { title: 'Classification of Epithelial Tissue', description: 'SGL', url: './histology-lecture-03.pdf' },
+    { title: 'Specializations Of Epithelial Cells', description: 'SGL', url: './histology-lecture-04.pdf' },
+    { title: 'Connective Tissue', description: 'SGL', url: './histology-lecture-06.pdf' },
+    { title: 'Cartilage', description: 'SGL', url: './histology-lecture-08.pdf' },
+    
+    /* ───────────── LG ───────────── */
+    { title: 'Introduction to Histology', description: 'LG', url: './histology-lecture-01.pdf' },
+    { title: 'Muscle Tissues', description: 'LG', url: './histology-lecture-02.pdf' },
+    { title: 'Blood', description: 'LG', url: './histology-lecture-05.pdf' },
+    { title: 'Nervous Tissue', description: 'LG', url: './histology-lecture-07.pdf' }
+];
 
-    /* ───────────── MOLECULAR BIOLOGY ───────────── */
     const molecularBiologyResources = [
-        { title: 'Molecular Biology Lecture 1', description: 'Molecular biology lecture 1', url: './molecular-biology-lecture-01.pdf' },
-        { title: 'Molecular Biology Lecture 2', description: 'Molecular biology lecture 2', url: './molecular-biology-lecture-02.pdf' },
-        { title: 'Molecular Biology Lecture 3', description: 'Molecular biology lecture 3', url: './molecular-biology-lecture-03.pdf' },
-        { title: 'Molecular Biology Lecture 4', description: 'Molecular biology lecture 4', url: './molecular-biology-lecture-04.pdf' },
-        { title: 'Molecular Biology Lecture 5', description: 'Molecular biology lecture 5', url: './molecular-biology-lecture-05.pdf' },
-        { title: 'Molecular Biology Lecture 6', description: 'Molecular biology lecture 6', url: './molecular-biology-lecture-06.pdf' },
-        { title: 'Molecular Biology Lecture 7', description: 'Molecular biology lecture 7', url: './molecular-biology-lecture-07.pdf' },
-        { title: 'Molecular Biology Lecture 8', description: 'Molecular biology lecture 8', url: './molecular-biology-lecture-08.pdf' },
-        { title: 'Molecular Biology Lecture 9', description: 'Molecular biology lecture 9', url: './molecular-biology-lecture-09.pdf' },
-        { title: 'Molecular Biology Lecture 10', description: 'Molecular biology lecture 10', url: './molecular-biology-lecture-10.pdf' },
-        { title: 'Molecular Biology Lecture 11', description: 'Molecular biology lecture 11', url: './molecular-biology-lecture-11.pdf' },
-        { title: 'Molecular Biology Lecture 12', description: 'Molecular biology lecture 12', url: './molecular-biology-lecture-12.pdf' },
-        { title: 'Molecular Biology Lecture 13', description: 'Molecular biology lecture 13', url: './molecular-biology-lecture-13.pdf' },
-        { title: 'Molecular Biology Lecture 14', description: 'Molecular biology lecture 14', url: './molecular-biology-lecture-14.pdf' },
-        { title: 'Molecular Biology Lecture 15', description: 'Molecular biology lecture 15', url: './molecular-biology-lecture-15.pdf' }
-    ];
+    /* ── SGL ── */
+    { title: 'Gene and Genome of Human', description: 'SGL', url: './molecular-biology-lecture-02.pdf' },
+    { title: 'Fundamental Biochemistry of the Genome', description: 'SGL', url: './molecular-biology-lecture-03.pdf' },
+    { title: 'Structure and Function of DNA & RAN', description: 'SGL', url: './molecular-biology-lecture-05.pdf' },
+    { title: 'Genome Replication', description: 'SGL', url: './molecular-biology-lecture-07.pdf' },
+    { title: 'Genetic Code & Gene Expression', description: 'SGL', url: './molecular-biology-lecture-09.pdf' },
+    { title: 'Mutations & Genome Variations', description: 'SGL', url: './molecular-biology-lecture-11.pdf' },
+    { title: 'Applications and Techniques of MB', description: 'SGL', url: './molecular-biology-lecture-13.pdf' },
+    
+    /* ── LG ── */
+    { title: 'Epigenitics', description: 'LG', url: './molecular-biology-lecture-01.pdf' },
+    { title: 'Telomerase', description: 'LG', url: './molecular-biology-lecture-04.pdf' },
+    { title: 'DNA Fingerprinting', description: 'LG', url: './molecular-biology-lecture-06.pdf' },
+    { title: 'Human Genetic Variation', description: 'LG', url: './molecular-biology-lecture-08.pdf' },
+    { title: 'Gene Library', description: 'LG', url: './molecular-biology-lecture-10.pdf' },
+    { title: 'Gene Cloning', description: 'LG', url: './molecular-biology-lecture-12.pdf' },
+    { title: 'Cystic Fibrosis', description: 'LG', url: './molecular-biology-lecture-14.pdf' },
+    { title: 'Covid-19 mRNA vaccine', description: 'LG', url: './molecular-biology-lecture-15.pdf' }
+];
 
     /* ───────────── GENETICS ───────────── */
     const geneticsResources = [
-        { title: 'Genetics Lecture 1', description: 'Genetics lecture 1', url: './genetics-lecture-01.pdf' },
-        { title: 'Genetics Lecture 2', description: 'Genetics lecture 2', url: './genetics-lecture-02.pdf' },
-        { title: 'Genetics Lecture 3', description: 'Genetics lecture 3', url: './genetics-lecture-03.pdf' },
-        { title: 'Genetics Lecture 4', description: 'Genetics lecture 4', url: './genetics-lecture-04.pdf' },
-        { title: 'Genetics Lecture 5', description: 'Genetics lecture 5', url: './genetics-lecture-05.pdf' },
-        { title: 'Genetics Lecture 6', description: 'Genetics lecture 6', url: './genetics-lecture-06.pdf' },
-        { title: 'Genetics Lecture 7', description: 'Genetics lecture 7', url: './genetics-lecture-07.pdf' },
-        { title: 'Genetics Lecture 8', description: 'Genetics lecture 8', url: './genetics-lecture-08.pdf' },
-        { title: 'Genetics Lecture 9', description: 'Genetics lecture 9', url: './genetics-lecture-09.pdf' },
-        { title: 'Genetics Lecture 10', description: 'Genetics lecture 10', url: './genetics-lecture-10.pdf' },
-        { title: 'Genetics Lecture 11', description: 'Genetics lecture 11', url: './genetics-lecture-11.pdf' },
-        { title: 'Genetics Lecture 12', description: 'Genetics lecture 12', url: './genetics-lecture-12.pdf' }
-    ];
+    /* ───────────── SGL ───────────── */
+    { title: 'Mendelian Genetics', description: 'SGL', url: './genetics-lecture-01.pdf' },
+    { title: 'Linkage & Sex Determination', description: 'SGL', url: './genetics-lecture-03.pdf' },
+    { title: 'Sex-Linked Inheritance', description: 'SGL', url: './genetics-lecture-04.pdf' },
+    { title: 'Thalassemia', description: 'SGL', url: './genetics-lecture-05.pdf' },
+    { title: 'Autosomal Inheritance Disorders', description: 'SGL', url: './genetics-lecture-07.pdf' },
+    { title: 'Inheritance Patterns & Genetic Diseases', description: 'SGL', url: './genetics-lecture-09.pdf' },
+    { title: 'Genetic Screening & PGD', description: 'SGL', url: './genetics-lecture-12.pdf' },
+    
+    /* ───────────── LG ───────────── */
+    { title: 'Introduction to Genetics', description: 'LG', url: './genetics-lecture-02.pdf' },
+    { title: 'Extending Mendelian Genetics', description: 'LG', url: './genetics-lecture-06.pdf' },
+    { title: 'Genetic Disorders', description: 'LG', url: './genetics-lecture-08.pdf' },
+    { title: 'Prenatal Genetic Testing', description: 'LG', url: './genetics-lecture-10.pdf' },
+    { title: 'Gene Therapy', description: 'LG', url: './genetics-lecture-11.pdf' }
+];
 
     /* ───────────── CYTOLOGY ───────────── */
     const cytologyResources = [
-        { title: 'Cytology Lecture 1', description: 'Cytology lecture 1', url: './cytology-lecture-01.pdf' },
-        { title: 'Cytology Lecture 2', description: 'Cytology lecture 2', url: './cytology-lecture-02.pdf' },
-        { title: 'Cytology Lecture 3', description: 'Cytology lecture 3', url: './cytology-lecture-03.pdf' },
-        { title: 'Cytology Lecture 4', description: 'Cytology lecture 4', url: './cytology-lecture-04.pdf' },
-        { title: 'Cytology Lecture 5', description: 'Cytology lecture 5', url: './cytology-lecture-05.pdf' },
-        { title: 'Cytology Lecture 6', description: 'Cytology lecture 6', url: './cytology-lecture-06.pdf' },
-        { title: 'Cytology Lecture 7', description: 'Cytology lecture 7', url: './cytology-lecture-07.pdf' },
-        { title: 'Cytology Lecture 8', description: 'Cytology lecture 8', url: './cytology-lecture-08.pdf' },
-        { title: 'Cytology Lecture 9', description: 'Cytology lecture 9', url: './cytology-lecture-09.pdf' },
-        { title: 'Cytology Lecture 10', description: 'Cytology lecture 10', url: './cytology-lecture-10.pdf' }
-    ];
+    /* ───────────── SGL ───────────── */
+    { title: 'Protoplasm', description: 'SGL', url: './cytology-lecture-01.pdf' },
+    { title: 'Organic & Inorganic Components', description: 'SGL', url: './cytology-lecture-04.pdf' },
+    { title: 'Transport Across Membranes', description: 'SGL', url: './cytology-lecture-05.pdf' },
+    { title: 'Cell Organelles I', description: 'SGL', url: './cytology-lecture-08.pdf' },
+    { title: 'Cell Organelles II', description: 'SGL', url: './cytology-lecture-09.pdf' },
+    
+    /* ───────────── LG ───────────── */
+    { title: 'Cell Definition & Types', description: 'LG', url: './cytology-lecture-02.pdf' },
+    { title: 'Plasma Membrane', description: 'LG', url: './cytology-lecture-03.pdf' },
+    { title: 'The Nucleus', description: 'LG', url: './cytology-lecture-06.pdf' },
+    { title: 'Cell Division & Cell Cycle', description: 'LG', url: './cytology-lecture-07.pdf' },
+    { title: 'Mitosis & Meiosis', description: 'LG', url: './cytology-lecture-10.pdf' }
+];
 
     /* ───────────── EMBRYOLOGY ───────────── */
     const embryologyResources = [
