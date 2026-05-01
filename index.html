@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedHub | Portal</title>
+    <title>MedHub | Block 2 Portal</title>
     <style>
         :root {
             --blue: #0057FF;
@@ -20,7 +20,30 @@
             --bbb-bg: #eff6ff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+.subject-card,
+.split-card,
+.resource-card,
+.btn-link,
+.back-inline,
+.enter-btn {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+.subject-card:focus,
+.split-card:focus,
+.resource-card:focus,
+.btn-link:focus,
+.back-inline:focus,
+.enter-btn:focus {
+    outline: none;
+}
 
         body {
             background: #ffffff;
