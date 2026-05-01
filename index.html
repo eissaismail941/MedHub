@@ -981,7 +981,7 @@
 
         <p class="hero-sub">All your subjects, in One place.</p>
 
-        <button class="enter-btn" onclick="enterPortal()">
+        <button class="enter-btn" onclick="showSubjects()">
             Enter Portal
             <svg class="enter-btn-arrow" viewBox="0 0 20 20" fill="none">
                 <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1377,20 +1377,13 @@ const biochemistryPracticalResources = [
     /* ───────────── NAVIGATION STATE ───────────── */
     let lastSplitData = null; // Remembers if we came from a Split Page
 
-    function enterPortal() {
-    localStorage.setItem('medhubEntered', 'yes');
-    showSubjects();
-}
-
-function showSubjects() {
-    document.getElementById('hero-page').style.transform = "translateY(-100%)";
-
-    setTimeout(() => {
-        document.getElementById('hero-page').style.display = 'none';
-        document.getElementById('subject-page').style.display = 'block';
-        window.scrollTo(0, 0);
-    }, 600);
-}
+    function showSubjects() {
+        document.getElementById('hero-page').style.transform = "translateY(-100%)";
+        setTimeout(() => {
+            document.getElementById('subject-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }, 600);
+    }
 
     // Handles triggering the Theory/Practical Screen
     function showSplitCards(subjectKey, group, title) {
@@ -1509,13 +1502,6 @@ function showSubjects() {
 
         }, 2000);
     }
-window.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('medhubEntered') === 'yes') {
-        document.getElementById('hero-page').style.display = 'none';
-        document.getElementById('subject-page').style.display = 'block';
-        window.scrollTo(0, 0);
-    }
-});
 </script>
 
 </body>
