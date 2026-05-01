@@ -39,7 +39,7 @@
             position: fixed;
             top: 0; left: 0; z-index: 1000;
             background: #ffffff;
-            transition: transform 0.9s cubic-bezier(0.8, 0, 0.2, 1);
+            transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
             overflow: hidden;
         }
 
@@ -238,13 +238,12 @@
 
         .enter-btn:hover .enter-btn-arrow { transform: translateX(4px); }
 
-                /* This container holds both your name and the sponsor link */
         .footer-credits {
             margin-top: 26px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px; /* Space between your name and the sponsor */
+            gap: 8px; 
             animation: fadeUp 0.7s 0.42s ease both;
         }
 
@@ -445,13 +444,25 @@
             gap: 18px;
         }
 
+        /* ── NEW: Smooth Slide Up Animation for Cards ── */
+        @keyframes smoothSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(45px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .subject-card {
             background: white;
             padding: 28px 22px;
             border-radius: 24px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
@@ -459,7 +470,19 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 12px;
+            /* Applied Smooth Animation */
+            animation: smoothSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
+
+        /* Staggered entry for a super professional look! */
+        .subject-grid .subject-card:nth-child(1) { animation-delay: 0.05s; }
+        .subject-grid .subject-card:nth-child(2) { animation-delay: 0.12s; }
+        .subject-grid .subject-card:nth-child(3) { animation-delay: 0.19s; }
+        .subject-grid .subject-card:nth-child(4) { animation-delay: 0.26s; }
+        .subject-grid .subject-card:nth-child(5) { animation-delay: 0.33s; }
+        .subject-grid .subject-card:nth-child(6) { animation-delay: 0.40s; }
+        .subject-grid .subject-card:nth-child(7) { animation-delay: 0.47s; }
+        .subject-grid .subject-card:nth-child(8) { animation-delay: 0.54s; }
 
         .subject-card::before {
             content: '';
@@ -551,7 +574,7 @@
             border-radius: 24px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
@@ -560,7 +583,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            /* Giving split cards the same nice animation */
+            animation: smoothSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
+        
+        .split-card:nth-child(1) { animation-delay: 0.05s; }
+        .split-card:nth-child(2) { animation-delay: 0.15s; }
 
         .split-card::before {
             content: '';
@@ -675,7 +703,7 @@
             padding: 28px 22px;
             border-radius: 24px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: none;
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
@@ -683,6 +711,8 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 12px;
+            /* Added smooth up animation to resources too so the whole site is uniform! */
+            animation: none;
         }
 
         .resource-card::before {
@@ -702,10 +732,9 @@
         }
 
         .resource-card:hover {
-            border-color: var(--hdsf);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(124,58,237,0.12), 0 4px 12px rgba(124,58,237,0.08);
-        }
+    border-color: var(--hdsf);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+}
 
         .resource-card:hover::before { opacity: 1; }
 
@@ -988,7 +1017,7 @@
             </svg>
         </button>
 
-                <div class="footer-credits">
+        <div class="footer-credits">
             <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
             <p class="sponsor-copy">Sponsored by <a href="https://shabazrasheed10-rgb.github.io/Med-test/index.html" target="_blank" rel="noopener noreferrer">Med-Q App</a></p>
         </div>
@@ -1054,7 +1083,7 @@
             </div>
 
             <div class="subject-card hdsf-card" onclick="loadResources('embryology')">
-                <div class="card-icon">🥚</div>
+                <div class="card-icon">👶</div>
                 <div class="card-name">Embryology</div>
                 <div class="card-chip hdsf">PDF Files</div>
             </div>
@@ -1086,6 +1115,10 @@
                 <div class="card-chip bbb">PDF Files</div>
             </div>
         </div>
+    </div>
+
+    <div class="footer-credits">
+        <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
     </div>
 </section>
 
@@ -1124,6 +1157,12 @@
 </section>
 
 <script>
+    // ── NEW: Check local storage IMMEDIATELY. If they have visited before, skip the hero page! ──
+    if (localStorage.getItem('hasVisitedMedHub') === 'true') {
+        document.getElementById('hero-page').style.display = 'none';
+        document.getElementById('subject-page').style.display = 'block';
+    }
+
     /* ───────────── ANATOMY (11 lectures) ───────────── */
     const anatomyResources = [
         { title: 'Introduction to Human Anatomy', description: 'Introduction to anatomy and anatomical terminology.', url: './lecture-001.pdf' },
@@ -1403,11 +1442,16 @@ const biochemistryPracticalResources = [
     let lastSplitData = null; // Remembers if we came from a Split Page
 
     function showSubjects() {
+        // ── NEW: Mark that they have visited when they click Enter ──
+        localStorage.setItem('hasVisitedMedHub', 'true');
+        
         document.getElementById('hero-page').style.transform = "translateY(-100%)";
         setTimeout(() => {
+            // ── Added display: none here to make sure hero page is gone ──
+            document.getElementById('hero-page').style.display = 'none';
             document.getElementById('subject-page').style.display = 'block';
             window.scrollTo(0, 0);
-        }, 600);
+        }, 1350);
     }
 
     // Handles triggering the Theory/Practical Screen
@@ -1483,8 +1527,9 @@ const biochemistryPracticalResources = [
         const grid = document.getElementById('resource-grid');
         const isBBB = group === 'bbb';
 
+        // Stagger resource cards slightly too!
         grid.innerHTML = items.map((item, index) => `
-            <article class="resource-card${isBBB ? ' bbb-resource' : ''}">
+            <article class="resource-card${isBBB ? ' bbb-resource' : ''}" style="animation-delay: ${index * 0.05}s">
                 <div class="resource-icon">📄</div>
                 <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
                 <h3>${item.title}</h3>
