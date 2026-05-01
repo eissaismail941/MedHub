@@ -970,6 +970,108 @@
             .resource-actions { flex-direction: column; }
             .btn-link { width: 100%; }
         }
+        /* iOS / mobile fix: stop sticky selected card */
+@media (hover: none) and (pointer: coarse) {
+    .resource-card:hover,
+    .resource-card.bbb-resource:hover {
+        border-color: transparent !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03) !important;
+        transform: none !important;
+    }
+
+    .resource-card:hover::before,
+    .resource-card.bbb-resource:hover::before {
+        opacity: 0 !important;
+    }
+
+    .btn-link:hover,
+    .btn-download:hover {
+        transform: none !important;
+        background: inherit;
+    }
+}
+
+/* remove iPhone tap highlight */
+.resource-card,
+.btn-link,
+.btn-download {
+    -webkit-tap-highlight-color: transparent;
+}
+/* ───────────── iOS Safari Professional Tap Fix ───────────── */
+
+/* Remove iOS default tap rectangle */
+a,
+button,
+.subject-card,
+.split-card,
+.resource-card,
+.back-inline,
+.btn-link {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Prevent ugly text/card selection on mobile */
+.subject-card,
+.split-card,
+.resource-card,
+.back-inline,
+.btn-link {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* IMPORTANT:
+   On phones/tablets, disable sticky hover.
+   Hover should only be for laptop/desktop mouse.
+*/
+@media (hover: none) and (pointer: coarse) {
+
+    .subject-card:hover,
+    .subject-card.hdsf-card:hover,
+    .subject-card.bbb-card:hover,
+    .split-card:hover,
+    .split-card.theory-card.hdsf-theme:hover,
+    .split-card.theory-card.bbb-theme:hover,
+    .split-card.practical-card:hover,
+    .resource-card:hover,
+    .resource-card.bbb-resource:hover,
+    .btn-link:hover,
+    .btn-download:hover {
+        transform: none;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+    }
+
+    .subject-card:hover,
+    .subject-card.hdsf-card:hover,
+    .subject-card.bbb-card:hover,
+    .split-card:hover,
+    .split-card.theory-card.hdsf-theme:hover,
+    .split-card.theory-card.bbb-theme:hover,
+    .split-card.practical-card:hover,
+    .resource-card:hover,
+    .resource-card.bbb-resource:hover {
+        border-color: transparent;
+    }
+
+    .subject-card:hover::before,
+    .split-card:hover::before,
+    .resource-card:hover::before {
+        opacity: 0;
+    }
+
+    /* Nice mobile press effect instead of sticky hover */
+    .subject-card:active,
+    .split-card:active,
+    .resource-card:active {
+        transform: scale(0.98);
+    }
+
+    .btn-link:active,
+    .back-inline:active {
+        transform: scale(0.97);
+    }
+}
     </style>
 </head>
 
@@ -1572,6 +1674,24 @@ const biochemistryPracticalResources = [
 
         }, 2000);
     }
+    /* iOS fix: remove stuck focus/selection after tapping */
+document.addEventListener('touchend', function () {
+    setTimeout(function () {
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
+    }, 50);
+});
+/* ───────────── iOS Safari Clear Focus Fix ───────────── */
+document.addEventListener('touchend', function (e) {
+    const tappedClickable = e.target.closest(
+        'a, button, .subject-card, .split-card, .back-inline'
+    );
+
+    if (!tappedClickable && document.activeElement) {
+        document.activeElement.blur();
+    }
+}, { passive: true });
 </script>
 
 </body>
