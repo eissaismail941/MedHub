@@ -970,33 +970,6 @@
             .resource-actions { flex-direction: column; }
             .btn-link { width: 100%; }
         }
-        /* iOS / mobile fix: stop sticky selected card */
-@media (hover: none) and (pointer: coarse) {
-    .resource-card:hover,
-    .resource-card.bbb-resource:hover {
-        border-color: transparent !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03) !important;
-        transform: none !important;
-    }
-
-    .resource-card:hover::before,
-    .resource-card.bbb-resource:hover::before {
-        opacity: 0 !important;
-    }
-
-    .btn-link:hover,
-    .btn-download:hover {
-        transform: none !important;
-        background: inherit;
-    }
-}
-
-/* remove iPhone tap highlight */
-.resource-card,
-.btn-link,
-.btn-download {
-    -webkit-tap-highlight-color: transparent;
-}
     </style>
 </head>
 
@@ -1599,15 +1572,6 @@ const biochemistryPracticalResources = [
 
         }, 2000);
     }
-    /* iOS fix: remove stuck focus/selection after tapping */
-document.addEventListener('touchend', function () {
-    setTimeout(function () {
-        if (document.activeElement) {
-            document.activeElement.blur();
-        }
-    }, 50);
-});
-
 </script>
 
 </body>
