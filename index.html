@@ -1173,12 +1173,41 @@
 ];
 
     /* ───────────── MICROBIOLOGY (Split) ───────────── */
-    const microbiologyTheoryResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Microbiology Theory ${i + 1}`, description: `Theory lecture ${i + 1}`, url: `./microbiology-theory-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
-    const microbiologyPracticalResources = Array.from({ length: 1 }, (_, i) => ({
-        title: `Microbiology Practical ${i + 1}`, description: `Lab manual ${i + 1}`, url: `./microbiology-practical-${String(i + 1).padStart(2, '0')}.pdf`
-    }));
+    const microbiologyTheoryResources = [
+    /* ───────────── SGL ───────────── */
+    { title: 'The Microbial World', description: 'SGL', url: './microbiology-theory-02.pdf' },
+    { title: 'Bacterial Cell Structure', description: 'SGL', url: './microbiology-theory-03.pdf' },
+    { title: 'Microbial Genetics', description: 'SGL', url: './microbiology-theory-06.pdf' },
+    { title: 'Antimicrobial Resistance', description: 'SGL', url: './microbiology-theory-08.pdf' },
+    { title: 'Atypical Bacteria', description: 'SGL', url: './microbiology-theory-10.pdf' },
+    { title: 'Protozoa', description: 'SGL', url: './microbiology-theory-14.pdf' },
+    { title: 'Viral Replication & Diagnosis', description: 'SGL', url: './microbiology-theory-15.pdf' },
+    { title: 'Fungal Properties', description: 'SGL', url: './microbiology-theory-16.pdf' },
+    
+    /* ───────────── LG ───────────── */
+    { title: 'Microbial Growth & Physiology', description: 'LG', url: './microbiology-theory-01.pdf' },
+    { title: 'Microbial Pathogenesis', description: 'LG', url: './microbiology-theory-04.pdf' },
+    { title: 'Normal Microbial Flora', description: 'LG', url: './microbiology-theory-05.pdf' },
+    { title: 'Antimicrobial Drug Action', description: 'LG', url: './microbiology-theory-07.pdf' },
+    { title: 'Nosocomial Infections', description: 'LG', url: './microbiology-theory-09.pdf' },
+    { title: 'Medical Virology', description: 'LG', url: './microbiology-theory-11.pdf' },
+    { title: 'Introduction to Parasitology', description: 'LG', url: './microbiology-theory-12.pdf' },
+    { title: 'General Trematodes', description: 'LG', url: './microbiology-theory-13.pdf' },
+    { title: 'Medical Entomology', description: 'LG', url: './microbiology-theory-17.pdf' },
+    { title: 'Classification of Mycoses', description: 'LG', url: './microbiology-theory-18.pdf' },
+    { title: 'Cestodes & Nematodes', description: 'LG', url: './microbiology-theory-19.pdf' }
+];
+
+const microbiologyPracticalResources = [
+    { title: 'Aseptic Technique', description: 'Practical', url: './microbiology-practical-01.pdf' },
+    { title: 'Types of Culture Media', description: 'Practical', url: './microbiology-practical-02.pdf' },
+    { title: 'Sample Collection & Inoculation', description: 'Practical', url: './microbiology-practical-03.pdf' },
+    { title: 'Staining & Gram Stain', description: 'Practical', url: './microbiology-practical-04.pdf' },
+    { title: 'Serological Techniques', description: 'Practical', url: './microbiology-practical-05.pdf' },
+    { title: 'General Stool Examination', description: 'Practical', url: './microbiology-practical-06.pdf' },
+    { title: 'General Urine Examination', description: 'Practical', url: './microbiology-practical-07.pdf' },
+    { title: 'Fungal Lab Diagnosis', description: 'Practical', url: './microbiology-practical-08.pdf' }
+];
 
     /* ───────────── HISTOLOGY ───────────── */
     const histologyResources = [
