@@ -359,12 +359,19 @@
         @keyframes sweep { 0%{left:-100%} 40%{left:100%} 100%{left:100%} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
-        #subject-page, #split-page {
-            display: none;
-            min-height: 100vh;
-            padding: 60px 20px 80px;
-            background: var(--bg-mesh);
-        }
+        #subject-page {
+    display: block;
+    min-height: 100vh;
+    padding: 60px 20px 80px;
+    background: var(--bg-mesh);
+}
+
+#split-page {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 20px 80px;
+    background: var(--bg-mesh);
+}
 
         .subjects-header {
             text-align: center;
@@ -1110,57 +1117,7 @@ body.ios-device .resource-actions {
 
 <body>
 
-<section id="hero-page">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="glow-blob glow-blob-1"></div>
-    <div class="glow-blob glow-blob-2"></div>
-    <div class="glow-blob glow-blob-3"></div>
 
-    <div class="float-badges">
-        <div class="float-badge purple">🧬 Genetics</div>
-        <div class="float-badge">⚡ Biophysics</div>
-        <div class="float-badge purple">🔭 Histology</div>
-        <div class="float-badge">🧪 Biochemistry</div>
-        <div class="float-badge purple">🫀 Anatomy</div>
-        <div class="float-badge purple">🦠 Microbiology</div>
-        <div class="float-badge">🚑 BEC</div>
-        <div class="float-badge purple">🧠 Physiology</div>
-    </div>
-
-    <div class="hero-content">
-        <div class="logo-mark">
-    <img src="./logoopne.png" 
-         width="100" 
-         height="100" 
-         style="object-fit:contain;" />
-</div>
-
-        <div class="brand-name">Med<span>Hub</span></div>
-
-        <div class="brand-tag">
-            <div class="brand-tag-dot"></div>
-            <span>Stage 1 Revision Portal</span>
-        </div>
-
-        <p class="hero-sub">All your subjects, in One place.</p>
-
-        <button class="enter-btn" onclick="showSubjects()">
-            Enter Portal
-            <svg class="enter-btn-arrow" viewBox="0 0 20 20" fill="none">
-                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-
-        <div class="footer-credits">
-            <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
-            <p class="sponsor-copy">Sponsored by <a href="https://shabazrasheed10-rgb.github.io/Med-test/index.html" target="_blank" rel="noopener noreferrer">Med-Q App</a></p>
-        </div>
-
-    </div>
-
-    <div class="hero-line"></div>
-</section>
 
 <section id="subject-page">
     <div class="subjects-header">
@@ -1298,11 +1255,7 @@ const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
 if (isIOS) {
     document.body.classList.add('ios-device');
 }
-    // ── NEW: Check local storage IMMEDIATELY. If they have visited before, skip the hero page! ──
-    if (localStorage.getItem('hasVisitedMedHub') === 'true') {
-        document.getElementById('hero-page').style.display = 'none';
-        document.getElementById('subject-page').style.display = 'block';
-    }
+    
 
     /* ───────────── ANATOMY (11 lectures) ───────────── */
     const anatomyResources = [
@@ -1320,17 +1273,18 @@ if (isIOS) {
     ];
 
     const physiologyResources = [
-    /* ── SGL ── */
-    { title: 'Feedback Systems', description: 'SGL', url: './physiology-lecture-01.pdf' },
-    { title: 'Receptor Physiology', description: 'SGL', url: './physiology-lecture-03.pdf' },
-    { title: 'Cell Physiology', description: 'SGL', url: './physiology-lecture-04.pdf' },
-    { title: 'Plasma Membrane', description: 'SGL', url: './physiology-lecture-07.pdf' },
-    { title: 'Physiology Of Hormones', description: 'SGL', url: './physiology-lecture-08.pdf' },
-    { title: 'Physiology of Metabolism I', description: 'SGL', url: './physiology-lecture-12.pdf' },
-    { title: 'Physiology of Metabolism II', description: 'SGL', url: './physiology-lecture-13.pdf' },
-    { title: 'Passive transport', description: 'SGL', url: './physiology-lecture-15.pdf' },
-    { title: 'Signal Transduction', description: 'SGL', url: './physiology-lecture-17.pdf' },
-    { title: 'Active transport', description: 'SGL', url: './physiology-lecture-18.pdf' },
+/* ── SGL ── */
+{ title: 'Feedback Systems', description: 'SGL', url: './physiology-lecture-01.pdf' },
+{ title: 'Receptor Physiology', description: 'SGL', url: './physiology-lecture-03.pdf' },
+{ title: 'Cell Physiology', description: 'SGL', url: './physiology-lecture-04.pdf' },
+{ title: 'Plasma Membrane', description: 'SGL', url: './physiology-lecture-07.pdf' },
+{ title: 'Physiology Of Hormones', description: 'SGL', url: './physiology-lecture-08.pdf' },
+{ title: 'Nutrition Functions', description: 'SGL', url: './physiology-lecture-19.pdf' },
+{ title: 'Physiology of Metabolism I', description: 'SGL', url: './physiology-lecture-12.pdf' },
+{ title: 'Physiology of Metabolism II', description: 'SGL', url: './physiology-lecture-13.pdf' },
+{ title: 'Passive transport', description: 'SGL', url: './physiology-lecture-15.pdf' },
+{ title: 'Signal Transduction', description: 'SGL', url: './physiology-lecture-17.pdf' },
+{ title: 'Active transport', description: 'SGL', url: './physiology-lecture-18.pdf' },
     
     /* ── LG ── */
     { title: 'Thermoregulation', description: 'LG', url: './physiology-lecture-02.pdf' },
@@ -1583,18 +1537,7 @@ const biochemistryPracticalResources = [
     /* ───────────── NAVIGATION STATE ───────────── */
     let lastSplitData = null; // Remembers if we came from a Split Page
 
-    function showSubjects() {
-        // ── NEW: Mark that they have visited when they click Enter ──
-        localStorage.setItem('hasVisitedMedHub', 'true');
-        
-        document.getElementById('hero-page').style.transform = "translateY(-100%)";
-        setTimeout(() => {
-            // ── Added display: none here to make sure hero page is gone ──
-            document.getElementById('hero-page').style.display = 'none';
-            document.getElementById('subject-page').style.display = 'block';
-            window.scrollTo(0, 0);
-        }, 1350);
-    }
+    
 
     // Handles triggering the Theory/Practical Screen
     function showSplitCards(subjectKey, group, title) {
