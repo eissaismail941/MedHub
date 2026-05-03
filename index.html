@@ -1092,6 +1092,19 @@ button,
         transform: scale(0.97);
     }
 }
+    /* iOS only: show one clean button */
+body.ios-device .btn-download {
+    display: none !important;
+}
+
+body.ios-device .btn-open {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+}
+
+body.ios-device .resource-actions {
+    flex-direction: column;
+}
     </style>
 </head>
 
@@ -1279,6 +1292,12 @@ button,
 </section>
 
 <script>
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+if (isIOS) {
+    document.body.classList.add('ios-device');
+}
     // ── NEW: Check local storage IMMEDIATELY. If they have visited before, skip the hero page! ──
     if (localStorage.getItem('hasVisitedMedHub') === 'true') {
         document.getElementById('hero-page').style.display = 'none';
@@ -1658,9 +1677,11 @@ const biochemistryPracticalResources = [
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
-                    <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>
-                    <a class="btn-link btn-download" href="${item.url}" download onclick="showDownloadState(this)">Download</a>
-                </div>
+    <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">
+        ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
+    </a>
+    <a class="btn-link btn-download" href="${item.url}" download onclick="showDownloadState(this)">Download</a>
+</div>
             </article>
         `).join('');
     }
