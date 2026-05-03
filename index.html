@@ -1660,20 +1660,39 @@ const biochemistryPracticalResources = [
         document.getElementById('resources-title').textContent = subject.title;
         document.getElementById('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
         document.getElementById('resources-count').textContent = `${subject.resources.length} files`;
-        renderResources(subject.resources, subject.group);
+        renderResources(subject.resources, subject.group, subject.title);
 
         window.scrollTo(0, 0);
     }
 
-    function makeFileName(item) {
-    return item.title
+    function makeFileName(item, subjectTitle) {
+    const cleanSubject = subjectTitle
+        .replace(' Resource Library', '')
+        .replace('(Theory)', '')
+        .replace('(Practical)', '')
         .replace(/&/g, 'and')
         .replace(/[^\w\s-]/g, '')
         .trim()
         .replace(/\s+/g, '-')
-        .toLowerCase() + '-' + item.description.toLowerCase() + '.pdf';
+        .toLowerCase();
+    
+    const cleanTitle = item.title
+        .replace(/&/g, 'and')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+    
+    const cleanDescription = item.description
+        .replace(/&/g, 'and')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+    
+    return cleanSubject + '-' + cleanTitle + '-' + cleanDescription + '.pdf';
 }
-    function renderResources(items, group) {
+    function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
         const isBBB = group === 'bbb';
 
@@ -1688,7 +1707,8 @@ const biochemistryPracticalResources = [
     <a class="btn-link btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">
         ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
     </a>
-    <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item)}" onclick="showDownloadState(this)">Download</a>
+    <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
+</div>
             </article>
         `).join('');
     }
