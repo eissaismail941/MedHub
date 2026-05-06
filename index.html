@@ -1105,17 +1105,25 @@ body.ios-device .btn-open {
 body.ios-device .resource-actions {
     flex-direction: column;
 }
-    @media (hover: none) and (pointer: coarse) {
-    .subject-card,
-    .split-card,
-    .resource-card,
-    .back-inline,
-    .btn-link,
-    .btn-download,
-    button,
-    a {
-        cursor: default !important;
-    }
+    /* Hide Samsung Browser / S Pen / mobile cursor as much as possible */
+html,
+body,
+* {
+    cursor: none !important;
+}
+
+/* Extra mobile touch cleanup */
+a,
+button,
+.subject-card,
+.split-card,
+.resource-card,
+.back-inline,
+.btn-link,
+.btn-download {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    cursor: none !important;
 }
     </style>
 </head>
