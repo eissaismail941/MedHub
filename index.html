@@ -14,6 +14,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedHub | Portal</title>
     <style>
+            /* ── MODERN EXAM COUNTDOWN ── */
+        .time-counter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 8px 18px;
+            border-radius: 100px;
+            box-shadow: 0 4px 20px rgba(0, 87, 255, 0.06), 0 1px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 87, 255, 0.1);
+            margin-top: 22px;
+margin-bottom: 0;
+            animation: smoothSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .time-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            box-shadow: 0 0 10px rgba(0, 87, 255, 0.4);
+            animation: pulseTime 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .countdown-label {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #exam-countdown {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--blue);
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes pulseTime {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
         :root {
             --blue: #0057FF;
             --cyan: #0EA5E9;
@@ -1115,11 +1163,7 @@ body.ios-device .resource-actions {
     flex-direction: column;
 }
     /* Hide Samsung Browser / S Pen / mobile cursor as much as possible */
-html,
-body,
-* {
-    cursor: none !important;
-}
+
 
 /* Extra mobile touch cleanup */
 a,
@@ -1134,6 +1178,8 @@ button,
     touch-action: manipulation;
     cursor: none !important;
 }
+            
+
     </style>
 </head>
 
@@ -1193,9 +1239,20 @@ button,
 
 <section id="subject-page">
     <div class="subjects-header">
-        <h2>Choose Your Subject</h2>
-        <p>Select a subject to begin your revision session</p>
+
+    <h2>Choose Your Subject</h2>
+
+    <p>Select a subject to begin your revision session</p>
+
+    <div class="time-counter-pill">
+        <div class="time-dot"></div>
+        <span class="countdown-label">Stage 1 Exams:</span>
+        <span id="exam-countdown">Calculating...</span>
     </div>
+
+</div>
+
+
 
     <div class="group-section">
         <div class="group-label">
@@ -1321,6 +1378,49 @@ button,
 </section>
 
 <script>
+    // ── EXAM COUNTDOWN LOGIC ──
+    // Set your exam date here (Format: YYYY-MM-DDTHH:MM:SS)
+    const examDate = new Date("2026-06-05T09:00:00").getTime();
+
+    function updateCountdown() {
+        const countdownDisplay = document.getElementById('exam-countdown');
+        if (!countdownDisplay) return;
+
+        const now = new Date().getTime();
+        const distance = examDate - now;
+
+        // If the exam has started or passed
+        if (distance < 0) {
+            countdownDisplay.textContent = "IT'S EXAM DAY!";
+            return;
+        }
+
+        // Time calculations for days, hours, minutes and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Adds a leading zero so it looks clean (e.g., "05d" instead of "5d")
+        const d = days < 10 ? "0" + days : days;
+        const h = hours < 10 ? "0" + hours : hours;
+        const m = minutes < 10 ? "0" + minutes : minutes;
+        const s = seconds < 10 ? "0" + seconds : seconds;
+
+        // Display format: 05d 12h 30m 45s
+        countdownDisplay.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    }
+    
+    // Start the countdown immediately, then update every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+
+    
+    // Start the clock immediately, then update every second
+    updateTime();
+    setInterval(updateTime, 1000);
+
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
