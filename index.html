@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F498HHBGMM"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F498HHBGMM"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -1179,6 +1178,171 @@ button,
     cursor: none !important;
 }
             
+        /* ── APP OVERLAY & RATING MODAL STYLES ── */
+        .feedback-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
+        }
+
+        .feedback-overlay.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .feedback-modal {
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 28px;
+            padding: 34px 28px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 87, 255, 0.12), 0 0 0 1px rgba(0, 87, 255, 0.05);
+            transform: scale(0.92) translateY(15px);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 87, 255, 0.08);
+        }
+
+        .feedback-overlay.is-active .feedback-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .feedback-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: inline-block;
+            animation: pulseEmoji 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseEmoji {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .feedback-modal h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .feedback-modal p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 26px;
+        }
+
+        .star-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .star-btn svg {
+            width: 38px;
+            height: 38px;
+            fill: #e2e8f0;
+            transition: fill 0.25s ease, filter 0.25s ease;
+        }
+
+        .star-btn:hover {
+            transform: scale(1.18) rotate(4deg);
+        }
+
+        .star-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* Golden Active States */
+        .star-btn.is-selected svg,
+        .star-btn.is-hovered svg {
+            fill: #ffb800;
+            filter: drop-shadow(0 0 8px rgba(255, 184, 0, 0.35));
+        }
+
+        .feedback-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-submit-feedback {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 14px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.98rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 87, 255, 0.15);
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-submit-feedback.is-ready {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-submit-feedback.is-ready:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(0, 87, 255, 0.25);
+        }
+
+        .btn-close-feedback {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-close-feedback:hover {
+            color: #64748b;
+        }
+
+        /* Success screen configuration */
+        .feedback-modal.show-success .modal-default-content {
+            display: none;
+        }
+
+        .modal-success-content {
+            display: none;
+        }
+
+        .feedback-modal.show-success .modal-success-content {
+            display: block;
+            animation: fadeUp 0.4s ease forwards;
+        }
 
     </style>
 </head>
@@ -1377,6 +1541,47 @@ button,
 
 </section>
 
+<div class="feedback-overlay" id="feedbackOverlay">
+    <div class="feedback-modal" id="feedbackModal">
+        
+        <div class="modal-default-content">
+            <span class="feedback-icon">⭐</span>
+            <h3>Rate Your Experience</h3>
+            <p>How helpful is MedHub for your Stage 1 preparation? Let us know your feedback!</p>
+            
+            <div class="star-container">
+                <button class="star-btn" data-value="1" onclick="selectStar(1)">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </button>
+                <button class="star-btn" data-value="2" onclick="selectStar(2)">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </button>
+                <button class="star-btn" data-value="3" onclick="selectStar(3)">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </button>
+                <button class="star-btn" data-value="4" onclick="selectStar(4)">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </button>
+                <button class="star-btn" data-value="5" onclick="selectStar(5)">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </button>
+            </div>
+            
+            <div class="feedback-actions">
+                <button class="btn-submit-feedback" id="submitFeedbackBtn" onclick="submitFeedback()">Submit Rating</button>
+                <button class="btn-close-feedback" onclick="closeFeedback()">Maybe Later</button>
+            </div>
+        </div>
+
+        <div class="modal-success-content">
+            <span class="feedback-icon">🎉</span>
+            <h3>Thank You!</h3>
+            <p>Your rating has been received. Good luck with your study session!</p>
+        </div>
+
+    </div>
+</div>
+
 <script>
     // ── EXAM COUNTDOWN LOGIC ──
     // Set your exam date here (Format: YYYY-MM-DDTHH:MM:SS)
@@ -1429,6 +1634,9 @@ if (isIOS) {
     if (localStorage.getItem('hasVisitedMedHub') === 'true') {
         document.getElementById('hero-page').style.display = 'none';
         document.getElementById('subject-page').style.display = 'block';
+        
+        // SMART LOGIC: Returning users skipped entrance view, trigger timer right now!
+        startFeedbackTimer(5000); // 5 seconds
     }
 
     /* ───────────── ANATOMY (11 lectures) ───────────── */
@@ -1721,6 +1929,9 @@ const biochemistryPracticalResources = [
             document.getElementById('hero-page').style.display = 'none';
             document.getElementById('subject-page').style.display = 'block';
             window.scrollTo(0, 0);
+            
+            // SMART LOGIC: New user just hit enter, trigger timer right now!
+            startFeedbackTimer(5000); // 5 seconds
         }, 1350);
     }
 
@@ -1889,8 +2100,77 @@ document.addEventListener('touchend', function (e) {
         document.activeElement.blur();
     }
 }, { passive: true });
+
+    /* ───────────── SMART RATING MODAL INTERACTION LOGIC ───────────── */
+    let selectedRating = 0;
+
+    // Smart timer manager to make sure it runs exactly once per user layout configuration
+    function startFeedbackTimer(msDelay) {
+        // If they rated the application during a previous session, do not interrupt them again
+        if (localStorage.getItem('medHubAppRated') === 'true') return;
+
+        setTimeout(() => {
+            openFeedbackModal();
+        }, msDelay);
+    }
+
+    function openFeedbackModal() {
+        document.getElementById('feedbackOverlay').classList.add('is-active');
+    }
+
+    function closeFeedback() {
+        document.getElementById('feedbackOverlay').classList.remove('is-active');
+    }
+
+    function selectStar(rating) {
+        selectedRating = rating;
+        const stars = document.querySelectorAll('.star-btn');
+        
+        stars.forEach((star, idx) => {
+            if (idx < rating) {
+                star.classList.add('is-selected');
+            } else {
+                star.classList.remove('is-selected');
+            }
+        });
+
+        // Activate the submission trigger button organically
+        const submitBtn = document.getElementById('submitFeedbackBtn');
+        submitBtn.classList.add('is-ready');
+    }
+
+    function submitFeedback() {
+    if (selectedRating === 0) return;
+
+    // Send star result to Google Analytics
+    gtag('event', 'medhub_rating', {
+        rating_score: selectedRating
+    });
+
+    // Save locally so popup does not appear again
+    localStorage.setItem('medHubAppRated', 'true');
+
+    const modal = document.getElementById('feedbackModal');
+    modal.classList.add('show-success');
+
+    setTimeout(() => {
+        closeFeedback();
+    }, 2200);
+}
+
+    // Connect real-time hover indicators to star units on computers
+    const starButtons = document.querySelectorAll('.star-btn');
+    starButtons.forEach((btn, currentIdx) => {
+        btn.addEventListener('mouseenter', () => {
+            starButtons.forEach((s, idx) => {
+                if (idx <= currentIdx) s.classList.add('is-hovered');
+            });
+        });
+        btn.addEventListener('mouseleave', () => {
+            starButtons.forEach(s => s.classList.remove('is-hovered'));
+        });
+    });
 </script>
 
 </body>
 </html>
-
