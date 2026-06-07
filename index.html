@@ -13,6 +13,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedHub | Portal</title>
     <style>
+    
+    .coming-soon-modal {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at top, rgba(0,87,255,0.18), transparent 35%),
+        rgba(15,23,42,0.55);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.coming-soon-box {
+    width: min(520px, 94%);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid rgba(0,87,255,0.12);
+    border-radius: 34px;
+    padding: 42px 36px;
+    text-align: center;
+    box-shadow: 0 35px 90px rgba(15,23,42,0.22);
+    animation: modalPop 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+.coming-soon-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 22px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 16px 34px rgba(0,87,255,0.25);
+}
+
+.coming-soon-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.9rem;
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+.coming-soon-box p {
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 26px;
+    font-size: 1rem;
+}
+
+.coming-soon-box button {
+    border: none;
+    padding: 14px 30px;
+    border-radius: 16px;
+    cursor: pointer;
+    color: white;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    box-shadow: 0 12px 28px rgba(0,87,255,0.22);
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
     /* ── BANNER SLIDE DOWN ANIMATION ── */
 @keyframes smoothSlideDown {
     0% { opacity: 0; transform: translateY(-30px); }
@@ -33,20 +112,10 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    animation: smoothSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: none;
 }
 
-.portal-dashboard-banner::before {
-    content: '';
-    position: absolute;
-    right: -10%;
-    top: -50%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
+
 
 .banner-left {
     display: flex;
@@ -1263,7 +1332,160 @@ body.ios-device .resource-actions {
 
             
         
+/* ── BLOCK ENTRANCE ── */
+.block-entrance {
+    max-width: 1100px;
+    margin: 0 auto 55px;
+}
 
+.block-title {
+    text-align: center;
+    margin-bottom: 34px;
+}
+
+.block-title h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.block-title p {
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+.block-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 24px;
+}
+.block-grid .block-card:nth-child(1) {
+    animation: smoothSlideUp 0.75s 0.10s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.block-grid .block-card:nth-child(2) {
+    animation: smoothSlideUp 0.75s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.block-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid rgba(0,87,255,0.1);
+    border-radius: 32px;
+    padding: 34px;
+    cursor: pointer;
+    box-shadow: 0 20px 45px rgba(15,23,42,0.06);
+    transition: all 0.35s ease;
+}
+
+.block-card::before {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -80px;
+    top: -90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,87,255,0.14), transparent 70%);
+}
+
+.block-card.purple::before {
+    background: radial-gradient(circle, rgba(124,58,237,0.14), transparent 70%);
+}
+
+.block-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 70px rgba(0,87,255,0.12);
+}
+
+.block-kicker {
+    display: inline-flex;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(0,87,255,0.07);
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+}
+
+.block-card.purple .block-kicker {
+    background: rgba(124,58,237,0.08);
+    color: var(--hdsf);
+}
+
+.block-card h3 {
+    position: relative;
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.block-card p {
+    position: relative;
+    color: #64748b;
+    line-height: 1.7;
+    max-width: 360px;
+    margin-bottom: 26px;
+}
+
+.block-meta {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.block-pill {
+    padding: 8px 13px;
+    border-radius: 999px;
+    background: white;
+    color: #475569;
+    font-size: 0.8rem;
+    font-weight: 800;
+    box-shadow: 0 6px 18px rgba(15,23,42,0.05);
+}
+
+.block-arrow {
+    position: absolute;
+    right: 28px;
+    bottom: 26px;
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.block-card.purple .block-arrow {
+    background: linear-gradient(135deg, var(--hdsf), var(--hdsf-light));
+}
+
+#subjects-content {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .block-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .block-card {
+        padding: 28px;
+        border-radius: 26px;
+    }
+}
     </style>
 </head>
 
@@ -1284,20 +1506,61 @@ body.ios-device .resource-actions {
     </div>
     
     <div class="banner-right">
-        <div class="stat-pill">
-            <span class="value">11</span>
-            <span class="label">Modules</span>
+    <div class="stat-pill" id="banner-stat-1">
+        <span class="value">2</span>
+        <span class="label">Blocks</span>
+    </div>
+
+    <div class="stat-pill" id="banner-stat-2" style="display:none;">
+        <span class="value">Live</span>
+        <span class="label">Status</span>
+    </div>
+</div>
+        
+    </div>
+</div>
+<div id="block-entrance" class="block-entrance">
+    <div class="block-title">
+    </div>
+
+    <div class="block-grid">
+        <div class="block-card" onclick="openBlock1()">
+            <div class="block-kicker">Coming Soon</div>
+            <h3>Block 1</h3>
+            <p>Lectures will be added here later.</p>
+
+            <div class="block-meta">
+                <span class="block-pill">Prepared Space</span>
+                <span class="block-pill">Subjects Soon</span>
+            </div>
+
+            
         </div>
-        <div class="stat-pill">
-            <span class="value">Live</span>
-            <span class="label">Status</span>
+
+        <div class="block-card purple" onclick="openBlock2()">
+            <div class="block-kicker">Available Now</div>
+            <h3>Block 2</h3>
+            <p>All current Stage 1 subjects are organized here, including HDSF and BBB modules.</p>
+
+            <div class="block-meta">
+                <span class="block-pill">11 Modules</span>
+                <span class="block-pill">PDF Library</span>
+            </div>
+
+            
         </div>
     </div>
 </div>
 
 
 
-
+<div class="footer-credits">
+    <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
+</div>
+    <div id="subjects-content">
+    <div class="resource-topbar">
+        <div class="back-inline" onclick="backToBlocks()">← Back to blocks</div>
+    </div>
     <div class="group-section">
         <div class="group-label">
             <span class="group-badge hdsf">HDSF</span>
@@ -1356,8 +1619,8 @@ body.ios-device .resource-actions {
     </div>
 
     <div class="group-section">
-        <div class="group-label">
-            <span class="group-badge bbb">BBB</span>
+    <div class="group-label">
+        <span class="group-badge bbb">BBB</span>
         </div>
         <div class="group-divider bbb"></div>
 
@@ -1384,6 +1647,7 @@ body.ios-device .resource-actions {
 
     <div class="footer-credits">
         <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
+    </div>
     </div>
 </section>
 
@@ -1424,7 +1688,20 @@ body.ios-device .resource-actions {
 
             
             
+<div id="comingSoonModal" class="coming-soon-modal">
+    <div class="coming-soon-box">
+        <div class="coming-soon-icon">🚀</div>
 
+        <h3>Block 1 Coming Soon</h3>
+
+        <p>
+            Block 1 lectures are currently being organized and will be added
+            soon.
+        </p>
+
+        <button onclick="closeComingSoon()">Got It</button>
+    </div>
+</div>
 <script>
     
 
@@ -1758,17 +2035,18 @@ const biochemistryPracticalResources = [
     }
 
     function backFromResources() {
-        document.getElementById('resources-page').style.display = 'none';
-        
-        // If we opened a split category (theory/practic), go back to the split menu.
-        // Otherwise, go straight to subjects.
-        if (lastSplitData) {
-            document.getElementById('split-page').style.display = 'block';
-        } else {
-            document.getElementById('subject-page').style.display = 'block';
-        }
-        window.scrollTo(0, 0);
+    document.getElementById('resources-page').style.display = 'none';
+
+    if (lastSplitData) {
+        document.getElementById('split-page').style.display = 'block';
+    } else {
+        document.getElementById('subject-page').style.display = 'block';
+        document.getElementById('block-entrance').style.display = 'none';
+        document.getElementById('subjects-content').style.display = 'block';
     }
+
+    window.scrollTo(0, 0);
+}
 
     function loadResources(subjectKey) {
         const subject = subjectMap[subjectKey];
@@ -1888,8 +2166,39 @@ document.addEventListener('touchend', function (e) {
     }
 }, { passive: true });
 
-    
+    function openBlock2() {
+    document.getElementById('block-entrance').style.display = 'none';
+    document.getElementById('subjects-content').style.display = 'block';
+
+    document.querySelector('#banner-stat-1 .value').textContent = '11';
+    document.querySelector('#banner-stat-1 .label').textContent = 'Modules';
+
+    document.getElementById('banner-stat-2').style.display = 'flex';
+
+    window.scrollTo(0, 0);
+}
+
+function openBlock1() {
+    document.getElementById('comingSoonModal').style.display = 'flex';
+}
+
+function closeComingSoon() {
+    document.getElementById('comingSoonModal').style.display = 'none';
+}
+
+function backToBlocks() {
+    document.getElementById('subjects-content').style.display = 'none';
+    document.getElementById('block-entrance').style.display = 'block';
+
+    document.querySelector('#banner-stat-1 .value').textContent = '2';
+    document.querySelector('#banner-stat-1 .label').textContent = 'Blocks';
+
+    document.getElementById('banner-stat-2').style.display = 'none';
+
+    window.scrollTo(0, 0);
+}
 </script>
+
 
 </body>
 </html>
