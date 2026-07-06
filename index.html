@@ -1503,17 +1503,16 @@ body.ios-device .resource-actions {
 
     <div class="block-grid">
         <div class="block-card" onclick="openBlock1()">
-            <div class="block-kicker">Coming Soon</div>
-            <h3>Block 1</h3>
-            <p>Lectures will be added here later.</p>
+    <div class="block-kicker">Available Now</div>
+    <h3>Block 1</h3>
+    <p>Fundamental Stage 1 modules including Terminology, Computer, and Communication Skills.</p>
 
-            <div class="block-meta">
-                <span class="block-pill">Prepared Space</span>
-                <span class="block-pill">Subjects Soon</span>
-            </div>
+    <div class="block-meta">
+        <span class="block-pill">6 Modules</span>
+        <span class="block-pill">PDF Library</span>
+    </div>
+</div>
 
-            
-        </div>
 
         <div class="block-card purple" onclick="openBlock2()">
             <div class="block-kicker">Available Now</div>
@@ -1531,6 +1530,56 @@ body.ios-device .resource-actions {
 </div>
 
 
+
+<div id="block1-content" style="display: none;">
+    <div class="resource-topbar">
+        <div class="back-inline" onclick="backToBlocks()">← Back to blocks</div>
+    </div>
+    <div class="group-section">
+        <div class="group-label">
+            <span class="group-badge bbb">Block 1 Modules</span>
+        </div>
+        <div class="group-divider bbb"></div>
+
+        <div class="subject-grid">
+            <div class="subject-card bbb-card" onclick="loadResources('terminology')">
+                <div class="card-icon">📖</div>
+                <div class="card-name">Terminology</div>
+                <div class="card-chip bbb">PDF Files</div>
+            </div>
+
+            <div class="subject-card bbb-card" onclick="loadResources('computer')">
+                <div class="card-icon">💻</div>
+                <div class="card-name">Computer</div>
+                <div class="card-chip bbb">PDF Files</div>
+            </div>
+
+            <div class="subject-card bbb-card" onclick="loadResources('critical-thinking')">
+                <div class="card-icon">💡</div>
+                <div class="card-name">Critical Thinking</div>
+                <div class="card-chip bbb">PDF Files</div>
+            </div>
+
+            <div class="subject-card bbb-card" onclick="loadResources('communication-skill')">
+                <div class="card-icon">🗣️</div>
+                <div class="card-name">Communication Skill</div>
+                <div class="card-chip bbb">PDF Files</div>
+            </div>
+
+                        <div class="subject-card bbb-card" onclick="loadResources('kurdology')">
+                <div class="card-icon">☀️</div>
+                <div class="card-name">Kurdology</div>
+                <div class="card-chip bbb">PDF Files</div>
+            </div>
+
+            <div class="subject-card bbb-card" onclick="loadResources('ppd')">
+                <div class="card-icon">🎯</div>
+                <div class="card-name">PPD</div>
+                <div class="card-chip bbb">PDF Files</div>
+            </div>
+            </div>
+    </div>
+</div>
 
 
     <div id="subjects-content">
@@ -1691,6 +1740,117 @@ const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
 if (isIOS) {
     document.body.classList.add('ios-device');
 }
+
+/* ───────────── BLOCK 1 RESOURCES ───────────── */
+const terminologyResources = [
+    { title: 'Introduction to Medical Terminology', description: 'Overview of word building, origins (Greek/Latin), and basic elements.', url: './terminology-01.pdf' },
+    { title: 'Building Medical Terms', description: 'Detailed breakdown of word roots, combining forms, prefixes, and suffixes.', url: './terminology-02.pdf' },
+    { title: 'Signs, Symptoms, and Opposites', description: 'Medical signs vs. symptoms, and common prefix-based opposites.', url: './terminology-03.pdf' },
+    { title: 'Common Prefixes & Suffixes', description: 'Directional terms, prefixes, and suffixes for medical procedures.', url: './terminology-04.pdf' },
+    { title: 'Anatomical Position & Movements', description: 'Planes, directional terms, and body movements (flexion, rotation, etc.).', url: './terminology-05.pdf' },
+    { title: 'Diseases & Surgical Procedures', description: 'Describing diseases, surgical suffixes, and medical branches.', url: './terminology-06.pdf' },
+    { title: 'Clinical Conditions', description: 'Definitions for specific conditions like ascites, hernia, and ischemia.', url: './terminology-07.pdf' },
+    { title: 'Disease Associations & Surgical Suffixes', description: 'Acute vs. chronic states and surgical terms like -desis and -ectasia.', url: './terminology-08.pdf' },
+    { title: 'Microbiology & Histology Basics', description: 'Terminology for viruses, cells (blasts/cytes), and tissue structure.', url: './terminology-09.pdf' },
+    { title: 'Specialized Body Systems', description: 'Terminology for body (somato), air (pneumo), bile (chole), and sugar (gluco/glyco).', url: './terminology-10.pdf' },
+    { title: 'Clinical Signs & Symptoms', description: 'Defining disease, subjective symptoms, objective signs, and clinical case examples.', url: './terminology-11.pdf' },
+    { title: 'Advanced Medical Terminology', description: 'Terms related to coagulation, fever (pyro), and tissue growth/nutrition.', url: './terminology-12.pdf' },
+    { title: 'Surgical Procedures Overview', description: 'Deep dive into surgical suffixes like -ectomy, -otomy, -ostomy, and -plasty.', url: './terminology-13.pdf' }
+];
+
+
+const computerResources = [
+    { title: 'Introduction', description: 'Basics of computing and the impact of informatics in healthcare.', url: './computer-01.pdf' },
+    { title: 'Introduction to Windows', description: 'Navigating the OS, file management, and system efficiency.', url: './computer-02.pdf' },
+    { title: 'Microsoft Word', description: 'Creating and formatting structured documents and reports.', url: './computer-03.pdf' },
+    { title: 'Microsoft Excel', description: 'Foundations of spreadsheets, data entry, and basic formulas.', url: './computer-04.pdf' },
+    { title: 'Microsoft PowerPoint', description: 'Principles of creating clear and effective visual presentations.', url: './computer-05.pdf' },
+    { title: 'Advanced Microsoft Word', description: 'Advanced formatting, references, and professional document architecture.', url: './computer-06.pdf' },
+    { title: 'Advanced Microsoft Excel', description: 'Data analysis using complex formulas, statistics, and graphing.', url: './computer-07.pdf' },
+    { title: 'Advanced Microsoft PowerPoint', description: 'Professional design, multimedia integration, and presentation delivery.', url: './computer-08.pdf' },
+    { title: 'Writing An Academic Email', description: 'Etiquette and guidelines for formal digital professional communication.', url: './computer-09.pdf' },
+    { title: 'Technology and Medicine', description: 'Overview of EHR, telemedicine, and modern medical technology trends.', url: './computer-10.pdf' }
+];
+
+
+const ppdResources = [
+    { 
+        title: 'Positive Change and Comfort Zone', 
+        description: 'Defining mindset vs. behavior, evaluating the comfort zone, and intentional personal growth.', 
+        url: './ppd-01.pdf' 
+    },
+    { 
+        title: 'SWOT Analysis for Students', 
+        description: 'A self-assessment tool to evaluate personal strengths, weaknesses, opportunities, and threats.', 
+        url: './ppd-02.pdf' 
+    },
+    { 
+        title: 'Stress Management & Wellbeing', 
+        description: 'Understanding the "fight or flight" response, eustress vs. distress, and coping strategies.', 
+        url: './ppd-03.pdf' 
+    },
+    { 
+        title: 'Wheel of Life Assessment', 
+        description: 'Categorizing life activities to identify areas of strength/weakness and achieve life balance.', 
+        url: './ppd-04.pdf' 
+    }
+];
+
+
+const kurdologyResources = [
+    { title: 'Lecture 01: Introduction to Kurdology & Kurdish History', description: 'Overview of historical timelines, geography, and origins.', url: './kurdology-01.pdf' },
+    { title: 'Lecture 02: Kurdish Language & Dialects', description: 'Linguistic structures, dialects, and literary heritage.', url: './kurdology-02.pdf' },
+    { title: 'Lecture 03: Kurdish Culture, Folklore & Traditions', description: 'Social structures, traditional practices, and cultural identity.', url: './kurdology-03.pdf' },
+    { title: 'Lecture 04: Modern History & Society', description: 'Contemporary social developments and regional history.', url: './kurdology-04.pdf' }
+];
+
+const communicationSkillResources = [
+    { 
+        title: 'The Clinical Conversation - Initiation', 
+        description: 'Mastering the "Golden Minute": greetings, establishing rapport, and setting a collaborative agenda.', 
+        url: './communication-01.pdf' 
+    },
+    { 
+        title: 'Gathering Information', 
+        description: 'Applying the disease-illness model to explore the patient’s perspective, concerns, and psychosocial context.', 
+        url: './communication-02.pdf' 
+    },
+    { 
+        title: 'Attentive Listening & Summarization', 
+        description: 'Techniques for active engagement, SOLER posture, and confirming understanding through structured summarization.', 
+        url: './communication-03.pdf' 
+    },
+    { 
+        title: 'The Silent Language of Healing', 
+        description: 'Mastering non-verbal communication (NVC) including kinesics, proxemics, and paralanguage to build trust.', 
+        url: './communication-04.pdf' 
+    }
+];
+
+
+const criticalThinkingResources = [
+    { 
+        title: 'Evidence In Medicine', 
+        description: 'Defining medical evidence, the Evidence-Based Medicine (EBM) model, and its role in clinical decision-making.', 
+        url: './critical-thinking-01.pdf' 
+    },
+    { 
+        title: 'Academic Debate for Medical Students', 
+        description: 'Structure of medical debates, formulating motions, and developing evidence-based rebuttals.', 
+        url: './critical-thinking-02.pdf' 
+    },
+    { 
+        title: 'Cognitive Biases & Logical Fallacies', 
+        description: 'Identifying common clinical biases (anchoring, confirmation) and logical errors in medical practice.', 
+        url: './critical-thinking-03.pdf' 
+    },
+    { 
+        title: 'Critical Thinking and Academic Debate', 
+        description: 'Core skills of critical thinking: observation, inference, and self-regulation in clinical diagnosis.', 
+        url: './critical-thinking-04.pdf' 
+    }
+];
+
 
 
     /* ───────────── ANATOMY (11 lectures) ───────────── */
@@ -1949,6 +2109,15 @@ const biochemistryPracticalResources = [
 
     /* ───────────── SUBJECT MAP ───────────── */
     const subjectMap = {
+        'terminology':           { title: 'Terminology Resource Library',           group: 'bbb', resources: terminologyResources },
+'computer':              { title: 'Computer Resource Library',              group: 'bbb', resources: computerResources },
+'critical-thinking':     { title: 'Critical Thinking Resource Library',     group: 'bbb', resources: criticalThinkingResources },
+'communication-skill':   { title: 'Communication Skill Resource Library',   group: 'bbb', resources: communicationSkillResources },
+        'kurdology':             { title: 'Kurdology Resource Library',             group: 'bbb', resources: kurdologyResources },
+        'ppd':                   { title: 'PPD Resource Library',                   group: 'bbb', resources: ppdResources },                 
+
+        'anatomy':                { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
+
         'anatomy':                { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
         'physiology':             { title: 'Physiology Resource Library',           group: 'hdsf', resources: physiologyResources },
         
@@ -1971,7 +2140,9 @@ const biochemistryPracticalResources = [
     };
 
     /* ───────────── NAVIGATION STATE ───────────── */
-    let lastSplitData = null; // Remembers if we came from a Split Page
+    let lastSplitData = null; 
+let currentBlock = 2; // Keeps track of active block
+
 
     
 
@@ -2018,11 +2189,18 @@ const biochemistryPracticalResources = [
     } else {
         document.getElementById('subject-page').style.display = 'block';
         document.getElementById('block-entrance').style.display = 'none';
-        document.getElementById('subjects-content').style.display = 'block';
+        
+        // This checks which block you were in and opens the right one!
+        if (currentBlock === 1) {
+            document.getElementById('block1-content').style.display = 'block';
+        } else {
+            document.getElementById('subjects-content').style.display = 'block';
+        }
     }
 
     window.scrollTo(0, 0);
 }
+
 
     function loadResources(subjectKey) {
         const subject = subjectMap[subjectKey];
@@ -2142,21 +2320,24 @@ document.addEventListener('touchend', function (e) {
     }
 }, { passive: true });
 
-    function openBlock2() {
+    function openBlock1() {
+    currentBlock = 1;
     document.getElementById('block-entrance').style.display = 'none';
+    document.getElementById('subjects-content').style.display = 'none';
+    document.getElementById('block1-content').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function openBlock2() {
+    currentBlock = 2;
+    document.getElementById('block-entrance').style.display = 'none';
+    document.getElementById('block1-content').style.display = 'none';
     document.getElementById('subjects-content').style.display = 'block';
     window.scrollTo(0, 0);
 }
 
-function openBlock1() {
-    document.getElementById('comingSoonModal').style.display = 'flex';
-}
-
-function closeComingSoon() {
-    document.getElementById('comingSoonModal').style.display = 'none';
-}
-
 function backToBlocks() {
+    document.getElementById('block1-content').style.display = 'none';
     document.getElementById('subjects-content').style.display = 'none';
     document.getElementById('block-entrance').style.display = 'block';
     window.scrollTo(0, 0);
