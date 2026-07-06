@@ -1496,31 +1496,7 @@ body.ios-device .resource-actions {
 
 
 <section id="subject-page">
-    <div class="portal-dashboard-banner">
-    <div class="banner-left">
-        <div class="banner-logo">
-            <img src="./logoopne.png" alt="MedHub Logo" />
-        </div>
-        <div class="banner-info">
-            <h2>Welcome to <span>MedHub</span></h2>
-<p>Where all Stage 1 lectures are organized in one place</p>
-        </div>
-    </div>
-    
-    <div class="banner-right">
-    <div class="stat-pill" id="banner-stat-1" style="display:none;">
-        <span class="value">2</span>
-        <span class="label">Blocks</span>
-    </div>
 
-    <div class="stat-pill" id="banner-stat-2" style="display:none;">
-        <span class="value">Live</span>
-        <span class="label">Status</span>
-    </div>
-</div>
-        
-    </div>
-</div>
 <div id="block-entrance" class="block-entrance">
     <div class="block-title">
     </div>
@@ -1646,7 +1622,7 @@ body.ios-device .resource-actions {
     </div>
 
     <div class="footer-credits">
-        <p class="hero-copy">© 2026 developed by Eissa Ismail</p>
+        
     </div>
     </div>
 </section>
@@ -2167,15 +2143,8 @@ document.addEventListener('touchend', function (e) {
 }, { passive: true });
 
     function openBlock2() {
-        document.getElementById('banner-stat-1').style.display = 'flex';
     document.getElementById('block-entrance').style.display = 'none';
     document.getElementById('subjects-content').style.display = 'block';
-
-    document.querySelector('#banner-stat-1 .value').textContent = '11';
-    document.querySelector('#banner-stat-1 .label').textContent = 'Modules';
-
-    document.getElementById('banner-stat-2').style.display = 'flex';
-
     window.scrollTo(0, 0);
 }
 
@@ -2190,14 +2159,12 @@ function closeComingSoon() {
 function backToBlocks() {
     document.getElementById('subjects-content').style.display = 'none';
     document.getElementById('block-entrance').style.display = 'block';
-
-    document.getElementById('banner-stat-1').style.display = 'none';
-document.getElementById('banner-stat-2').style.display = 'none';
-
     window.scrollTo(0, 0);
 }
+
 </script>
 
 
 </body>
 </html>
+
