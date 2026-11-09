@@ -12,6 +12,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedHub | Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#f8fbff">
     <meta name="mobile-web-app-capable" content="yes">
@@ -1500,17 +1503,139 @@ body.ios-device .resource-actions {
 }
    
 
+
+/* ── HOME / STAGES ── */
+#home-page, #stage2-page, #s2block-page {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 20px 80px;
+    background: var(--bg-mesh);
+}
+#home-page { display: block; padding-top: 70px; }
+.home-wrap { max-width: 1100px; margin: 0 auto; }
+.home-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+.home-logo {
+    width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue), var(--cyan)); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+    box-shadow: 0 10px 24px rgba(0,87,255,0.25);
+}
+.home-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: #0f172a; letter-spacing: -0.5px; line-height: 1.1; }
+.home-name span, .home-hero h1 span {
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.home-tag { color: #94a3b8; font-size: 0.85rem; font-weight: 500; margin-top: 3px; }
+.home-hero { margin-bottom: 34px; }
+.home-hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800; color: #0f172a;
+    font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; letter-spacing: -1px; margin-bottom: 14px;
+}
+.home-hero p { color: #64748b; line-height: 1.7; max-width: 520px; }
+.home-foot { text-align: center; color: #94a3b8; font-size: 0.82rem; font-weight: 500; margin-top: 44px; }
+
+/* accent variants for block / stage cards */
+.block-card.acc { --a: 0,87,255; --b: 14,165,233; border-color: rgba(var(--a),0.12); }
+.block-card.acc::before { background: radial-gradient(circle, rgba(var(--a),0.14), transparent 70%); }
+.block-card.acc .block-kicker { background: rgba(var(--a),0.08); color: rgb(var(--a)); }
+.block-card.acc .block-arrow { background: linear-gradient(135deg, rgb(var(--a)), rgb(var(--b))); }
+.block-card.acc:hover { box-shadow: 0 28px 70px rgba(var(--a),0.15); }
+.block-card .big-num {
+    position: absolute; right: 26px; top: 16px; z-index: 0;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 4.6rem; line-height: 1;
+    color: rgba(var(--a),0.10); pointer-events: none;
+}
+.block-card.soon { cursor: pointer; }
+.block-card.soon .block-kicker { background: rgba(100,116,139,0.1); color: #64748b; }
+.block-grid .block-card:nth-child(n+3) { animation: smoothSlideUp 0.75s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.block-grid.s2 .block-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.block-grid.s2 .block-card:last-child:nth-child(odd) p { max-width: 520px; }
+.empty-state {
+    max-width: 520px; margin: 10px auto 0; text-align: center; padding: 40px 28px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid rgba(0,87,255,0.1); border-radius: 28px;
+    box-shadow: 0 20px 45px rgba(15,23,42,0.05);
+}
+.empty-state .coming-soon-icon { margin-bottom: 18px; }
+.empty-state h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; color: #0f172a; margin-bottom: 8px; }
+.empty-state p { color: #64748b; line-height: 1.7; }
+@media (max-width: 760px) {
+    #home-page { padding-top: 40px; }
+    .home-brand { margin-bottom: 34px; }
+}
     </style>
 </head>
 
 <body>
 
+<section id="home-page">
+  <div class="home-wrap">
+
+    <div class="block-grid">
+      <div class="block-card acc" onclick="openStage(1)">
+        <div class="block-kicker">Available Now</div>
+        <h3>Stage 1</h3>
+        <p>Block 1 and Block 2 lectures: HDSF, BBB and skills modules.</p>
+        <div class="block-meta">
+          <span class="block-pill">2 Blocks</span>
+          <span class="block-pill">17 Modules</span>
+        </div>
+      </div>
+
+      <div class="block-card acc" style="--a:124,58,237;--b:167,139,250" onclick="openStage(2)">
+        <div class="block-kicker">Available Now</div>
+        <h3>Stage 2</h3>
+        <p>Five blocks of lectures, added block by block as they are ready.</p>
+        <div class="block-meta">
+          <span class="block-pill">5 Blocks</span>
+          <span class="block-pill">PDF Library</span>
+        </div>
+      </div>
+    </div>
+
+   
+  </div>
+</section>
+
+<section id="stage2-page">
+  <div class="block-entrance">
+    <div class="resource-topbar">
+      <div class="back-inline" onclick="goBack()">← Back to stages</div>
+    </div>
+    <div class="block-title">
+      <h2>Stage 2</h2>
+      <p>Choose a block</p>
+    </div>
+    <div class="block-grid s2" id="s2-grid"></div>
+  </div>
+</section>
+
+<section id="s2block-page">
+  <div class="block-entrance">
+    <div class="resource-topbar">
+      <div class="back-inline" onclick="goBack()">← Back to blocks</div>
+    </div>
+    <div class="block-title">
+      <h2 id="s2block-title">Stage 2 · Block 1</h2>
+      <p id="s2block-sub">Choose a module</p>
+    </div>
+    <div id="s2block-body"></div>
+  </div>
+</section>
 
 
-<section id="subject-page">
+
+
+<section id="subject-page" style="display:none">
 
 <div id="block-entrance" class="block-entrance">
+    <div class="resource-topbar">
+        <div class="back-inline" onclick="goBack()">← Back to stages</div>
+    </div>
     <div class="block-title">
+        <h2>Stage 1</h2>
+        <p>Choose a block</p>
     </div>
 
     <div class="block-grid">
@@ -2156,89 +2281,637 @@ const biochemistryPracticalResources = [
         'bec':                    { title: 'Basic Emergency Care Resource Library',  group: 'bbb',  resources: becResources }
     };
 
-    /* ───────────── NAVIGATION STATE ───────────── */
-    let lastSplitData = null; 
-let currentBlock = 2; // Keeps track of active block
-
-
-    
-
-    // Handles triggering the Theory/Practical Screen
-    function showSplitCards(subjectKey, group, title) {
-        lastSplitData = { subjectKey, group, title }; // Remember for the Back button
+    /* ───────────── STAGE 2 DATA ─────────────
+   Add subjects to a block like this:
+   modules: [ { icon:'🫀', name:'Anatomy', group:'hdsf', resources:[ { title:'...', description:'...', url:'./file.pdf' } ] } ]
+   group: 'hdsf' (purple) or 'bbb' (blue)                                               */
+const stage2Blocks = [
+    { n:1, code:'IBS', name:'Introduction to Basic Science',            subjects:5,  desc:'Stage 2 lectures for Block 1.', a:'0,87,255',   b:'14,165,233',  modules:[
+        {
+    icon: '🛡️',
+    name: 'Micro-Immunity',
+    group: 'bbb',
+    resources: [
+        // SGL
+        {
+            title: 'Organs and Cells of the Immune System',
+            description: 'SGL',
+            url: './micro-immunity/SGL1.pdf'
+        },
+        {
+            title: 'Innate Immunity',
+            description: 'SGL',
+            url: './micro-immunity/SGL2.pdf'
+        },
+        {
+            title: 'Antibody',
+            description: 'SGL',
+            url: './micro-immunity/SGL3.pdf'
+        },
+        {
+            title: 'Adaptive Immunity',
+            description: 'SGL',
+            url: './micro-immunity/SGL4.pdf'
+        },
+        {
+            title: 'Complement System II',
+            description: 'SGL',
+            url: './micro-immunity/SGL5.pdf'
+        },
+        {
+            title: 'Hypersensitivity Reactions',
+            description: 'SGL',
+            url: './micro-immunity/SGL6.pdf'
+        },
+        {
+            title: 'Autoimmunity and Immune Tolerance',
+            description: 'SGL',
+            url: './micro-immunity/SGL7.pdf'
+        },
+        {
+            title: 'Cytokines and Immunotherapy',
+            description: 'SGL',
+            url: './micro-immunity/SGL8.pdf'
+        },
+        {
+            title: 'Immunity to Microbes',
+            description: 'SGL',
+            url: './micro-immunity/SGL9.pdf'
+        },
+        {
+            title: 'Immune Deficiency and Related Diseases',
+            description: 'SGL',
+            url: './micro-immunity/SGL10.pdf'
+        },
+        {
+            title: 'Autoimmunity and Related Diseases',
+            description: 'SGL',
+            url: './micro-immunity/SGL11.pdf'
+        },
+        {
+            title: 'Transplantation and Graft Rejection',
+            description: 'SGL',
+            url: './micro-immunity/SGL12.pdf'
+        },
         
-        document.getElementById('subject-page').style.display = 'none';
-        document.getElementById('resources-page').style.display = 'none';
-        document.getElementById('split-page').style.display = 'block';
-        
-        document.getElementById('split-title').textContent = title;
-        
-        const grid = document.getElementById('split-grid');
-        const theoryTheme = group === 'hdsf' ? 'hdsf-theme' : 'bbb-theme';
-        
-        grid.innerHTML = `
-            <div class="split-card theory-card ${theoryTheme}" onclick="loadResources('${subjectKey}-theory')">
-                <div class="card-icon">📚</div>
-                <div class="card-name">Theory</div>
-                <div class="card-desc">Lectures and theoretical materials</div>
-            </div>
-            <div class="split-card practical-card" onclick="loadResources('${subjectKey}-practical')">
-                <div class="card-icon">🥼</div>
-                <div class="card-name">Practical</div>
-                <div class="card-desc">Lab manuals and practical guides</div>
-            </div>
-        `;
-        window.scrollTo(0, 0);
-    }
-
-    function backToSubjectsFromSplit() {
-        document.getElementById('split-page').style.display = 'none';
-        document.getElementById('subject-page').style.display = 'block';
-        lastSplitData = null;
-        window.scrollTo(0, 0);
-    }
-
-    function backFromResources() {
-    document.getElementById('resources-page').style.display = 'none';
-
-    if (lastSplitData) {
-        document.getElementById('split-page').style.display = 'block';
-    } else {
-        document.getElementById('subject-page').style.display = 'block';
-        document.getElementById('block-entrance').style.display = 'none';
-        
-        // This checks which block you were in and opens the right one!
-        if (currentBlock === 1) {
-            document.getElementById('block1-content').style.display = 'block';
-        } else {
-            document.getElementById('subjects-content').style.display = 'block';
+        // LG
+        {
+            title: 'Introduction to Immunology',
+            description: 'LG',
+            url: './micro-immunity/LG1.pdf'
+        },
+        {
+            title: 'Antigen',
+            description: 'LG',
+            url: './micro-immunity/LG2.pdf'
+        },
+        {
+            title: 'Major Histocompatibility Complex',
+            description: 'LG',
+            url: './micro-immunity/LG3.pdf'
+        },
+        {
+            title: 'Complement System I',
+            description: 'LG',
+            url: './micro-immunity/LG4.pdf'
+        },
+        {
+            title: 'Inflammation and Inflammatory Mediators',
+            description: 'LG',
+            url: './micro-immunity/LG5.pdf'
+        },
+        {
+            title: 'Immunity to Microbes',
+            description: 'LG',
+            url: './micro-immunity/LG6.pdf'
+        },
+        {
+            title: 'Immunological Aspects of Hormones',
+            description: 'LG',
+            url: './micro-immunity/LG7.pdf'
+        },
+        {
+            title: 'Hypersensitivity and Related Disorders',
+            description: 'LG',
+            url: './micro-immunity/LG8.pdf'
         }
-    }
+    ]
+},
+        {
+    icon: '🔬',
+    name: 'Pathology',
+    group: 'bbb',
+    resources: [
+        // SGL
+        {
+            title: 'Cellular Response to Injury: Adaptation & Reversible Cell Injury',
+            description: 'SGL',
+            url: './SGL1.pdf'
+        },
+        {
+            title: 'Intracellular Accumulations',
+            description: 'SGL',
+            url: './SGL2.pdf'
+        },
+        {
+            title: 'Cellular Changes and Killing Process',
+            description: 'SGL',
+            url: './SGL3.pdf'
+        },
+        {
+            title: 'Chemical Mediators and Chronic Inflammation',
+            description: 'SGL',
+            url: './SGL4.pdf'
+        },
+        {
+            title: 'Healing Process',
+            description: 'SGL',
+            url: './SGL5.pdf'
+        },
+        {
+            title: 'Hemodynamic Disorders: Hyperemia, Congestion and Thrombosis',
+            description: 'SGL',
+            url: './SGL6.pdf'
+        },
+        {
+            title: 'Hemodynamic Disorders: Embolism & Infarction',
+            description: 'SGL',
+            url: './SGL7.pdf'
+        },
+        {
+            title: 'Characteristics of Tumors and Epidemiology',
+            description: 'SGL',
+            url: './SGL8.pdf'
+        },
+        {
+            title: 'Carcinogenic Agents and Tumor Immunity',
+            description: 'SGL',
+            url: './SGL9.pdf'
+        },
+        {
+            title: 'Clinical Aspects, Grading and Staging of Tumors',
+            description: 'SGL',
+            url: './SGL10.pdf'
+        },
 
+        // LG
+        {
+            title: 'Introduction to Pathology & Cell Injury',
+            description: 'LG',
+            url: './LG1.pdf'
+        },
+        {
+            title: 'Irreversible Cell Injury',
+            description: 'LG',
+            url: './LG2.pdf'
+        },
+        {
+            title: 'Apoptosis',
+            description: 'LG',
+            url: './LG3.pdf'
+        },
+        {
+            title: 'Acute Inflammation',
+            description: 'LG',
+            url: './LG4.pdf'
+        },
+        {
+            title: 'Healing Process',
+            description: 'LG',
+            url: './LG5.pdf'
+        },
+        {
+            title: 'Hemodynamic Disorders: Edema',
+            description: 'LG',
+            url: './LG6.pdf'
+        },
+        {
+            title: 'Hemodynamic Disorders: Shock',
+            description: 'LG',
+            url: './LG7.pdf'
+        },
+        {
+            title: 'Neoplasia: Nomenclature',
+            description: 'LG',
+            url: './LG8.pdf'
+        },
+        {
+            title: 'Neoplasia: Molecular Basis of Cancer',
+            description: 'LG',
+            url: './LG9.pdf'
+        },
+        {
+            title: 'Neoplasia: Molecular Basis of Cancer',
+            description: 'LG',
+            url: './LG10.pdf'
+        },
+
+        // Practical
+        {
+            title: 'Biopsy and Tissue Processing',
+            description: 'Practical',
+            url: './Lab1.pdf'
+        },
+        {
+            title: 'Acute and Chronic Inflammation',
+            description: 'Practical',
+            url: './Lab2,3.pdf'
+        },
+        {
+            title: 'Hemodynamic Disorders',
+            description: 'Practical',
+            url: './Lab4.pdf'
+        },
+        {
+            title: 'Neoplasia',
+            description: 'Practical',
+            url: './Lab5.pdf'
+        }
+    ]
+},
+        {
+    icon: '💊',
+    name: 'Pharmacology',
+    group: 'bbb',
+    resources: [
+        // SGL
+        {
+            title: 'Pharmacokinetics: Absorption & Distribution',
+            description: 'SGL',
+            url: './pharmacology/SGL1.pdf'
+        },
+        {
+            title: 'Drug Metabolism (Biotransformation)',
+            description: 'SGL',
+            url: './pharmacology/SGL2.pdf'
+        },
+        {
+            title: 'Drug–Receptor Interactions',
+            description: 'SGL',
+            url: './pharmacology/SGL3.pdf'
+        },
+        {
+            title: 'Parasympathomimetic Drugs (Cholinomimetics)',
+            description: 'SGL',
+            url: './pharmacology/SGL4.pdf'
+        },
+        {
+            title: 'Cell Wall Synthesis Inhibitors 1',
+            description: 'SGL',
+            url: './pharmacology/SGL5.pdf'
+        },
+        {
+            title: 'Cell Wall Inhibitors 2',
+            description: 'SGL',
+            url: './pharmacology/SGL6.pdf'
+        },
+        {
+            title: 'Antimicrobial Agents Inhibiting Bacterial Nucleic Acid Synthesis',
+            description: 'SGL',
+            url: './pharmacology/SGL7.pdf'
+        },
+        {
+            title: 'Inhibitors of Bacterial Protein Synthesis',
+            description: 'SGL',
+            url: './pharmacology/SGL9.pdf'
+        },
+        {
+            title: 'Antifungal Drugs',
+            description: 'SGL',
+            url: './pharmacology/SGL10.pdf'
+        },
+        
+        // LG
+        {
+            title: 'Introduction to Pharmacology',
+            description: 'LG',
+            url: './pharmacology/LG1.pdf'
+        },
+        {
+            title: 'Pharmacodynamics: Mechanism of Drug Action',
+            description: 'LG',
+            url: './pharmacology/LG2.pdf'
+        },
+        {
+            title: 'Principles of Antimicrobial Therapy',
+            description: 'LG',
+            url: './pharmacology/LG3.pdf'
+        },
+        {
+            title: 'Drugs Affecting the Autonomic Nervous System',
+            description: 'LG',
+            url: './pharmacology/LG4.pdf'
+        },
+        {
+            title: 'Drugs Affecting Adrenergic Neuron Transmission',
+            description: 'LG',
+            url: './pharmacology/LG5.pdf'
+        },
+        {
+            title: 'Sympathomimetic Drugs',
+            description: 'LG',
+            url: './pharmacology/LG6.pdf'
+        },
+        {
+            title: 'Adrenergic Receptor Blockers (Sympatholytic Drugs)',
+            description: 'LG',
+            url: './pharmacology/LG7.pdf'
+        },
+        {
+            title: 'Adverse Drug Reactions',
+            description: 'LG',
+            url: './pharmacology/LG8.pdf'
+        },
+        {
+            title: 'Excretion: Pharmacokinetics of Drug Elimination',
+            description: 'LG',
+            url: './pharmacology/LG10.pdf'
+        },
+        {
+            title: 'Parasympatholytics (Anticholinergic Drugs)',
+            description: 'LG',
+            url: './pharmacology/LG11.pdf'
+        },
+        
+        // Practical
+        {
+            title: 'Pharmaceutical Dosage Forms',
+            description: 'Practical',
+            url: './pharmacology/Lab1.pdf'
+        },
+        {
+            title: 'Effect of Routes of Drug Administration on Drug Response',
+            description: 'Practical',
+            url: './pharmacology/Lab2.pdf'
+        },
+        {
+            title: 'Prescription Reading',
+            description: 'Practical',
+            url: './pharmacology/Lab3.pdf'
+        },
+        {
+            title: 'Intravenous Fluid Therapy',
+            description: 'Practical',
+            url: './pharmacology/Lab4.pdf'
+        },
+        {
+            title: 'Effect of Drugs on the Iris',
+            description: 'Practical',
+            url: './pharmacology/Lab5.pdf'
+        }
+    ]
+},
+        {
+    icon: '🧪',
+    name: 'Biochemistry',
+    group: 'bbb',
+    resources: [
+        {
+            title: 'Protein Metabolism',
+            description: 'Lecture 1',
+            url: './biochemistry/1.pdf'
+        },
+        {
+            title: 'Lipid Metabolism',
+            description: 'Lecture 2',
+            url: './biochemistry/2.pdf'
+        },
+        {
+            title: 'Carbohydrate Metabolism',
+            description: 'Lecture 3',
+            url: './biochemistry/3.pdf'
+        },
+        {
+            title: 'Enzymology',
+            description: 'Lecture 4',
+            url: './biochemistry/4.pdf'
+        },
+        {
+            title: 'Clinical Case: Complications of the Ketogenic Diet',
+            description: 'Lecture 5',
+            url: './biochemistry/5.pdf'
+        },
+        {
+            title: 'Clinical Case: Alcohol Consumption and Liver Disease',
+            description: 'Lecture 6',
+            url: './biochemistry/6.pdf'
+        },
+        {
+            title: 'Biochemistry of Cancer',
+            description: 'Lecture 7',
+            url: './biochemistry/7.pdf'
+        },
+        {
+            title: 'Nutrition',
+            description: 'Lecture 8',
+            url: './biochemistry/8.pdf'
+        },
+        {
+            title: 'Ammonia Toxicity',
+            description: 'Lecture 9',
+            url: './biochemistry/9.pdf'
+        },
+        {
+            title: 'Spectrophotometer & ELISA',
+            description: 'Lab 1',
+            url: './biochemistry/lab1.pdf'
+        },
+        {
+            title: 'Determination of Serum Glucose',
+            description: 'Lab 2',
+            url: './biochemistry/lab2.pdf'
+        },
+        {
+            title: 'Determination of Serum Triglycerides, Total Cholesterol & Lipoproteins',
+            description: 'Lab 3',
+            url: './biochemistry/lab3.pdf'
+        },
+        {
+            title: 'Determination of Serum Total Proteins',
+            description: 'Lab 4',
+            url: './biochemistry/lab4.pdf'
+        },
+        {
+            title: 'Renal Function Tests: Urea, Creatinine & Uric Acid',
+            description: 'Lab 5',
+            url: './biochemistry/lab5.pdf'
+        },
+        {
+            title: 'Electrolyte Balance',
+            description: 'Lab 6',
+            url: './biochemistry/lab6.pdf'
+        },
+        {
+            title: 'Enzymes: Mechanisms, Kinetics & Clinical Applications',
+            description: 'Lab 7',
+            url: './biochemistry/lab7.pdf'
+        }
+    ]
+},
+        {
+    icon: '️🎓',
+    name: 'Medical Education',
+    group: 'bbb',
+    resources: [
+        {
+            title: 'Medical Interview: History Taking',
+            description: 'SGL',
+            url: './communication-skills/n1.pdf'
+        },
+        {
+            title: 'Communication Skills: Calgary-Cambridge Framework',
+            description: 'SGL',
+            url: './communication-skills/n2.pdf'
+        }
+    ]
+}
+    ] },
+    { n:2, code:'MSD', name:'Musculoskeletal System and Dermatology',   subjects:13, desc:'Stage 2 lectures for Block 2.', a:'124,58,237', b:'167,139,250', modules:[
+        { icon:'🫀', name:'Anatomy', group:'hdsf', resources:[] },
+        { icon:'🧠', name:'Physiology', group:'hdsf', resources:[] },
+        { icon:'🦠', name:'Microbiology', group:'hdsf', resources:[] },
+        { icon:'🧬', name:'Genetics', group:'hdsf', resources:[] },
+        { icon:'🩻', name:'Radiology', group:'hdsf', resources:[] },
+        { icon:'💊', name:'Pharmacology', group:'hdsf', resources:[] },
+        { icon:'🧪', name:'Biochemistry', group:'hdsf', resources:[] },
+        { icon:'🔬', name:'Pathology', group:'hdsf', resources:[] },
+        { icon:'👶', name:'Embryology', group:'hdsf', resources:[] },
+        { icon:'🔎', name:'Histology', group:'hdsf', resources:[] },
+        { icon:'🧴', name:'Dermatology', group:'hdsf', resources:[] },
+        { icon:'🏥', name:'Clinical Placement', group:'hdsf', resources:[] },
+        { icon:'📋', name:'Clinical Scenario', group:'hdsf', resources:[] }
+    ] },
+    { n:3, code:'HP',  name:'Hematopoietic System',                     subjects:0,  desc:'Stage 2 lectures for Block 3.', a:'13,148,136', b:'45,212,191',  modules:[] },
+    { n:4, code:'CVS', name:'Cardiovascular System',                    subjects:0,  desc:'Stage 2 lectures for Block 4.', a:'225,29,72',  b:'251,113,133', modules:[] },
+    { n:5, code:'RS',  name:'Respiratory System',                       subjects:0,  desc:'Stage 2 lectures for Block 5.', a:'217,119,6',  b:'251,191,36',  modules:[] }
+];
+stage2Blocks.forEach(blk => blk.modules.forEach((m, i) => {
+    m.key = 's2b' + blk.n + 'm' + i;
+    subjectMap[m.key] = { title: m.name + ' Resource Library', group: m.group || 'bbb', resources: m.resources || [] };
+}));
+
+/* ───────────── NAVIGATION (browser-history based) ───────────── */
+let currentBlock = 2;
+const PAGES = ['home-page','subject-page','stage2-page','s2block-page','split-page','resources-page'];
+const SUBVIEWS = ['block-entrance','block1-content','subjects-content'];
+const $ = id => document.getElementById(id);
+const setShow = (id, on) => { $(id).style.display = on ? 'block' : 'none'; };
+
+function go(st) {
+    st.d = ((history.state && history.state.d) || 0) + 1;
+    history.pushState(st, '');
+    render(st);
+}
+function goBack() {
+    if (history.state && history.state.d > 0) history.back();
+    else render({ v:'home', d:0 });
+}
+
+function render(st) {
+    st = st || { v:'home', d:0 };
+    PAGES.forEach(p => setShow(p, false));
+    SUBVIEWS.forEach(p => setShow(p, false));
+    switch (st.v) {
+        case 'stage1':
+            setShow('subject-page', true); setShow('block-entrance', true); break;
+        case 'block':
+            currentBlock = st.b;
+            setShow('subject-page', true);
+            setShow(st.b === 1 ? 'block1-content' : 'subjects-content', true); break;
+        case 'stage2':
+            renderStage2(); setShow('stage2-page', true); break;
+        case 's2block':
+            renderS2Block(st.b); setShow('s2block-page', true); break;
+        case 'split':
+            renderSplit(st); setShow('split-page', true); break;
+        case 'res':
+            if (!renderResourcePage(st.key)) { setShow('home-page', true); break; }
+            setShow('resources-page', true); break;
+        default:
+            setShow('home-page', true);
+    }
     window.scrollTo(0, 0);
 }
 
+window.addEventListener('popstate', e => render(e.state));
 
-    function loadResources(subjectKey) {
-        const subject = subjectMap[subjectKey];
-        if (!subject) return;
+function openStage(n)   { go({ v: n === 1 ? 'stage1' : 'stage2' }); }
+function openBlock1()   { go({ v:'block', b:1 }); }
+function openBlock2()   { go({ v:'block', b:2 }); }
+function openS2Block(n) { go({ v:'s2block', b:n }); }
+function loadResources(key) { if (subjectMap[key]) go({ v:'res', key }); }
+function showSplitCards(subjectKey, group, title) { go({ v:'split', key:subjectKey, group, title }); }
+function backToBlocks() { goBack(); }
+function backToSubjectsFromSplit() { goBack(); }
+function backFromResources() { goBack(); }
 
-        // Reset split memory if this isn't a split subject
-        if (!subjectKey.includes('-theory') && !subjectKey.includes('-practical')) {
-            lastSplitData = null;
-        }
+function renderStage2() {
+    $('s2-grid').innerHTML = stage2Blocks.map(blk => {
+        const has = blk.modules.length > 0;
+        return `
+        <div class="block-card acc${has ? '' : ' soon'}" style="--a:${blk.a};--b:${blk.b}" onclick="openS2Block(${blk.n})">
+            <div class="big-num">0${blk.n}</div>
+            <div class="block-kicker">${has ? 'Available Now' : 'Coming Soon'}</div>
+            <h3>${blk.code}</h3>
+            <p>${blk.name}</p>
+            <div class="block-meta">
+                <span class="block-pill">${has ? blk.modules.length + ' Subjects' : (blk.subjects ? blk.subjects + ' Subjects' : 'Being organized')}</span>
+                <span class="block-pill">PDF Library</span>
+            </div>
+        </div>`;
+    }).join('');
+}
 
-        document.getElementById('subject-page').style.display = 'none';
-        document.getElementById('split-page').style.display = 'none';
-        document.getElementById('resources-page').style.display = 'block';
-
-        document.getElementById('resources-title').textContent = subject.title;
-        document.getElementById('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
-        document.getElementById('resources-count').textContent = `${subject.resources.length} files`;
-        renderResources(subject.resources, subject.group, subject.title);
-
-        window.scrollTo(0, 0);
+function renderS2Block(n) {
+    const blk = stage2Blocks.find(x => x.n === n);
+    if (!blk) return;
+    $('s2block-title').textContent = 'Stage 2 · ' + blk.code;
+    const body = $('s2block-body');
+    if (!blk.modules.length) {
+        $('s2block-sub').textContent = blk.name + ' · Lectures coming soon';
+        body.innerHTML = `
+            <div class="empty-state">
+                <div class="coming-soon-icon">🚀</div>
+                <h3>${blk.code} is on the way</h3>
+                <p>These lectures are being organized and will be added soon.</p>
+            </div>`;
+        return;
     }
+    $('s2block-sub').textContent = blk.name;
+    const card = (m, i) => `
+        <div class="subject-card ${m.group === 'hdsf' ? 'hdsf-card' : 'bbb-card'}" style="animation-delay:${(0.05 + i * 0.05).toFixed(2)}s" onclick="loadResources('${m.key}')">
+            <div class="card-icon">${m.icon || '📚'}</div>
+            <div class="card-name">${m.name}</div>
+            <div class="card-chip ${m.group === 'hdsf' ? 'hdsf' : 'bbb'}">PDF Files</div>
+        </div>`;
+    body.innerHTML = `<div class="group-section"><div class="subject-grid">${blk.modules.map(card).join('')}</div></div>`;
+}
+
+function renderSplit(st) {
+    $('split-title').textContent = st.title;
+    const theoryTheme = st.group === 'hdsf' ? 'hdsf-theme' : 'bbb-theme';
+    $('split-grid').innerHTML = `
+        <div class="split-card theory-card ${theoryTheme}" onclick="loadResources('${st.key}-theory')">
+            <div class="card-icon">📚</div>
+            <div class="card-name">Theory</div>
+            <div class="card-desc">Lectures and theoretical materials</div>
+        </div>
+        <div class="split-card practical-card" onclick="loadResources('${st.key}-practical')">
+            <div class="card-icon">🥼</div>
+            <div class="card-name">Practical</div>
+            <div class="card-desc">Lab manuals and practical guides</div>
+        </div>`;
+}
+
+function renderResourcePage(key) {
+    const subject = subjectMap[key];
+    if (!subject) return false;
+    $('resources-title').textContent = subject.title;
+    $('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
+    $('resources-count').textContent = `${subject.resources.length} files`;
+    renderResources(subject.resources, subject.group, subject.title);
+    return true;
+}
 
     function makeFileName(item, subjectTitle) {
     const cleanSubject = subjectTitle
@@ -2337,28 +3010,9 @@ document.addEventListener('touchend', function (e) {
     }
 }, { passive: true });
 
-    function openBlock1() {
-    currentBlock = 1;
-    document.getElementById('block-entrance').style.display = 'none';
-    document.getElementById('subjects-content').style.display = 'none';
-    document.getElementById('block1-content').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-function openBlock2() {
-    currentBlock = 2;
-    document.getElementById('block-entrance').style.display = 'none';
-    document.getElementById('block1-content').style.display = 'none';
-    document.getElementById('subjects-content').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-function backToBlocks() {
-    document.getElementById('block1-content').style.display = 'none';
-    document.getElementById('subjects-content').style.display = 'none';
-    document.getElementById('block-entrance').style.display = 'block';
-    window.scrollTo(0, 0);
-}
+/* Start on the saved history entry (survives refresh), otherwise home */
+history.replaceState(history.state || { v:'home', d:0 }, '');
+render(history.state);
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
