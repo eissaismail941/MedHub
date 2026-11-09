@@ -1495,6 +1495,8 @@ body.ios-device .resource-actions {
    
 
     </style>
+    <link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0057FF">
 </head>
 
 <body>
@@ -2356,6 +2358,13 @@ function backToBlocks() {
 
 </script>
 
-
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .catch(console.error);
+    });
+  }
+</script>
 </body>
 </html>
