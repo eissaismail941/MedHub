@@ -10,7 +10,9 @@
   gtag('config', 'G-F498HHBGMM');
 </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8fbff">
+    <meta name="color-scheme" content="light">
     <title>MedHub | Portal</title>
     <style>
     /* Add this to your <style> section if the image doesn't align correctly */
@@ -263,8 +265,11 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { background: #f8fbff; min-height: 100%; }
+
         body {
-            background: #ffffff;
+            background: #f8fbff;
+            min-height: 100dvh;
             font-family: 'DM Sans', sans-serif;
             overflow-x: hidden;
         }
@@ -603,7 +608,8 @@
         #subject-page, #split-page {
     display: none;
     min-height: 100vh;
-    padding: 60px 20px 80px;
+    min-height: 100dvh;
+    padding: 60px 20px calc(80px + env(safe-area-inset-bottom, 0px));
     background: var(--bg-mesh);
 }
 
@@ -1495,8 +1501,6 @@ body.ios-device .resource-actions {
    
 
     </style>
-    <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0057FF">
 </head>
 
 <body>
@@ -2358,13 +2362,6 @@ function backToBlocks() {
 
 </script>
 
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .catch(console.error);
-    });
-  }
-</script>
+
 </body>
 </html>
