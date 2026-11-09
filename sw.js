@@ -2,10 +2,10 @@
 
 const ROOT = new URL('./', self.location.href);
 const PREFIX = `medhub-${ROOT.pathname}-`;
-const CACHE = `${PREFIX}v2`;
+const CACHE = `${PREFIX}v3`;
 const HOME = ROOT.href;
 
-// Save the homepage when the service worker installs.
+// Save the homepage for offline use.
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
@@ -29,10 +29,12 @@ self.addEventListener('install', event => {
         error
       );
     }
+
+    await self.skipWaiting();
   })());
 });
 
-// Remove old MedHub caches.
+// Remove older versions of this app's cache.
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const names = await caches.keys();
@@ -49,7 +51,7 @@ self.addEventListener('activate', event => {
   })());
 });
 
-// Use the internet first; show the saved homepage offline.
+// Load the latest homepage online; use the saved copy offline.
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
