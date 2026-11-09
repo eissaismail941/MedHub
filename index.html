@@ -10,11 +10,12 @@
   gtag('config', 'G-F498HHBGMM');
 </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    
-    <meta name="color-scheme" content="light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8fbff">
+    <link rel="manifest" href="./manifest.json">
     <title>MedHub | Portal</title>
     <style>
+    html { background-color: #f8fbff; }
     /* Add this to your <style> section if the image doesn't align correctly */
 .card-icon img {
     display: block;
@@ -265,11 +266,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { background: #f8fbff; min-height: 100%; }
-
         body {
-            background: #f8fbff;
-            min-height: 100dvh;
+            background: #ffffff;
             font-family: 'DM Sans', sans-serif;
             overflow-x: hidden;
         }
@@ -608,8 +606,7 @@
         #subject-page, #split-page {
     display: none;
     min-height: 100vh;
-    min-height: 100dvh;
-    padding: 60px 20px calc(80px + env(safe-area-inset-bottom, 0px));
+    padding: 60px 20px 80px;
     background: var(--bg-mesh);
 }
 
@@ -2363,5 +2360,14 @@ function backToBlocks() {
 </script>
 
 
+<script>
+// Check for app updates when the portal opens.
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+            .catch(error => console.warn('MedHub: service worker registration failed.', error));
+    });
+}
+</script>
 </body>
 </html>
