@@ -11,11 +11,14 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f8fbff">
-    <link rel="manifest" href="./manifest.json">
     <title>MedHub | Portal</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#f8fbff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="MedHub">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
     <style>
-    html { background-color: #f8fbff; }
     /* Add this to your <style> section if the image doesn't align correctly */
 .card-icon img {
     display: block;
@@ -2357,17 +2360,15 @@ function backToBlocks() {
     window.scrollTo(0, 0);
 }
 
-</script>
-
-
-<script>
-// Check for app updates when the portal opens.
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
-            .catch(error => console.warn('MedHub: service worker registration failed.', error));
+        navigator.serviceWorker.register('./sw.js', { scope: './' })
+            .catch(err => console.warn('Service worker failed:', err));
     });
 }
+
 </script>
+
+
 </body>
 </html>
