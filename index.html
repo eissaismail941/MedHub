@@ -2281,490 +2281,495 @@ const biochemistryPracticalResources = [
         'bec':                    { title: 'Basic Emergency Care Resource Library',  group: 'bbb',  resources: becResources }
     };
 
-    /* ───────────── STAGE 2 DATA ─────────────
-   Add subjects to a block like this:
-   modules: [ { icon:'🫀', name:'Anatomy', group:'hdsf', resources:[ { title:'...', description:'...', url:'./file.pdf' } ] } ]
-   group: 'hdsf' (purple) or 'bbb' (blue)                                               */
+/* ───────────── STAGE 2 DATA ───────────── */
 const stage2Blocks = [
-    { n:1, code:'IBS', name:'Introduction to Basic Science',            subjects:5,  desc:'Stage 2 lectures for Block 1.', a:'0,87,255',   b:'14,165,233',  modules:[
-        {
-    icon: '🛡️',
-    name: 'Micro-Immunity',
-    group: 'bbb',
-    resources: [
-        // SGL
-        {
-            title: 'Organs and Cells of the Immune System',
-            description: 'SGL',
-            url: './micro-immunity/SGL1.pdf'
-        },
-        {
-            title: 'Innate Immunity',
-            description: 'SGL',
-            url: './micro-immunity/SGL2.pdf'
-        },
-        {
-            title: 'Antibody',
-            description: 'SGL',
-            url: './micro-immunity/SGL3.pdf'
-        },
-        {
-            title: 'Adaptive Immunity',
-            description: 'SGL',
-            url: './micro-immunity/SGL4.pdf'
-        },
-        {
-            title: 'Complement System II',
-            description: 'SGL',
-            url: './micro-immunity/SGL5.pdf'
-        },
-        {
-            title: 'Hypersensitivity Reactions',
-            description: 'SGL',
-            url: './micro-immunity/SGL6.pdf'
-        },
-        {
-            title: 'Autoimmunity and Immune Tolerance',
-            description: 'SGL',
-            url: './micro-immunity/SGL7.pdf'
-        },
-        {
-            title: 'Cytokines and Immunotherapy',
-            description: 'SGL',
-            url: './micro-immunity/SGL8.pdf'
-        },
-        {
-            title: 'Immunity to Microbes',
-            description: 'SGL',
-            url: './micro-immunity/SGL9.pdf'
-        },
-        {
-            title: 'Immune Deficiency and Related Diseases',
-            description: 'SGL',
-            url: './micro-immunity/SGL10.pdf'
-        },
-        {
-            title: 'Autoimmunity and Related Diseases',
-            description: 'SGL',
-            url: './micro-immunity/SGL11.pdf'
-        },
-        {
-            title: 'Transplantation and Graft Rejection',
-            description: 'SGL',
-            url: './micro-immunity/SGL12.pdf'
-        },
-        
-        // LG
-        {
-            title: 'Introduction to Immunology',
-            description: 'LG',
-            url: './micro-immunity/LG1.pdf'
-        },
-        {
-            title: 'Antigen',
-            description: 'LG',
-            url: './micro-immunity/LG2.pdf'
-        },
-        {
-            title: 'Major Histocompatibility Complex',
-            description: 'LG',
-            url: './micro-immunity/LG3.pdf'
-        },
-        {
-            title: 'Complement System I',
-            description: 'LG',
-            url: './micro-immunity/LG4.pdf'
-        },
-        {
-            title: 'Inflammation and Inflammatory Mediators',
-            description: 'LG',
-            url: './micro-immunity/LG5.pdf'
-        },
-        {
-            title: 'Immunity to Microbes',
-            description: 'LG',
-            url: './micro-immunity/LG6.pdf'
-        },
-        {
-            title: 'Immunological Aspects of Hormones',
-            description: 'LG',
-            url: './micro-immunity/LG7.pdf'
-        },
-        {
-            title: 'Hypersensitivity and Related Disorders',
-            description: 'LG',
-            url: './micro-immunity/LG8.pdf'
-        }
-    ]
-},
-        {
-    icon: '🔬',
-    name: 'Pathology',
-    group: 'bbb',
-    resources: [
-        // SGL
-        {
-            title: 'Cellular Response to Injury: Adaptation & Reversible Cell Injury',
-            description: 'SGL',
-            url: './SGL1.pdf'
-        },
-        {
-            title: 'Intracellular Accumulations',
-            description: 'SGL',
-            url: './SGL2.pdf'
-        },
-        {
-            title: 'Cellular Changes and Killing Process',
-            description: 'SGL',
-            url: './SGL3.pdf'
-        },
-        {
-            title: 'Chemical Mediators and Chronic Inflammation',
-            description: 'SGL',
-            url: './SGL4.pdf'
-        },
-        {
-            title: 'Healing Process',
-            description: 'SGL',
-            url: './SGL5.pdf'
-        },
-        {
-            title: 'Hemodynamic Disorders: Hyperemia, Congestion and Thrombosis',
-            description: 'SGL',
-            url: './SGL6.pdf'
-        },
-        {
-            title: 'Hemodynamic Disorders: Embolism & Infarction',
-            description: 'SGL',
-            url: './SGL7.pdf'
-        },
-        {
-            title: 'Characteristics of Tumors and Epidemiology',
-            description: 'SGL',
-            url: './SGL8.pdf'
-        },
-        {
-            title: 'Carcinogenic Agents and Tumor Immunity',
-            description: 'SGL',
-            url: './SGL9.pdf'
-        },
-        {
-            title: 'Clinical Aspects, Grading and Staging of Tumors',
-            description: 'SGL',
-            url: './SGL10.pdf'
-        },
+    {
+        n: 1,
+        code: 'IBS',
+        name: 'Introduction to Basic Science',
+        subjects: 5,
+        desc: 'Stage 2 lectures for Block 1.',
+        a: '0,87,255',
+        b: '14,165,233',
+        modules: [
+            {
+                icon: '🛡️',
+                name: 'Micro-Immunity',
+                group: 'bbb',
+                resources: [
+                    // SGL
+                    {
+                        title: 'Organs and Cells of the Immune System',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL1.pdf'
+                    },
+                    {
+                        title: 'Innate Immunity',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL2.pdf'
+                    },
+                    {
+                        title: 'Antibody',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL3.pdf'
+                    },
+                    {
+                        title: 'Adaptive Immunity',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL4.pdf'
+                    },
+                    {
+                        title: 'Complement System II',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL5.pdf'
+                    },
+                    {
+                        title: 'Hypersensitivity Reactions',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL6.pdf'
+                    },
+                    {
+                        title: 'Autoimmunity and Immune Tolerance',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL7.pdf'
+                    },
+                    {
+                        title: 'Cytokines and Immunotherapy',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL8.pdf'
+                    },
+                    {
+                        title: 'Immunity to Microbes',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL9.pdf'
+                    },
+                    {
+                        title: 'Immune Deficiency and Related Diseases',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL10.pdf'
+                    },
+                    {
+                        title: 'Autoimmunity and Related Diseases',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL11.pdf'
+                    },
+                    {
+                        title: 'Transplantation and Graft Rejection',
+                        description: 'SGL',
+                        url: './micro-immunity-SGL12.pdf'
+                    },
 
-        // LG
-        {
-            title: 'Introduction to Pathology & Cell Injury',
-            description: 'LG',
-            url: './LG1.pdf'
-        },
-        {
-            title: 'Irreversible Cell Injury',
-            description: 'LG',
-            url: './LG2.pdf'
-        },
-        {
-            title: 'Apoptosis',
-            description: 'LG',
-            url: './LG3.pdf'
-        },
-        {
-            title: 'Acute Inflammation',
-            description: 'LG',
-            url: './LG4.pdf'
-        },
-        {
-            title: 'Healing Process',
-            description: 'LG',
-            url: './LG5.pdf'
-        },
-        {
-            title: 'Hemodynamic Disorders: Edema',
-            description: 'LG',
-            url: './LG6.pdf'
-        },
-        {
-            title: 'Hemodynamic Disorders: Shock',
-            description: 'LG',
-            url: './LG7.pdf'
-        },
-        {
-            title: 'Neoplasia: Nomenclature',
-            description: 'LG',
-            url: './LG8.pdf'
-        },
-        {
-            title: 'Neoplasia: Molecular Basis of Cancer',
-            description: 'LG',
-            url: './LG9.pdf'
-        },
-        {
-            title: 'Neoplasia: Molecular Basis of Cancer',
-            description: 'LG',
-            url: './LG10.pdf'
-        },
+                    // LG
+                    {
+                        title: 'Introduction to Immunology',
+                        description: 'LG',
+                        url: './micro-immunity-LG1.pdf'
+                    },
+                    {
+                        title: 'Antigen',
+                        description: 'LG',
+                        url: './micro-immunity-LG2.pdf'
+                    },
+                    {
+                        title: 'Major Histocompatibility Complex',
+                        description: 'LG',
+                        url: './micro-immunity-LG3.pdf'
+                    },
+                    {
+                        title: 'Complement System I',
+                        description: 'LG',
+                        url: './micro-immunity-LG4.pdf'
+                    },
+                    {
+                        title: 'Inflammation and Inflammatory Mediators',
+                        description: 'LG',
+                        url: './micro-immunity-LG5.pdf'
+                    },
+                    {
+                        title: 'Immunity to Microbes',
+                        description: 'LG',
+                        url: './micro-immunity-LG6.pdf'
+                    },
+                    {
+                        title: 'Immunological Aspects of Hormones',
+                        description: 'LG',
+                        url: './micro-immunity-LG7.pdf'
+                    },
+                    {
+                        title: 'Hypersensitivity and Related Disorders',
+                        description: 'LG',
+                        url: './micro-immunity-LG8.pdf'
+                    }
+                ]
+            },
+            {
+                icon: '🔬',
+                name: 'Pathology',
+                group: 'bbb',
+                resources: [
+                    // SGL
+                    {
+                        title: 'Cellular Response to Injury: Adaptation & Reversible Cell Injury',
+                        description: 'SGL',
+                        url: './pathology-SGL1.pdf'
+                    },
+                    {
+                        title: 'Intracellular Accumulations',
+                        description: 'SGL',
+                        url: './pathology-SGL2.pdf'
+                    },
+                    {
+                        title: 'Cellular Changes and Killing Process',
+                        description: 'SGL',
+                        url: './pathology-SGL3.pdf'
+                    },
+                    {
+                        title: 'Chemical Mediators and Chronic Inflammation',
+                        description: 'SGL',
+                        url: './pathology-SGL4.pdf'
+                    },
+                    {
+                        title: 'Healing Process',
+                        description: 'SGL',
+                        url: './pathology-SGL5.pdf'
+                    },
+                    {
+                        title: 'Hemodynamic Disorders: Hyperemia, Congestion and Thrombosis',
+                        description: 'SGL',
+                        url: './pathology-SGL6.pdf'
+                    },
+                    {
+                        title: 'Hemodynamic Disorders: Embolism & Infarction',
+                        description: 'SGL',
+                        url: './pathology-SGL7.pdf'
+                    },
+                    {
+                        title: 'Characteristics of Tumors and Epidemiology',
+                        description: 'SGL',
+                        url: './pathology-SGL8.pdf'
+                    },
+                    {
+                        title: 'Carcinogenic Agents and Tumor Immunity',
+                        description: 'SGL',
+                        url: './pathology-SGL9.pdf'
+                    },
+                    {
+                        title: 'Clinical Aspects, Grading and Staging of Tumors',
+                        description: 'SGL',
+                        url: './pathology-SGL10.pdf'
+                    },
 
-        // Practical
-        {
-            title: 'Biopsy and Tissue Processing',
-            description: 'Practical',
-            url: './Lab1.pdf'
-        },
-        {
-            title: 'Acute and Chronic Inflammation',
-            description: 'Practical',
-            url: './Lab2,3.pdf'
-        },
-        {
-            title: 'Hemodynamic Disorders',
-            description: 'Practical',
-            url: './Lab4.pdf'
-        },
-        {
-            title: 'Neoplasia',
-            description: 'Practical',
-            url: './Lab5.pdf'
-        }
-    ]
-},
-        {
-    icon: '💊',
-    name: 'Pharmacology',
-    group: 'bbb',
-    resources: [
-        // SGL
-        {
-            title: 'Pharmacokinetics: Absorption & Distribution',
-            description: 'SGL',
-            url: './pharmacology/SGL1.pdf'
-        },
-        {
-            title: 'Drug Metabolism (Biotransformation)',
-            description: 'SGL',
-            url: './pharmacology/SGL2.pdf'
-        },
-        {
-            title: 'Drug–Receptor Interactions',
-            description: 'SGL',
-            url: './pharmacology/SGL3.pdf'
-        },
-        {
-            title: 'Parasympathomimetic Drugs (Cholinomimetics)',
-            description: 'SGL',
-            url: './pharmacology/SGL4.pdf'
-        },
-        {
-            title: 'Cell Wall Synthesis Inhibitors 1',
-            description: 'SGL',
-            url: './pharmacology/SGL5.pdf'
-        },
-        {
-            title: 'Cell Wall Inhibitors 2',
-            description: 'SGL',
-            url: './pharmacology/SGL6.pdf'
-        },
-        {
-            title: 'Antimicrobial Agents Inhibiting Bacterial Nucleic Acid Synthesis',
-            description: 'SGL',
-            url: './pharmacology/SGL7.pdf'
-        },
-        {
-            title: 'Inhibitors of Bacterial Protein Synthesis',
-            description: 'SGL',
-            url: './pharmacology/SGL9.pdf'
-        },
-        {
-            title: 'Antifungal Drugs',
-            description: 'SGL',
-            url: './pharmacology/SGL10.pdf'
-        },
-        
-        // LG
-        {
-            title: 'Introduction to Pharmacology',
-            description: 'LG',
-            url: './pharmacology/LG1.pdf'
-        },
-        {
-            title: 'Pharmacodynamics: Mechanism of Drug Action',
-            description: 'LG',
-            url: './pharmacology/LG2.pdf'
-        },
-        {
-            title: 'Principles of Antimicrobial Therapy',
-            description: 'LG',
-            url: './pharmacology/LG3.pdf'
-        },
-        {
-            title: 'Drugs Affecting the Autonomic Nervous System',
-            description: 'LG',
-            url: './pharmacology/LG4.pdf'
-        },
-        {
-            title: 'Drugs Affecting Adrenergic Neuron Transmission',
-            description: 'LG',
-            url: './pharmacology/LG5.pdf'
-        },
-        {
-            title: 'Sympathomimetic Drugs',
-            description: 'LG',
-            url: './pharmacology/LG6.pdf'
-        },
-        {
-            title: 'Adrenergic Receptor Blockers (Sympatholytic Drugs)',
-            description: 'LG',
-            url: './pharmacology/LG7.pdf'
-        },
-        {
-            title: 'Adverse Drug Reactions',
-            description: 'LG',
-            url: './pharmacology/LG8.pdf'
-        },
-        {
-            title: 'Excretion: Pharmacokinetics of Drug Elimination',
-            description: 'LG',
-            url: './pharmacology/LG10.pdf'
-        },
-        {
-            title: 'Parasympatholytics (Anticholinergic Drugs)',
-            description: 'LG',
-            url: './pharmacology/LG11.pdf'
-        },
-        
-        // Practical
-        {
-            title: 'Pharmaceutical Dosage Forms',
-            description: 'Practical',
-            url: './pharmacology/Lab1.pdf'
-        },
-        {
-            title: 'Effect of Routes of Drug Administration on Drug Response',
-            description: 'Practical',
-            url: './pharmacology/Lab2.pdf'
-        },
-        {
-            title: 'Prescription Reading',
-            description: 'Practical',
-            url: './pharmacology/Lab3.pdf'
-        },
-        {
-            title: 'Intravenous Fluid Therapy',
-            description: 'Practical',
-            url: './pharmacology/Lab4.pdf'
-        },
-        {
-            title: 'Effect of Drugs on the Iris',
-            description: 'Practical',
-            url: './pharmacology/Lab5.pdf'
-        }
-    ]
-},
-        {
-    icon: '🧪',
-    name: 'Biochemistry',
-    group: 'bbb',
-    resources: [
-        {
-            title: 'Protein Metabolism',
-            description: 'Lecture 1',
-            url: './biochemistry/1.pdf'
-        },
-        {
-            title: 'Lipid Metabolism',
-            description: 'Lecture 2',
-            url: './biochemistry/2.pdf'
-        },
-        {
-            title: 'Carbohydrate Metabolism',
-            description: 'Lecture 3',
-            url: './biochemistry/3.pdf'
-        },
-        {
-            title: 'Enzymology',
-            description: 'Lecture 4',
-            url: './biochemistry/4.pdf'
-        },
-        {
-            title: 'Clinical Case: Complications of the Ketogenic Diet',
-            description: 'Lecture 5',
-            url: './biochemistry/5.pdf'
-        },
-        {
-            title: 'Clinical Case: Alcohol Consumption and Liver Disease',
-            description: 'Lecture 6',
-            url: './biochemistry/6.pdf'
-        },
-        {
-            title: 'Biochemistry of Cancer',
-            description: 'Lecture 7',
-            url: './biochemistry/7.pdf'
-        },
-        {
-            title: 'Nutrition',
-            description: 'Lecture 8',
-            url: './biochemistry/8.pdf'
-        },
-        {
-            title: 'Ammonia Toxicity',
-            description: 'Lecture 9',
-            url: './biochemistry/9.pdf'
-        },
-        {
-            title: 'Spectrophotometer & ELISA',
-            description: 'Lab 1',
-            url: './biochemistry/lab1.pdf'
-        },
-        {
-            title: 'Determination of Serum Glucose',
-            description: 'Lab 2',
-            url: './biochemistry/lab2.pdf'
-        },
-        {
-            title: 'Determination of Serum Triglycerides, Total Cholesterol & Lipoproteins',
-            description: 'Lab 3',
-            url: './biochemistry/lab3.pdf'
-        },
-        {
-            title: 'Determination of Serum Total Proteins',
-            description: 'Lab 4',
-            url: './biochemistry/lab4.pdf'
-        },
-        {
-            title: 'Renal Function Tests: Urea, Creatinine & Uric Acid',
-            description: 'Lab 5',
-            url: './biochemistry/lab5.pdf'
-        },
-        {
-            title: 'Electrolyte Balance',
-            description: 'Lab 6',
-            url: './biochemistry/lab6.pdf'
-        },
-        {
-            title: 'Enzymes: Mechanisms, Kinetics & Clinical Applications',
-            description: 'Lab 7',
-            url: './biochemistry/lab7.pdf'
-        }
-    ]
-},
-        {
-    icon: '️🎓',
-    name: 'Medical Education',
-    group: 'bbb',
-    resources: [
-        {
-            title: 'Medical Interview: History Taking',
-            description: 'SGL',
-            url: './communication-skills/n1.pdf'
-        },
-        {
-            title: 'Communication Skills: Calgary-Cambridge Framework',
-            description: 'SGL',
-            url: './communication-skills/n2.pdf'
-        }
-    ]
-}
+                    // LG
+                    {
+                        title: 'Introduction to Pathology & Cell Injury',
+                        description: 'LG',
+                        url: './pathology-LG1.pdf'
+                    },
+                    {
+                        title: 'Irreversible Cell Injury',
+                        description: 'LG',
+                        url: './pathology-LG2.pdf'
+                    },
+                    {
+                        title: 'Apoptosis',
+                        description: 'LG',
+                        url: './pathology-LG3.pdf'
+                    },
+                    {
+                        title: 'Acute Inflammation',
+                        description: 'LG',
+                        url: './pathology-LG4.pdf'
+                    },
+                    {
+                        title: 'Healing Process',
+                        description: 'LG',
+                        url: './pathology-LG5.pdf'
+                    },
+                    {
+                        title: 'Hemodynamic Disorders: Edema',
+                        description: 'LG',
+                        url: './pathology-LG6.pdf'
+                    },
+                    {
+                        title: 'Hemodynamic Disorders: Shock',
+                        description: 'LG',
+                        url: './pathology-LG7.pdf'
+                    },
+                    {
+                        title: 'Neoplasia: Nomenclature',
+                        description: 'LG',
+                        url: './pathology-LG8.pdf'
+                    },
+                    {
+                        title: 'Neoplasia: Molecular Basis of Cancer',
+                        description: 'LG',
+                        url: './pathology-LG9.pdf'
+                    },
+                    {
+                        title: 'Neoplasia: Molecular Basis of Cancer',
+                        description: 'LG',
+                        url: './pathology-LG10.pdf'
+                    },
+
+                    // Practical
+                    {
+                        title: 'Biopsy and Tissue Processing',
+                        description: 'Practical',
+                        url: './pathology-Lab1.pdf'
+                    },
+                    {
+                        title: 'Acute and Chronic Inflammation',
+                        description: 'Practical',
+                        url: './pathology-Lab2,3.pdf'
+                    },
+                    {
+                        title: 'Hemodynamic Disorders',
+                        description: 'Practical',
+                        url: './pathology-Lab4.pdf'
+                    },
+                    {
+                        title: 'Neoplasia',
+                        description: 'Practical',
+                        url: './pathology-Lab5.pdf'
+                    }
+                ]
+            },
+            {
+                icon: '💊',
+                name: 'Pharmacology',
+                group: 'bbb',
+                resources: [
+                    // SGL
+                    {
+                        title: 'Pharmacokinetics: Absorption & Distribution',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL1.pdf'
+                    },
+                    {
+                        title: 'Drug Metabolism (Biotransformation)',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL2.pdf'
+                    },
+                    {
+                        title: 'Drug–Receptor Interactions',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL3.pdf'
+                    },
+                    {
+                        title: 'Parasympathomimetic Drugs (Cholinomimetics)',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL4.pdf'
+                    },
+                    {
+                        title: 'Cell Wall Synthesis Inhibitors 1',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL5.pdf'
+                    },
+                    {
+                        title: 'Cell Wall Inhibitors 2',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL6.pdf'
+                    },
+                    {
+                        title: 'Antimicrobial Agents Inhibiting Bacterial Nucleic Acid Synthesis',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL7.pdf'
+                    },
+                    {
+                        title: 'Inhibitors of Bacterial Protein Synthesis',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL9.pdf'
+                    },
+                    {
+                        title: 'Antifungal Drugs',
+                        description: 'SGL',
+                        url: './Pharmacology-SGL10.pdf'
+                    },
+
+                    // LG
+                    {
+                        title: 'Introduction to Pharmacology',
+                        description: 'LG',
+                        url: './Pharmacology-LG1.pdf'
+                    },
+                    {
+                        title: 'Pharmacodynamics: Mechanism of Drug Action',
+                        description: 'LG',
+                        url: './Pharmacology-LG2.pdf'
+                    },
+                    {
+                        title: 'Principles of Antimicrobial Therapy',
+                        description: 'LG',
+                        url: './Pharmacology-LG3.pdf'
+                    },
+                    {
+                        title: 'Drugs Affecting the Autonomic Nervous System',
+                        description: 'LG',
+                        url: './Pharmacology-LG4.pdf'
+                    },
+                    {
+                        title: 'Drugs Affecting Adrenergic Neuron Transmission',
+                        description: 'LG',
+                        url: './Pharmacology-LG5.pdf'
+                    },
+                    {
+                        title: 'Sympathomimetic Drugs',
+                        description: 'LG',
+                        url: './Pharmacology-LG6.pdf'
+                    },
+                    {
+                        title: 'Adrenergic Receptor Blockers (Sympatholytic Drugs)',
+                        description: 'LG',
+                        url: './Pharmacology-LG7.pdf'
+                    },
+                    {
+                        title: 'Adverse Drug Reactions',
+                        description: 'LG',
+                        url: './Pharmacology-LG8.pdf'
+                    },
+                    {
+                        title: 'Excretion: Pharmacokinetics of Drug Elimination',
+                        description: 'LG',
+                        url: './Pharmacology-LG10.pdf'
+                    },
+                    {
+                        title: 'Parasympatholytics (Anticholinergic Drugs)',
+                        description: 'LG',
+                        url: './Pharmacology-LG11.pdf'
+                    },
+
+                    // Practical
+                    {
+                        title: 'Pharmaceutical Dosage Forms',
+                        description: 'Practical',
+                        url: './Pharmacology-Lab1.pdf'
+                    },
+                    {
+                        title: 'Effect of Routes of Drug Administration on Drug Response',
+                        description: 'Practical',
+                        url: './Pharmacology-Lab2.pdf'
+                    },
+                    {
+                        title: 'Prescription Reading',
+                        description: 'Practical',
+                        url: './Pharmacology-Lab3.pdf'
+                    },
+                    {
+                        title: 'Intravenous Fluid Therapy',
+                        description: 'Practical',
+                        url: './Pharmacology-Lab4.pdf'
+                    },
+                    {
+                        title: 'Effect of Drugs on the Iris',
+                        description: 'Practical',
+                        url: './Pharmacology-Lab5.pdf'
+                    }
+                ]
+            },
+            {
+                icon: '🧪',
+                name: 'Biochemistry',
+                group: 'bbb',
+                resources: [
+                    {
+                        title: 'Protein Metabolism',
+                        description: 'Lecture 1',
+                        url: './biochemistry-1.pdf'
+                    },
+                    {
+                        title: 'Lipid Metabolism',
+                        description: 'Lecture 2',
+                        url: './biochemistry-2.pdf'
+                    },
+                    {
+                        title: 'Carbohydrate Metabolism',
+                        description: 'Lecture 3',
+                        url: './biochemistry-3.pdf'
+                    },
+                    {
+                        title: 'Enzymology',
+                        description: 'Lecture 4',
+                        url: './biochemistry-4.pdf'
+                    },
+                    {
+                        title: 'Clinical Case: Complications of the Ketogenic Diet',
+                        description: 'Lecture 5',
+                        url: './biochemistry-5.pdf'
+                    },
+                    {
+                        title: 'Clinical Case: Alcohol Consumption and Liver Disease',
+                        description: 'Lecture 6',
+                        url: './biochemistry-6.pdf'
+                    },
+                    {
+                        title: 'Biochemistry of Cancer',
+                        description: 'Lecture 7',
+                        url: './biochemistry-7.pdf'
+                    },
+                    {
+                        title: 'Nutrition',
+                        description: 'Lecture 8',
+                        url: './biochemistry-8.pdf'
+                    },
+                    {
+                        title: 'Ammonia Toxicity',
+                        description: 'Lecture 9',
+                        url: './biochemistry-9.pdf'
+                    },
+                    {
+                        title: 'Spectrophotometer & ELISA',
+                        description: 'Lab 1',
+                        url: './biochemistry-lab1.pdf'
+                    },
+                    {
+                        title: 'Determination of Serum Glucose',
+                        description: 'Lab 2',
+                        url: './biochemistry-lab2.pdf'
+                    },
+                    {
+                        title: 'Determination of Serum Triglycerides, Total Cholesterol & Lipoproteins',
+                        description: 'Lab 3',
+                        url: './biochemistry-lab3.pdf'
+                    },
+                    {
+                        title: 'Determination of Serum Total Proteins',
+                        description: 'Lab 4',
+                        url: './biochemistry-lab4.pdf'
+                    },
+                    {
+                        title: 'Renal Function Tests: Urea, Creatinine & Uric Acid',
+                        description: 'Lab 5',
+                        url: './biochemistry-lab5.pdf'
+                    },
+                    {
+                        title: 'Electrolyte Balance',
+                        description: 'Lab 6',
+                        url: './biochemistry-lab6.pdf'
+                    },
+                    {
+                        title: 'Enzymes: Mechanisms, Kinetics & Clinical Applications',
+                        description: 'Lab 7',
+                        url: './biochemistry-lab7.pdf'
+                    }
+                ]
+            },
+            {
+                icon: '🎓',
+                name: 'Medical Education',
+                group: 'bbb',
+                resources: [
+                    {
+                        title: 'Medical Interview: History Taking',
+                        description: 'SGL',
+                        url: './communication-skills-n1.pdf'
+                    },
+                    {
+                        title: 'Communication Skills: Calgary-Cambridge Framework',
+                        description: 'SGL',
+                        url: './communication-skills-n2.pdf'
+                    }
+                ]
+            }
     ] },
     { n:2, code:'MSD', name:'Musculoskeletal System and Dermatology',   subjects:13, desc:'Stage 2 lectures for Block 2.', a:'124,58,237', b:'167,139,250', modules:[
         { icon:'🫀', name:'Anatomy', group:'hdsf', resources:[] },
