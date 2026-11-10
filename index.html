@@ -1569,6 +1569,10 @@ body.ios-device .resource-actions {
     #home-page { padding-top: 40px; }
     .home-brand { margin-bottom: 34px; }
 }
+/* Remove circles from the two homepage stage cards */
+#home-page .block-card::before {
+    display: none;
+}
     </style>
 </head>
 
@@ -1588,7 +1592,7 @@ body.ios-device .resource-actions {
         </div>
       </div>
 
-      <div class="block-card acc" style="--a:124,58,237;--b:167,139,250" onclick="openStage(2)">
+      <div class="block-card acc" onclick="openStage(2)">
         <div class="block-kicker">Available Now</div>
         <h3>Stage 2</h3>
         <p>Five blocks of lectures, added block by block as they are ready.</p>
