@@ -346,6 +346,101 @@ $('pageIn').addEventListener('change', e => goTo(e.target.value));
 $('pageIn').addEventListener('focus', e => e.target.select());
 $('pwForm').addEventListener('submit', e => { e.preventDefault(); if (pwUpdate) { show('stLoad'); progress(null, 'Unlocking…'); pwUpdate($('pwIn').value); } });
 main.addEventListener('scroll', update, { passive: true });
+/* Swipe left/right to change pages at fit-width zoom. */
+let pageSwipe = null;
+
+main.addEventListener("touchstart", event => {
+  pageSwipe = null;
+
+  if (
+    event.touches.length !== 1 ||
+    !n ||
+    textMode ||
+    zoom > 1.01 ||
+    !event.target.closest("#pages")
+  ) {
+    return;
+  }
+
+  const touch = event.touches[0];
+
+  pageSwipe = {
+    x: touch.clientX,
+    y: touch.clientY,
+    time: Date.now(),
+    page: cur,
+    direction: null
+  };
+}, { passive: true });
+
+main.addEventListener("touchmove", event => {
+  if (!pageSwipe) return;
+
+  if (event.touches.length !== 1) {
+    pageSwipe = null;
+    return;
+  }
+
+  const touch = event.touches[0];
+  const dx = touch.clientX - pageSwipe.x;
+  const dy = touch.clientY - pageSwipe.y;
+
+  if (
+    !pageSwipe.direction &&
+    Math.max(Math.abs(dx), Math.abs(dy)) > 12
+  ) {
+    pageSwipe.direction =
+      Math.abs(dx) > Math.abs(dy) * 1.5
+        ? "horizontal"
+        : "vertical";
+  }
+
+  if (pageSwipe.direction === "vertical") {
+    pageSwipe = null;
+    return;
+  }
+
+  if (
+    pageSwipe.direction === "horizontal" &&
+    event.cancelable
+  ) {
+    event.preventDefault();
+  }
+}, { passive: false });
+
+main.addEventListener("touchend", event => {
+  const swipe = pageSwipe;
+  pageSwipe = null;
+
+  if (
+    !swipe ||
+    event.touches.length ||
+    !event.changedTouches.length ||
+    !n ||
+    textMode ||
+    zoom > 1.01
+  ) {
+    return;
+  }
+
+  const touch = event.changedTouches[0];
+  const dx = touch.clientX - swipe.x;
+  const dy = touch.clientY - swipe.y;
+
+  if (
+    Date.now() - swipe.time > 900 ||
+    Math.abs(dx) < 65 ||
+    Math.abs(dx) < Math.abs(dy) * 1.5
+  ) {
+    return;
+  }
+
+  goTo(dx < 0 ? swipe.page + 2 : swipe.page);
+}, { passive: true });
+
+main.addEventListener("touchcancel", () => {
+  pageSwipe = null;
+}, { passive: true });
 
 const info = $('info'), btnInfo = $('btnInfo');
 const setInfo = open => { info.hidden = !open; btnInfo.setAttribute('aria-expanded', open); };
