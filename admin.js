@@ -1200,30 +1200,32 @@ let session = readSavedSession();
     let previewDoc = null;
 
     function loadPdfJs() {
-        if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
-
-        if (!pdfjsPromise) {
-            pdfjsPromise = new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.src = PDFJS_BASE + "/pdf.min.js";
-
-                script.onload = () => {
-                    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-                        PDFJS_BASE + "/pdf.worker.min.js";
-                    resolve(window.pdfjsLib);
-                };
-
-                script.onerror = () => {
-                    pdfjsPromise = null;
-                    reject(new Error("Preview engine could not load."));
-                };
-
-                document.head.append(script);
-            });
-        }
-
-        return pdfjsPromise;
+    if (window.pdfjsLib) {
+        return Promise.resolve(window.pdfjsLib);
     }
+    
+    if (!pdfjsPromise) {
+        pdfjsPromise = import("./pdfjs/build/pdf.mjs")
+            .then((pdfjs) => {
+                pdfjs.GlobalWorkerOptions.workerSrc =
+                    "./pdfjs/build/pdf.worker.mjs";
+                
+                window.pdfjsLib = pdfjs;
+                
+                return pdfjs;
+            })
+            .catch((error) => {
+                pdfjsPromise = null;
+                console.error("PDF.js loading error:", error);
+                
+                throw new Error(
+                    "PDF preview engine could not load."
+                );
+            });
+    }
+    
+    return pdfjsPromise;
+}
 
     function cleanupPreview() {
         previewToken++;
