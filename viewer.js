@@ -132,6 +132,8 @@ async function start() {
     meta = await resolve();
     $('title').textContent = meta.title; document.title = meta.title + ' | MedHub';
     $('origLink').href = $('errOrig').href = meta.url;
+    $('btnBrowser').href = meta.url;
+$('btnBrowser').hidden = false;
     $('btnCopy').disabled = $('btnDownload').disabled = false;
     await loadEngine();
     progress(null, 'Downloading lecture…');
