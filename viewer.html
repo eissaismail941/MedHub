@@ -19,10 +19,17 @@
   <button class="btn back" id="btnBack" type="button" aria-label="Back to lectures">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span class="lbl">Lectures</span>
   </button>
-  <a class="brand" href="./" aria-label="MedHub home">
-    <span class="logo" aria-hidden="true">MH</span><span class="wordmark">Med<span>Hub</span></span>
-  </a>
+  
   <div class="actions">
+    <a
+  class="btn external-open"
+  id="btnBrowser"
+  target="_blank"
+  rel="noopener noreferrer"
+  hidden
+>
+  Open in browser ↗
+</a>
     <button class="btn" id="btnCopy" type="button" aria-label="Copy lecture link" disabled>
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="lbl">Copy link</span>
     </button>
