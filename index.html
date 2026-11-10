@@ -2955,6 +2955,10 @@ function renderResourcePage(key) {
     
     return cleanSubject + '-' + cleanTitle + '-' + cleanDescription + '.pdf';
 }
+    function viewerURL(pdfPath) {
+    const abs = new URL(pdfPath, location.href).href;
+    return './pdfjs/web/viewer.html?file=' + encodeURIComponent(abs);
+}
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
         const viewerUrl = (url) =>
@@ -2970,7 +2974,7 @@ function renderResourcePage(key) {
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
-    <a class="btn-link btn-open" href="${viewerUrl(item.url)}" target="${item.url === './pathology-labs2&3.pdf' ? '_self' : '_blank'}" rel="noopener noreferrer">
+   <a class="btn-link btn-open" href="${viewerURL(item.url)}" target="${item.url === './pathology-labs2&3.pdf' ? '_self' : '_blank'}" rel="noopener noreferrer">
     ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
 </a>
     <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
