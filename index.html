@@ -2957,6 +2957,9 @@ function renderResourcePage(key) {
 }
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
+        const viewerUrl = (url) =>
+    './pdfjs/web/viewer.html?file=' +
+    encodeURIComponent(new URL(url, window.location.href).href);
         const isBBB = group === 'bbb';
 
         // Stagger resource cards slightly too!
@@ -2967,9 +2970,9 @@ function renderResourcePage(key) {
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
-    <a class="btn-link btn-open" href="${item.url}" target="${item.url === './pathology-labs2&3.pdf' ? '_self' : '_blank'}" rel="noopener noreferrer">
-        ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
-    </a>
+    <a class="btn-link btn-open" href="${viewerUrl(item.url)}" target="${item.url === './pathology-labs2&3.pdf' ? '_self' : '_blank'}" rel="noopener noreferrer">
+    ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
+</a>
     <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
 </div>
             </article>
