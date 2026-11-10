@@ -167,3 +167,105 @@ main:focus-visible{outline-offset:-4px}
 [hidden] {
   display: none !important;
 }
+/* Minimal reader header */
+[hidden] {
+  display: none !important;
+}
+
+.top {
+  background: #fff;
+  border-bottom: 1px solid #e8edf3;
+  gap: 10px;
+  padding: 12px 20px;
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+  box-shadow: none;
+}
+
+/* Keep these elements for the existing JavaScript. */
+.top .brand,
+#btnCopy,
+#btnInfo,
+#info {
+  display: none !important;
+}
+
+.top .back {
+  order: 0;
+}
+
+.top .title {
+  order: 1;
+  flex: 1 1 180px;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #334155;
+}
+
+.top .actions {
+  order: 2;
+  margin-inline-start: auto;
+  gap: 8px;
+}
+
+.top .btn {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid #e5eaf0;
+  border-radius: 10px;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: none;
+  transform: none;
+}
+
+.top .btn:hover {
+  background: #f5f7fa;
+  border-color: #cbd5e1;
+  box-shadow: none;
+  transform: none;
+}
+
+.top .btn.primary {
+  background: #f1f5f9;
+  border-color: #e5eaf0;
+  color: #334155;
+  box-shadow: none;
+}
+
+.top .btn.primary svg {
+  stroke: currentColor !important;
+}
+
+.top .external-open {
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .top {
+    padding: 10px 12px;
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+
+  .top .title {
+    order: 3;
+    flex-basis: 100%;
+    margin-top: 2px;
+    font-size: 13px;
+  }
+
+  .top .btn {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .top #btnDownload {
+    min-width: 38px;
+    padding: 0 10px;
+  }
+}
