@@ -2268,147 +2268,138 @@ let session = readSavedSession();
 open.className = "btn-link btn-open";
 open.textContent = "Open PDF";
 
-// Keep the original link as a fallback.
+
+// Keep the original PDF link as a fallback.
 open.href = item.url;
 open.target = "_blank";
-open.rel = "noopener";
+open.rel = "noopener noreferrer";
 
 try {
     const base = new URL("./", location.href);
     const source = new URL(item.url, base);
-    const viewer = new URL("viewer.html", base);
-    
-    let lectureId = "";
-    
-    if (item.row?.id) {
-        // PDF uploaded through your admin panel.
-        lectureId = "u." + item.row.id;
-    } else if (
-        source.origin === base.origin &&
-        source.pathname.startsWith(base.pathname) &&
-        /\.pdf$/i.test(source.pathname)
-    ) {
-        // PDF stored in your GitHub repository.
-        const relativePath = source.pathname.slice(
-            base.pathname.length
-        );
-        
-        lectureId = "f." + decodeURIComponent(
-            relativePath.replace(/\.pdf$/i, "")
-        );
-    }
-    
-    if (lectureId) {
-        viewer.searchParams.set("lecture", lectureId);
-        viewer.searchParams.set(
-            "t",
-            item.title || "Lecture"
-        );
-        
-        open.href = viewer.href;
-        open.target = "_self";
-    }
+
+    // Use the NEW local PDF.js viewer.
+    const viewer = new URL("pdfjs/web/viewer.html", base);
+
+    // Pass the actual PDF file to PDF.js.
+    viewer.searchParams.set("file", source.href);
+
+    open.href = viewer.href;
+    open.target = "_blank";
+    open.rel = "noopener noreferrer";
+
 } catch (error) {
     console.warn("Using the original PDF link:", error);
 }
 
-            const download = document.createElement("a");
-            download.className = "btn-link btn-download";
-            download.textContent = "Download";
-            download.href = item.downloadUrl || item.url;
-            download.download = makeFileName(item, subjectTitle);
+const download = document.createElement("a");
+download.className = "btn-link btn-download";
+download.textContent = "Download";
+download.href = item.downloadUrl || item.url;
+download.download = makeFileName(item, subjectTitle);
 
-            if (typeof showDownloadState === "function") {
-                download.addEventListener(
-                    "click",
-                    () => showDownloadState(download)
-                );
-            }
+if (typeof showDownloadState === "function") {
+    download.addEventListener(
+        "click",
+        () => showDownloadState(download)
+    );
+}
 
-            actions.append(open, download);
+actions.append(open, download);
 
-            if (admin) {
-                const more = document.createElement("button");
-                more.type = "button";
-                more.className = "mh-more";
-                more.innerHTML = ICON.more;
-                more.setAttribute("aria-label", "Lecture options: " + item.title);
-                more.setAttribute("aria-haspopup", "menu");
-                more.setAttribute("aria-expanded", "false");
-                more.onclick = event => {
-                    event.stopPropagation();
-                    openMenu(more, menuForCard(item, position, uploaded.length));
-                };
-                card.append(more);
-            }
+if (admin) {
+    const more = document.createElement("button");
+    more.type = "button";
+    more.className = "mh-more";
+    more.innerHTML = ICON.more;
+    more.setAttribute(
+        "aria-label",
+        "Lecture options: " + item.title
+    );
+    more.setAttribute("aria-haspopup", "menu");
+    more.setAttribute("aria-expanded", "false");
 
-            grid.append(card);
-        });
-
-        if (admin) {
-            ensureToolbar();
-            toolbar.hidden = !currentSubject();
-            updateToolbar(items);
-        }
+    more.onclick = event => {
+        event.stopPropagation();
+        openMenu(
+            more,
+            menuForCard(item, position, uploaded.length)
+        );
     };
 
-    /* Fetch uploaded lectures without changing the original ones. */
-    async function refreshLectures() {
-        if (loading) return false;
+    card.append(more);
+}
 
-        loading = true;
-        notice.textContent = "Checking for new lectures…";
+grid.append(card);
 
-        try {
-            const rows = [];
+});
 
-            for (let offset = 0; ; offset += 1000) {
-                const page = await request(
-                    "/rest/v1/lectures?select=*" +
-                    "&order=sort_order.asc,created_at.asc,id.asc" +
-                    "&limit=1000&offset=" + offset
-                );
+if (admin) {
+    ensureToolbar();
+    toolbar.hidden = !currentSubject();
+    updateToolbar(items);
+}
+};
 
-                if (!Array.isArray(page)) {
-                    throw new Error("Unexpected lecture response.");
-                }
+/* Fetch uploaded lectures without changing the original ones. */
+async function refreshLectures() {
+    if (loading) return false;
 
-                rows.push(...page);
-                if (page.length < 1000) break;
-            }
+    loading = true;
+    notice.textContent = "Checking for new lectures…";
 
-            lastRows = rows;
-            applyRows();
-            rerender();
+    try {
+        const rows = [];
 
-            notice.textContent = "";
-            return true;
-        } catch {
-            notice.replaceChildren(
-                document.createTextNode(
-                    "New lectures could not load. " +
-                    "Existing lectures are still available. "
-                )
+        for (let offset = 0; ; offset += 1000) {
+            const page = await request(
+                "/rest/v1/lectures?select=*" +
+                "&order=sort_order.asc,created_at.asc,id.asc" +
+                "&limit=1000&offset=" + offset
             );
 
-            const retry = document.createElement("button");
-            retry.id = "mh-retry";
-            retry.textContent = "Retry";
-            retry.onclick = refreshLectures;
-            notice.append(retry);
+            if (!Array.isArray(page)) {
+                throw new Error("Unexpected lecture response.");
+            }
 
-            return false;
-        } finally {
-            loading = false;
+            rows.push(...page);
+            if (page.length < 1000) break;
         }
-    }
 
-    syncAdmin();
+        lastRows = rows;
+        applyRows();
+        rerender();
+
+        notice.textContent = "";
+        return true;
+
+    } catch {
+        notice.replaceChildren(
+            document.createTextNode(
+                "New lectures could not load. " +
+                "Existing lectures are still available. "
+            )
+        );
+
+        const retry = document.createElement("button");
+        retry.id = "mh-retry";
+        retry.textContent = "Retry";
+        retry.onclick = refreshLectures;
+        notice.append(retry);
+
+        return false;
+
+    } finally {
+        loading = false;
+    }
+}
+
+syncAdmin();
 rerender();
 refreshLectures();
 
-/* Don't refresh in the middle of a save, it would redraw the page. */
-    window.addEventListener("focus", () => {
-        if (!busy && !saving) refreshLectures();
-    });
+/* Don't refresh in the middle of a save. */
+window.addEventListener("focus", () => {
+    if (!busy && !saving) refreshLectures();
+});
 })();
