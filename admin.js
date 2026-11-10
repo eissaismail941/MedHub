@@ -2263,13 +2263,52 @@ let session = readSavedSession();
             const actions = add("div", "resource-actions", "");
 
             const open = document.createElement("a");
-            open.className = "btn-link btn-open";
-            open.textContent = isIOS ? "Open / Save PDF" : "Open PDF";
-            open.href = item.url;
-            open.target = item.url === "./pathology-labs2&3.pdf"
-                ? "_self"
-                : "_blank";
-            open.rel = "noopener noreferrer";
+open.className = "btn-link btn-open";
+open.textContent = "Open PDF";
+
+// Keep the original link as a fallback.
+open.href = item.url;
+open.target = "_blank";
+open.rel = "noopener";
+
+try {
+    const base = new URL("./", location.href);
+    const source = new URL(item.url, base);
+    const viewer = new URL("viewer.html", base);
+    
+    let lectureId = "";
+    
+    if (item.row?.id) {
+        // PDF uploaded through your admin panel.
+        lectureId = "u." + item.row.id;
+    } else if (
+        source.origin === base.origin &&
+        source.pathname.startsWith(base.pathname) &&
+        /\.pdf$/i.test(source.pathname)
+    ) {
+        // PDF stored in your GitHub repository.
+        const relativePath = source.pathname.slice(
+            base.pathname.length
+        );
+        
+        lectureId = "f." + decodeURIComponent(
+            relativePath.replace(/\.pdf$/i, "")
+        );
+    }
+    
+    if (lectureId) {
+        viewer.searchParams.set("lecture", lectureId);
+        viewer.searchParams.set(
+            "t",
+            item.title || "Lecture"
+        );
+        
+        open.href = viewer.href;
+        open.target = "_self";
+    }
+} catch (error) {
+    console.warn("Using the original PDF link:", error);
+}
 
             const download = document.createElement("a");
             download.className = "btn-link btn-download";
