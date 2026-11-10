@@ -24,7 +24,45 @@
     const $ = id => document.getElementById(id);
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
-    let session = null;      // kept in memory only
+    const SESSION_KEY = "medhub-admin-session";
+
+function readSavedSession() {
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem(SESSION_KEY) || "null"
+        );
+        
+        if (
+            saved?.user?.id === ADMIN_ID &&
+            saved.access_token &&
+            saved.refresh_token &&
+            Number.isFinite(saved.expires)
+        ) {
+            return saved;
+        }
+        
+        localStorage.removeItem(SESSION_KEY);
+    } catch {}
+    
+    return null;
+}
+
+function saveSession(value) {
+    try {
+        if (value) {
+            localStorage.setItem(
+                SESSION_KEY,
+                JSON.stringify(value)
+            );
+        } else {
+            localStorage.removeItem(SESSION_KEY);
+        }
+    } catch {
+        console.warn("Browser could not save the sign-in session.");
+    }
+}
+
+let session = readSavedSession();
     let refreshing = null;   // shared promise so tokens refresh once
     let busy = false;        // a save / upload / delete is running
     let loading = false;     // lectures are being fetched
@@ -678,8 +716,9 @@
 
     /* Sign-in state changed: refresh the controls and the cards. */
     function setSession(next) {
-        const was = Boolean(session);
-        session = next;
+    const was = Boolean(session);
+    session = next;
+    saveSession(next);
 
         if (!next) {
             queue = [];
@@ -981,12 +1020,12 @@
                     }
                 )
                     .then(data => {
-                        session = {
-                            ...data,
-                            user: data.user || session.user,
-                            expires: Date.now() + data.expires_in * 1000
-                        };
-                    })
+    setSession({
+        ...data,
+        user: data.user || session.user,
+        expires: Date.now() + data.expires_in * 1000
+    });
+})
                     .finally(() => { refreshing = null; });
             }
 
@@ -2323,9 +2362,11 @@
         }
     }
 
-    refreshLectures();
+    syncAdmin();
+rerender();
+refreshLectures();
 
-    /* Don't refresh in the middle of a save, it would redraw the page. */
+/* Don't refresh in the middle of a save, it would redraw the page. */
     window.addEventListener("focus", () => {
         if (!busy && !saving) refreshLectures();
     });
