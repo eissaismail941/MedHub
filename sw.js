@@ -1,7 +1,7 @@
 /* MedHub service worker — uses one logo: 1.png */
 
 const CACHE_PREFIX = 'medhub-';
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 const ROOT_URL = new URL('./', self.location.href).href;
