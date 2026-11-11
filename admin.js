@@ -2279,7 +2279,7 @@ try {
     const source = new URL(item.url, base);
 
     // Use the NEW local PDF.js viewer.
-    const viewer = new URL("pdfjs/web/viewer.html", base);
+    const viewer = new URL("reader/index.html", base);
 
     // Pass the actual PDF file to PDF.js.
     viewer.searchParams.set("file", source.href);
