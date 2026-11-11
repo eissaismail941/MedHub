@@ -2957,12 +2957,12 @@ function renderResourcePage(key) {
 }
     function viewerURL(pdfPath) {
     const abs = new URL(pdfPath, location.href).href;
-    return './pdfjs/web/viewer.html?file=' + encodeURIComponent(abs);
+    return './reader/index.html?file=' + encodeURIComponent(abs);
 }
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
         const viewerUrl = (url) =>
-    './pdfjs/web/viewer.html?file=' +
+    './reader/index.html?file=' +
     encodeURIComponent(new URL(url, window.location.href).href);
         const isBBB = group === 'bbb';
 
