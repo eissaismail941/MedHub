@@ -2955,10 +2955,13 @@ function renderResourcePage(key) {
     
     return cleanSubject + '-' + cleanTitle + '-' + cleanDescription + '.pdf';
 }
-    function viewerURL(pdfPath) {
+    function viewerURL(pdfPath, title = '') {
     const abs = new URL(pdfPath, location.href).href;
-    return './reader/index.html?file=' + encodeURIComponent(abs);
-}
+    return './reader/index.html?file='
+        + encodeURIComponent(abs)
+        + '&title='
+        + encodeURIComponent(title);
+    }
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
         const viewerUrl = (url) =>
