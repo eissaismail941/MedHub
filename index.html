@@ -2988,7 +2988,24 @@ function renderResourcePage(key) {
         // Everything else (descriptions that are sentences, Theory & Practical, Questions): topic only
         return topic;
     }
+    
+let lectureTitles = {};
+
+fetch('./data/lectures.json')
+    .then(response => {
+        if (!response.ok) throw new Error('JSON not found');
+        return response.json();
+    })
+    .then(data => {
+        lectureTitles = data;
+    })
+    .catch(error => console.warn('Lecture titles:', error));
+
     function viewerURL(pdfPath, title = '') {
+        
+const filename = new URL(pdfPath, location.href).pathname.split('/').pop();
+title = lectureTitles[filename] || title;
+
     const abs = new URL(pdfPath, location.href).href;
     return './reader/index.html?file='
         + encodeURIComponent(abs)
