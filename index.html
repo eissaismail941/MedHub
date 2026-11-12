@@ -2956,7 +2956,7 @@ function renderResourcePage(key) {
     
     return cleanSubject + '-' + cleanTitle + '-' + cleanDescription + '.pdf';
 }
-    /* Title shown in the PDF Reader header: "<Topic> — <Type> <Number>".
+    /* Title shown in the PDF Reader header: "<Topic> - <Type><Number>".
        Only used for the Reader link; the lecture cards still show item.title / item.description. */
     function readerTitleFor(item, siblings) {
         if (item.readerTitle) return item.readerTitle;               // optional manual override
@@ -2965,25 +2965,25 @@ function renderResourcePage(key) {
         const file  = decodeURIComponent(String(item.url || '').split('?')[0].split('/').pop() || '');
         let m;
 
-        // Large Group / Small Group Lectures -> "Acute Inflammation — LG 4", "Innate Immunity — SGL 2"
+        // Large Group / Small Group Lectures -> "Acute Inflammation - LG4", "Innate Immunity - SGL2"
         if (/^(LG|SGL)$/i.test(desc)) {
             const type = desc.toUpperCase();
             m = file.match(new RegExp('(?:^|[^a-z])' + type + '[-_]?0*(\\d+)', 'i'));
-            if (m) return topic + ' — ' + type + ' ' + m[1];          // number is in the file name (e.g. pathology-LG4.pdf)
+            if (m) return topic + ' - ' + type + m[1];          // number is in the file name (e.g. pathology-LG4.pdf)
             // No number in the file name (e.g. physiology-lecture-02.pdf): count this type's position in the list
             const sameType = (siblings || []).filter(x => String(x.description || '').trim().toUpperCase() === type);
             const pos = sameType.indexOf(item) + 1;
-            return pos ? topic + ' — ' + type + ' ' + pos : topic + ' — ' + type;
+            return pos ? topic + ' - ' + type + pos : topic + ' - ' + type;
         }
         // Descriptions that already carry their number ("Lecture 3", "Lab 5")
-        if (/^(Lecture|Lab)\s*\d+$/i.test(desc)) return topic + ' — ' + desc;
+        if (/^(Lecture|Lab)\s*\d+$/i.test(desc)) return topic + ' - ' + desc;
 
         // Practical sessions -> "Neoplasia — Practical 5" (also "labs2&3" -> "Practical 2 & 3")
         if (/^Practical$/i.test(desc)) {
             m = file.match(/labs?[-_]?0*(\d+)\s*&\s*0*(\d+)/i);
-            if (m) return topic + ' — Practical ' + m[1] + ' & ' + m[2];
+            if (m) return topic + ' - Practical ' + m[1] + ' & ' + m[2];
             m = file.match(/(?:lab|practical)[-_]?0*(\d+)/i);
-            return m ? topic + ' — Practical ' + m[1] : topic + ' — Practical';
+            return m ? topic + ' - Practical ' + m[1] : topic + ' - Practical';
         }
         // Everything else (descriptions that are sentences, Theory & Practical, Questions): topic only
         return topic;
