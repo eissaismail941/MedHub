@@ -2978,7 +2978,7 @@ function renderResourcePage(key) {
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
-   <a class="btn-link btn-open" href="${viewerUrl(item.url, item.readerTitle || `${item.title} — ${item.description}${(item.url.match(/(?:SGL|LG|Lab)(\d+)\.pdf$/i) || [])[1] ? ' ' + item.url.match(/(?:SGL|LG|Lab)(\d+)\.pdf$/i)[1] : ''}`)}" target="${item.url === './pathology-labs2&3.pdf' ? '_self' : '_blank'}" rel="noopener noreferrer">
+   <a class="btn-link btn-open" href="${viewerUrl(item.url, item.readerTitle || `${item.title} — ${item.description}`)}" target="_blank" rel="noopener noreferrer">
     ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
 </a>
     <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
