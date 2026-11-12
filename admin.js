@@ -10,8 +10,12 @@
     const PUBLIC_KEY =
         "sb_publishable_-7LnL-kzS1omjDFD5va_0A_Tjdh3m8h";
 
-    const ADMIN_ID =
-        "475f2fec-d7da-4443-91dc-d75e03dfacbd";
+    const ADMIN_IDS = [
+    "475f2fec-d7da-4443-91dc-d75e03dfacbd",
+    "02bec3ff-297a-4ff9-8d84-4f004e9b0f80"
+];
+
+const isAdmin = (userId) => ADMIN_IDS.includes(userId);
 
     const BUCKET = "lectures";
     const MAX_BYTES = 50 * 1024 * 1024;
@@ -33,7 +37,7 @@ function readSavedSession() {
         );
         
         if (
-            saved?.user?.id === ADMIN_ID &&
+            isAdmin(saved?.user?.id) &&
             saved.access_token &&
             saved.refresh_token &&
             Number.isFinite(saved.expires)
@@ -1139,7 +1143,7 @@ let session = readSavedSession();
 
             $("mh-password").value = "";
 
-            if (data.user?.id !== ADMIN_ID) {
+            if (!isAdmin(data.user?.id)) {
                 request("/auth/v1/logout", {
                     method: "POST",
                     token: data.access_token
@@ -1627,7 +1631,7 @@ let session = readSavedSession();
             const token = await accessToken();
 
             if (!item.path) {
-                item.path = ADMIN_ID + "/" + crypto.randomUUID() + ".pdf";
+                item.path = session.user.id + "/" + crypto.randomUUID() + ".pdf";
                 item.rowId = crypto.randomUUID();
             }
 
@@ -2063,7 +2067,7 @@ let session = readSavedSession();
             if (!replaceState || replaceState.file !== file) {
                 replaceState = {
                     file,
-                    path: ADMIN_ID + "/" + crypto.randomUUID() + ".pdf",
+                    path: session.user.id + "/" + crypto.randomUUID() + ".pdf",
                     uploaded: false
                 };
             }
