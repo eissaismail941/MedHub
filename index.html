@@ -2976,7 +2976,10 @@ function renderResourcePage(key) {
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
-   <a class="btn-link btn-open" href="${viewerURL(item.url, item.readerTitle || `${item.title} — ${item.description}`)}" target="_blank" rel="noopener noreferrer">
+   <a class="btn-link btn-open" href="${viewerURL(
+  item.url,
+  `${item.title} — ${item.description} ${item.url.match(/(?:LG|SGL|Lab|lecture)[-_]?0*(\d+)/i)?.[1] || ''}`.trim()
+)}" target="_blank" rel="noopener noreferrer">
     ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
 </a>
     <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
