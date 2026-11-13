@@ -1,7 +1,13 @@
-/* MedHub service worker — uses one logo: 1.png */
+
+/* MedHub Service Worker v6
+ * Fresh admin.js and admin.css
+ * Network-first homepage
+ * Offline fallback
+ * Preserves PDF Reader functionality
+ */
 
 const CACHE_PREFIX = 'medhub-';
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 const ROOT_URL = new URL('./', self.location.href).href;
@@ -12,9 +18,10 @@ const PRECACHE = [
   './index.html',
   './manifest.json',
   './1.png'
-].map((path) => new URL(path, ROOT_URL).href);
+].map(path => new URL(path, ROOT_URL).href);
 
-self.addEventListener('install', (event) => {
+// INSTALL
+self.addEventListener('install', event => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
@@ -25,11 +32,11 @@ self.addEventListener('install', (event) => {
 
       await Promise.all(
         PRECACHE
-          .filter((url) => url !== HOME_URL)
-          .map((url) =>
-            cache
-              .add(new Request(url, { cache: 'reload' }))
-              .catch(() => {})
+          .filter(url => url !== HOME_URL)
+          .map(url =>
+            cache.add(
+              new Request(url, { cache: 'reload' })
+            ).catch(() => {})
           )
       );
 
@@ -38,7 +45,8 @@ self.addEventListener('install', (event) => {
   );
 });
 
-self.addEventListener('activate', (event) => {
+// ACTIVATE
+self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
       const keys = await caches.keys();
@@ -46,11 +54,11 @@ self.addEventListener('activate', (event) => {
       await Promise.all(
         keys
           .filter(
-            (key) =>
+            key =>
               key.startsWith(CACHE_PREFIX) &&
               key !== CACHE_NAME
           )
-          .map((key) => caches.delete(key))
+          .map(key => caches.delete(key))
       );
 
       await self.clients.claim();
@@ -58,8 +66,10 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-self.addEventListener('fetch', (event) => {
+// FETCH
+self.addEventListener('fetch', event => {
   const request = event.request;
+
   if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
@@ -67,7 +77,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
   if (!url.href.startsWith(ROOT_URL)) return;
 
-  // Let the browser handle PDFs and partial downloads.
+  // Let the browser handle PDFs and range requests.
   if (
     url.pathname.toLowerCase().endsWith('.pdf') ||
     request.headers.has('range')
@@ -75,13 +85,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Pages: network-first.
   if (request.mode === 'navigate') {
     event.respondWith(networkFirstPage(request));
     return;
   }
 
-  // Return cached assets while refreshing them in the background.
+  // Admin JS and CSS: always check for fresh versions.
+  if (
+    url.pathname.endsWith('/admin.js') ||
+    url.pathname.endsWith('/admin.css')
+  ) {
+    event.respondWith(networkFirstAsset(request));
+    return;
+  }
+
+  // Other assets: cache-first with background refresh.
   const refresh = fetchAndCache(request);
+
   event.waitUntil(refresh.then(() => {}));
 
   event.respondWith(
@@ -94,6 +115,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+// NETWORK-FIRST PAGE
 async function networkFirstPage(request) {
   const cache = await caches.open(CACHE_NAME);
 
@@ -145,6 +167,28 @@ async function networkFirstPage(request) {
   }
 }
 
+// NETWORK-FIRST ADMIN ASSETS
+async function networkFirstAsset(request) {
+  const cache = await caches.open(CACHE_NAME);
+
+  try {
+    const response = await fetch(request, {
+      cache: 'no-cache'
+    });
+
+    if (response.ok) {
+      await cache.put(request, response.clone());
+    }
+
+    return response;
+  } catch {
+    const cached = await cache.match(request);
+
+    return cached || Response.error();
+  }
+}
+
+// CACHE OTHER ASSETS
 async function fetchAndCache(request) {
   try {
     const response = await fetch(request);
