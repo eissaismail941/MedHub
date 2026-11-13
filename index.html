@@ -3008,10 +3008,16 @@ const filename = new URL(pdfPath, location.href).pathname.split('/').pop();
 title = lectureTitles[filename] || title;
 
     const abs = new URL(pdfPath, location.href).href;
-    return './reader/index.html?file='
-        + encodeURIComponent(abs)
-        + '&title='
-        + encodeURIComponent(title);
+    // Give the reader the current MedHub view, so Android system Back can
+    // restore the lecture list even if the PWA opens a separate window.
+    const backState = history.state || { v: 'home', d: 0 };
+    const params = new URLSearchParams({
+        file: abs,
+        title: title,
+        fromMedHub: '1',
+        medhubView: JSON.stringify(backState)
+    });
+    return './reader/index.html?' + params.toString();
     }
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
@@ -3084,9 +3090,60 @@ document.addEventListener('touchend', function (e) {
     }
 }, { passive: true });
 
-/* Start on the saved history entry (survives refresh), otherwise home */
-history.replaceState(history.state || { v:'home', d:0 }, '');
-render(history.state);
+/* Android Back returning from the PDF Reader: restore the exact MedHub
+   section instead of reopening the homepage. No visual Back button needed. */
+const medhubUrl = new URL(window.location.href);
+const returningFromReader = medhubUrl.searchParams.get('medhubResume') === '1';
+let initialMedhubState = history.state || { v:'home', d:0 };
+if (returningFromReader) {
+    try {
+        const incoming = JSON.parse(medhubUrl.searchParams.get('medhubView') || '{}');
+        const allowedViews = ['home','stage1','block','stage2','s2block','split','res'];
+        if (incoming && allowedViews.includes(incoming.v)) {
+            const safe = { v: incoming.v, d: Number.isInteger(incoming.d) ? Math.max(0, Math.min(30, incoming.d)) : 0 };
+            if (incoming.v === 'block' && [1, 2].includes(incoming.b)) safe.b = incoming.b;
+            if (incoming.v === 's2block' && stage2Blocks.some(block => block.n === incoming.b)) safe.b = incoming.b;
+            if (incoming.v === 'res' && typeof incoming.key === 'string' && subjectMap[incoming.key]) safe.key = incoming.key;
+            if (incoming.v === 'split' && ['microbiology','biophysics','biochemistry'].includes(incoming.key)) {
+                safe.key = incoming.key;
+                safe.group = incoming.group === 'hdsf' ? 'hdsf' : 'bbb';
+                safe.title = {microbiology:'Microbiology',biophysics:'Biophysics',biochemistry:'Biochemistry'}[incoming.key];
+            }
+            // An incomplete or invalid state should fall back to home.
+            if ((safe.v === 'block' || safe.v === 's2block') && !safe.b) safe.v = 'home';
+            if ((safe.v === 'res' || safe.v === 'split') && !safe.key) safe.v = 'home';
+            initialMedhubState = safe;
+        }
+    } catch (error) {
+        console.warn('MedHub return state could not be restored:', error);
+    }
+    var medhubReturnScroll = Math.max(0, Math.min(100000, Number(medhubUrl.searchParams.get('medhubScroll')) || 0));
+    medhubUrl.searchParams.delete('medhubResume');
+    medhubUrl.searchParams.delete('medhubView');
+    medhubUrl.searchParams.delete('medhubScroll');
+    // Clean the address while retaining the restored view in browser history.
+    history.replaceState(initialMedhubState, '', medhubUrl.pathname + medhubUrl.search + medhubUrl.hash);
+} else {
+    history.replaceState(initialMedhubState, '');
+}
+render(initialMedhubState);
+if (returningFromReader) {
+    // Allow the lecture cards to finish mounting before restoring scroll.
+    const desiredScroll = medhubReturnScroll;
+    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
+}
+
+// Update return context at the moment of the click, not when cards render.
+document.addEventListener('click', event => {
+    const link = event.target.closest('a.btn-open');
+    if (!link) return;
+    const url = new URL(link.href, window.location.href);
+    if (url.origin !== window.location.origin || !url.pathname.includes('/reader/')) return;
+    url.searchParams.set('fromMedHub', '1');
+    url.searchParams.set('medhubView', JSON.stringify(history.state || {v:'home',d:0}));
+    url.searchParams.set('medhubScroll', String(Math.round(window.scrollY)));
+    link.href = url.href;
+}, true);
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
