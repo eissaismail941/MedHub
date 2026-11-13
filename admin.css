@@ -884,3 +884,21 @@ body.mh-has-fab #resources-page { padding-bottom: 130px; }
     .mh-type-picker.is-open .mh-type-options { animation: none; }
     .mh-type-trigger svg { transition: none; }
 }
+
+/* MedHub — Open Lecture Type dropdown ABOVE */
+
+.mh-type-picker {
+    position: relative;
+}
+
+.mh-type-options {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 50;
+    max-height: 230px;
+    overflow-y: auto;
+    box-shadow: 0 16px 40px rgba(11, 23, 48, 0.14);
+}
