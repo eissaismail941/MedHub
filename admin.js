@@ -350,6 +350,10 @@ let session = readSavedSession();
                     <input id="mh-edit-desc" type="text" maxlength="200"
                         autocomplete="off" placeholder="e.g. Lab 8">
                 </label>
+                <label class="mh-field mh-date-field">
+                    <span class="mh-flabel">Lecture date <span class="mh-opt">Optional · actual teaching date</span></span>
+                    <input id="mh-edit-date" type="date" aria-label="Actual lecture date">
+                </label>
                 <div class="mh-note">${ICON.info}<span>
                     The PDF file and the lecture's position stay the same.
                     Use “Replace PDF” in the ⋮ menu to change the file.
@@ -602,6 +606,8 @@ let session = readSavedSession();
                 url,
                 downloadUrl: url + "?download=" +
                     encodeURIComponent(row.title + ".pdf"),
+                lectureDate: row.lecture_date || null,
+                fileSizeBytes: Number(row.file_size_bytes) || null,
                 row
             });
         }
@@ -1552,6 +1558,7 @@ let session = readSavedSession();
             title: titleFromName(file.name),
             category: TYPES[0],
             description: "",
+            lectureDate: "",
             path: null,
             rowId: null,
             order: null,
@@ -1592,6 +1599,10 @@ let session = readSavedSession();
                         autocomplete="off" placeholder="e.g. Lab 8">
                 </label>
             </div>
+            <label class="mh-field mh-date-field">
+                <span class="mh-flabel">Lecture date <span class="mh-opt">Optional · actual teaching date</span></span>
+                <input type="date" class="mh-qdate" aria-label="Actual lecture date">
+            </label>
             <div class="mh-qprog" hidden>
                 <div class="mh-bar"><span></span></div>
                 <small class="mh-qstate"></small>
@@ -1676,8 +1687,11 @@ let session = readSavedSession();
     $("mh-queue").addEventListener("change", event => {
         const item = itemFrom(event.target);
 
-        if (item && event.target.classList.contains("mh-qcat")) {
+        if (!item) return;
+        if (event.target.classList.contains("mh-qcat")) {
             item.category = event.target.value;
+        } else if (event.target.classList.contains("mh-qdate")) {
+            item.lectureDate = event.target.value;
         }
     });
 
@@ -1784,6 +1798,8 @@ let session = readSavedSession();
                     subject: subject.key,
                     category: item.category,
                     description: item.description.trim(),
+                    lecture_date: item.lectureDate || null,
+                    file_size_bytes: item.file.size,
                     sort_order: item.order,
                     file_path: item.path
                 })
@@ -1976,6 +1992,7 @@ let session = readSavedSession();
         $("mh-edit-title").value = row.title || "";
         $("mh-edit-title").removeAttribute("aria-invalid");
         $("mh-edit-desc").value = row.description || "";
+        $("mh-edit-date").value = row.lecture_date || "";
         buildEditChips(row.category);
         message($("mh-edit-status"), "");
         renderDestination($("mh-edit-dest"), subject);
@@ -1993,6 +2010,7 @@ let session = readSavedSession();
         const row = editRow;
         const title = $("mh-edit-title").value.trim();
         const description = $("mh-edit-desc").value.trim();
+        const lectureDate = $("mh-edit-date").value || null;
         const category = $("mh-edit")
             .querySelector('input[name="mh-edit-category"]:checked')?.value ||
             row.category;
@@ -2006,6 +2024,7 @@ let session = readSavedSession();
         if (
             title === row.title &&
             description === (row.description || "") &&
+            lectureDate === (row.lecture_date || null) &&
             category === row.category
         ) {
             return editDialog.close();
@@ -2020,7 +2039,8 @@ let session = readSavedSession();
             const saved = await changeRow("PATCH", row.id, {
                 title,
                 category,
-                description
+                description,
+                lecture_date: lectureDate
             });
 
             Object.assign(row, saved);
