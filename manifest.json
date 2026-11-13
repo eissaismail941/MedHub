@@ -10,8 +10,8 @@
   "background_color": "#f8fbff",
   "icons": [
     {
-      "src": "./1.png",
-      "sizes": "1536x1536",
+      "src": "./medhub-logo.png",
+"sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
     }
