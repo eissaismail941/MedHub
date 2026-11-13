@@ -885,20 +885,21 @@ body.mh-has-fab #resources-page { padding-bottom: 130px; }
     .mh-type-trigger svg { transition: none; }
 }
 
-/* MedHub — Open Lecture Type dropdown ABOVE */
-
-.mh-type-picker {
-    position: relative;
+/* MedHub v1.1: academic lecture-date fields */
+.mh-date-field input[type="date"] {
+    display:block; width:100%; min-height:49px; padding:11px 14px;
+    border:1.5px solid #d5e1f3; border-radius:14px; background:#fff;
+    color:#0f172a; color-scheme:light; font:500 16px/1.4 var(--mh-font);
+    -webkit-user-select:text; user-select:text;
+}
+.mh-date-field input[type="date"]:focus {
+    outline:0; border-color:#0057ff; box-shadow:0 0 0 4px rgba(0,87,255,.16);
 }
 
+/* Keep the custom lecture-type menu above the trigger on tablets and desktop. */
+.mh-type-picker { position: relative; }
 .mh-type-options {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 50;
-    max-height: 230px;
-    overflow-y: auto;
-    box-shadow: 0 16px 40px rgba(11, 23, 48, 0.14);
+  position: absolute; bottom: calc(100% + 8px); left: 0; right: 0;
+  width: 100%; z-index: 50;
+  box-shadow: 0 16px 40px rgba(11,23,48,.14);
 }
