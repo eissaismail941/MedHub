@@ -1707,37 +1707,30 @@ body.ios-device .resource-actions {
     letter-spacing: .08em;
     text-transform: uppercase;
 }
-/* Academic block hover: the same stationary 2px outline on both stages.
-   Scope to block catalogs: homepage stage cards and subject cards remain untouched. */
-#stage2-page .block-card,
-#subject-page #block-entrance .block-card {
+/* Stage 2 blocks: same stationary outline hover as the Physiology subject card,
+   using MedHub blue. Never raise, pop, scale or increase shadow on mouse hover. */
+#stage2-page .block-card {
     transition: border-color .3s ease, box-shadow .3s ease;
-    /* Entrance animations must not lock their final transform on the element. */
+    /* The entrance animation should not pin a transform at its last keyframe. */
     animation-fill-mode: backwards;
 }
 @media (hover: hover) and (pointer: fine) {
-    #stage2-page .block-card:hover,
-    #subject-page #block-entrance .block-card:hover,
-    #subject-page #block-entrance .block-card.purple:hover {
+    #stage2-page .block-card:hover {
         transform: none;
         border-color: #0057ff;
         box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
     }
 }
 @media (hover: none) and (pointer: coarse) {
-    #stage2-page .block-card:hover,
-    #subject-page #block-entrance .block-card:hover,
-    #subject-page #block-entrance .block-card.purple:hover {
+    #stage2-page .block-card:hover {
         transform: none;
         border-color: #dfe7f2;
         box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
     }
-    #stage2-page .block-card:active,
-    #subject-page #block-entrance .block-card:active { transform: scale(.98); }
+    #stage2-page .block-card:active { transform: scale(.98); }
 }
 @media (prefers-reduced-motion: reduce) {
-    #stage2-page .block-card,
-    #subject-page #block-entrance .block-card { transition: none; animation: none; }
+    #stage2-page .block-card { transition: none; animation: none; }
 }
 #stage2-page .block-card:focus-visible,
 #subject-page #block-entrance .block-card:focus-visible {
@@ -1778,7 +1771,43 @@ body.ios-device .resource-actions {
     .mh-stage-heading .block-title h2 { font-size: clamp(1.55rem, 6vw, 2.2rem); }
 }
 
-    </style>
+    
+/* MedHub v1.0 — match block-card outlines to the subject-card hover.
+   Resting: invisible 2px border. Hover: 2px MedHub royal blue.
+   Applies to Stage 1 Block 1/2 and all Stage 2 block cards.
+   No lift, scaling, shadow jump, or layout shift. */
+#stage2-page .block-grid .block-card,
+#subject-page #block-entrance .block-grid .block-card {
+    border: 2px solid transparent;
+    background: #fff;
+    animation-fill-mode: backwards;
+    transition: border-color 0.28s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    #stage2-page .block-grid .block-card:hover,
+    #subject-page #block-entrance .block-grid .block-card:hover {
+        border-color: #0057ff;
+        background: #fff;
+        transform: none;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.045);
+    }
+}
+@media (hover: none), (pointer: coarse) {
+    #stage2-page .block-grid .block-card:hover,
+    #subject-page #block-entrance .block-grid .block-card:hover {
+        border-color: transparent;
+        transform: none;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.045);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    #stage2-page .block-grid .block-card,
+    #subject-page #block-entrance .block-grid .block-card {
+        transition: none;
+    }
+}
+
+</style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
 
@@ -2996,7 +3025,7 @@ const stage2Blocks = [
 ];
 stage2Blocks.forEach(blk => blk.modules.forEach((m, i) => {
     m.key = 's2b' + blk.n + 'm' + i;
-    subjectMap[m.key] = { title: m.name + ' Resource Library', group: 'bbb', resources: m.resources || [] };
+    subjectMap[m.key] = { title: m.name + ' Resource Library', group: m.group || 'bbb', resources: m.resources || [] };
 }));
 
 /* ───────────── NAVIGATION (browser-history based) ───────────── */
@@ -3111,10 +3140,10 @@ function renderS2Block(n) {
     }
     $('s2block-sub').textContent = blk.name;
     const card = (m, i) => `
-        <div class="subject-card bbb-card" style="animation-delay:${(0.05 + i * 0.05).toFixed(2)}s" onclick="loadResources('${m.key}')">
+        <div class="subject-card ${m.group === 'hdsf' ? 'hdsf-card' : 'bbb-card'}" style="animation-delay:${(0.05 + i * 0.05).toFixed(2)}s" onclick="loadResources('${m.key}')">
             <div class="card-icon">${m.icon || '📚'}</div>
             <div class="card-name">${m.name}</div>
-            <div class="card-chip bbb">PDF Files</div>
+            <div class="card-chip ${m.group === 'hdsf' ? 'hdsf' : 'bbb'}">PDF Files</div>
         </div>`;
     body.innerHTML = `<div class="group-section"><div class="subject-grid">${blk.modules.map(card).join('')}</div></div>`;
 }
