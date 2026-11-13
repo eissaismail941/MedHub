@@ -1399,6 +1399,15 @@ let session = readSavedSession();
     $("mh-sheet-close").onclick = () => sheet.close();
     $("mh-cancel").onclick = () => sheet.close();
 
+    // A dismissed upload sheet must never keep unpublished PDF drafts.
+    // Covers Cancel, the X button, backdrop taps and navigation away.
+    sheet.addEventListener("close", () => {
+        if (busy) return;
+        closeLectureTypePickers();
+        resetQueue();
+        sheetKey = null;
+    });
+
     function setItemState(item, state, value, text) {
         const node = item.node;
         node.dataset.state = state;
