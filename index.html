@@ -904,6 +904,60 @@
             line-height: 1.7;
         }
 
+        /* Minimal academic subject header: compact, no promotional subtitle. */
+        #resources-page {
+            padding-top: 34px;
+        }
+        .resource-topbar-minimal {
+            margin-bottom: 22px;
+            padding: 6px 0 18px;
+            border-bottom: 1px solid #e1e9f5;
+        }
+        .resource-title-group {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-width: 0;
+        }
+        .resource-title-separator {
+            display: block;
+            width: 1px;
+            height: 28px;
+            background: #dce6f5;
+            flex-shrink: 0;
+        }
+        .resource-title-group .mh-compact-back {
+            border:0; border-radius:11px; background:transparent; color:#475569;
+            display:inline-grid; place-items:center; width:42px; height:42px;
+            cursor:pointer; flex:none; transition:background .2s, color .2s;
+        }
+        .resource-title-group .mh-compact-back:hover,
+        .resource-title-group .mh-compact-back:focus-visible {
+            background:#eaf2ff; color:#0057ff; outline:none;
+        }
+        .resource-title-group .mh-compact-back:active { transform:scale(.96); }
+        .resource-title-group h2 {
+            min-width: 0;
+            margin: 0;
+            font: 800 clamp(1.25rem, 2.4vw, 1.75rem)/1.3 'Syne', sans-serif;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
+        .resource-title-group .back-inline {
+            font: 700 0.9rem 'DM Sans', sans-serif;
+            white-space: nowrap;
+            border: 1px solid #e4ecf7;
+        }
+        .resource-topbar-minimal .pill {
+            font-size: 0.8rem;
+        }
+        @media (max-width: 600px) {
+            #resources-page { padding-top: 22px; }
+            .resource-title-group { gap: 10px; }
+            .resource-title-group h2 { font-size: 1.17rem; }
+            .resource-title-separator { height: 24px; }
+        }
+
         .resource-topbar {
             max-width: 1100px;
             margin: 0 auto 24px;
@@ -1080,6 +1134,20 @@
         }
 
         /* ── shared button styles ── */
+
+        /* Academic lecture cards: concise metadata and one clear action. */
+        .resource-card { min-height:0; }
+        .resource-card .resource-actions { margin-top:auto; padding-top:8px; }
+        .resource-card .resource-actions .btn-open { width:100%; flex:1 1 100%; }
+        .resource-card .mh-lecture-meta {
+            display:flex; flex-wrap:wrap; align-items:center; gap:7px 16px;
+            color:#64748b; font-size:.78rem; font-weight:500; margin-top:0;
+        }
+        .resource-card .mh-lecture-meta:empty {display:none;}
+        .resource-card .mh-lecture-meta-item {
+            display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
+        }
+        .resource-card .mh-lecture-meta-item svg {width:15px;height:15px;stroke:#8092ab;}
         .resource-card h3 {
             font-family: 'Syne', sans-serif;
             font-size: 1.02rem;
@@ -1575,7 +1643,7 @@ body.ios-device .resource-actions {
     display: none;
 }
     </style>
-<link rel="stylesheet" href="./admin.css?v=20261113-3">
+<link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
 
 <body>
@@ -1842,16 +1910,15 @@ body.ios-device .resource-actions {
 </section>
 
 <section id="resources-page">
-    <div class="resources-header">
-        <h2 id="resources-title">Resource Library</h2>
-        <p id="resources-subtitle">Professional PDF access for students. Every file can be opened in-browser or downloaded directly.</p>
-    </div>
-
-    <div class="resource-topbar">
-        <div class="back-inline" onclick="backFromResources()">← Back</div>
+    <div class="resource-topbar resource-topbar-minimal">
+        <div class="resource-title-group">
+            <button type="button" class="mh-compact-back" onclick="backFromResources()" aria-label="Back to subjects" title="Back to subjects">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+            </button>
+            <h2 id="resources-title">Lectures</h2>
+        </div>
         <div class="resource-meta">
             <div class="pill" id="resources-count">0 files</div>
-            <div class="pill">Public access ready</div>
         </div>
     </div>
 
@@ -2947,8 +3014,9 @@ function renderSplit(st) {
 function renderResourcePage(key) {
     const subject = subjectMap[key];
     if (!subject) return false;
-    $('resources-title').textContent = subject.title;
-    $('resources-subtitle').textContent = 'Professional PDF access for students. Every file can be opened in-browser or downloaded directly.';
+    $('resources-title').textContent = subject.title
+        .replace(/\s+Resource Library\s*$/i, '')
+        .trim();
     $('resources-count').textContent = `${subject.resources.length} files`;
     renderResources(subject.resources, subject.group, subject.title);
     return true;
@@ -3043,26 +3111,85 @@ title = lectureTitles[filename] || title;
     });
     return './reader/index.html?' + params.toString();
     }
+    function mhFormatFileSize(bytes) {
+        const n = Number(bytes);
+        if (!Number.isFinite(n) || n <= 0) return '';
+        return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' :
+            Math.max(1, Math.round(n / 1024)) + ' KB';
+    }
+    function mhFormatLectureDate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return '';
+        const date = new Date(value + 'T12:00:00Z');
+        if (Number.isNaN(date.getTime())) return '';
+        return date.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric', timeZone:'UTC' });
+    }
+    function mhMetaIcon(kind) {
+        return kind === 'date'
+            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
+    }
+    function mhMetaCell(kind, text) {
+        if (!text) return '';
+        return '<span class="mh-lecture-meta-item">' + mhMetaIcon(kind) + text + '</span>';
+    }
+    // Original GitHub PDFs may not have a date or stored file size.
+    // Fetch only their actual size via HEAD (when the card enters view).
+    const mhOriginalSizes = new Map();
+    function mhObserveOriginalFileSizes(grid) {
+        const pending = [...grid.querySelectorAll('[data-mh-size-url]')];
+        if (!pending.length) return;
+        const load = async el => {
+            const url = el.dataset.mhSizeUrl;
+            if (!url) return;
+            try {
+                const absolute = new URL(url, location.href);
+                if (absolute.origin !== location.origin) return;
+                let size = mhOriginalSizes.get(absolute.href);
+                if (size === undefined) {
+                    const res = await fetch(absolute.href, {method:'HEAD'});
+                    const header = res.ok ? Number(res.headers.get('content-length')) : 0;
+                    size = Number.isFinite(header) && header > 0 ? header : 0;
+                    mhOriginalSizes.set(absolute.href, size);
+                }
+                if (size && el.isConnected) el.textContent = mhFormatFileSize(size);
+            } catch { /* No size label unless a real size was verified. */ }
+        };
+        if (!('IntersectionObserver' in window)) return;
+        const observer = new IntersectionObserver(entries => {
+            for (const entry of entries) if (entry.isIntersecting) {
+                observer.unobserve(entry.target);
+                load(entry.target);
+            }
+        }, { rootMargin:'250px' });
+        pending.forEach(node => observer.observe(node));
+    }
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
-        
         const isBBB = group === 'bbb';
-
-        // Stagger resource cards slightly too!
-        grid.innerHTML = items.map((item, index) => `
+        const escapeAttr = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+        grid.innerHTML = items.map((item, index) => {
+            const size = mhFormatFileSize(item.fileSizeBytes);
+            const when = mhFormatLectureDate(item.lectureDate);
+            const needsSize = !size && !item.row && item.url;
+            const sizeMarkup = size
+                ? mhMetaCell('file', size)
+                : needsSize ? '<span class="mh-lecture-meta-item">' + mhMetaIcon('file') +
+                    '<span data-mh-size-url="' + escapeAttr(item.url) + '"></span></span>' : '';
+            return `
             <article class="resource-card${isBBB ? ' bbb-resource' : ''}" style="animation-delay: ${index * 0.05}s">
                 <div class="resource-icon">📄</div>
                 <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
                 <h3>${item.title}</h3>
-                <p>${item.description}</p>
+                <p>${item.description || ''}</p>
+                <div class="mh-lecture-meta">${sizeMarkup}${mhMetaCell('date', when)}</div>
                 <div class="resource-actions">
-   <a class="btn-link btn-open" href="${viewerURL(item.url, readerTitleFor(item, items))}">
-    ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
-</a>
-    <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
-</div>
-            </article>
-        `).join('');
+                    <a class="btn-link btn-open" href="${viewerURL(item.url, readerTitleFor(item, items))}">
+                        ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
+                    </a>
+                </div>
+            </article>`;
+        }).join('');
+        mhObserveOriginalFileSizes(grid);
     }
 
     function showDownloadState(btn) {
@@ -3211,6 +3338,6 @@ if ('serviceWorker' in navigator) {
 
 </script>
 
-<script src="./admin.js?v=20261113-3"></script>
+<script src="./admin.js?v=20261113-v11"></script>
 </body>
 </html>
