@@ -1203,33 +1203,42 @@ let session = readSavedSession();
     let previewUrl = null;
     let previewDoc = null;
 
-    function loadPdfJs() {
-    if (window.pdfjsLib) {
-        return Promise.resolve(window.pdfjsLib);
+    // Use the existing local PDF.js build when possible. On devices where it
+    // cannot initialize, retry with a matching hosted API + worker pair.
+    const PREVIEW_PDFJS_CDN =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/";
+
+    function loadPdfJs(useFallback = false) {
+        if (!useFallback && window.pdfjsLib) {
+            return Promise.resolve(window.pdfjsLib);
+        }
+
+        if (useFallback) {
+            return import(PREVIEW_PDFJS_CDN + "pdf.min.mjs")
+                .then(pdfjs => {
+                    pdfjs.GlobalWorkerOptions.workerSrc =
+                        PREVIEW_PDFJS_CDN + "pdf.worker.min.mjs";
+                    return pdfjs;
+                });
+        }
+
+        if (!pdfjsPromise) {
+            pdfjsPromise = import("./pdfjs/build/pdf.mjs")
+                .then(pdfjs => {
+                    pdfjs.GlobalWorkerOptions.workerSrc =
+                        "./pdfjs/build/pdf.worker.mjs";
+                    window.pdfjsLib = pdfjs;
+                    return pdfjs;
+                })
+                .catch(error => {
+                    console.warn("Local PDF preview engine unavailable:", error);
+                    pdfjsPromise = null;
+                    return loadPdfJs(true);
+                });
+        }
+
+        return pdfjsPromise;
     }
-    
-    if (!pdfjsPromise) {
-        pdfjsPromise = import("./pdfjs/build/pdf.mjs")
-            .then((pdfjs) => {
-                pdfjs.GlobalWorkerOptions.workerSrc =
-                    "./pdfjs/build/pdf.worker.mjs";
-                
-                window.pdfjsLib = pdfjs;
-                
-                return pdfjs;
-            })
-            .catch((error) => {
-                pdfjsPromise = null;
-                console.error("PDF.js loading error:", error);
-                
-                throw new Error(
-                    "PDF preview engine could not load."
-                );
-            });
-    }
-    
-    return pdfjsPromise;
-}
 
     function cleanupPreview() {
         previewToken++;
@@ -1266,67 +1275,84 @@ let session = readSavedSession();
 
         previewUrl = URL.createObjectURL(file);
         $("mh-prev-open").href = previewUrl;
-
         openModal(previewDialog);
 
-        try {
-            const pdfjs = await loadPdfJs();
-            const data = await file.arrayBuffer();
+        // Rendering a large number of full-page canvases can exhaust Android
+        // tablet memory. Show the first few pages on touch devices instead.
+        const isTabletOrPhone = matchMedia("(pointer: coarse)").matches;
+        const pageLimit = isTabletOrPhone ? 6 : MAX_PREVIEW_PAGES;
+        const pixelRatio = isTabletOrPhone
+            ? Math.min(window.devicePixelRatio || 1, 1.25)
+            : Math.min(window.devicePixelRatio || 1, 2);
 
+        async function renderWith(pdfjs) {
+            const data = await file.arrayBuffer();
             if (token !== previewToken) return;
 
-            const doc = await pdfjs.getDocument({ data }).promise;
-
+            const task = pdfjs.getDocument({ data: new Uint8Array(data) });
+            const doc = await task.promise;
             if (token !== previewToken) {
-                doc.destroy?.();
+                await doc.destroy();
                 return;
             }
 
             previewDoc = doc;
             body.replaceChildren();
-
-            const ratio = Math.min(window.devicePixelRatio || 1, 2);
             const width = Math.max(body.clientWidth - 28, 280);
-            const pages = Math.min(doc.numPages, MAX_PREVIEW_PAGES);
+            const pages = Math.min(doc.numPages, pageLimit);
 
             for (let number = 1; number <= pages; number++) {
-                const page = await doc.getPage(number);
-
                 if (token !== previewToken) return;
-
+                const page = await doc.getPage(number);
                 const base = page.getViewport({ scale: 1 });
                 const viewport = page.getViewport({
-                    scale: (width * ratio) / base.width
+                    scale: (width * pixelRatio) / base.width
                 });
-
                 const canvas = document.createElement("canvas");
                 canvas.width = Math.floor(viewport.width);
                 canvas.height = Math.floor(viewport.height);
                 canvas.setAttribute("aria-label", "Page " + number + " of " + doc.numPages);
                 body.append(canvas);
-
                 await page.render({
                     canvasContext: canvas.getContext("2d"),
                     viewport
                 }).promise;
+                page.cleanup?.();
             }
 
             if (doc.numPages > pages) {
                 body.append(el(
-                    "p",
-                    "mh-prev-more",
-                    "Showing the first " + pages + " of " + doc.numPages +
-                    " pages. Use “Open in new tab” to see everything."
+                    "p", "mh-prev-more",
+                    "Previewing the first " + pages + " of " + doc.numPages +
+                    " pages. Use “Open in new tab” for the full PDF."
                 ));
             }
-        } catch {
-            if (token !== previewToken) return;
+        }
 
-            /* Fallback: let the browser show the PDF itself. */
-            const frame = document.createElement("iframe");
-            frame.title = "PDF preview";
-            frame.src = previewUrl;
-            body.replaceChildren(frame);
+        try {
+            await renderWith(await loadPdfJs());
+        } catch (firstError) {
+            if (token !== previewToken) return;
+            console.warn("PDF preview render failed; retrying:", firstError);
+            // If the local PDF.js engine fails on Samsung Chrome, retry with
+            // the matching hosted version rather than an Android blob iframe.
+            try {
+                if (previewDoc) {
+                    await previewDoc.destroy?.().catch?.(() => {});
+                    previewDoc = null;
+                }
+                body.replaceChildren(wait);
+                await renderWith(await loadPdfJs(true));
+            } catch (secondError) {
+                if (token !== previewToken) return;
+                console.error("PDF preview unavailable:", secondError);
+                body.replaceChildren();
+                const errorMessage = el(
+                    "div", "mh-prev-wait",
+                    "Preview unavailable in this browser. Tap “Open in new tab” below to view the PDF."
+                );
+                body.append(errorMessage);
+            }
         }
     }
 
