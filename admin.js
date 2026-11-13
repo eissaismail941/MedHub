@@ -2427,18 +2427,6 @@ let session = readSavedSession();
                 return valueSpan;
             };
 
-            const storedBytes = Number(item.fileSizeBytes);
-            if (Number.isFinite(storedBytes) && storedBytes > 0) {
-                addMeta("file", storedBytes >= 1048576
-                    ? (storedBytes / 1048576).toFixed(1) + " MB"
-                    : Math.max(1, Math.round(storedBytes / 1024)) + " KB");
-            } else if (!item.row && item.url) {
-                // The homepage's existing HEAD-based helper resolves verified
-                // sizes for original GitHub PDFs when they enter the viewport.
-                const value = addMeta("file", "");
-                value.dataset.mhSizeUrl = item.url;
-            }
-
             if (/^\d{4}-\d{2}-\d{2}$/.test(item.lectureDate || "")) {
                 const date = new Date(item.lectureDate + "T12:00:00Z");
                 if (!Number.isNaN(date.getTime())) {
