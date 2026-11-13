@@ -753,29 +753,13 @@
             border-radius: 22px;
         }
 
-        .subject-card.hdsf-card:hover {
-            border-color: var(--hdsf);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0,87,255,0.12), 0 4px 12px rgba(0,87,255,0.08);
-        }
-
         .subject-card.hdsf-card::before {
             background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
-        }
-
-        .subject-card.hdsf-card:hover::before { opacity: 1; }
-
-        .subject-card.bbb-card:hover {
-            border-color: var(--blue);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0,87,255,0.1), 0 4px 12px rgba(0,87,255,0.07);
         }
 
         .subject-card.bbb-card::before {
             background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
         }
-
-        .subject-card.bbb-card:hover::before { opacity: 1; }
 
         .subject-card:active { transform: translateY(-2px) scale(0.98); }
 
@@ -864,17 +848,9 @@
         .split-card .card-desc { color: #94a3b8; font-size: 0.95rem; }
 
         .split-card.theory-card.hdsf-theme::before { background: radial-gradient(ellipse at top left, rgba(0,87,255,0.05), transparent 60%); }
-        .split-card.theory-card.hdsf-theme:hover { border-color: var(--hdsf); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,87,255,0.12); }
-        .split-card.theory-card.hdsf-theme:hover::before { opacity: 1; }
-
         .split-card.theory-card.bbb-theme::before { background: radial-gradient(ellipse at top left, rgba(0,87,255,0.05), transparent 60%); }
-        .split-card.theory-card.bbb-theme:hover { border-color: var(--blue); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,87,255,0.1); }
-        .split-card.theory-card.bbb-theme:hover::before { opacity: 1; }
-
         /* Beautiful Green Vibe for Practical */
         .split-card.practical-card::before { background: radial-gradient(ellipse at top left, rgba(16,185,129,0.06), transparent 60%); }
-        .split-card.practical-card:hover { border-color: var(--correct); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(16,185,129,0.15); }
-        .split-card.practical-card:hover::before { opacity: 1; }
         .split-card.practical-card .card-name { color: var(--correct); }
 
         #resources-page {
@@ -1078,13 +1054,6 @@
             z-index: 1;
         }
 
-        .resource-card:hover {
-    border-color: var(--hdsf);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-}
-
-        .resource-card:hover::before { opacity: 1; }
-
         .resource-icon {
             width: 58px;
             height: 58px;
@@ -1110,11 +1079,6 @@
         /* ── BBB resource cards (blue) ── */
         .resource-card.bbb-resource::before {
             background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
-        }
-
-        .resource-card.bbb-resource:hover {
-            border-color: var(--blue);
-            box-shadow: 0 20px 50px rgba(0,87,255,0.1), 0 4px 12px rgba(0,87,255,0.07);
         }
 
         .resource-card.bbb-resource .resource-icon {
@@ -1388,40 +1352,9 @@ button,
 */
 @media (hover: none) and (pointer: coarse) {
 
-    .subject-card:hover,
-.subject-card.hdsf-card:hover,
-.subject-card.bbb-card:hover,
-.split-card:hover,
-.split-card.theory-card.hdsf-theme:hover,
-.split-card.theory-card.bbb-theme:hover,
-.split-card.practical-card:hover,
-.resource-card:hover,
-.resource-card.bbb-resource:hover {
-    transform: none;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-}
-
-.btn-link:hover,
-.btn-download:hover {
-    transform: none;
-}
-
-    .subject-card:hover,
-    .subject-card.hdsf-card:hover,
-    .subject-card.bbb-card:hover,
-    .split-card:hover,
-    .split-card.theory-card.hdsf-theme:hover,
-    .split-card.theory-card.bbb-theme:hover,
-    .split-card.practical-card:hover,
-    .resource-card:hover,
-    .resource-card.bbb-resource:hover {
-        border-color: transparent;
-    }
-
-    .subject-card:hover::before,
-    .split-card:hover::before,
-    .resource-card:hover::before {
-        opacity: 0;
+    .btn-link:hover,
+    .btn-download:hover {
+        transform: none;
     }
 
     /* Nice mobile press effect instead of sticky hover */
@@ -1516,11 +1449,6 @@ body.ios-device .resource-actions {
 
 .block-card.purple::before {
     background: radial-gradient(circle, rgba(0,87,255,0.14), transparent 70%);
-}
-
-.block-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 28px 70px rgba(0,87,255,0.12);
 }
 
 .block-kicker {
@@ -1647,7 +1575,6 @@ body.ios-device .resource-actions {
 .block-card.acc::before { background: radial-gradient(circle, rgba(var(--a),0.14), transparent 70%); }
 .block-card.acc .block-kicker { background: rgba(var(--a),0.08); color: rgb(var(--a)); }
 .block-card.acc .block-arrow { background: linear-gradient(135deg, rgb(var(--a)), rgb(var(--b))); }
-.block-card.acc:hover { box-shadow: 0 28px 70px rgba(var(--a),0.15); }
 .block-card .big-num {
     position: absolute; right: 26px; top: 16px; z-index: 0;
     font-family: 'Syne', sans-serif; font-weight: 800; font-size: 4.6rem; line-height: 1;
@@ -1707,27 +1634,11 @@ body.ios-device .resource-actions {
     letter-spacing: .08em;
     text-transform: uppercase;
 }
-/* Stage 2 blocks: same stationary outline hover as the Physiology subject card,
-   using MedHub blue. Never raise, pop, scale or increase shadow on mouse hover. */
+/* Stage 2 blocks: entrance animation must not pin a transform at its last keyframe. */
 #stage2-page .block-card {
     transition: border-color .3s ease, box-shadow .3s ease;
     /* The entrance animation should not pin a transform at its last keyframe. */
     animation-fill-mode: backwards;
-}
-@media (hover: hover) and (pointer: fine) {
-    #stage2-page .block-card:hover {
-        transform: none;
-        border-color: #0057ff;
-        box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
-    }
-}
-@media (hover: none) and (pointer: coarse) {
-    #stage2-page .block-card:hover {
-        transform: none;
-        border-color: #dfe7f2;
-        box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
-    }
-    #stage2-page .block-card:active { transform: scale(.98); }
 }
 @media (prefers-reduced-motion: reduce) {
     #stage2-page .block-card { transition: none; animation: none; }
@@ -1772,10 +1683,7 @@ body.ios-device .resource-actions {
 }
 
     
-/* MedHub v1.0 — match block-card outlines to the subject-card hover.
-   Resting: invisible 2px border. Hover: 2px MedHub royal blue.
-   Applies to Stage 1 Block 1/2 and all Stage 2 block cards.
-   No lift, scaling, shadow jump, or layout shift. */
+/* Stage 1 Block 1/2 and Stage 2 block cards: invisible 2px resting border (hover is in the unified block below). */
 #stage2-page .block-grid .block-card,
 #subject-page #block-entrance .block-grid .block-card {
     border: 2px solid transparent;
@@ -1783,28 +1691,79 @@ body.ios-device .resource-actions {
     animation-fill-mode: backwards;
     transition: border-color 0.28s ease;
 }
-@media (hover: hover) and (pointer: fine) {
-    #stage2-page .block-grid .block-card:hover,
-    #subject-page #block-entrance .block-grid .block-card:hover {
-        border-color: #0057ff;
-        background: #fff;
-        transform: none;
-        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.045);
-    }
-}
-@media (hover: none), (pointer: coarse) {
-    #stage2-page .block-grid .block-card:hover,
-    #subject-page #block-entrance .block-grid .block-card:hover {
-        border-color: transparent;
-        transform: none;
-        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.045);
-    }
-}
 @media (prefers-reduced-motion: reduce) {
     #stage2-page .block-grid .block-card,
     #subject-page #block-entrance .block-grid .block-card {
         transition: none;
     }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   MedHub v1.0 — UNIFIED, STATIONARY CARD HOVER
+   Reference: the Stage 1 / Stage 2 homepage cards — a soft blue shadow
+   bloom, nothing else. The card never moves, scales or changes border.
+   Applies to: homepage stage cards, Stage 1 blocks, Stage 2 blocks,
+   subject cards, Theory/Practical cards and PDF resource cards
+   (including cards rendered later by JavaScript).
+   Triggers:  mouse (desktop/laptop)  -> :hover
+              S Pen / Apple Pencil    -> .mh-hover (set by pointer events)
+   Finger touch never triggers it, so there is no sticky hover.
+   ════════════════════════════════════════════════════════════════ */
+:root { --mh-card-hover-shadow: 0 28px 70px rgba(0, 87, 255, 0.15); }
+
+.resource-card { transition: box-shadow 0.35s ease; }
+#stage2-page .block-grid .block-card,
+#subject-page #block-entrance .block-grid .block-card {
+    transition: box-shadow 0.35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #home-page .block-card:hover,
+    #stage2-page .block-grid .block-card:hover,
+    #subject-page #block-entrance .block-grid .block-card:hover,
+    .subject-card:hover,
+    .split-card:hover,
+    .resource-card:hover {
+        transform: none;
+        box-shadow: var(--mh-card-hover-shadow);
+    }
+    .subject-card:hover,
+    .split-card:hover,
+    .resource-card:hover,
+    #stage2-page .block-grid .block-card:hover,
+    #subject-page #block-entrance .block-grid .block-card:hover {
+        border-color: transparent;
+    }
+    .subject-card:hover::before,
+    .split-card:hover::before,
+    .resource-card:hover::before { opacity: 1; }
+}
+
+#home-page .block-card.mh-hover,
+#stage2-page .block-grid .block-card.mh-hover,
+#subject-page #block-entrance .block-grid .block-card.mh-hover,
+.subject-card.mh-hover,
+.split-card.mh-hover,
+.resource-card.mh-hover {
+    transform: none;
+    box-shadow: var(--mh-card-hover-shadow);
+}
+.subject-card.mh-hover,
+.split-card.mh-hover,
+.resource-card.mh-hover,
+#stage2-page .block-grid .block-card.mh-hover,
+#subject-page #block-entrance .block-grid .block-card.mh-hover {
+    border-color: transparent;
+}
+.subject-card.mh-hover::before,
+.split-card.mh-hover::before,
+.resource-card.mh-hover::before { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .resource-card,
+    #stage2-page .block-grid .block-card,
+    #subject-page #block-entrance .block-grid .block-card { transition: none; }
 }
 
 </style>
@@ -3485,6 +3444,32 @@ if ('serviceWorker' in navigator) {
 
 </script>
 
+<script>
+/* MedHub — pen hover (S Pen / Apple Pencil). Native :hover is not applied on
+   touch-first tablets, so pen/mouse hover is mirrored onto a CSS class.
+   One delegated listener set covers every card, including dynamic ones.
+   Finger touch is ignored, so taps open cards with no sticky hover. */
+(function () {
+    var SEL = '.block-card, .subject-card, .split-card, .resource-card';
+    var desktopMouse = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var cur = null;
+    function clear() { if (cur) { cur.classList.remove('mh-hover'); cur = null; } }
+    document.addEventListener('pointerover', function (e) {
+        if (e.pointerType === 'touch' || (e.pointerType === 'mouse' && desktopMouse.matches)) { clear(); return; }
+        var card = e.target.closest ? e.target.closest(SEL) : null;
+        if (card === cur) return;
+        clear();
+        if (card) { card.classList.add('mh-hover'); cur = card; }
+    }, { passive: true });
+    document.addEventListener('pointerout', function (e) {
+        if (cur && !cur.contains(e.relatedTarget)) clear();
+    }, { passive: true });
+    document.addEventListener('pointerdown', clear, { passive: true });
+    document.addEventListener('pointercancel', clear, { passive: true });
+    window.addEventListener('pagehide', clear);
+    window.addEventListener('blur', clear);
+})();
+</script>
 <script src="./admin.js?v=20261113-dateonly"></script>
 </body>
 </html>
