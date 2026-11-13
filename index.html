@@ -1688,20 +1688,39 @@ body.ios-device .resource-actions {
 #stage2-page .block-card .big-num { display: none; }
 #stage2-page .block-card.acc,
 #subject-page #block-entrance .block-card.purple { border-color: #dfe7f2; }
+/* Academic block-number pills: same polished rounded label on every block. */
 #stage2-page .block-card .block-kicker,
 #subject-page #block-entrance .block-card .block-kicker,
-#subject-page #block-entrance .block-card.purple .block-kicker {
-    background: transparent;
+#subject-page #block-entrance .block-card.purple .block-kicker,
+#stage2-page .block-card.soon .block-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 9px 19px;
+    border-radius: 999px;
+    background: #eaf1ff;
     color: #0057ff;
-    padding: 0;
-    border-radius: 0;
     font-size: .78rem;
+    font-weight: 800;
+    line-height: 1.2;
     letter-spacing: .08em;
+    text-transform: uppercase;
 }
-#stage2-page .block-card:hover,
-#subject-page #block-entrance .block-card:hover {
-    border-color: #bed3f4;
-    box-shadow: 0 18px 42px rgba(15, 23, 42, .075);
+/* Same subtle royal-blue interactive highlight across all five Stage 2 blocks. */
+@media (hover: hover) and (pointer: fine) {
+    #stage2-page .block-card:hover,
+    #subject-page #block-entrance .block-card:hover {
+        border-color: #82afff;
+        background: #fcfdff;
+        box-shadow: 0 18px 44px rgba(0, 87, 255, .12),
+                    0 0 0 3px rgba(0, 87, 255, .07);
+    }
+}
+#stage2-page .block-card:focus-visible,
+#subject-page #block-entrance .block-card:focus-visible {
+    outline: 3px solid rgba(0, 87, 255, .35);
+    outline-offset: 3px;
 }
 #stage2-page .block-status {
     align-self: center;
