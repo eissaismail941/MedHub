@@ -2850,7 +2850,31 @@ function render(st) {
     window.scrollTo(0, 0);
 }
 
-window.addEventListener('popstate', e => render(e.state));
+// The PDF viewer can run inside the SAME installed app window.
+// Samsung Back then pops this history entry instead of closing the PWA.
+let medhubPdfFrame = null;
+let medhubPdfScroll = 0;
+let medhubPdfPreviousOverflow = '';
+
+function closeMedhubPdfFrame() {
+    if (!medhubPdfFrame) return;
+    const frame = medhubPdfFrame;
+    medhubPdfFrame = null;
+    frame.remove();
+    document.body.style.overflow = medhubPdfPreviousOverflow;
+}
+
+window.addEventListener('popstate', e => {
+    if (medhubPdfFrame && !e.state?.medhubPdfOverlay) {
+        const savedScroll = medhubPdfScroll;
+        closeMedhubPdfFrame();
+        // render() resets the scroll; restore the exact lecture-list position.
+        render(e.state);
+        requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, savedScroll)));
+        return;
+    }
+    if (!e.state?.medhubPdfOverlay) render(e.state);
+});
 
 function openStage(n)   { go({ v: n === 1 ? 'stage1' : 'stage2' }); }
 function openBlock1()   { go({ v:'block', b:1 }); }
@@ -3144,6 +3168,39 @@ document.addEventListener('click', event => {
     url.searchParams.set('medhubScroll', String(Math.round(window.scrollY)));
     link.href = url.href;
 }, true);
+
+/* Embedded Reader: same PWA window, no new browser tab, no visible Back button.
+   The iframe is fullscreen, but belongs to the original homepage's history.
+   This is intentionally separate from EmbedPDF's rendering and touch handling. */
+document.addEventListener('click', event => {
+    const link = event.target.closest('a.btn-open');
+    if (!link || event.defaultPrevented || event.button !== 0 ||
+        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const readerUrl = new URL(link.href, location.href);
+    if (readerUrl.origin !== location.origin ||
+        !readerUrl.pathname.startsWith(new URL('./reader/', location.href).pathname)) return;
+
+    event.preventDefault();
+    // Important: the old Reader Back workaround must NOT run inside the frame.
+    // That workaround creates a second history entry and can intercept Android Back.
+    readerUrl.searchParams.delete('fromMedHub');
+    readerUrl.searchParams.delete('medhubView');
+    readerUrl.searchParams.delete('medhubScroll');
+
+    if (medhubPdfFrame) return;
+    medhubPdfScroll = window.scrollY;
+    medhubPdfPreviousOverflow = document.body.style.overflow;
+    const frame = document.createElement('iframe');
+    frame.setAttribute('title', 'MedHub PDF Reader');
+    frame.setAttribute('allow', 'fullscreen');
+    frame.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;background:#fff;z-index:2147483647;display:block';
+    medhubPdfFrame = frame;
+    // Push onto the HOST page's history before the frame starts loading.
+    history.pushState({...history.state, medhubPdfOverlay:true}, '', location.href);
+    document.body.style.overflow = 'hidden';
+    frame.src = readerUrl.href;
+    document.body.appendChild(frame);
+}, false);
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
