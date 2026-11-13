@@ -1424,6 +1424,92 @@ let session = readSavedSession();
         }
     }
 
+    /* ---------- Polished lecture-type picker (upload queue only) ---------- */
+    function closeLectureTypePickers(except = null) {
+        document.querySelectorAll(".mh-type-picker.is-open").forEach(picker => {
+            if (picker === except) return;
+            picker.classList.remove("is-open");
+            const trigger = picker.querySelector(".mh-type-trigger");
+            if (trigger) trigger.setAttribute("aria-expanded", "false");
+        });
+    }
+
+    function decorateLectureTypeSelect(select) {
+        const picker = el("div", "mh-type-picker");
+        const trigger = el("button", "mh-type-trigger");
+        const menu = el("div", "mh-type-options");
+        const label = el("span", "mh-type-current", select.value || TYPES[0]);
+
+        trigger.type = "button";
+        trigger.setAttribute("aria-label", "Choose lecture type");
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.append(label);
+        trigger.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>');
+        menu.setAttribute("aria-label", "Lecture types");
+
+        const redraw = () => {
+            label.textContent = select.value;
+            menu.querySelectorAll(".mh-type-option").forEach(option => {
+                const chosen = option.dataset.value === select.value;
+                option.classList.toggle("is-selected", chosen);
+                option.setAttribute("aria-pressed", String(chosen));
+            });
+        };
+
+        for (const type of TYPES) {
+            const option = el("button", "mh-type-option");
+            option.type = "button";
+            option.dataset.value = type;
+            option.append(el("span", "", type));
+            option.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>');
+            option.addEventListener("click", () => {
+                if (select.value !== type) {
+                    select.value = type;
+                    select.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+                redraw();
+                closeLectureTypePickers();
+                trigger.focus({ preventScroll: true });
+            });
+            menu.append(option);
+        }
+
+        trigger.addEventListener("click", () => {
+            const opening = !picker.classList.contains("is-open");
+            closeLectureTypePickers();
+            picker.classList.toggle("is-open", opening);
+            trigger.setAttribute("aria-expanded", String(opening));
+            if (opening) {
+                trigger.scrollIntoView({ block: "nearest", behavior: "instant" });
+            }
+        });
+        trigger.addEventListener("keydown", event => {
+            if (event.key === "ArrowDown" && !picker.classList.contains("is-open")) {
+                event.preventDefault();
+                trigger.click();
+            }
+            if (event.key === "Escape") closeLectureTypePickers();
+        });
+        menu.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeLectureTypePickers();
+                trigger.focus();
+            }
+        });
+        select.addEventListener("change", redraw);
+        select.classList.add("mh-type-native");
+        select.setAttribute("aria-hidden", "true");
+        select.tabIndex = -1;
+        select.parentNode.insertBefore(picker, select);
+        picker.append(select, trigger, menu);
+        redraw();
+    }
+
+    document.addEventListener("pointerdown", event => {
+        if (!event.target.closest(".mh-type-picker")) closeLectureTypePickers();
+    });
+
     function buildQueueItem(file) {
         const item = {
             id: ++queueId,
@@ -1483,6 +1569,7 @@ let session = readSavedSession();
 
         const select = node.querySelector(".mh-qcat");
         for (const type of TYPES) select.append(new Option(type, type));
+        decorateLectureTypeSelect(select);
 
         item.node = node;
         return item;
