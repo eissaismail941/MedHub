@@ -1707,33 +1707,30 @@ body.ios-device .resource-actions {
     letter-spacing: .08em;
     text-transform: uppercase;
 }
-/* Stage 2 block hover matches the blue Pathology subject-card hover.
-   Keep the neutral academic cards and rounded BLOCK labels unchanged. */
+/* Stage 2 blocks: same stationary outline hover as the Physiology subject card,
+   using MedHub blue. Never raise, pop, scale or increase shadow on mouse hover. */
 #stage2-page .block-card {
-    transition: transform .45s cubic-bezier(.22, 1, .36, 1),
-                border-color .3s ease, box-shadow .3s ease;
-    /* Entrance animations must not hold transform: translateY(0),
-       otherwise their final frame overrides the hover lift. */
+    transition: border-color .3s ease, box-shadow .3s ease;
+    /* The entrance animation should not pin a transform at its last keyframe. */
     animation-fill-mode: backwards;
 }
 @media (hover: hover) and (pointer: fine) {
     #stage2-page .block-card:hover {
+        transform: none;
         border-color: #0057ff;
-        transform: translateY(-8px);
-        box-shadow: 0 20px 50px rgba(0,87,255,.10),
-                    0 4px 12px rgba(0,87,255,.07);
+        box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
     }
 }
 @media (hover: none) and (pointer: coarse) {
-    #stage2-page .block-card:active {
-        transform: scale(.98);
+    #stage2-page .block-card:hover {
+        transform: none;
+        border-color: #dfe7f2;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
     }
+    #stage2-page .block-card:active { transform: scale(.98); }
 }
 @media (prefers-reduced-motion: reduce) {
-    #stage2-page .block-card {
-        transition: none;
-        animation: none;
-    }
+    #stage2-page .block-card { transition: none; animation: none; }
 }
 #stage2-page .block-card:focus-visible,
 #subject-page #block-entrance .block-card:focus-visible {
