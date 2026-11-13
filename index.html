@@ -1675,6 +1675,68 @@ body.ios-device .resource-actions {
 #home-page .block-card::before {
     display: none;
 }
+
+/* MedHub academic block catalogue: consistent white cards, clear block numbers. */
+#stage2-page .block-card,
+#subject-page #block-entrance .block-card {
+    background: #ffffff;
+    border: 1px solid #dfe7f2;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
+}
+#stage2-page .block-card::before,
+#subject-page #block-entrance .block-card::before,
+#stage2-page .block-card .big-num { display: none; }
+#stage2-page .block-card.acc,
+#subject-page #block-entrance .block-card.purple { border-color: #dfe7f2; }
+#stage2-page .block-card .block-kicker,
+#subject-page #block-entrance .block-card .block-kicker,
+#subject-page #block-entrance .block-card.purple .block-kicker {
+    background: transparent;
+    color: #0057ff;
+    padding: 0;
+    border-radius: 0;
+    font-size: .78rem;
+    letter-spacing: .08em;
+}
+#stage2-page .block-card:hover,
+#subject-page #block-entrance .block-card:hover {
+    border-color: #bed3f4;
+    box-shadow: 0 18px 42px rgba(15, 23, 42, .075);
+}
+#stage2-page .block-status {
+    align-self: center;
+    color: #64748b;
+    font-size: .8rem;
+    font-weight: 650;
+}
+/* Keep Back arrow at title height, without moving the centered page heading. */
+.mh-stage-heading {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+    align-items: start;
+    column-gap: 12px;
+    margin: 0 0 34px;
+}
+.mh-stage-heading .mh-compact-back {
+    width: 42px; height: 42px;
+    display: inline-grid; place-items: center;
+    padding: 0; border: 0; border-radius: 11px;
+    background: transparent; color: #475569;
+    cursor: pointer; touch-action: manipulation;
+    transition: background .2s, color .2s, transform .15s;
+}
+.mh-stage-heading .mh-compact-back:hover,
+.mh-stage-heading .mh-compact-back:focus-visible {
+    background: #eaf2ff; color: #0057ff; outline: none;
+}
+.mh-stage-heading .mh-compact-back:active { transform: scale(.96); }
+.mh-stage-heading .block-title { margin: 0; text-align: center; }
+.mh-stage-heading .block-title h2 { margin-bottom: 10px; }
+@media (max-width: 600px) {
+    .mh-stage-heading { grid-template-columns: 42px minmax(0, 1fr) 42px; gap: 4px; }
+    .mh-stage-heading .block-title h2 { font-size: clamp(1.55rem, 6vw, 2.2rem); }
+}
+
     </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
@@ -1712,12 +1774,9 @@ body.ios-device .resource-actions {
 
 <section id="stage2-page">
   <div class="block-entrance">
-    <div class="resource-topbar">
+    <div class="mh-stage-heading">
       <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to stages" title="Back to stages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-    </div>
-    <div class="block-title">
-      <h2>Stage 2</h2>
-      <p>Choose a block</p>
+      <div class="block-title"><h2>Stage 2</h2><p>Choose a block</p></div>
     </div>
     <div class="block-grid s2" id="s2-grid"></div>
   </div>
@@ -1725,12 +1784,9 @@ body.ios-device .resource-actions {
 
 <section id="s2block-page">
   <div class="block-entrance">
-    <div class="resource-topbar">
+    <div class="mh-stage-heading">
       <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to blocks" title="Back to blocks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-    </div>
-    <div class="block-title">
-      <h2 id="s2block-title">Stage 2 · Block 1</h2>
-      <p id="s2block-sub">Choose a module</p>
+      <div class="block-title"><h2 id="s2block-title">Stage 2 · Block 1</h2><p id="s2block-sub">Choose a module</p></div>
     </div>
     <div id="s2block-body"></div>
   </div>
@@ -1742,36 +1798,31 @@ body.ios-device .resource-actions {
 <section id="subject-page" style="display:none">
 
 <div id="block-entrance" class="block-entrance">
-    <div class="resource-topbar">
-        <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to stages" title="Back to stages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-    </div>
-    <div class="block-title">
-        <h2>Stage 1</h2>
-        <p>Choose a block</p>
+    <div class="mh-stage-heading">
+      <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to stages" title="Back to stages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
+      <div class="block-title"><h2>Stage 1</h2><p>Choose a block</p></div>
     </div>
 
     <div class="block-grid">
         <div class="block-card" onclick="openBlock1()">
-    <div class="block-kicker">Available Now</div>
+    <div class="block-kicker">Block 01</div>
     <h3>Block 1</h3>
     <p>Modules including Terminology, Computer Skills, Communication Skills, Critical Thinking, Kurdology, and PPD.</p>
 
     <div class="block-meta">
         <span class="block-pill">6 Modules</span>
-        <span class="block-pill">PDF Library</span>
     </div>
 </div>
 
 
         <div class="block-card purple" onclick="openBlock2()">
-            <div class="block-kicker">Available Now</div>
+            <div class="block-kicker">Block 02</div>
             <h3>Block 2</h3>
             <p>All current Stage 1 subjects are organized here, including HDSF and BBB modules.</p>
 
             <div class="block-meta">
                 <span class="block-pill">11 Modules</span>
-                <span class="block-pill">PDF Library</span>
-            </div>
+                    </div>
 
             
         </div>
@@ -2991,13 +3042,12 @@ function renderStage2() {
         const has = blk.modules.length > 0;
         return `
         <div class="block-card acc${has ? '' : ' soon'}" style="--a:${blk.a};--b:${blk.b}" onclick="openS2Block(${blk.n})">
-            <div class="big-num">0${blk.n}</div>
-            <div class="block-kicker">${has ? 'Available Now' : 'Coming Soon'}</div>
+            <div class="block-kicker">Block ${String(blk.n).padStart(2, '0')}</div>
             <h3>${blk.code}</h3>
             <p>${blk.name}</p>
             <div class="block-meta">
                 <span class="block-pill">${has ? blk.modules.length + ' Subjects' : (blk.subjects ? blk.subjects + ' Subjects' : 'Being organized')}</span>
-                <span class="block-pill">PDF Library</span>
+                ${has ? '' : '<span class="block-status">Coming soon</span>'}
             </div>
         </div>`;
     }).join('');
