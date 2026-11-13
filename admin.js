@@ -2408,50 +2408,62 @@ let session = readSavedSession();
                 card.append(bar);
             }
 
+            // Academic metadata: show only genuine sizes and lecture dates.
+            // Original GitHub PDFs have no stored lecture date; never invent one.
+            const meta = document.createElement("div");
+            meta.className = "mh-lecture-meta";
+
+            const iconMarkup = kind => kind === "date"
+                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>'
+                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
+            const addMeta = (kind, value) => {
+                const cell = document.createElement("span");
+                cell.className = "mh-lecture-meta-item";
+                cell.innerHTML = iconMarkup(kind);
+                const valueSpan = document.createElement("span");
+                valueSpan.textContent = value;
+                cell.append(valueSpan);
+                meta.append(cell);
+                return valueSpan;
+            };
+
+            const storedBytes = Number(item.fileSizeBytes);
+            if (Number.isFinite(storedBytes) && storedBytes > 0) {
+                addMeta("file", storedBytes >= 1048576
+                    ? (storedBytes / 1048576).toFixed(1) + " MB"
+                    : Math.max(1, Math.round(storedBytes / 1024)) + " KB");
+            } else if (!item.row && item.url) {
+                // The homepage's existing HEAD-based helper resolves verified
+                // sizes for original GitHub PDFs when they enter the viewport.
+                const value = addMeta("file", "");
+                value.dataset.mhSizeUrl = item.url;
+            }
+
+            if (/^\d{4}-\d{2}-\d{2}$/.test(item.lectureDate || "")) {
+                const date = new Date(item.lectureDate + "T12:00:00Z");
+                if (!Number.isNaN(date.getTime())) {
+                    addMeta("date", date.toLocaleDateString("en-GB", {
+                        day: "numeric", month: "short", year: "numeric", timeZone: "UTC"
+                    }));
+                }
+            }
+            if (meta.children.length) card.append(meta);
+
+            // One primary action. Download remains available inside the Reader.
             const actions = add("div", "resource-actions", "");
-
             const open = document.createElement("a");
-open.className = "btn-link btn-open";
-open.textContent = "Open PDF";
-
-
-// Keep the original PDF link as a fallback.
-open.href = item.url;
-open.target = "_blank";
-open.rel = "noopener noreferrer";
-
-try {
-    const base = new URL("./", location.href);
-    const source = new URL(item.url, base);
-
-    // Use the NEW local PDF.js viewer.
-    const viewer = new URL("reader/index.html", base);
-
-    // Pass the actual PDF file to PDF.js.
-    viewer.searchParams.set("file", source.href);
-
-    open.href = viewer.href;
-    open.target = "_blank";
-    open.rel = "noopener noreferrer";
-
-} catch (error) {
-    console.warn("Using the original PDF link:", error);
-}
-
-const download = document.createElement("a");
-download.className = "btn-link btn-download";
-download.textContent = "Download";
-download.href = item.downloadUrl || item.url;
-download.download = makeFileName(item, subjectTitle);
-
-if (typeof showDownloadState === "function") {
-    download.addEventListener(
-        "click",
-        () => showDownloadState(download)
-    );
-}
-
-actions.append(open, download);
+            open.className = "btn-link btn-open";
+            open.textContent = "Open PDF";
+            open.href = item.url;
+            try {
+                // Reuse the homepage's viewer URL, including Samsung Back state.
+                if (typeof viewerURL === "function") {
+                    open.href = viewerURL(item.url, item.title);
+                }
+            } catch (error) {
+                console.warn("Using the original PDF link:", error);
+            }
+            actions.append(open);
 
 if (admin) {
     const more = document.createElement("button");
@@ -2479,6 +2491,11 @@ if (admin) {
 grid.append(card);
 
 });
+
+// Resolve actual file sizes for original GitHub PDFs (no guessed metadata).
+if (typeof mhObserveOriginalFileSizes === "function") {
+    mhObserveOriginalFileSizes(grid);
+}
 
 if (admin) {
     ensureToolbar();
