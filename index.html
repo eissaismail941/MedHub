@@ -3026,7 +3026,7 @@ title = lectureTitles[filename] || title;
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <div class="resource-actions">
-   <a class="btn-link btn-open" href="${viewerURL(item.url, readerTitleFor(item, items))}" target="_blank" rel="noopener noreferrer">
+   <a class="btn-link btn-open" href="${viewerURL(item.url, readerTitleFor(item, items))}">
     ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
 </a>
     <a class="btn-link btn-download" href="${item.url}" download="${makeFileName(item, subjectTitle)}" onclick="showDownloadState(this)">Download</a>
