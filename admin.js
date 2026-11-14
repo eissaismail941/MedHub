@@ -1,3508 +1,2583 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F498HHBGMM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-F498HHBGMM');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedHub | Portal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#f8fbff">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="MedHub">
-    <link rel="apple-touch-icon" href="./icon-192.png.png">
-<link rel="icon" type="image/png" href="./icon-192.png.png">
-    <style>
-        /* Prevent text selection throughout the website */
-* {
-    -webkit-user-select: none;
-    user-select: none;
-}
-    /* Add this to your <style> section if the image doesn't align correctly */
-.card-icon img {
-    display: block;
-    object-fit: contain;
-}
-
-    
-    .coming-soon-modal {
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(circle at top, rgba(0,87,255,0.18), transparent 35%),
-        rgba(15,23,42,0.55);
-    backdrop-filter: blur(12px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    padding: 20px;
-}
-
-.coming-soon-box {
-    width: min(520px, 94%);
-    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-    border: 1px solid rgba(0,87,255,0.12);
-    border-radius: 34px;
-    padding: 42px 36px;
-    text-align: center;
-    box-shadow: 0 35px 90px rgba(15,23,42,0.22);
-    animation: modalPop 0.35s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-
-
-.coming-soon-icon {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 22px;
-    border-radius: 24px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2rem;
-    box-shadow: 0 16px 34px rgba(0,87,255,0.25);
-}
-
-.coming-soon-box h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.9rem;
-    margin-bottom: 12px;
-    color: #0f172a;
-}
-
-.coming-soon-box p {
-    color: #64748b;
-    line-height: 1.8;
-    margin-bottom: 26px;
-    font-size: 1rem;
-}
-
-.coming-soon-box button {
-    border: none;
-    padding: 14px 30px;
-    border-radius: 16px;
-    cursor: pointer;
-    color: white;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    box-shadow: 0 12px 28px rgba(0,87,255,0.22);
-}
-
-@keyframes modalPop {
-    from {
-        opacity: 0;
-        transform: translateY(18px) scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-    /* ── BANNER SLIDE DOWN ANIMATION ── */
-@keyframes smoothSlideDown {
-    0% { opacity: 0; transform: translateY(-30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* ── COMMAND CENTER BANNER ── */
-.portal-dashboard-banner {
-    position: relative;
-    max-width: 1100px;
-    margin: 0 auto 40px auto;
-    padding: 30px 40px;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-    border-radius: 32px;
-    border: 1px solid rgba(0, 87, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 87, 255, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-    animation: none;
-}
-
-
-
-.banner-left {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    position: relative;
-    z-index: 2;
-}
-
-.banner-logo {
-    width: 68px;
-    height: 68px;
-    background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 24px rgba(0, 87, 255, 0.25);
-    padding: 14px;
-}
-
-.banner-logo img {
-    width: 150%;
-    height: 150%;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-}
-
-.banner-logo::after {
-    content: 'MH';
-    color: white;
-    font-weight: 800;
-    font-size: 1.5rem;
-    position: absolute;
-    z-index: -1;
-}
-
-.banner-info h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 6px;
-    letter-spacing: -0.5px;
-}
-
-.banner-info h2 span {
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.banner-info p {
-    color: #64748b;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.banner-right {
-    display: flex;
-    gap: 16px;
-    position: relative;
-    z-index: 2;
-}
-
-.stat-pill {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 87, 255, 0.08);
-    padding: 14px 28px;
-    border-radius: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
-    transition: transform 0.3s ease;
-}
-
-.stat-pill:hover {
-    transform: translateY(-3px);
-}
-
-.stat-pill .value {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.3rem;
-    color: var(--blue);
-    line-height: 1;
-    margin-bottom: 4px;
-}
-
-.stat-pill:last-child .value {
-    color: var(--correct);
-}
-
-.stat-pill .label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: #94a3b8;
-    font-weight: 700;
-}
-
-/* Responsive breakpoint for small screens */
-@media (max-width: 768px) {
-    .portal-dashboard-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 24px;
-        gap: 28px;
-        border-radius: 24px;
-    }
-    .banner-right {
-        width: 100%;
-        justify-content: space-between;
-    }
-    .stat-pill {
-        flex: 1;
-        padding: 12px 16px;
-    }
-}
-
-            
-
-        :root {
-            --blue: #0057FF;
-            --cyan: #0EA5E9;
-            --correct: #10b981;
-            --wrong: #ef4444;
-            --bg-mesh: #f8fbff;
-            --primary: #0057FF;
-            --hdsf: #0057FF;
-            --hdsf-light: #60a5fa;
-            --hdsf-bg: #eff6ff;
-            --bbb: #0057FF;
-            --bbb-light: #60a5fa;
-            --bbb-bg: #eff6ff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: #ffffff;
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        #hero-page {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: fixed;
-            top: 0; left: 0; z-index: 1000;
-            background: #ffffff;
-            transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,87,255,0.07) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 50% at 100% 100%, rgba(14,165,233,0.06) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 40% at 0% 80%, rgba(0,87,255,0.05) 0%, transparent 70%),
-                #ffffff;
-        }
-
-        .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(0,87,255,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,87,255,0.04) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridDrift 20s linear infinite;
-        }
-
-        @keyframes gridDrift {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(60px); }
-        }
-
-        .glow-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            pointer-events: none;
-        }
-
-        .glow-blob-1 {
-            width: 550px; height: 550px;
-            background: radial-gradient(circle, rgba(0,87,255,0.12) 0%, transparent 70%);
-            top: -150px; left: -120px;
-            animation: blobFloat1 9s ease-in-out infinite;
-        }
-
-        .glow-blob-2 {
-            width: 450px; height: 450px;
-            background: radial-gradient(circle, rgba(0,87,255,0.09) 0%, transparent 70%);
-            bottom: -100px; right: -100px;
-            animation: blobFloat2 11s ease-in-out infinite;
-        }
-
-        .glow-blob-3 {
-            width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%);
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            animation: blobFloat3 13s ease-in-out infinite;
-        }
-
-        @keyframes blobFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,30px)} }
-        @keyframes blobFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,-40px)} }
-        @keyframes blobFloat3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.15)} }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .logo-mark {
-            width: 90px; height: 90px;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 28px;
-            box-shadow: 0 8px 32px rgba(0,87,255,0.25), 0 2px 8px rgba(0,87,255,0.15);
-            animation: logoPulse 3s ease-in-out infinite;
-            position: relative;
-        }
-
-        .logo-mark::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 23px;
-            background: linear-gradient(135deg, rgba(0,87,255,0.3), rgba(14,165,233,0.3));
-            z-index: -1;
-            filter: blur(12px);
-            opacity: 0.6;
-        }
-
-        @keyframes logoPulse {
-            0%,100%{box-shadow:0 8px 32px rgba(0,87,255,0.25),0 2px 8px rgba(0,87,255,0.15)}
-            50%{box-shadow:0 12px 48px rgba(0,87,255,0.38),0 4px 16px rgba(0,87,255,0.2)}
-        }
-
-        .brand-name {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(3.8rem, 12vw, 7.5rem);
-            font-weight: 800;
-            color: #0f172a;
-            letter-spacing: -3px;
-            line-height: 1;
-            margin-bottom: 8px;
-            animation: fadeUp 0.7s ease both;
-        }
-
-        .brand-name span {
-            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .brand-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0,87,255,0.06);
-            border: 1.5px solid rgba(0,87,255,0.15);
-            border-radius: 100px;
-            padding: 7px 20px;
-            margin-bottom: 28px;
-            animation: fadeUp 0.7s 0.12s ease both;
-        }
-
-        .brand-tag-dot {
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: var(--blue);
-            animation: dotBlink 2s ease-in-out infinite;
-        }
-
-        @keyframes dotBlink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(0.8)} }
-
-        .brand-tag span {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--blue);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .hero-sub {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #94a3b8;
-            margin-bottom: 44px;
-            letter-spacing: 0.2px;
-            animation: fadeUp 0.7s 0.22s ease both;
-        }
-
-        .enter-btn {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-            color: white;
-            padding: 18px 52px;
-            border-radius: 14px;
-            font-family: 'Syne', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            border: none;
-            cursor: pointer;
-            overflow: hidden;
-            box-shadow: 0 8px 28px rgba(0,87,255,0.3), 0 2px 8px rgba(0,87,255,0.15), 0 0 0 1px rgba(255,255,255,0.5) inset;
-            transition: transform 0.2s, box-shadow 0.2s;
-            animation: fadeUp 0.7s 0.32s ease both;
-        }
-
-        .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 48px rgba(0,87,255,0.38), 0 4px 16px rgba(0,87,255,0.2);
-        }
-
-        .enter-btn:active { transform: translateY(0); }
-
-        .enter-btn::after {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            animation: sweep 3.5s ease infinite;
-        }
-
-        .enter-btn-arrow {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.2s;
-        }
-
-        .enter-btn:hover .enter-btn-arrow { transform: translateX(4px); }
-
-        .footer-credits {
-            margin-top: 26px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px; 
-            animation: fadeUp 0.7s 0.42s ease both;
-        }
-
-        .hero-copy {
-            font-size: 0.78rem;
-            color: #c0ccd8;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-            margin: 0;
-        }
-
-        .sponsor-copy {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            margin: 0;
-        }
-
-        .sponsor-copy a {
-            color: var(--cyan);
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .sponsor-copy a:hover {
-            color: var(--blue);
-            text-shadow: 0 0 12px rgba(0, 87, 255, 0.4);
-        }
-
-
-        .float-badges {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .float-badge {
-            position: absolute;
-            background: rgba(0,87,255,0.05);
-            border: 1.5px solid rgba(0,87,255,0.1);
-            border-radius: 100px;
-            padding: 8px 18px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: rgba(0,87,255,0.45);
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .float-badge.purple {
-            background: rgba(0,87,255,0.05);
-            border-color: rgba(0,87,255,0.12);
-            color: rgba(0,87,255,0.5);
-        }
-
-        .float-badge:nth-child(1){top:27%;left:11%;animation:floatA 7s ease-in-out infinite}
-        .float-badge:nth-child(2){top:53%;left:8%;animation:floatB 9s ease-in-out infinite}
-        .float-badge:nth-child(3){bottom:22%;left:13%;animation:floatC 8s ease-in-out infinite}
-        .float-badge:nth-child(4){bottom:18%;right:6%;animation:floatA 11s ease-in-out infinite reverse}
-        .float-badge:nth-child(5){top:11%;left:38%;animation:floatB 10s ease-in-out infinite}
-        .float-badge:nth-child(6){top:25%;right:7%;animation:floatC 9s ease-in-out infinite}
-        .float-badge:nth-child(7){top:42%;right:4%;animation:floatA 8s ease-in-out infinite}
-        .float-badge:nth-child(8){top:57%;right:18%;animation:floatB 10s ease-in-out infinite}
-
-        @media (max-width: 600px) {
-            .float-badge:nth-child(2),
-            .float-badge:nth-child(3),
-            .float-badge:nth-child(7),
-            .float-badge:nth-child(8) {
-                display: none;
-            }
-
-            .float-badge:nth-child(1) {
-                top: 12%;
-                left: 4%;
-            }
-
-            .float-badge:nth-child(5) {
-                top: 12%;
-                right: 4%;
-                left: auto;
-            }
-
-            .float-badge:nth-child(6) {
-                bottom: 12%;
-                left: 4%;
-                top: auto;
-                right: auto;
-            }
-
-            .float-badge:nth-child(4) {
-                bottom: 12%;
-                right: 4%;
-                top: auto;
-                left: auto;
-            }
-        }
-
-        @keyframes floatA{0%,100%{transform:translateY(0px) rotate(-1deg)} 50%{transform:translateY(-14px) rotate(1deg)}}
-        @keyframes floatB{0%,100%{transform:translateY(0px) rotate(1deg)} 50%{transform:translateY(-18px) rotate(-1deg)}}
-        @keyframes floatC{0%,100%{transform:translateY(0px)} 50%{transform:translateY(-12px)}}
-
-        .hero-line {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(0,87,255,0.2), rgba(14,165,233,0.2), transparent);
-        }
-
-        @keyframes sweep { 0%{left:-100%} 40%{left:100%} 100%{left:100%} }
-        @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-
-        #subject-page, #split-page {
-    display: none;
-    min-height: 100vh;
-    padding: 60px 20px 80px;
-    background: var(--bg-mesh);
-}
-
-#subject-page {
-    display: block;
-}
-
-        .subjects-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        .subjects-header h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-
-        .subjects-header p {
-            color: #94a3b8;
-            font-size: 1rem;
-        }
-
-        .group-section {
-            max-width: 1100px;
-            margin: 0 auto 55px;
-        }
-
-        .group-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 28px;
-            padding: 0 4px;
-        }
-
-        .group-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            border-radius: 100px;
-            font-family: 'Syne', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .group-badge.hdsf {
-            background: rgba(0,87,255,0.08);
-            border: 2px solid rgba(0,87,255,0.18);
-            color: var(--hdsf);
-        }
-
-        .group-badge.bbb {
-            background: rgba(0,87,255,0.07);
-            border: 2px solid rgba(0,87,255,0.15);
-            color: var(--blue);
-        }
-
-        .group-divider {
-            width: 100%;
-            height: 1.5px;
-            border-radius: 10px;
-            margin-bottom: 28px;
-        }
-
-        .group-divider.hdsf {
-            background: linear-gradient(90deg, rgba(0,87,255,0.25), rgba(96,165,250,0.1), transparent);
-        }
-
-        .group-divider.bbb {
-            background: linear-gradient(90deg, rgba(0,87,255,0.25), rgba(14,165,233,0.1), transparent);
-        }
-
-        .subject-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 18px;
-        }
-
-        /* ── NEW: Smooth Slide Up Animation for Cards ── */
-        @keyframes smoothSlideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(45px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .subject-card {
-            background: white;
-            padding: 28px 22px;
-            border-radius: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-            cursor: pointer;
-            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-            /* Applied Smooth Animation */
-            animation: smoothSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        /* Staggered entry for a super professional look! */
-        .subject-grid .subject-card:nth-child(1) { animation-delay: 0.05s; }
-        .subject-grid .subject-card:nth-child(2) { animation-delay: 0.12s; }
-        .subject-grid .subject-card:nth-child(3) { animation-delay: 0.19s; }
-        .subject-grid .subject-card:nth-child(4) { animation-delay: 0.26s; }
-        .subject-grid .subject-card:nth-child(5) { animation-delay: 0.33s; }
-        .subject-grid .subject-card:nth-child(6) { animation-delay: 0.40s; }
-        .subject-grid .subject-card:nth-child(7) { animation-delay: 0.47s; }
-        .subject-grid .subject-card:nth-child(8) { animation-delay: 0.54s; }
-
-        .subject-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border-radius: 22px;
-        }
-
-        .subject-card.hdsf-card::before {
-            background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
-        }
-
-        .subject-card.bbb-card::before {
-            background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
-        }
-
-        .subject-card:active { transform: translateY(-2px) scale(0.98); }
-
-        .card-icon {
-            font-size: 2.2rem;
-            line-height: 1;
-        }
-
-        .card-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #0f172a;
-            line-height: 1.3;
-        }
-
-        .card-chip {
-            display: inline-flex;
-            align-items: center;
-            padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: auto;
-        }
-
-        .card-chip.hdsf {
-            background: rgba(0,87,255,0.08);
-            color: var(--hdsf);
-        }
-
-        .card-chip.bbb {
-            background: rgba(0,87,255,0.07);
-            color: var(--blue);
-        }
-
-        /* ── Split Page (Theory/Practic) Styles ── */
-        .split-topbar {
-            max-width: 650px;
-            margin: 0 auto 40px;
-        }
-
-        .split-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .split-card {
-            background: white;
-            padding: 45px 30px;
-            border-radius: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-            cursor: pointer;
-            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            /* Giving split cards the same nice animation */
-            animation: smoothSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+(() => {
+    "use strict";
+
+    /* These three values are PUBLIC by design (publishable key + admin user id).
+       Real security lives in the Supabase policies (see the SQL step).
+       Never put a secret / service_role key in this file. */
+    const SUPABASE_URL =
+        "https://lxmxsymxmpulkkngjfjo.supabase.co";
+
+    const PUBLIC_KEY =
+        "sb_publishable_-7LnL-kzS1omjDFD5va_0A_Tjdh3m8h";
+
+    const ADMIN_IDS = [
+    "475f2fec-d7da-4443-91dc-d75e03dfacbd",
+    "02bec3ff-297a-4ff9-8d84-4f004e9b0f80"
+];
+
+const isAdmin = (userId) => ADMIN_IDS.includes(userId);
+
+    const BUCKET = "lectures";
+    const MAX_BYTES = 50 * 1024 * 1024;
+    const MAX_FILES = 20;
+    const CONCURRENCY = 2;
+    const MAX_PREVIEW_PAGES = 30;
+    const PDFJS_BASE =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174";
+
+    const $ = id => document.getElementById(id);
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+    const SESSION_KEY = "medhub-admin-session";
+
+function readSavedSession() {
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem(SESSION_KEY) || "null"
+        );
+        
+        if (
+            isAdmin(saved?.user?.id) &&
+            saved.access_token &&
+            saved.refresh_token &&
+            Number.isFinite(saved.expires)
+        ) {
+            return saved;
         }
         
-        .split-card:nth-child(1) { animation-delay: 0.05s; }
-        .split-card:nth-child(2) { animation-delay: 0.15s; }
-
-        .split-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border-radius: 22px;
-        }
-
-        .split-card .card-icon { font-size: 3.5rem; margin-bottom: 18px; }
-        .split-card .card-name { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
-        .split-card .card-desc { color: #94a3b8; font-size: 0.95rem; }
-
-        .split-card.theory-card.hdsf-theme::before { background: radial-gradient(ellipse at top left, rgba(0,87,255,0.05), transparent 60%); }
-        .split-card.theory-card.bbb-theme::before { background: radial-gradient(ellipse at top left, rgba(0,87,255,0.05), transparent 60%); }
-        /* Beautiful Green Vibe for Practical */
-        .split-card.practical-card::before { background: radial-gradient(ellipse at top left, rgba(16,185,129,0.06), transparent 60%); }
-        .split-card.practical-card .card-name { color: var(--correct); }
-
-        #resources-page {
-            display: none;
-            min-height: 100vh;
-            padding: 60px 20px 80px;
-            background: var(--bg-mesh);
-        }
-
-        .resources-header {
-            text-align: center;
-            max-width: 780px;
-            margin: 0 auto 60px;
-        }
-
-        .resources-header h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-
-        .resources-header p {
-            color: #94a3b8;
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        /* Minimal academic subject header: compact, no promotional subtitle. */
-        #resources-page {
-            padding-top: 34px;
-        }
-        .resource-topbar-minimal {
-            margin-bottom: 22px;
-            padding: 6px 0 18px;
-            border-bottom: 1px solid #e1e9f5;
-        }
-        .resource-title-group {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            min-width: 0;
-        }
-        .resource-title-separator {
-            display: block;
-            width: 1px;
-            height: 28px;
-            background: #dce6f5;
-            flex-shrink: 0;
-        }
-        .resource-title-group .mh-compact-back {
-            border:0; border-radius:11px; background:transparent; color:#475569;
-            display:inline-grid; place-items:center; width:42px; height:42px;
-            cursor:pointer; flex:none; transition:background .2s, color .2s;
-        }
-        .resource-title-group .mh-compact-back:hover,
-        .resource-title-group .mh-compact-back:focus-visible {
-            background:#eaf2ff; color:#0057ff; outline:none;
-        }
-        .resource-title-group .mh-compact-back:active { transform:scale(.96); }
-        .resource-title-group h2 {
-            min-width: 0;
-            margin: 0;
-            font: 800 clamp(1.25rem, 2.4vw, 1.75rem)/1.3 'Syne', sans-serif;
-            letter-spacing: -0.02em;
-            color: #0f172a;
-        }
-        .resource-title-group .back-inline {
-            font: 700 0.9rem 'DM Sans', sans-serif;
-            white-space: nowrap;
-            border: 1px solid #e4ecf7;
-        }
-        .resource-topbar-minimal .pill {
-            font-size: 0.8rem;
-        }
-        @media (max-width: 600px) {
-            #resources-page { padding-top: 22px; }
-            .resource-title-group { gap: 10px; }
-            .resource-title-group h2 { font-size: 1.17rem; }
-            .resource-title-separator { height: 24px; }
-        }
-
-
-        /* Consistent minimal Back arrows on stage, block and module pages.
-           Mirrors the resource-page navigation; no pill or shadow. */
-        .resource-topbar > .mh-compact-back,
-        .split-topbar > .mh-compact-back {
-            width: 42px;
-            height: 42px;
-            display: inline-grid;
-            place-items: center;
-            flex: none;
-            padding: 0;
-            border: 0;
-            border-radius: 11px;
-            background: transparent;
-            color: #475569;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            transition: background .2s, color .2s, transform .15s;
-        }
-        .resource-topbar > .mh-compact-back:hover,
-        .resource-topbar > .mh-compact-back:focus-visible,
-        .split-topbar > .mh-compact-back:hover,
-        .split-topbar > .mh-compact-back:focus-visible {
-            background: #eaf2ff;
-            color: #0057ff;
-            outline: none;
-        }
-        .resource-topbar > .mh-compact-back:active,
-        .split-topbar > .mh-compact-back:active {
-            transform: scale(.96);
-        }
-
-        .resource-topbar {
-            max-width: 1100px;
-            margin: 0 auto 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .back-inline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #475569;
-            font-weight: 700;
-            cursor: pointer;
-            padding: 10px 14px;
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
-        }
-
-        .resource-meta {
-            display: inline-flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            border-radius: 999px;
-            padding: 8px 14px;
-            background: white;
-            color: #475569;
-            font-size: 0.85rem;
-            font-weight: 700;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
-        }
-
-        .resource-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .resource-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 18px;
-        }
-
-        /* ── HDSF resource cards (unified blue theme) ── */
-        .resource-card {
-            background: white;
-            padding: 28px 22px;
-            border-radius: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-            transition: none;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-            /* Added smooth up animation to resources too so the whole site is uniform! */
-            animation: none;
-        }
-
-        .resource-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border-radius: 22px;
-            background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
-            pointer-events: none;
-        }
-
-        .resource-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .resource-icon {
-            width: 58px;
-            height: 58px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(0,87,255,0.12), rgba(96,165,250,0.18));
-            font-size: 1.5rem;
-            color: var(--hdsf);
-        }
-
-        .resource-index {
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 1.3px;
-            text-transform: uppercase;
-            color: var(--hdsf);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ── BBB resource cards (blue) ── */
-        .resource-card.bbb-resource::before {
-            background: radial-gradient(ellipse at top left, rgba(0,87,255,0.04), transparent 60%);
-        }
-
-        .resource-card.bbb-resource .resource-icon {
-            background: linear-gradient(135deg, rgba(0,87,255,0.1), rgba(96,165,250,0.18));
-            color: var(--blue);
-        }
-
-        .resource-card.bbb-resource .resource-index {
-            color: var(--blue);
-        }
-
-        .resource-card.bbb-resource .btn-open {
-            background: linear-gradient(135deg, var(--blue) 0%, var(--bbb-light) 100%);
-            box-shadow: 0 10px 22px rgba(0,87,255,0.18);
-        }
-
-        .resource-card.bbb-resource .btn-download {
-            background: var(--bbb-bg);
-            color: var(--blue);
-            border: 1px solid rgba(0,87,255,0.12);
-        }
-
-        .resource-card.bbb-resource .btn-download::before {
-            background: rgba(0,87,255,0.15);
-        }
-
-        .resource-card.bbb-resource .btn-download:hover {
-            box-shadow: 0 8px 20px rgba(0,87,255,0.1);
-        }
-
-        .resource-card.bbb-resource .btn-download.is-downloading {
-            color: var(--blue);
-            border-color: rgba(0,87,255,0.3);
-        }
-
-        /* ── BBB success state — same green as HDSF ── */
-        .resource-card.bbb-resource .btn-download.is-success {
-            background: var(--correct);
-            color: white;
-            border-color: var(--correct);
-            pointer-events: none;
-            transform: scale(1);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
-        }
-
-        .resource-card.bbb-resource .btn-download.is-success::before {
-            width: 0%;
-            opacity: 0;
-            transition: none;
-        }
-
-        /* ── shared button styles ── */
-
-        /* Academic lecture cards: concise metadata and one clear action. */
-        .resource-card { min-height:0; }
-        .resource-card .resource-actions { margin-top:auto; padding-top:8px; }
-        .resource-card .resource-actions .btn-open { width:100%; flex:1 1 100%; }
-        .resource-card .mh-lecture-meta {
-            display:flex; flex-wrap:wrap; align-items:center; gap:7px 16px;
-            color:#64748b; font-size:.78rem; font-weight:500; margin-top:0;
-        }
-        .resource-card .mh-lecture-meta:empty {display:none;}
-        .resource-card .mh-lecture-meta-item {
-            display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
-        }
-        .resource-card .mh-lecture-meta-item svg {width:15px;height:15px;stroke:#8092ab;}
-        .resource-card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.02rem;
-            line-height: 1.4;
-            color: #0f172a;
-        }
-
-        .resource-card p {
-            color: #94a3b8;
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-
-        .resource-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: auto;
-            padding-top: 6px;
-            width: 100%;
-        }
-
-        .btn-link {
-            flex: 1;
-            min-width: 110px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            border-radius: 14px;
-            padding: 12px 14px;
-            font-weight: 700;
-            font-size: 0.92rem;
-            transition: 0.22s ease;
-            text-decoration: none;
-        }
-
-        .btn-open {
-            background: linear-gradient(135deg, var(--hdsf) 0%, var(--hdsf-light) 100%);
-            color: white;
-            box-shadow: 0 10px 22px rgba(0,87,255,0.18);
-        }
-
-        .btn-link:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-download {
-            position: relative;
-            overflow: hidden;
-            background: var(--hdsf-bg);
-            color: var(--hdsf);
-            border: 1px solid rgba(0,87,255,0.12);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 1;
-        }
-
-        .btn-download::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; bottom: 0;
-            width: 0%;
-            background: rgba(0,87,255,0.2);
-            z-index: -1;
-            transition: width 2s ease-in-out;
-        }
-
-        .btn-download:hover {
-            transform: translateY(-2px);
-            background: white;
-            box-shadow: 0 8px 20px rgba(0,87,255,0.1);
-        }
-
-        .btn-download.is-downloading {
-            color: var(--hdsf);
-            border-color: rgba(0,87,255,0.3);
-            pointer-events: none;
-            transform: scale(0.96);
-        }
-
-        .btn-download.is-downloading::before {
-            width: 100%;
-        }
-
-        .btn-download.is-success {
-            background: var(--correct);
-            color: white;
-            border-color: var(--correct);
-            pointer-events: none;
-            transform: scale(1);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
-        }
-        .btn-download.is-success::before {
-            width: 0%;
-            opacity: 0;
-            transition: none;
-        }
-
-        .btn-download svg {
-            position: relative;
-            top: -1px;
-        }
-
-        @keyframes spinAndScale { 
-            0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
-            10% { transform: rotate(36deg) scale(1); opacity: 1; }
-            100% { transform: rotate(360deg) scale(1); opacity: 1; } 
-        }
-        .spin-icon { 
-            animation: spinAndScale 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.3); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .check-icon {
-            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .hosting-note {
-            max-width: 1100px;
-            margin: 32px auto 0;
-            background: white;
-            border: 1px solid #dbeafe;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 8px 24px rgba(15,23,42,0.04);
-        }
-
-        .hosting-note h4 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-            color: #0f172a;
-        }
-
-        .hosting-note ul {
-            margin-left: 18px;
-            color: #475569;
-            line-height: 1.8;
-        }
-
-        @media (max-width: 760px) {
-            .resource-card { padding: 22px; }
-            .resource-topbar { flex-direction: column; align-items: stretch; }
-            .resource-actions { flex-direction: column; }
-            .btn-link { width: 100%; }
-        }
-        /* iOS / mobile fix: stop sticky selected card */
-
-
-    .btn-open,
-    .btn-open:hover,
-    .btn-open:focus,
-    .btn-open:active,
-    .btn-open:visited {
-        background: linear-gradient(135deg, var(--hdsf) 0%, var(--hdsf-light) 100%) !important;
-        color: white !important;
-    }
-
-    .resource-card.bbb-resource .btn-open,
-    .resource-card.bbb-resource .btn-open:hover,
-    .resource-card.bbb-resource .btn-open:focus,
-    .resource-card.bbb-resource .btn-open:active,
-    .resource-card.bbb-resource .btn-open:visited {
-        background: linear-gradient(135deg, var(--blue) 0%, var(--bbb-light) 100%) !important;
-        color: white !important;
-    }
-
-/* remove iPhone tap highlight */
-.resource-card,
-.btn-link,
-.btn-download {
-    -webkit-tap-highlight-color: transparent;
-}
-/* ───────────── iOS Safari Professional Tap Fix ───────────── */
-
-/* Remove iOS default tap rectangle */
-a,
-button,
-.subject-card,
-.split-card,
-.resource-card,
-.back-inline,
-.btn-link {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-}
-
-/* Prevent ugly text/card selection on mobile */
-.subject-card,
-.split-card,
-.resource-card,
-.back-inline,
-.btn-link {
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* IMPORTANT:
-   On phones/tablets, disable sticky hover.
-   Hover should only be for laptop/desktop mouse.
-*/
-@media (hover: none) and (pointer: coarse) {
-
-    .btn-link:hover,
-    .btn-download:hover {
-        transform: none;
-    }
-
-    /* Nice mobile press effect instead of sticky hover */
-    .subject-card:active,
-    .split-card:active,
-    .resource-card:active {
-        transform: scale(0.98);
-    }
-
-    .btn-link:active,
-    .back-inline:active {
-        transform: scale(0.97);
-    }
-}
-    /* iOS only: show one clean button */
-body.ios-device .btn-download {
-    display: none !important;
-}
-
-body.ios-device .btn-open {
-    width: 100% !important;
-    flex: 1 1 100% !important;
-}
-
-body.ios-device .resource-actions {
-    flex-direction: column;
-}
-
-
-
-            
-        
-/* ── BLOCK ENTRANCE ── */
-.block-entrance {
-    max-width: 1100px;
-    margin: 0 auto 55px;
-}
-
-.block-title {
-    text-align: center;
-    margin-bottom: 34px;
-}
-
-.block-title h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 10px;
-}
-
-.block-title p {
-    color: #94a3b8;
-    font-size: 1rem;
-}
-
-.block-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-    gap: 24px;
-}
-.block-grid .block-card:nth-child(1) {
-    animation: smoothSlideUp 0.75s 0.10s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.block-grid .block-card:nth-child(2) {
-    animation: smoothSlideUp 0.75s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.block-card {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-    border: 1px solid rgba(0,87,255,0.1);
-    border-radius: 32px;
-    padding: 34px;
-    cursor: pointer;
-    box-shadow: 0 20px 45px rgba(15,23,42,0.06);
-    transition: all 0.35s ease;
-}
-
-.block-card::before {
-    content: '';
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    right: -80px;
-    top: -90px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,87,255,0.14), transparent 70%);
-}
-
-.block-card.purple::before {
-    background: radial-gradient(circle, rgba(0,87,255,0.14), transparent 70%);
-}
-
-.block-kicker {
-    display: inline-flex;
-    padding: 7px 14px;
-    border-radius: 999px;
-    background: rgba(0,87,255,0.07);
-    color: var(--blue);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 22px;
-}
-
-.block-card.purple .block-kicker {
-    background: rgba(0,87,255,0.08);
-    color: var(--hdsf);
-}
-
-.block-card h3 {
-    position: relative;
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 10px;
-}
-
-.block-card p {
-    position: relative;
-    color: #64748b;
-    line-height: 1.7;
-    max-width: 360px;
-    margin-bottom: 26px;
-}
-
-.block-meta {
-    position: relative;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.block-pill {
-    padding: 8px 13px;
-    border-radius: 999px;
-    background: white;
-    color: #475569;
-    font-size: 0.8rem;
-    font-weight: 800;
-    box-shadow: 0 6px 18px rgba(15,23,42,0.05);
-}
-
-.block-arrow {
-    position: absolute;
-    right: 28px;
-    bottom: 26px;
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-}
-
-.block-card.purple .block-arrow {
-    background: linear-gradient(135deg, var(--hdsf), var(--hdsf-light));
-}
-
-#subjects-content {
-    display: none;
-}
-
-@media (max-width: 760px) {
-    .block-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .block-card {
-        padding: 28px;
-        border-radius: 26px;
-    }
-}
-   
-
-
-/* ── HOME / STAGES ── */
-#home-page, #stage2-page, #s2block-page {
-    display: none;
-    min-height: 100vh;
-    padding: 60px 20px 80px;
-    background: var(--bg-mesh);
-}
-#home-page { display: block; padding-top: 70px; }
-.home-wrap { max-width: 1100px; margin: 0 auto; }
-.home-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
-.home-logo {
-    width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--blue), var(--cyan)); color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
-    box-shadow: 0 10px 24px rgba(0,87,255,0.25);
-}
-.home-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: #0f172a; letter-spacing: -0.5px; line-height: 1.1; }
-.home-name span, .home-hero h1 span {
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-.home-tag { color: #94a3b8; font-size: 0.85rem; font-weight: 500; margin-top: 3px; }
-.home-hero { margin-bottom: 34px; }
-.home-hero h1 {
-    font-family: 'Syne', sans-serif; font-weight: 800; color: #0f172a;
-    font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; letter-spacing: -1px; margin-bottom: 14px;
-}
-.home-hero p { color: #64748b; line-height: 1.7; max-width: 520px; }
-.home-foot { text-align: center; color: #94a3b8; font-size: 0.82rem; font-weight: 500; margin-top: 44px; }
-
-/* accent variants for block / stage cards */
-.block-card.acc { --a: 0,87,255; --b: 14,165,233; border-color: rgba(var(--a),0.12); }
-.block-card.acc::before { background: radial-gradient(circle, rgba(var(--a),0.14), transparent 70%); }
-.block-card.acc .block-kicker { background: rgba(var(--a),0.08); color: rgb(var(--a)); }
-.block-card.acc .block-arrow { background: linear-gradient(135deg, rgb(var(--a)), rgb(var(--b))); }
-.block-card .big-num {
-    position: absolute; right: 26px; top: 16px; z-index: 0;
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 4.6rem; line-height: 1;
-    color: rgba(var(--a),0.10); pointer-events: none;
-}
-.block-card.soon { cursor: pointer; }
-.block-card.soon .block-kicker { background: rgba(100,116,139,0.1); color: #64748b; }
-.block-grid .block-card:nth-child(n+3) { animation: smoothSlideUp 0.75s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.block-grid.s2 .block-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
-.block-grid.s2 .block-card:last-child:nth-child(odd) p { max-width: 520px; }
-.empty-state {
-    max-width: 520px; margin: 10px auto 0; text-align: center; padding: 40px 28px;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-    border: 1px solid rgba(0,87,255,0.1); border-radius: 28px;
-    box-shadow: 0 20px 45px rgba(15,23,42,0.05);
-}
-.empty-state .coming-soon-icon { margin-bottom: 18px; }
-.empty-state h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; color: #0f172a; margin-bottom: 8px; }
-.empty-state p { color: #64748b; line-height: 1.7; }
-@media (max-width: 760px) {
-    #home-page { padding-top: 40px; }
-    .home-brand { margin-bottom: 34px; }
-}
-/* Remove circles from the two homepage stage cards */
-#home-page .block-card::before {
-    display: none;
-}
-
-/* MedHub academic block catalogue: consistent white cards, clear block numbers. */
-#stage2-page .block-card,
-#subject-page #block-entrance .block-card {
-    background: #ffffff;
-    border: 2px solid #dfe7f2;
-    box-shadow: 0 12px 32px rgba(15, 23, 42, .045);
-}
-#stage2-page .block-card::before,
-#subject-page #block-entrance .block-card::before,
-#stage2-page .block-card .big-num { display: none; }
-#stage2-page .block-card.acc,
-#subject-page #block-entrance .block-card.purple { border-color: #dfe7f2; }
-/* Academic block-number pills: same polished rounded label on every block. */
-#stage2-page .block-card .block-kicker,
-#subject-page #block-entrance .block-card .block-kicker,
-#subject-page #block-entrance .block-card.purple .block-kicker,
-#stage2-page .block-card.soon .block-kicker {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    padding: 9px 19px;
-    border-radius: 999px;
-    background: #eaf1ff;
-    color: #0057ff;
-    font-size: .78rem;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-}
-/* Stage 2 blocks: entrance animation must not pin a transform at its last keyframe. */
-#stage2-page .block-card {
-    transition: border-color .3s ease, box-shadow .3s ease;
-    /* The entrance animation should not pin a transform at its last keyframe. */
-    animation-fill-mode: backwards;
-}
-@media (prefers-reduced-motion: reduce) {
-    #stage2-page .block-card { transition: none; animation: none; }
-}
-#stage2-page .block-card:focus-visible,
-#subject-page #block-entrance .block-card:focus-visible {
-    outline: 3px solid rgba(0, 87, 255, .35);
-    outline-offset: 3px;
-}
-#stage2-page .block-status {
-    align-self: center;
-    color: #64748b;
-    font-size: .8rem;
-    font-weight: 650;
-}
-/* Keep Back arrow at title height, without moving the centered page heading. */
-.mh-stage-heading {
-    display: grid;
-    grid-template-columns: 42px minmax(0, 1fr) 42px;
-    align-items: start;
-    column-gap: 12px;
-    margin: 0 0 34px;
-}
-.mh-stage-heading .mh-compact-back {
-    width: 42px; height: 42px;
-    display: inline-grid; place-items: center;
-    padding: 0; border: 0; border-radius: 11px;
-    background: transparent; color: #475569;
-    cursor: pointer; touch-action: manipulation;
-    transition: background .2s, color .2s, transform .15s;
-}
-.mh-stage-heading .mh-compact-back:hover,
-.mh-stage-heading .mh-compact-back:focus-visible {
-    background: #eaf2ff; color: #0057ff; outline: none;
-}
-.mh-stage-heading .mh-compact-back:active { transform: scale(.96); }
-.mh-stage-heading .block-title { margin: 0; text-align: center; }
-.mh-stage-heading .block-title h2 { margin-bottom: 10px; }
-@media (max-width: 600px) {
-    .mh-stage-heading { grid-template-columns: 42px minmax(0, 1fr) 42px; gap: 4px; }
-    .mh-stage-heading .block-title h2 { font-size: clamp(1.55rem, 6vw, 2.2rem); }
-}
-
+        localStorage.removeItem(SESSION_KEY);
+    } catch {}
     
-/* Stage 1 Block 1/2 and Stage 2 block cards: invisible 2px resting border (hover is in the unified block below). */
-#stage2-page .block-grid .block-card,
-#subject-page #block-entrance .block-grid .block-card {
-    border: 2px solid transparent;
-    background: #fff;
-    animation-fill-mode: backwards;
-    transition: border-color 0.28s ease;
+    return null;
 }
-@media (prefers-reduced-motion: reduce) {
-    #stage2-page .block-grid .block-card,
-    #subject-page #block-entrance .block-grid .block-card {
-        transition: none;
+
+function saveSession(value) {
+    try {
+        if (value) {
+            localStorage.setItem(
+                SESSION_KEY,
+                JSON.stringify(value)
+            );
+        } else {
+            localStorage.removeItem(SESSION_KEY);
+        }
+    } catch {
+        console.warn("Browser could not save the sign-in session.");
     }
 }
 
-
-/* ════════════════════════════════════════════════════════════════
-   MedHub v1.0 — UNIFIED, STATIONARY CARD HOVER
-   Reference: the Stage 1 / Stage 2 homepage cards — a soft blue shadow
-   bloom, nothing else. The card never moves, scales or changes border.
-   Applies to: homepage stage cards, Stage 1 blocks, Stage 2 blocks,
-   subject cards, Theory/Practical cards and PDF resource cards
-   (including cards rendered later by JavaScript).
-   Triggers:  mouse (desktop/laptop)  -> :hover
-              S Pen / Apple Pencil    -> .mh-hover (set by pointer events)
-   Finger touch never triggers it, so there is no sticky hover.
-   ════════════════════════════════════════════════════════════════ */
-:root { --mh-card-hover-shadow: 0 28px 70px rgba(0, 87, 255, 0.15); }
-
-.resource-card { transition: box-shadow 0.35s ease; }
-#stage2-page .block-grid .block-card,
-#subject-page #block-entrance .block-grid .block-card {
-    transition: box-shadow 0.35s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    #home-page .block-card:hover,
-    #stage2-page .block-grid .block-card:hover,
-    #subject-page #block-entrance .block-grid .block-card:hover,
-    .subject-card:hover,
-    .split-card:hover,
-    .resource-card:hover {
-        transform: none;
-        box-shadow: var(--mh-card-hover-shadow);
-    }
-    .subject-card:hover,
-    .split-card:hover,
-    .resource-card:hover,
-    #stage2-page .block-grid .block-card:hover,
-    #subject-page #block-entrance .block-grid .block-card:hover {
-        border-color: transparent;
-    }
-    .subject-card:hover::before,
-    .split-card:hover::before,
-    .resource-card:hover::before { opacity: 1; }
-}
-
-#home-page .block-card.mh-hover,
-#stage2-page .block-grid .block-card.mh-hover,
-#subject-page #block-entrance .block-grid .block-card.mh-hover,
-.subject-card.mh-hover,
-.split-card.mh-hover,
-.resource-card.mh-hover {
-    transform: none;
-    box-shadow: var(--mh-card-hover-shadow);
-}
-.subject-card.mh-hover,
-.split-card.mh-hover,
-.resource-card.mh-hover,
-#stage2-page .block-grid .block-card.mh-hover,
-#subject-page #block-entrance .block-grid .block-card.mh-hover {
-    border-color: transparent;
-}
-.subject-card.mh-hover::before,
-.split-card.mh-hover::before,
-.resource-card.mh-hover::before { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-    .resource-card,
-    #stage2-page .block-grid .block-card,
-    #subject-page #block-entrance .block-grid .block-card { transition: none; }
-}
-
-</style>
-<link rel="stylesheet" href="./admin.css?v=20261113-v11">
-</head>
-
-<body>
-
-<section id="home-page">
-  <div class="home-wrap">
-
-    <div class="block-grid">
-      <div class="block-card acc" onclick="openStage(1)">
-        <div class="block-kicker">Academic Resources</div>
-        <h3>Stage 1</h3>
-        <p>Block 1 and Block 2 lectures: HDSF, BBB and skills modules.</p>
-        <div class="block-meta">
-          <span class="block-pill">2 Blocks</span>
-          <span class="block-pill">17 Modules</span>
-        </div>
-      </div>
-
-      <div class="block-card acc" onclick="openStage(2)">
-        <div class="block-kicker">Academic Resources</div>
-        <h3>Stage 2</h3>
-        <p>Five blocks of lectures, added block by block as they are ready.</p>
-        <div class="block-meta">
-          <span class="block-pill">5 Blocks</span>
-          <span class="block-pill">PDF Library</span>
-        </div>
-      </div>
-    </div>
-
-   
-  </div>
-</section>
-
-<section id="stage2-page">
-  <div class="block-entrance">
-    <div class="mh-stage-heading">
-      <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to stages" title="Back to stages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-      <div class="block-title"><h2>Stage 2</h2><p>Choose a block</p></div>
-    </div>
-    <div class="block-grid s2" id="s2-grid"></div>
-  </div>
-</section>
-
-<section id="s2block-page">
-  <div class="block-entrance">
-    <div class="mh-stage-heading">
-      <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to blocks" title="Back to blocks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-      <div class="block-title"><h2 id="s2block-title">Stage 2 · Block 1</h2><p id="s2block-sub">Choose a module</p></div>
-    </div>
-    <div id="s2block-body"></div>
-  </div>
-</section>
-
-
-
-
-<section id="subject-page" style="display:none">
-
-<div id="block-entrance" class="block-entrance">
-    <div class="mh-stage-heading">
-      <button type="button" class="mh-compact-back" onclick="goBack()" aria-label="Back to stages" title="Back to stages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-      <div class="block-title"><h2>Stage 1</h2><p>Choose a block</p></div>
-    </div>
-
-    <div class="block-grid">
-        <div class="block-card" onclick="openBlock1()">
-    <div class="block-kicker">Block 01</div>
-    <h3>Block 1</h3>
-    <p>Modules including Terminology, Computer Skills, Communication Skills, Critical Thinking, Kurdology, and PPD.</p>
-
-    <div class="block-meta">
-        <span class="block-pill">6 Modules</span>
-    </div>
-</div>
-
-
-        <div class="block-card purple" onclick="openBlock2()">
-            <div class="block-kicker">Block 02</div>
-            <h3>Block 2</h3>
-            <p>All current Stage 1 subjects are organized here, including HDSF and BBB modules.</p>
-
-            <div class="block-meta">
-                <span class="block-pill">11 Modules</span>
-                    </div>
-
-            
-        </div>
-    </div>
-</div>
-
-
-
-<div id="block1-content" style="display: none;">
-    <div class="resource-topbar">
-        <button type="button" class="mh-compact-back" onclick="backToBlocks()" aria-label="Back to blocks" title="Back to blocks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-    </div>
-    <div class="group-section">
-        <div class="group-label">
-            <span class="group-badge bbb">Block 1 Modules</span>
-        </div>
-        <div class="group-divider bbb"></div>
-
-        <div class="subject-grid">
-            <div class="subject-card bbb-card" onclick="loadResources('terminology')">
-                <div class="card-icon">📖</div>
-                <div class="card-name">Terminology</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-
-            <div class="subject-card bbb-card" onclick="loadResources('computer')">
-                <div class="card-icon">💻</div>
-                <div class="card-name">Computer</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-
-            <div class="subject-card bbb-card" onclick="loadResources('critical-thinking')">
-                <div class="card-icon">💡</div>
-                <div class="card-name">Critical Thinking</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-
-            <div class="subject-card bbb-card" onclick="loadResources('communication-skill')">
-                <div class="card-icon">🗣️</div>
-                <div class="card-name">Communication Skill</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-
-                        <div class="subject-card bbb-card" onclick="loadResources('kurdology')">
-                <div class="card-icon">️☀️</div>
-                <div class="card-name">Kurdology</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-
-
-
-
-            <div class="subject-card bbb-card" onclick="loadResources('ppd')">
-                <div class="card-icon">🎯</div>
-                <div class="card-name">PPD</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-            </div>
-    </div>
-</div>
-
-
-    <div id="subjects-content">
-    <div class="resource-topbar">
-        <button type="button" class="mh-compact-back" onclick="backToBlocks()" aria-label="Back to blocks" title="Back to blocks"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-    </div>
-    <div class="group-section">
-        <div class="group-label">
-            <span class="group-badge hdsf">HDSF</span>
-        </div>
-        <div class="group-divider hdsf"></div>
-
-        <div class="subject-grid">
-            <div class="subject-card hdsf-card" onclick="loadResources('anatomy')">
-                <div class="card-icon">🫀</div>
-                <div class="card-name">Anatomy</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="loadResources('physiology')">
-                <div class="card-icon">🧠</div>
-                <div class="card-name">Physiology</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="showSplitCards('microbiology', 'hdsf', 'Microbiology')">
-                <div class="card-icon">🦠</div>
-                <div class="card-name">Microbiology</div>
-                <div class="card-chip hdsf">PDF FILES</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="loadResources('histology')">
-                <div class="card-icon">🔭</div>
-                <div class="card-name">Histology</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="loadResources('molecular-biology')">
-                <div class="card-icon">🧬</div>
-                <div class="card-name">Molecular Biology</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="loadResources('genetics')">
-                <div class="card-icon">🔬</div>
-                <div class="card-name">Genetics</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="loadResources('cytology')">
-                <div class="card-icon">🔵</div>
-                <div class="card-name">Cytology</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-
-            <div class="subject-card hdsf-card" onclick="loadResources('embryology')">
-                <div class="card-icon">👶</div>
-                <div class="card-name">Embryology</div>
-                <div class="card-chip hdsf">PDF Files</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="group-section">
-    <div class="group-label">
-        <span class="group-badge bbb">BBB</span>
-        </div>
-        <div class="group-divider bbb"></div>
-
-        <div class="subject-grid">
-            <div class="subject-card bbb-card" onclick="showSplitCards('biophysics', 'bbb', 'Biophysics')">
-                <div class="card-icon">⚡</div>
-                <div class="card-name">Biophysics</div>
-                <div class="card-chip bbb">PDF FILES</div>
-            </div>
-
-            <div class="subject-card bbb-card" onclick="showSplitCards('biochemistry', 'bbb', 'Biochemistry')">
-                <div class="card-icon">🧪</div>
-                <div class="card-name">Biochemistry</div>
-                <div class="card-chip bbb">PDF FILES</div>
-            </div>
-
-            <div class="subject-card bbb-card" onclick="loadResources('bec')">
-                <div class="card-icon">🚑</div>
-                <div class="card-name">Basic Emergency Care</div>
-                <div class="card-chip bbb">PDF Files</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-credits">
-        
-    </div>
-    </div>
-</section>
-
-<section id="split-page">
-    <div class="split-topbar">
-        <button type="button" class="mh-compact-back" onclick="backToSubjectsFromSplit()" aria-label="Back to subjects" title="Back to subjects"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button>
-    </div>
-    
-    <div class="subjects-header">
-        <h2 id="split-title">Subject Name</h2>
-        <p>Choose between Theory and Practical resources</p>
-    </div>
-
-    <div class="split-grid" id="split-grid">
-        </div>
-</section>
-
-<section id="resources-page">
-    <div class="resource-topbar resource-topbar-minimal">
-        <div class="resource-title-group">
-            <button type="button" class="mh-compact-back" onclick="backFromResources()" aria-label="Back to subjects" title="Back to subjects">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
-            </button>
-            <h2 id="resources-title">Lectures</h2>
-        </div>
-        <div class="resource-meta">
-            <div class="pill" id="resources-count">0 files</div>
-        </div>
-    </div>
-
-    <div class="resource-wrapper">
-        <div id="resource-grid" class="resource-grid"></div>
-    </div>
-
-</section>
-
-
-            
-            
-<div id="comingSoonModal" class="coming-soon-modal">
-    <div class="coming-soon-box">
-        <div class="coming-soon-icon">🚀</div>
-
-        <h3>Block 1 Coming Soon</h3>
-
-        <p>
-            Block 1 lectures are currently being organized and will be added
-            soon.
-        </p>
-
-        <button onclick="closeComingSoon()">Got It</button>
-    </div>
-</div>
-<script>
-    
-
-
-    
-  
-
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-if (isIOS) {
-    document.body.classList.add('ios-device');
-}
-
-/* ───────────── BLOCK 1 RESOURCES ───────────── */
-const terminologyResources = [
-    { title: 'Introduction to Medical Terminology', description: 'Overview of word building, origins (Greek/Latin), and basic elements.', url: './terminology-01.pdf' },
-    { title: 'Building Medical Terms', description: 'Detailed breakdown of word roots, combining forms, prefixes, and suffixes.', url: './terminology-02.pdf' },
-    { title: 'Signs, Symptoms, and Opposites', description: 'Medical signs vs. symptoms, and common prefix-based opposites.', url: './terminology-03.pdf' },
-    { title: 'Common Prefixes & Suffixes', description: 'Directional terms, prefixes, and suffixes for medical procedures.', url: './terminology-04.pdf' },
-    { title: 'Anatomical Position & Movements', description: 'Planes, directional terms, and body movements (flexion, rotation, etc.).', url: './terminology-05.pdf' },
-    { title: 'Diseases & Surgical Procedures', description: 'Describing diseases, surgical suffixes, and medical branches.', url: './terminology-06.pdf' },
-    { title: 'Clinical Conditions', description: 'Definitions for specific conditions like ascites, hernia, and ischemia.', url: './terminology-07.pdf' },
-    { title: 'Disease Associations & Surgical Suffixes', description: 'Acute vs. chronic states and surgical terms like -desis and -ectasia.', url: './terminology-08.pdf' },
-    
-    { title: 'Specialized Body Systems', description: 'Terminology for body (somato), air (pneumo), bile (chole), and sugar (gluco/glyco).', url: './terminology-10.pdf' },
-    { title: 'Clinical Signs & Symptoms', description: 'Defining disease, subjective symptoms, objective signs, and clinical case examples.', url: './terminology-11.pdf' },
-    { title: 'Advanced Medical Terminology', description: 'Terms related to coagulation, fever (pyro), and tissue growth/nutrition.', url: './terminology-12.pdf' },
-    { title: 'Surgical Procedures Overview', description: 'Deep dive into surgical suffixes like -ectomy, -otomy, -ostomy, and -plasty.', url: './terminology-13.pdf' }
-];
-
-
-const computerResources = [
-    { title: 'Introduction', description: 'Basics of computing and the impact of informatics in healthcare.', url: './computer-01.pdf' },
-    { title: 'Introduction to Windows', description: 'Navigating the OS, file management, and system efficiency.', url: './computer-02.pdf' },
-    { title: 'Microsoft Word', description: 'Creating and formatting structured documents and reports.', url: './computer-03.pdf' },
-    { title: 'Microsoft Excel', description: 'Foundations of spreadsheets, data entry, and basic formulas.', url: './computer-04.pdf' },
-    { title: 'Microsoft PowerPoint', description: 'Principles of creating clear and effective visual presentations.', url: './computer-05.pdf' },
-    { title: 'Advanced Microsoft Word', description: 'Advanced formatting, references, and professional document architecture.', url: './computer-06.pdf' },
-    { title: 'Advanced Microsoft Excel', description: 'Data analysis using complex formulas, statistics, and graphing.', url: './computer-07.pdf' },
-    { title: 'Advanced Microsoft PowerPoint', description: 'Professional design, multimedia integration, and presentation delivery.', url: './computer-08.pdf' },
-    { title: 'Writing An Academic Email', description: 'Etiquette and guidelines for formal digital professional communication.', url: './computer-09.pdf' },
-    { title: 'Technology and Medicine', description: 'Overview of EHR, telemedicine, and modern medical technology trends.', url: './computer-10.pdf' }
-];
-
-
-const ppdResources = [
-    { 
-        title: 'Positive Change and Comfort Zone', 
-        description: 'Defining mindset vs. behavior, evaluating the comfort zone, and intentional personal growth.', 
-        url: './ppd-01.pdf' 
-    },
-    { 
-        title: 'SWOT Analysis for Students', 
-        description: 'A self-assessment tool to evaluate personal strengths, weaknesses, opportunities, and threats.', 
-        url: './ppd-03.pdf' 
-    },
-    { 
-        title: 'Stress Management & Wellbeing', 
-        description: 'Understanding the "fight or flight" response, eustress vs. distress, and coping strategies.', 
-        url: './ppd-02.pdf' 
-    },
-    { 
-        title: 'Wheel of Life Assessment', 
-        description: 'Categorizing life activities to identify areas of strength/weakness and achieve life balance.', 
-        url: './ppd-04.pdf' 
-    }
-];
-
-
-const kurdologyResources = [
-    { title: 'زمان', description: 'لێکۆڵینەوە لە بنەماکانی زمانی کوردی، شێوەزارەکان و گەشەسەندنی زمانەوانی', url: './kurdology-01.pdf' },
-    { title: 'مێژوو', description: 'خوێندنەوەی ڕووداوە مێژووییەکان، قۆناغەکانی گەشەکردنی کۆمەڵایەتی و میراتی شارستانی', url: './kurdology-02.pdf' },
-    { title: 'جوگرافیا', description: 'شیکردنەوەی تایبەتمەندییە جوگرافییەکان، کاریگەرییان لەسەر ژینگەی مرۆیی و پێکهاتەی دانیشتووان', url: './kurdology-03.pdf' },
-    { title: 'ئەدەبی فۆلکلۆر', description: 'کۆکردنەوە و لێکۆڵینەوە لە چیرۆک، بەند، پەند و کەلەپووری زارەکیی نەتەوەیی', url: './kurdology-04.pdf' }
-];
-
-
-const communicationSkillResources = [
-    { 
-        title: 'The Clinical Conversation - Initiation', 
-        description: 'Mastering the "Golden Minute": greetings, establishing rapport, and setting a collaborative agenda.', 
-        url: './communication-01.pdf' 
-    },
-    { 
-        title: 'Gathering Information', 
-        description: 'Applying the disease-illness model to explore the patient’s perspective, concerns, and psychosocial context.', 
-        url: './communication-03.pdf' 
-    },
-    { 
-        title: 'Attentive Listening & Summarization', 
-        description: 'Techniques for active engagement, SOLER posture, and confirming understanding through structured summarization.', 
-        url: './communication-02.pdf' // Changed from communication-02.pdf to -03.pdf
-    },
-    { 
-        title: 'The Silent Language of Healing', 
-        description: 'Mastering non-verbal communication (NVC) including kinesics, proxemics, and paralanguage to build trust.', 
-        url: './communication-04.pdf' 
-    }
-];
-
-
-
-const criticalThinkingResources = [
-    { 
-        title: 'Evidence In Medicine', 
-        description: 'Defining medical evidence, the Evidence-Based Medicine (EBM) model, and its role in clinical decision-making.', 
-        url: './critical-thinking-01.pdf' 
-    },
-    { 
-        title: 'Academic Debate for Medical Students', 
-        description: 'Structure of medical debates, formulating motions, and developing evidence-based rebuttals.', 
-        url: './critical-thinking-02.pdf' 
-    },
-    { 
-        title: 'Cognitive Biases & Logical Fallacies', 
-        description: 'Identifying common clinical biases (anchoring, confirmation) and logical errors in medical practice.', 
-        url: './critical-thinking-03.pdf' 
-    },
-    { 
-        title: 'Critical Thinking and Academic Debate', 
-        description: 'Core skills of critical thinking: observation, inference, and self-regulation in clinical diagnosis.', 
-        url: './critical-thinking-04.pdf' 
-    }
-];
-
-
-
-    /* ───────────── ANATOMY (11 lectures) ───────────── */
-    const anatomyResources = [
-        { title: 'Introduction to Human Anatomy', description: 'Introduction to anatomy and anatomical terminology.', url: './lecture-001.pdf' },
-        { title: 'Skeletal System', description: 'Bone structure, classification, and body framework', url: './lecture-002.pdf' },
-        { title: 'Upper & Lower Limbs', description: 'Shoulder, arm, forearm, hip, thigh, leg, and foot structures', url: './lecture-003.pdf' },
-        { title: 'Muscular System', description: 'Muscle types, structure, and major muscle groups', url: './lecture-004.pdf' },
-        { title: 'Joints', description: 'Types, structure, and movements of articulations', url: './lecture-005.pdf' },
-        { title: 'Nervous System', description: 'Brain, spinal cord, nerves, and body control mechanisms', url: './lecture-006updated.pdf' },
-        { title: 'Cardiovascular System', description: 'Heart, blood vessels, and systemic circulation', url: './lecture-007.pdf' },
-        { title: 'Respiratory System', description: 'Upper and lower airways, lungs, and gas exchange', url: './lecture-008.pdf' },
-        { title: 'Digestive System', description: 'Alimentary tract, organs, and digestive glands', url: './lecture-009.pdf' },
-        { title: 'Genitourinary System', description: 'Kidneys, urinary tract, and reproductive organs', url: './lecture-0010.pdf' },
-        { title: 'Autonomic Nervous System', description: 'Sympathetic and parasympathetic nervous system', url: './lecture-0011.pdf' }
-    ];
-
-    const physiologyResources = [
-/* ── SGL ── */
-{ title: 'Feedback Systems', description: 'SGL', url: './physiology-lecture-01.pdf' },
-{ title: 'Receptor Physiology', description: 'SGL', url: './physiology-lecture-03.pdf' },
-{ title: 'Cell Physiology', description: 'SGL', url: './physiology-lecture-04.pdf' },
-{ title: 'Plasma Membrane', description: 'SGL', url: './physiology-lecture-07.pdf' },
-{ title: 'Physiology Of Hormones', description: 'SGL', url: './physiology-lecture-08.pdf' },
-{ title: 'Nutrition Functions', description: 'SGL', url: './physiology-lecture-19.pdf' },
-{ title: 'Physiology of Metabolism I', description: 'SGL', url: './physiology-lecture-12.pdf' },
-{ title: 'Physiology of Metabolism II', description: 'SGL', url: './physiology-lecture-13.pdf' },
-{ title: 'Passive transport', description: 'SGL', url: './physiology-lecture-15.pdf' },
-{ title: 'Signal Transduction', description: 'SGL', url: './physiology-lecture-17.pdf' },
-{ title: 'Active transport', description: 'SGL', url: './physiology-lecture-18.pdf' },
-    
-    /* ── LG ── */
-    { title: 'Thermoregulation', description: 'LG', url: './physiology-lecture-02.pdf' },
-    { title: 'Introduction to Physiology', description: 'LG', url: './physiology-lecture-05.pdf' },
-    { title: 'Apoptosis', description: 'LG', url: './physiology-lecture-06.pdf' },
-    { title: 'Nutrition', description: 'LG', url: './physiology-lecture-09.pdf' },
-    { title: 'Obesity', description: 'LG', url: './physiology-lecture-10.pdf' },
-    { title: 'Physiology Of Inflammation', description: 'LG', url: './physiology-lecture-11.pdf' },
-    { title: 'Physiology Of Neurons', description: 'LG', url: './physiology-lecture-14.pdf' },
-    { title: 'Physiology Of Immune System', description: 'LG', url: './physiology-lecture-16.pdf' }
-];
-
-    /* ───────────── MICROBIOLOGY (Split) ───────────── */
-    const microbiologyTheoryResources = [
-    /* ───────────── SGL ───────────── */
-    { title: 'The Microbial World', description: 'SGL', url: './microbiology-theory-02.pdf' },
-    { title: 'Bacterial Cell Structure', description: 'SGL', url: './microbiology-theory-03.pdf' },
-    { title: 'Microbial Genetics', description: 'SGL', url: './microbiology-theory-06.pdf' },
-    { title: 'Antimicrobial Resistance', description: 'SGL', url: './microbiology-theory-08.pdf' },
-    { title: 'Atypical Bacteria', description: 'SGL', url: './microbiology-theory-10.pdf' },
-    { title: 'Protozoa', description: 'SGL', url: './microbiology-theory-14.pdf' },
-    { title: 'Viral Replication & Diagnosis', description: 'SGL', url: './microbiology-theory-15.pdf' },
-    { title: 'Fungal Properties', description: 'SGL', url: './microbiology-theory-16.pdf' },
-    
-    /* ───────────── LG ───────────── */
-    { title: 'Microbial Growth & Physiology', description: 'LG', url: './microbiology-theory-01.pdf' },
-    { title: 'Microbial Pathogenesis', description: 'LG', url: './microbiology-theory-04.pdf' },
-    { title: 'Normal Microbial Flora', description: 'LG', url: './microbiology-theory-05.pdf' },
-    { title: 'Antimicrobial Drug Action', description: 'LG', url: './microbiology-theory-07.pdf' },
-    { title: 'Nosocomial Infections', description: 'LG', url: './microbiology-theory-09.pdf' },
-    { title: 'Medical Virology', description: 'LG', url: './microbiology-theory-11.pdf' },
-    { title: 'Introduction to Parasitology', description: 'LG', url: './microbiology-theory-12.pdf' },
-    { title: 'General Trematodes', description: 'LG', url: './microbiology-theory-13.pdf' },
-    { title: 'Medical Entomology', description: 'LG', url: './microbiology-theory-17.pdf' },
-    { title: 'Classification of Mycoses', description: 'LG', url: './microbiology-theory-18.pdf' },
-    { title: 'Cestodes & Nematodes', description: 'LG', url: './microbiology-theory-19.pdf' }
-];
-
-const microbiologyPracticalResources = [
-    { title: 'Aseptic Technique', description: 'Practical', url: './microbiology-practical-02.pdf' },
-    { title: 'Types of Culture Media', description: 'Practical', url: './microbiology-practical-01.pdf' },
-    { title: 'Sample Collection & Inoculation', description: 'Practical', url: './microbiology-practical-03.pdf' },
-    { title: 'Staining & Gram Stain', description: 'Practical', url: './microbiology-practical-04.pdf' },
-    { title: 'Serological Techniques', description: 'Practical', url: './microbiology-practical-05.pdf' },
-    { title: 'General Stool Examination', description: 'Practical', url: './microbiology-practical-06.pdf' },
-    { title: 'General Urine Examination', description: 'Practical', url: './microbiology-practical-07.pdf' },
-    { title: 'Fungal Lab Diagnosis', description: 'Practical', url: './microbiology-practical-08.pdf' }
-];
-
-    /* ───────────── HISTOLOGY ───────────── */
-    const histologyResources = [
-    /* ───────────── SGL ───────────── */
-    { title: 'Classification of Epithelial Tissue', description: 'SGL', url: './histology-lecture-03.pdf' },
-    { title: 'Specializations Of Epithelial Cells', description: 'SGL', url: './histology-lecture-04.pdf' },
-    { title: 'Connective Tissue', description: 'SGL', url: './histology-lecture-06.pdf' },
-    { title: 'Cartilage', description: 'SGL', url: './histology-lecture-08.pdf' },
-    
-    /* ───────────── LG ───────────── */
-    { title: 'Introduction to Histology', description: 'LG', url: './histology-lecture-01.pdf' },
-    { title: 'Muscle Tissues', description: 'LG', url: './histology-lecture-02.pdf' },
-    { title: 'Blood', description: 'LG', url: './histology-lecture-05.pdf' },
-    { title: 'Nervous Tissue', description: 'LG', url: './histology-lecture-07.pdf' }
-];
-
-    const molecularBiologyResources = [
-    /* ── SGL ── */
-    { title: 'Gene and Genome of Human', description: 'SGL', url: './molecular-biology-lecture-02.pdf' },
-    { title: 'Fundamental Biochemistry of the Genome', description: 'SGL', url: './molecular-biology-lecture-03.pdf' },
-    { title: 'Structure and Function of DNA & RAN', description: 'SGL', url: './molecular-biology-lecture-05.pdf' },
-    { title: 'Genome Replication', description: 'SGL', url: './molecular-biology-lecture-07.pdf' },
-    { title: 'Genetic Code & Gene Expression', description: 'SGL', url: './molecular-biology-lecture-09.pdf' },
-    { title: 'Mutations & Genome Variations', description: 'SGL', url: './molecular-biology-lecture-11.pdf' },
-    { title: 'Applications and Techniques of MB', description: 'SGL', url: './molecular-biology-lecture-13.pdf' },
-    
-    /* ── LG ── */
-    { title: 'Epigenitics', description: 'LG', url: './molecular-biology-lecture-01.pdf' },
-    { title: 'Telomerase', description: 'LG', url: './molecular-biology-lecture-04.pdf' },
-    { title: 'DNA Fingerprinting', description: 'LG', url: './molecular-biology-lecture-06.pdf' },
-    { title: 'Human Genetic Variation', description: 'LG', url: './molecular-biology-lecture-08.pdf' },
-    { title: 'Gene Library', description: 'LG', url: './molecular-biology-lecture-10.pdf' },
-    { title: 'Gene Cloning', description: 'LG', url: './molecular-biology-lecture-12.pdf' },
-    { title: 'Cystic Fibrosis', description: 'LG', url: './molecular-biology-lecture-14.pdf' },
-    { title: 'Covid-19 mRNA vaccine', description: 'LG', url: './molecular-biology-lecture-15.pdf' }
-];
-
-    /* ───────────── GENETICS ───────────── */
-    const geneticsResources = [
-    /* ───────────── SGL ───────────── */
-    { title: 'Mendelian Genetics', description: 'SGL', url: './genetics-lecture-01.pdf' },
-    { title: 'Linkage & Sex Determination', description: 'SGL', url: './genetics-lecture-03.pdf' },
-    { title: 'Sex-Linked Inheritance', description: 'SGL', url: './genetics-lecture-04.pdf' },
-    { title: 'Thalassemia', description: 'SGL', url: './genetics-lecture-05.pdf' },
-    { title: 'Autosomal Inheritance Disorders', description: 'SGL', url: './genetics-lecture-07.pdf' },
-    { title: 'Inheritance Patterns & Genetic Diseases', description: 'SGL', url: './genetics-lecture-09.pdf' },
-    { title: 'Genetic Screening & PGD', description: 'SGL', url: './genetics-lecture-12.pdf' },
-    
-    /* ───────────── LG ───────────── */
-    { title: 'Introduction to Genetics', description: 'LG', url: './genetics-lecture-02.pdf' },
-    { title: 'Extending Mendelian Genetics', description: 'LG', url: './genetics-lecture-06.pdf' },
-    { title: 'Genetic Disorders', description: 'LG', url: './genetics-lecture-08.pdf' },
-    { title: 'Prenatal Genetic Testing', description: 'LG', url: './genetics-lecture-10.pdf' },
-    { title: 'Gene Therapy', description: 'LG', url: './genetics-lecture-11.pdf' }
-];
-
-    /* ───────────── CYTOLOGY ───────────── */
-    const cytologyResources = [
-    /* ───────────── SGL ───────────── */
-    { title: 'Protoplasm', description: 'SGL', url: './cytology-lecture-01.pdf' },
-    { title: 'Organic & Inorganic Components', description: 'SGL', url: './cytology-lecture-04.pdf' },
-    { title: 'Transport Across Membranes', description: 'SGL', url: './cytology-lecture-05.pdf' },
-    { title: 'Cell Organelles I', description: 'SGL', url: './cytology-lecture-08.pdf' },
-    { title: 'Cell Organelles II', description: 'SGL', url: './cytology-lecture-09.pdf' },
-    
-    /* ───────────── LG ───────────── */
-    { title: 'Cell Definition & Types', description: 'LG', url: './cytology-lecture-02.pdf' },
-    { title: 'Plasma Membrane', description: 'LG', url: './cytology-lecture-03.pdf' },
-    { title: 'The Nucleus', description: 'LG', url: './cytology-lecture-06.pdf' },
-    { title: 'Cell Division & Cell Cycle', description: 'LG', url: './cytology-lecture-07.pdf' },
-    { title: 'Mitosis & Meiosis', description: 'LG', url: './cytology-lecture-10.pdf' }
-];
-
-    /* ───────────── EMBRYOLOGY ───────────── */
-    const embryologyResources = [
-    { title: 'Introduction to Embryology', description: 'LG', url: './embryology-lecture-01.pdf' },
-    { title: 'Ovulation to Implantation', description: 'LG', url: './embryology-lecture-02.pdf' }
-];
-
-    /* ───────────── BIOPHYSICS THEORY (24 lectures) ───────────── */
-const biophysicsTheoryResources = [
-    { title: 'Heat in Medicine', description: 'SGL', url: './biophysics-theory-01.pdf' },
-    { title: 'Energy, Work & Power', description: 'SGL', url: './biophysics-theory-02.pdf' },
-
-    { title: 'Cardiovascular Physics I', description: 'SGL', url: './biophysics-theory-03.pdf' },
-    { title: 'Cardiovascular Physics II', description: 'SGL', url: './biophysics-theory-04.pdf' },
-
-    { title: 'Physics of the Skeleton', description: 'SGL', url: './biophysics-theory-05.pdf' },
-
-    { title: 'Light in Medicine', description: 'SGL', url: './biophysics-theory-06.pdf' },
-    { title: 'Light in Medicine Questions', description: 'QUESTION', url: './biophysics-theory-06mcq.pdf' },
-
-    { title: 'Medical Sonography', description: 'SGL', url: './biophysics-theory-07.pdf' },
-    { title: 'Medical Sonography Questions', description: 'QUESTION', url: './biophysics-theory-07mcq.pdf' },
-
-    { title: 'Principles of Radiotherapy', description: 'SGL', url: './biophysics-theory-08.pdf' },
-    { title: 'Radiotherapy Questions', description: 'QUESTION', url: './biophysics-theory-08mcq.pdf' },
-
-    { title: 'Lung & Breathing Physics', description: 'SGL', url: './biophysics-theory-09.pdf' },
-    { title: 'Lasers in Medicine', description: 'LG', url: './biophysics-theory-21new.pdf' },
-    { title: 'Radiotherapy & LINAC', description: 'LG', url: './biophysics-theory-22new.pdf' },
-    { title: 'Introduction to Medical Physics', description: 'LG', url: './biophysics-theory-12.pdf' },
-    { title: 'Cryogenics, Cryosurgery & Radiotherapy', description: 'LG', url: './biophysics-theory-13.pdf' },
-    { title: 'Electricity Within the Human Body', description: 'LG', url: './biophysics-theory-14.pdf' },
-    { title: 'EMG & NCV', description: 'LG', url: './biophysics-theory-15.pdf' },
-    { title: 'Physics of Diagnostic Radiology', description: 'LG', url: './biophysics-theory-16.pdf' },
-    { title: 'Principles of Radiation Therapy', description: 'LG', url: './biophysics-theory-17.pdf' },
-    { title: 'ECG', description: 'LG', url: './biophysics-theory-18.pdf' },
-
-    { title: 'EEG', description: 'LG', url: './biophysics-theory-19.pdf' },
-    { title: 'Application of Electricity on the Body', description: 'LG', url: './biophysics-theory-20.pdf' },
-    { title: 'Radiation Protection in Medicine', description: 'LG', url: './biophysics-theory-21.pdf' },
-    { title: 'MRI', description: 'LG', url: './biophysics-theory-22.pdf' }
-];
-
-/* ───────────── BIOPHYSICS PRACTICAL (9 lectures) ───────────── */
-const biophysicsPracticalResources = [
-    { title: 'Physiotherapy Modalities', description: 'Practical', url: './biophysics-practical-01.pdf' },
-    { title: 'Principles of Electrosurgery', description: 'Practical', url: './biophysics-practical-02.pdf' },
-    { title: 'Physics of Ultrasound', description: 'Practical', url: './biophysics-practical-03.pdf' },
-    { title: 'Blood Pressure Measurement', description: 'Practical', url: './biophysics-practical-04.pdf' },
-    { title: 'ECG Lab', description: 'Practical', url: './biophysics-practical-05.pdf' },
-    { title: 'X-Ray & CT Scan Lab', description: 'Practical', url: './biophysics-practical-06.pdf' },
-    { title: 'Eye Instruments', description: 'Practical', url: './biophysics-practical-07.pdf' },
-    { title: 'MRI Practical', description: 'Practical', url: './biophysics-practical-08.pdf' }
-];
-
-    /* ───────────── BIOCHEMISTRY THEORY (18 lectures) ───────────── */
-const biochemistryTheoryResources = [
-    /* ───────────── SGL ───────────── */
-    { title: 'Organic Chemistry', description: 'SGL', url: './biochemistry-theory-01.pdf' },
-    { title: 'Phenols, Thiols & Ethers', description: 'SGL', url: './biochemistry-theory-02.pdf' },
-    { title: 'Alcohols', description: 'SGL', url: './biochemistry-theory-03.pdf' },
-    { title: 'Aldehydes & Ketones', description: 'SGL', url: './biochemistry-theory-04.pdf' },
-    { title: 'Carboxylic Acids', description: 'SGL', url: './biochemistry-theory-05.pdf' },
-    { title: 'Water, Minerals & Electrolytes', description: 'SGL', url: './biochemistry-theory-06.pdf' },
-    { title: 'Osmolarity & Osmotic Pressure', description: 'SGL', url: './biochemistry-theory-10.pdf' },
-    { title: 'Proteins & Amino Acids', description: 'SGL', url: './biochemistry-theory-12.pdf' },
-    { title: 'Lipids', description: 'SGL', url: './biochemistry-theory-14.pdf' },
-    { title: 'Amines', description: 'SGL', url: './biochemistry-theory-17.pdf' },
-    { title: 'Calcium', description: 'SGL', url: './biochemistry-theory-18.pdf' },
-    
-    /* ───────────── LG ───────────── */
-    { title: 'Introduction to Carbohydrates', description: 'LG', url: './biochemistry-theory-07.pdf' },
-    { title: 'Vitamins', description: 'LG', url: './biochemistry-theory-08.pdf' },
-    { title: 'Acids, Bases & Clinical Significance', description: 'LG', url: './biochemistry-theory-09.pdf' },
-    { title: 'Nucleic Acids', description: 'LG', url: './biochemistry-theory-11.pdf' },
-    { title: 'Detoxification', description: 'LG', url: './biochemistry-theory-13.pdf' },
-    { title: 'Body Fluids', description: 'LG', url: './biochemistry-theory-15.pdf' },
-    { title: 'Free Radicals & Antioxidants', description: 'LG', url: './biochemistry-theory-16.pdf' }
-];
-
-/* ───────────── BIOCHEMISTRY PRACTICAL (6 lectures) ───────────── */
-const biochemistryPracticalResources = [
-    { title: 'Medical Chemistry & Lab Safety', description: 'Practical', url: './biochemistry-practical-01.pdf' },
-    { title: 'Antacid Analysis by Titration', description: 'Practical', url: './biochemistry-practical-02.pdf' },
-    { title: 'Carbohydrate Tests', description: 'Practical', url: './biochemistry-practical-03.pdf' },
-    { title: 'Protein & Amino Acid Tests', description: 'Practical', url: './biochemistry-practical-04.pdf' },
-    { title: 'Normal Urine Analysis', description: 'Practical', url: './biochemistry-practical-05.pdf' },
-    { title: 'Abnormal Urine Analysis', description: 'Practical', url: './biochemistry-practical-06.pdf' }
-];
-
-    /* ───────────── BEC ───────────── */
-    const becResources = [
-    { title: 'Introduction & Danger Plan', description: 'Theory & Practical', url: './bec-lecture-01.pdf' },
-    { title: 'Ethics of the Rescuer', description: 'Theory & Practical', url: './bec-lecture-02.pdf' },
-    { title: 'Bleeding Control', description: 'Theory & Practical', url: './bec-lecture-03.pdf' },
-    { title: 'Wounds & Wound Healing', description: 'Theory & Practical', url: './bec-lecture-04.pdf' },
-    { title: 'Eye Injuries', description: 'Theory & Practical', url: './bec-lecture-05.pdf' },
-    { title: 'Envenomation', description: 'Theory & Practical', url: './bec-lecture-06.pdf' },
-    { title: 'Electrical Injury', description: 'Theory & Practical', url: './bec-lecture-07.pdf' },
-    { title: 'Loss of Consciousness', description: 'Theory & Practical', url: './bec-lecture-08.pdf' },
-    { title: 'Chest Pain', description: 'Theory & Practical', url: './bec-lecture-09.pdf' },
-    { title: 'Burns', description: 'Theory & Practical', url: './bec-lecture-10.pdf' },
-    { title: 'Fractures, Sprains & Strains', description: 'Theory & Practical', url: './bec-lecture-11.pdf' },
-    { title: 'Pediatric Emergencies', description: 'Theory & Practical', url: './bec-lecture-12.pdf' }
-];
-
-    /* ───────────── SUBJECT MAP ───────────── */
-    const subjectMap = {
-        'terminology':           { title: 'Terminology Resource Library',           group: 'bbb', resources: terminologyResources },
-'computer':              { title: 'Computer Resource Library',              group: 'bbb', resources: computerResources },
-'critical-thinking':     { title: 'Critical Thinking Resource Library',     group: 'bbb', resources: criticalThinkingResources },
-'communication-skill':   { title: 'Communication Skill Resource Library',   group: 'bbb', resources: communicationSkillResources },
-        'kurdology':             { title: 'Kurdology Resource Library',             group: 'bbb', resources: kurdologyResources },
-        'ppd':                   { title: 'PPD Resource Library',                   group: 'bbb', resources: ppdResources },                 
-
-        'anatomy':                { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
-
-        'anatomy':                { title: 'Anatomy Resource Library',              group: 'hdsf', resources: anatomyResources },
-        'physiology':             { title: 'Physiology Resource Library',           group: 'hdsf', resources: physiologyResources },
-        
-        'microbiology-theory':    { title: 'Microbiology (Theory)',                 group: 'hdsf', resources: microbiologyTheoryResources },
-        'microbiology-practical': { title: 'Microbiology (Practical)',              group: 'hdsf', resources: microbiologyPracticalResources },
-        
-        'histology':              { title: 'Histology Resource Library',            group: 'hdsf', resources: histologyResources },
-        'molecular-biology':      { title: 'Molecular Biology Resource Library',    group: 'hdsf', resources: molecularBiologyResources },
-        'genetics':               { title: 'Genetics Resource Library',             group: 'hdsf', resources: geneticsResources },
-        'cytology':               { title: 'Cytology Resource Library',             group: 'hdsf', resources: cytologyResources },
-        'embryology':             { title: 'Embryology Resource Library',           group: 'hdsf', resources: embryologyResources },
-        
-        'biophysics-theory':      { title: 'Biophysics (Theory)',                   group: 'bbb',  resources: biophysicsTheoryResources },
-        'biophysics-practical':   { title: 'Biophysics (Practical)',                group: 'bbb',  resources: biophysicsPracticalResources },
-        
-        'biochemistry-theory':    { title: 'Biochemistry (Theory)',                 group: 'bbb',  resources: biochemistryTheoryResources },
-        'biochemistry-practical': { title: 'Biochemistry (Practical)',              group: 'bbb',  resources: biochemistryPracticalResources },
-        
-        'bec':                    { title: 'Basic Emergency Care Resource Library',  group: 'bbb',  resources: becResources }
+let session = readSavedSession();
+    let refreshing = null;   // shared promise so tokens refresh once
+    let busy = false;        // a save / upload / delete is running
+    let loading = false;     // lectures are being fetched
+    let saving = false;      // a re-order is being saved
+    let arranging = false;   // arrange mode on the subject page
+    let lastRows = [];
+    let fab = null;
+    let acct = null;
+    let toolbar = null;
+    let sheetKey = null;     // subject the upload sheet holds a draft for
+    let queue = [];          // PDFs waiting to be published
+    let queueId = 0;
+    let editRow = null;
+    let deleteRow = null;
+    let replaceRow = null;
+    let replaceState = null;
+
+    const TYPES = ["Lecture", "SGL", "LG", "Lab", "Practical", "Theory"];
+
+    /* ---------- Icons ---------- */
+    const icon = (paths, size = 20, width = 2) =>
+        `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" ` +
+        `stroke="currentColor" stroke-width="${width}" stroke-linecap="round" ` +
+        `stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+    const ICON = {
+        close: icon('<path d="M6 6l12 12M18 6L6 18"/>'),
+        plus: icon('<path d="M12 5v14M5 12h14"/>', 28, 2.6),
+        lock: icon('<rect x="4" y="10.5" width="16" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>', 26),
+        eye: icon('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
+        eyeOff: icon('<path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.5 6.6C3.9 8.3 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1"/>'),
+        folder: icon('<path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2.5h7.5A2.5 2.5 0 0 1 21 10v7.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/>', 16),
+        pdf: icon('<path d="M14 3H7.5A2.5 2.5 0 0 0 5 5.5v13A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V8z"/><path d="M14 3v5h5"/><path d="M12 17v-5M9.5 14.5L12 12l2.5 2.5"/>', 24),
+        file: icon('<path d="M14 3H7.5A2.5 2.5 0 0 0 5 5.5v13A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V8z"/><path d="M14 3v5h5"/>', 22),
+        check: icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>', 24, 2.4),
+        more: icon('<circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/>', 22, 3),
+        edit: icon('<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>', 19),
+        trash: icon('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>', 19),
+        replace: icon('<path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20v-4.5h4.5"/>', 19),
+        up: icon('<path d="M12 19V5M6 11l6-6 6 6"/>', 19),
+        down: icon('<path d="M12 5v14M6 13l6 6 6-6"/>', 19),
+        sort: icon('<path d="M7 4v16M3.5 7.5L7 4l3.5 3.5M17 20V4M13.5 16.5L17 20l3.5-3.5"/>', 18),
+        logout: icon('<path d="M9 4H6.5A2.5 2.5 0 0 0 4 6.5v11A2.5 2.5 0 0 0 6.5 20H9M15 8l4 4-4 4M19 12H9"/>', 19),
+        refresh: icon('<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>', 19),
+        info: icon('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>', 18),
+        warn: icon('<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/>', 26)
     };
 
-/* ───────────── STAGE 2 DATA ───────────── */
-const stage2Blocks = [
-    {
-        n: 1,
-        code: 'IBS',
-        name: 'Introduction to Basic Science',
-        subjects: 5,
-        desc: 'Stage 2 lectures for Block 1.',
-        a: '0,87,255',
-        b: '14,165,233',
-        modules: [
-            {
-                icon: '🛡️',
-                name: 'Micro-Immunity',
-                group: 'bbb',
-                resources: [
-                    // SGL
-                    {
-                        title: 'Organs and Cells of the Immune System',
-                        description: 'SGL',
-                        url: './microimmunity-SGL1.pdf'
-                    },
-                    {
-                        title: 'Innate Immunity',
-                        description: 'SGL',
-                        url: './microimmunity-SGL2.pdf'
-                    },
-                    {
-                        title: 'Antibody',
-                        description: 'SGL',
-                        url: './microimmunity-SGL3.pdf'
-                    },
-                    {
-                        title: 'Adaptive Immunity',
-                        description: 'SGL',
-                        url: './microimmunity-SGL4.pdf'
-                    },
-                    {
-                        title: 'Complement System II',
-                        description: 'SGL',
-                        url: './microimmunity-SGL5.pdf'
-                    },
-                    {
-                        title: 'Hypersensitivity Reactions',
-                        description: 'SGL',
-                        url: './microimmunity-SGL6.pdf'
-                    },
-                    {
-                        title: 'Autoimmunity and Immune Tolerance',
-                        description: 'SGL',
-                        url: './microimmunity-SGL7.pdf'
-                    },
-                    {
-                        title: 'Cytokines and Immunotherapy',
-                        description: 'SGL',
-                        url: './microimmunity-SGL8.pdf'
-                    },
-                    {
-                        title: 'Immunity to Microbes',
-                        description: 'SGL',
-                        url: './microimmunity-SGL9.pdf'
-                    },
-                    {
-                        title: 'Immune Deficiency and Related Diseases',
-                        description: 'SGL',
-                        url: './microimmunity-SGL10.pdf'
-                    },
-                    {
-                        title: 'Autoimmunity and Related Diseases',
-                        description: 'SGL',
-                        url: './microimmunity-SGL11.pdf'
-                    },
-                    {
-                        title: 'Transplantation and Graft Rejection',
-                        description: 'SGL',
-                        url: './microimmunity-SGL12.pdf'
-                    },
-
-                    // LG
-                    {
-                        title: 'Introduction to Immunology',
-                        description: 'LG',
-                        url: './microimmunity-LG1.pdf'
-                    },
-                    {
-                        title: 'Antigen',
-                        description: 'LG',
-                        url: './microimmunity-LG2.pdf'
-                    },
-                    {
-                        title: 'Major Histocompatibility Complex',
-                        description: 'LG',
-                        url: './microimmunity-LG3.pdf'
-                    },
-                    {
-                        title: 'Complement System I',
-                        description: 'LG',
-                        url: './microimmunity-LG4.pdf'
-                    },
-                    {
-                        title: 'Inflammation and Inflammatory Mediators',
-                        description: 'LG',
-                        url: './microimmunity-LG5.pdf'
-                    },
-                    {
-                        title: 'Immunity to Microbes',
-                        description: 'LG',
-                        url: './microimmunity-LG6.pdf'
-                    },
-                    {
-                        title: 'Immunological Aspects of Hormones',
-                        description: 'LG',
-                        url: './microimmunity-LG7.pdf'
-                    },
-                    {
-                        title: 'Hypersensitivity and Related Disorders',
-                        description: 'LG',
-                        url: './microimmunity-LG8.pdf'
-                    }
-                ]
-            },
-            {
-                icon: '🔬',
-                name: 'Pathology',
-                group: 'bbb',
-                resources: [
-                    // SGL
-                    {
-                        title: 'Cellular Response to Injury: Adaptation & Reversible Cell Injury',
-                        description: 'SGL',
-                        url: './pathology-SGL1.pdf'
-                    },
-                    {
-                        title: 'Intracellular Accumulations',
-                        description: 'SGL',
-                        url: './pathology-SGL2.pdf'
-                    },
-                    {
-                        title: 'Cellular Changes and Killing Process',
-                        description: 'SGL',
-                        url: './pathology-SGL3.pdf'
-                    },
-                    {
-                        title: 'Chemical Mediators and Chronic Inflammation',
-                        description: 'SGL',
-                        url: './pathology-SGL4.pdf'
-                    },
-                    {
-                        title: 'Healing Process',
-                        description: 'SGL',
-                        url: './pathology-SGL5.pdf'
-                    },
-                    {
-                        title: 'Hemodynamic Disorders: Hyperemia, Congestion and Thrombosis',
-                        description: 'SGL',
-                        url: './pathology-SGL6.pdf'
-                    },
-                    {
-                        title: 'Hemodynamic Disorders: Embolism & Infarction',
-                        description: 'SGL',
-                        url: './pathology-SGL7.pdf'
-                    },
-                    {
-                        title: 'Characteristics of Tumors and Epidemiology',
-                        description: 'SGL',
-                        url: './pathology-SGL8.pdf'
-                    },
-                    {
-                        title: 'Carcinogenic Agents and Tumor Immunity',
-                        description: 'SGL',
-                        url: './pathology-SGL9.pdf'
-                    },
-                    {
-                        title: 'Clinical Aspects, Grading and Staging of Tumors',
-                        description: 'SGL',
-                        url: './pathology-SGL10.pdf'
-                    },
-
-                    // LG
-                    {
-                        title: 'Introduction to Pathology & Cell Injury',
-                        description: 'LG',
-                        url: './pathology-LG1.pdf'
-                    },
-                    {
-                        title: 'Irreversible Cell Injury',
-                        description: 'LG',
-                        url: './pathology-LG2.pdf'
-                    },
-                    {
-                        title: 'Apoptosis',
-                        description: 'LG',
-                        url: './pathology-LG3.pdf'
-                    },
-                    {
-    title: 'Acute Inflammation',
-    readerTitle: 'Acute Inflammation — LG 4',
-    description: 'LG',
-    url: './pathology-LG4.pdf'
-},
-                    {
-                        title: 'Healing Process',
-                        description: 'LG',
-                        url: './pathology-LG5.pdf'
-                    },
-                    {
-                        title: 'Hemodynamic Disorders: Edema',
-                        description: 'LG',
-                        url: './pathology-LG6.pdf'
-                    },
-                    {
-                        title: 'Hemodynamic Disorders: Shock',
-                        description: 'LG',
-                        url: './pathology-LG7.pdf'
-                    },
-                    {
-                        title: 'Neoplasia: Nomenclature',
-                        description: 'LG',
-                        url: './pathology-LG8.pdf'
-                    },
-                    {
-                        title: 'Neoplasia: Molecular Basis of Cancer',
-                        description: 'LG',
-                        url: './pathology-LG9.pdf'
-                    },
-                    {
-                        title: 'Neoplasia: Molecular Basis of Cancer',
-                        description: 'LG',
-                        url: './pathology-LG10.pdf'
-                    },
-
-                    // Practical
-                    {
-                        title: 'Biopsy and Tissue Processing',
-                        description: 'Practical',
-                        url: './pathology-Lab1.pdf'
-                    },
-                    {
-                        title: 'Acute and Chronic Inflammation',
-                        description: 'Practical',
-                        url: './pathology-labs2&3.pdf'
-                    },
-                    {
-                        title: 'Hemodynamic Disorders',
-                        description: 'Practical',
-                        url: './pathology-Lab4.pdf'
-                    },
-                    {
-                        title: 'Neoplasia',
-                        description: 'Practical',
-                        url: './pathology-Lab5.pdf'
-                    }
-                ]
-            },
-            {
-                icon: '💊',
-                name: 'Pharmacology',
-                group: 'bbb',
-                resources: [
-                    // SGL
-                    {
-                        title: 'Pharmacokinetics: Absorption & Distribution',
-                        description: 'SGL',
-                        url: './pharmacology-SGL1.pdf'
-                    },
-                    {
-                        title: 'Drug Metabolism (Biotransformation)',
-                        description: 'SGL',
-                        url: './pharmacology-SGL2.pdf'
-                    },
-                    {
-                        title: 'Drug–Receptor Interactions',
-                        description: 'SGL',
-                        url: './pharmacology-SGL3.pdf'
-                    },
-                    {
-                        title: 'Parasympathomimetic Drugs (Cholinomimetics)',
-                        description: 'SGL',
-                        url: './pharmacology-SGL4.pdf'
-                    },
-                    {
-                        title: 'Cell Wall Synthesis Inhibitors 1',
-                        description: 'SGL',
-                        url: './pharmacology-SGL5.pdf'
-                    },
-                    {
-                        title: 'Cell Wall Inhibitors 2',
-                        description: 'SGL',
-                        url: './pharmacology-SGL6.pdf'
-                    },
-                    {
-                        title: 'Antimicrobial Agents Inhibiting Bacterial Nucleic Acid Synthesis',
-                        description: 'SGL',
-                        url: './pharmacology-SGL7.pdf'
-                    },
-                    {
-                        title: 'Inhibitors of Bacterial Protein Synthesis',
-                        description: 'SGL',
-                        url: './pharmacology-SGL9.pdf'
-                    },
-                    {
-                        title: 'Antifungal Drugs',
-                        description: 'SGL',
-                        url: './pharmacology-SGL10.pdf'
-                    },
-
-                    // LG
-                    {
-                        title: 'Introduction to Pharmacology',
-                        description: 'LG',
-                        url: './pharmacology-LG1.pdf'
-                    },
-                    {
-                        title: 'Pharmacodynamics: Mechanism of Drug Action',
-                        description: 'LG',
-                        url: './pharmacology-LG2.pdf'
-                    },
-                    {
-                        title: 'Principles of Antimicrobial Therapy',
-                        description: 'LG',
-                        url: './pharmacology-LG3.pdf'
-                    },
-                    {
-                        title: 'Drugs Affecting the Autonomic Nervous System',
-                        description: 'LG',
-                        url: './pharmacology-LG4.pdf'
-                    },
-                    {
-                        title: 'Drugs Affecting Adrenergic Neuron Transmission',
-                        description: 'LG',
-                        url: './pharmacology-LG5.pdf'
-                    },
-                    {
-                        title: 'Sympathomimetic Drugs',
-                        description: 'LG',
-                        url: './pharmacology-LG6.pdf'
-                    },
-                    {
-                        title: 'Adrenergic Receptor Blockers (Sympatholytic Drugs)',
-                        description: 'LG',
-                        url: './pharmacology-LG7.pdf'
-                    },
-                    {
-                        title: 'Adverse Drug Reactions',
-                        description: 'LG',
-                        url: './pharmacology-LG8.pdf'
-                    },
-                    {
-                        title: 'Excretion: Pharmacokinetics of Drug Elimination',
-                        description: 'LG',
-                        url: './pharmacology-LG10.pdf'
-                    },
-                    {
-                        title: 'Parasympatholytics (Anticholinergic Drugs)',
-                        description: 'LG',
-                        url: './pharmacology-LG11.pdf'
-                    },
-
-                    // Practical
-                    {
-                        title: 'Pharmaceutical Dosage Forms',
-                        description: 'Practical',
-                        url: './pharmacology-Lab1.pdf'
-                    },
-                    {
-                        title: 'Effect of Routes of Drug Administration on Drug Response',
-                        description: 'Practical',
-                        url: './pharmacology-Lab2.pdf'
-                    },
-                    {
-                        title: 'Prescription Reading',
-                        description: 'Practical',
-                        url: './pharmacology-Lab3.pdf'
-                    },
-                    {
-                        title: 'Intravenous Fluid Therapy',
-                        description: 'Practical',
-                        url: './pharmacology-Lab4.pdf'
-                    },
-                    {
-                        title: 'Effect of Drugs on the Iris',
-                        description: 'Practical',
-                        url: './pharmacology-Lab5.pdf'
-                    }
-                ]
-            },
-            {
-                icon: '🧪',
-                name: 'Biochemistry',
-                group: 'bbb',
-                resources: [
-                    {
-                        title: 'Protein Metabolism',
-                        description: 'Lecture 1',
-                        url: './biochemistry-1.pdf'
-                    },
-                    {
-                        title: 'Lipid Metabolism',
-                        description: 'Lecture 2',
-                        url: './biochemistry-2.pdf'
-                    },
-                    {
-                        title: 'Carbohydrate Metabolism',
-                        description: 'Lecture 3',
-                        url: './biochemistry-3.pdf'
-                    },
-                    {
-                        title: 'Enzymology',
-                        description: 'Lecture 4',
-                        url: './biochemistry-4.pdf'
-                    },
-                    {
-                        title: 'Clinical Case: Complications of the Ketogenic Diet',
-                        description: 'Lecture 5',
-                        url: './biochemistry-5.pdf'
-                    },
-                    {
-                        title: 'Clinical Case: Alcohol Consumption and Liver Disease',
-                        description: 'Lecture 6',
-                        url: './biochemistry-6.pdf'
-                    },
-                    {
-                        title: 'Biochemistry of Cancer',
-                        description: 'Lecture 7',
-                        url: './biochemistry-7.pdf'
-                    },
-                    {
-                        title: 'Nutrition',
-                        description: 'Lecture 8',
-                        url: './biochemistry-8.pdf'
-                    },
-                    {
-                        title: 'Ammonia Toxicity',
-                        description: 'Lecture 9',
-                        url: './biochemistry-9.pdf'
-                    },
-                    {
-                        title: 'Spectrophotometer & ELISA',
-                        description: 'Lab 1',
-                        url: './biochemistry-Lab1.pdf'
-                    },
-                    {
-                        title: 'Determination of Serum Glucose',
-                        description: 'Lab 2',
-                        url: './biochemistry-Lab2.pdf'
-                    },
-                    {
-                        title: 'Determination of Serum Triglycerides, Total Cholesterol & Lipoproteins',
-                        description: 'Lab 3',
-                        url: './biochemistry-Lab3.pdf'
-                    },
-                    {
-                        title: 'Determination of Serum Total Proteins',
-                        description: 'Lab 4',
-                        url: './biochemistry-Lab4.pdf'
-                    },
-                    {
-                        title: 'Renal Function Tests: Urea, Creatinine & Uric Acid',
-                        description: 'Lab 5',
-                        url: './biochemistry-Lab5.pdf'
-                    },
-                    {
-                        title: 'Electrolyte Balance',
-                        description: 'Lab 6',
-                        url: './biochemistry-Lab6.pdf'
-                    },
-                    {
-                        title: 'Enzymes: Mechanisms, Kinetics & Clinical Applications',
-                        description: 'Lab 7',
-                        url: './biochemistry-Lab7.pdf'
-                    }
-                ]
-            },
-            {
-                icon: '🎓',
-                name: 'Medical Education',
-                group: 'bbb',
-                resources: [
-                    {
-                        title: 'Medical Interview: History Taking',
-                        description: 'SGL',
-                        url: './medical-education-2.pdf'
-                    },
-                    {
-                        title: 'Communication Skills: Calgary-Cambridge Framework',
-                        description: 'SGL',
-                        url: './medical-education-1.pdf'
-                    }
-                ]
-            }
-    ] },
-    { n:2, code:'MSD', name:'Musculoskeletal System and Dermatology',   subjects:13, desc:'Stage 2 lectures for Block 2.', a:'0,87,255', b:'96,165,250', modules:[
-        { icon:'🫀', name:'Anatomy', group:'hdsf', resources:[] },
-        { icon:'🧠', name:'Physiology', group:'hdsf', resources:[] },
-        { icon:'🦠', name:'Microbiology', group:'hdsf', resources:[] },
-        { icon:'🧬', name:'Genetics', group:'hdsf', resources:[] },
-        { icon:'🩻', name:'Radiology', group:'hdsf', resources:[] },
-        { icon:'💊', name:'Pharmacology', group:'hdsf', resources:[] },
-        { icon:'🧪', name:'Biochemistry', group:'hdsf', resources:[] },
-        { icon:'🔬', name:'Pathology', group:'hdsf', resources:[] },
-        { icon:'👶', name:'Embryology', group:'hdsf', resources:[] },
-        { icon:'🔎', name:'Histology', group:'hdsf', resources:[] },
-        { icon:'🧴', name:'Dermatology', group:'hdsf', resources:[] },
-        { icon:'🏥', name:'Clinical Placement', group:'hdsf', resources:[] },
-        { icon:'📋', name:'Clinical Scenario', group:'hdsf', resources:[] }
-    ] },
-    { n:3, code:'HP',  name:'Hematopoietic System',                     subjects:0,  desc:'Stage 2 lectures for Block 3.', a:'0,87,255', b:'96,165,250',  modules:[] },
-    { n:4, code:'CVS', name:'Cardiovascular System',                    subjects:0,  desc:'Stage 2 lectures for Block 4.', a:'0,87,255',  b:'96,165,250', modules:[] },
-    { n:5, code:'RS',  name:'Respiratory System',                       subjects:0,  desc:'Stage 2 lectures for Block 5.', a:'0,87,255',  b:'96,165,250',  modules:[] }
-];
-stage2Blocks.forEach(blk => blk.modules.forEach((m, i) => {
-    m.key = 's2b' + blk.n + 'm' + i;
-    subjectMap[m.key] = { title: m.name + ' Resource Library', group: m.group || 'bbb', resources: m.resources || [] };
-}));
-
-/* ───────────── NAVIGATION (browser-history based) ───────────── */
-let currentBlock = 2;
-const PAGES = ['home-page','subject-page','stage2-page','s2block-page','split-page','resources-page'];
-const SUBVIEWS = ['block-entrance','block1-content','subjects-content'];
-const $ = id => document.getElementById(id);
-const setShow = (id, on) => { $(id).style.display = on ? 'block' : 'none'; };
-
-function go(st) {
-    st.d = ((history.state && history.state.d) || 0) + 1;
-    history.pushState(st, '');
-    render(st);
-}
-function goBack() {
-    if (history.state && history.state.d > 0) history.back();
-    else render({ v:'home', d:0 });
-}
-
-function render(st) {
-    st = st || { v:'home', d:0 };
-    PAGES.forEach(p => setShow(p, false));
-    SUBVIEWS.forEach(p => setShow(p, false));
-    switch (st.v) {
-        case 'stage1':
-            setShow('subject-page', true); setShow('block-entrance', true); break;
-        case 'block':
-            currentBlock = st.b;
-            setShow('subject-page', true);
-            setShow(st.b === 1 ? 'block1-content' : 'subjects-content', true); break;
-        case 'stage2':
-            renderStage2(); setShow('stage2-page', true); break;
-        case 's2block':
-            renderS2Block(st.b); setShow('s2block-page', true); break;
-        case 'split':
-            renderSplit(st); setShow('split-page', true); break;
-        case 'res':
-            if (!renderResourcePage(st.key)) { setShow('home-page', true); break; }
-            setShow('resources-page', true); break;
-        default:
-            setShow('home-page', true);
+    /* ---------- Small helpers ---------- */
+    function el(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text != null) node.textContent = text;
+        return node;
     }
-    window.scrollTo(0, 0);
-}
 
-// The PDF viewer can run inside the SAME installed app window.
-// Samsung Back then pops this history entry instead of closing the PWA.
-let medhubPdfFrame = null;
-let medhubPdfScroll = 0;
-let medhubPdfPreviousOverflow = '';
-
-function closeMedhubPdfFrame() {
-    if (!medhubPdfFrame) return;
-    const frame = medhubPdfFrame;
-    medhubPdfFrame = null;
-    frame.remove();
-    document.body.style.overflow = medhubPdfPreviousOverflow;
-}
-
-window.addEventListener('popstate', e => {
-    if (medhubPdfFrame && !e.state?.medhubPdfOverlay) {
-        const savedScroll = medhubPdfScroll;
-        closeMedhubPdfFrame();
-        // render() resets the scroll; restore the exact lecture-list position.
-        render(e.state);
-        requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, savedScroll)));
-        return;
+    function message(node, text, kind = "error") {
+        node.textContent = text || "";
+        node.dataset.kind = kind;
+        node.hidden = !text;
     }
-    if (!e.state?.medhubPdfOverlay) render(e.state);
-});
 
-function openStage(n)   { go({ v: n === 1 ? 'stage1' : 'stage2' }); }
-function openBlock1()   { go({ v:'block', b:1 }); }
-function openBlock2()   { go({ v:'block', b:2 }); }
-function openS2Block(n) { go({ v:'s2block', b:n }); }
-function loadResources(key) { if (subjectMap[key]) go({ v:'res', key }); }
-function showSplitCards(subjectKey, group, title) { go({ v:'split', key:subjectKey, group, title }); }
-function backToBlocks() { goBack(); }
-function backToSubjectsFromSplit() { goBack(); }
-function backFromResources() { goBack(); }
-
-function renderStage2() {
-    $('s2-grid').innerHTML = stage2Blocks.map(blk => {
-        const has = blk.modules.length > 0;
-        return `
-        <div class="block-card acc${has ? '' : ' soon'}" style="--a:${blk.a};--b:${blk.b}" onclick="openS2Block(${blk.n})">
-            <div class="block-kicker">Block ${String(blk.n).padStart(2, '0')}</div>
-            <h3>${blk.code}</h3>
-            <p>${blk.name}</p>
-            <div class="block-meta">
-                <span class="block-pill">${has ? blk.modules.length + ' Subjects' : (blk.subjects ? blk.subjects + ' Subjects' : 'Being organized')}</span>
-                ${has ? '' : '<span class="block-status">Coming soon</span>'}
-            </div>
-        </div>`;
-    }).join('');
-}
-
-function renderS2Block(n) {
-    const blk = stage2Blocks.find(x => x.n === n);
-    if (!blk) return;
-    $('s2block-title').textContent = 'Stage 2 · ' + blk.code;
-    const body = $('s2block-body');
-    if (!blk.modules.length) {
-        $('s2block-sub').textContent = blk.name + ' · Lectures coming soon';
-        body.innerHTML = `
-            <div class="empty-state">
-                <div class="coming-soon-icon">🚀</div>
-                <h3>${blk.code} is on the way</h3>
-                <p>These lectures are being organized and will be added soon.</p>
-            </div>`;
-        return;
+    function setBusyButton(button, on, label) {
+        button.classList.toggle("is-busy", on);
+        button.querySelector(".mh-btn-text").textContent = label;
     }
-    $('s2block-sub').textContent = blk.name;
-    const card = (m, i) => `
-        <div class="subject-card ${m.group === 'hdsf' ? 'hdsf-card' : 'bbb-card'}" style="animation-delay:${(0.05 + i * 0.05).toFixed(2)}s" onclick="loadResources('${m.key}')">
-            <div class="card-icon">${m.icon || '📚'}</div>
-            <div class="card-name">${m.name}</div>
-            <div class="card-chip ${m.group === 'hdsf' ? 'hdsf' : 'bbb'}">PDF Files</div>
-        </div>`;
-    body.innerHTML = `<div class="group-section"><div class="subject-grid">${blk.modules.map(card).join('')}</div></div>`;
-}
 
-function renderSplit(st) {
-    $('split-title').textContent = st.title;
-    const theoryTheme = st.group === 'hdsf' ? 'hdsf-theme' : 'bbb-theme';
-    $('split-grid').innerHTML = `
-        <div class="split-card theory-card ${theoryTheme}" onclick="loadResources('${st.key}-theory')">
-            <div class="card-icon">📚</div>
-            <div class="card-name">Theory</div>
-            <div class="card-desc">Lectures and theoretical materials</div>
-        </div>
-        <div class="split-card practical-card" onclick="loadResources('${st.key}-practical')">
-            <div class="card-icon">🥼</div>
-            <div class="card-name">Practical</div>
-            <div class="card-desc">Lab manuals and practical guides</div>
-        </div>`;
-}
+    function formatSize(bytes) {
+        return bytes >= 1048576
+            ? (bytes / 1048576).toFixed(1) + " MB"
+            : Math.max(1, Math.round(bytes / 1024)) + " KB";
+    }
 
-function renderResourcePage(key) {
-    const subject = subjectMap[key];
-    if (!subject) return false;
-    $('resources-title').textContent = subject.title
-        .replace(/\s+Resource Library\s*$/i, '')
-        .trim();
-    $('resources-count').textContent = `${subject.resources.length} files`;
-    renderResources(subject.resources, subject.group, subject.title);
-    return true;
-}
+    function encodePath(path) {
+        return path.split("/").map(encodeURIComponent).join("/");
+    }
 
-    function makeFileName(item, subjectTitle) {
-    const cleanSubject = subjectTitle
-        .replace(' Resource Library', '')
-        .replace('(Theory)', '')
-        .replace('(Practical)', '')
-        .replace(/&/g, 'and')
-        .replace(/[^\w\s-]/g, '')
-        .trim()
-        .replace(/\s+/g, '-')
-        .toLowerCase();
-    
-    const cleanTitle = item.title
-        .replace(/&/g, 'and')
-        .replace(/[^\w\s-]/g, '')
-        .trim()
-        .replace(/\s+/g, '-')
-        .toLowerCase();
-    
-    const cleanDescription = item.description
-        .replace(/&/g, 'and')
-        .replace(/[^\w\s-]/g, '')
-        .trim()
-        .replace(/\s+/g, '-')
-        .toLowerCase();
-    
-    return cleanSubject + '-' + cleanTitle + '-' + cleanDescription + '.pdf';
-}
-    /* Title shown in the PDF Reader header: "<Topic> - <Type><Number>".
-       Only used for the Reader link; the lecture cards still show item.title / item.description. */
-    function readerTitleFor(item, siblings) {
-        if (item.readerTitle) return item.readerTitle;               // optional manual override
-        const topic = String(item.title || '').trim();
-        const desc  = String(item.description || '').trim();
-        const file  = decodeURIComponent(String(item.url || '').split('?')[0].split('/').pop() || '');
-        let m;
+    function pdfURL(path) {
+        return SUPABASE_URL + "/storage/v1/object/public/" + BUCKET + "/" +
+            encodePath(path);
+    }
 
-        // Large Group / Small Group Lectures -> "Acute Inflammation - LG4", "Innate Immunity - SGL2"
-        if (/^(LG|SGL)$/i.test(desc)) {
-            const type = desc.toUpperCase();
-            m = file.match(new RegExp('(?:^|[^a-z])' + type + '[-_]?0*(\\d+)', 'i'));
-            if (m) return topic + ' - ' + type + m[1];          // number is in the file name (e.g. pathology-LG4.pdf)
-            // No number in the file name (e.g. physiology-lecture-02.pdf): count this type's position in the list
-            const sameType = (siblings || []).filter(x => String(x.description || '').trim().toUpperCase() === type);
-            const pos = sameType.indexOf(item) + 1;
-            return pos ? topic + ' - ' + type + pos : topic + ' - ' + type;
-        }
-        // Descriptions that already carry their number ("Lecture 3", "Lab 5")
-        if (/^(Lecture|Lab)\s*\d+$/i.test(desc)) return topic + ' - ' + desc;
+    function isPDFFile(file) {
+        return file.type === "application/pdf" || /\.pdf$/i.test(file.name);
+    }
 
-        // Practical sessions -> "Neoplasia — Practical 5" (also "labs2&3" -> "Practical 2 & 3")
-        if (/^Practical$/i.test(desc)) {
-            m = file.match(/labs?[-_]?0*(\d+)\s*&\s*0*(\d+)/i);
-            if (m) return topic + ' - Practical ' + m[1] + ' & ' + m[2];
-            m = file.match(/(?:lab|practical)[-_]?0*(\d+)/i);
-            return m ? topic + ' - Practical ' + m[1] : topic + ' - Practical';
-        }
-        // Everything else (descriptions that are sentences, Theory & Practical, Questions): topic only
-        return topic;
+    function titleFromName(name) {
+        return name
+            .replace(/\.pdf$/i, "")
+            .replace(/[_-]+/g, " ")
+            .trim()
+            .slice(0, 200);
     }
-    
-let lectureTitles = {};
 
-fetch('./data/lectures.json')
-    .then(response => {
-        if (!response.ok) throw new Error('JSON not found');
-        return response.json();
-    })
-    .then(data => {
-        lectureTitles = data;
-    })
-    .catch(error => console.warn('Lecture titles:', error));
+    function safeStoragePath(path) {
+        return typeof path === "string" && path.length > 0 &&
+            !path.includes("..") && !path.startsWith("/");
+    }
 
-    function viewerURL(pdfPath, title = '') {
-        
-const filename = new URL(pdfPath, location.href).pathname.split('/').pop();
-title = lectureTitles[filename] || title;
+    /* ---------- Dialog factory ---------- */
+    const dialogs = [];
+    let loginDialog;
 
-    const abs = new URL(pdfPath, location.href).href;
-    // Give the reader the current MedHub view, so Android system Back can
-    // restore the lecture list even if the PWA opens a separate window.
-    const backState = history.state || { v: 'home', d: 0 };
-    const params = new URLSearchParams({
-        file: abs,
-        title: title,
-        fromMedHub: '1',
-        medhubView: JSON.stringify(backState)
-    });
-    return './reader/index.html?' + params.toString();
-    }
-    function mhFormatFileSize(bytes) {
-        const n = Number(bytes);
-        if (!Number.isFinite(n) || n <= 0) return '';
-        return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' :
-            Math.max(1, Math.round(n / 1024)) + ' KB';
-    }
-    function mhFormatLectureDate(value) {
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return '';
-        const date = new Date(value + 'T12:00:00Z');
-        if (Number.isNaN(date.getTime())) return '';
-        return date.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric', timeZone:'UTC' });
-    }
-    function mhMetaIcon(kind) {
-        return kind === 'date'
-            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>'
-            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
-    }
-    function mhMetaCell(kind, text) {
-        if (!text) return '';
-        return '<span class="mh-lecture-meta-item">' + mhMetaIcon(kind) + text + '</span>';
-    }
-    // Original GitHub PDFs may not have a date or stored file size.
-    // Fetch only their actual size via HEAD (when the card enters view).
-    const mhOriginalSizes = new Map();
-    function mhObserveOriginalFileSizes(grid) {
-        const pending = [...grid.querySelectorAll('[data-mh-size-url]')];
-        if (!pending.length) return;
-        const load = async el => {
-            const url = el.dataset.mhSizeUrl;
-            if (!url) return;
-            try {
-                const absolute = new URL(url, location.href);
-                if (absolute.origin !== location.origin) return;
-                let size = mhOriginalSizes.get(absolute.href);
-                if (size === undefined) {
-                    const res = await fetch(absolute.href, {method:'HEAD'});
-                    const header = res.ok ? Number(res.headers.get('content-length')) : 0;
-                    size = Number.isFinite(header) && header > 0 ? header : 0;
-                    mhOriginalSizes.set(absolute.href, size);
-                }
-                if (size && el.isConnected) el.textContent = mhFormatFileSize(size);
-            } catch { /* No size label unless a real size was verified. */ }
-        };
-        if (!('IntersectionObserver' in window)) return;
-        const observer = new IntersectionObserver(entries => {
-            for (const entry of entries) if (entry.isIntersecting) {
-                observer.unobserve(entry.target);
-                load(entry.target);
-            }
-        }, { rootMargin:'250px' });
-        pending.forEach(node => observer.observe(node));
-    }
-    // Sort lecture cards by session type and numeric session number.
-    // Display labels and PDF links remain unchanged.
-    function mhLectureSortKey(item) {
-        const description = String(item.description || '');
-        const title = String(item.title || '');
-        const filename = String(item.url || '').split(/[?#]/)[0].split('/').pop() || '';
-        const fields = [description, title, filename];
-        const patterns = [
-            { rank: 0, regex: /\bSGL[\s._-]*0*(\d+)\b/i },
-            { rank: 1, regex: /\bLG[\s._-]*0*(\d+)\b/i },
-            { rank: 2, regex: /\b(?:LAB|PRACTICAL)[\s._-]*0*(\d+)\b/i }
-        ];
-        for (const {rank, regex} of patterns) {
-            for (const field of fields) {
-                const match = field.match(regex);
-                if (match) return {rank, number: Number(match[1])};
-            }
-        }
-        // Recognize type-only labels without guessing a session number.
-        for (const [rank, regex] of [
-            [0, /\bSGL\b/i], [1, /\bLG\b/i], [2, /\b(?:LAB|PRACTICAL)\b/i]
-        ]) {
-            if (fields.some(field => regex.test(field))) return {rank, number: Infinity};
-        }
-        return {rank: 3, number: Infinity};
-    }
-    function mhSortLectures(items) {
-        return [...items].sort((a, b) => {
-            const x = mhLectureSortKey(a);
-            const y = mhLectureSortKey(b);
-            return (x.rank - y.rank) || (x.number === y.number ? 0 : x.number - y.number);
+    function makeDialog(className, html, labelledBy) {
+        const dialog = document.createElement("dialog");
+        dialog.className = "mh-dialog " + className;
+        if (labelledBy) dialog.setAttribute("aria-labelledby", labelledBy);
+        dialog.innerHTML = html;
+
+        /* Stop the site's iOS focus fix from closing the keyboard here. */
+        dialog.addEventListener("touchend", event => event.stopPropagation());
+
+        dialog.addEventListener("cancel", event => {
+            if (busy) event.preventDefault();
         });
+
+        /* Close on a backdrop tap, but not after a text-selection drag. */
+        let downOnBackdrop = false;
+
+        dialog.addEventListener("pointerdown", event => {
+            downOnBackdrop = event.target === dialog;
+        });
+
+        dialog.addEventListener("click", event => {
+            if (event.target === dialog && downOnBackdrop && !busy) {
+                dialog.close();
+            }
+        });
+
+        dialog.addEventListener("close", () => {
+            if (!dialogs.some(item => item.open)) {
+                document.documentElement.classList.remove("mh-lock");
+            }
+
+            if (dialog === loginDialog) cleanHash();
+        });
+
+        dialogs.push(dialog);
+        document.body.append(dialog);
+        return dialog;
     }
-    function renderResources(items, group, subjectTitle) {
-        const grid = document.getElementById('resource-grid');
-        const isBBB = group === 'bbb';
-        const escapeAttr = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-        grid.innerHTML = mhSortLectures(items).map((item, index) => {
-            const when = mhFormatLectureDate(item.lectureDate);
-            return `
-            <article class="resource-card${isBBB ? ' bbb-resource' : ''}" style="animation-delay: ${index * 0.05}s">
-                <div class="resource-icon">📄</div>
-                <div class="resource-index">PDF ${String(index + 1).padStart(2, '0')}</div>
-                <h3>${item.title}</h3>
-                <p>${item.description || ''}</p>
-                <div class="mh-lecture-meta">${mhMetaCell('date', when)}</div>
-                <div class="resource-actions">
-                    <a class="btn-link btn-open" href="${viewerURL(item.url, readerTitleFor(item, items))}">
-                        ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
-                    </a>
-                </div>
-            </article>`;
-        }).join('');
 
+    function openModal(dialog) {
+        if (!dialog.open) dialog.showModal();
+        document.documentElement.classList.add("mh-lock");
     }
 
-    function showDownloadState(btn) {
-        if (btn.classList.contains('is-downloading') || btn.classList.contains('is-success')) return;
-
-        const originalText = "Download";
-        
-        btn.classList.add('is-downloading');
-        btn.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="spin-icon">
-                <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-            </svg> 
-            <span>Downloading...</span>
-        `;
-
-        setTimeout(() => {
-            btn.classList.remove('is-downloading');
-            btn.classList.add('is-success');
-            btn.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                <span>Complete!</span>
-            `;
-
-            setTimeout(() => {
-                btn.classList.remove('is-success');
-                btn.innerHTML = originalText;
-            }, 1500);
-
-        }, 2000);
-    }
-    /* iOS fix: remove stuck focus/selection after tapping */
-document.addEventListener('touchend', function () {
-    setTimeout(function () {
-        if (document.activeElement) {
-            document.activeElement.blur();
+    function cleanHash() {
+        if (location.hash === "#admin") {
+            history.replaceState(
+                history.state,
+                "",
+                location.pathname + location.search
+            );
         }
-    }, 50);
-});
-/* ───────────── iOS Safari Clear Focus Fix ───────────── */
-document.addEventListener('touchend', function (e) {
-    const tappedClickable = e.target.closest(
-        'a, button, .subject-card, .split-card, .back-inline'
+    }
+
+    /* ---------- Sign-in window (unchanged flow) ---------- */
+    loginDialog = makeDialog("mh-login-dialog", `
+        <button id="mh-login-close" class="mh-icon-btn mh-close"
+            type="button" aria-label="Close">${ICON.close}</button>
+        <div class="mh-badge">${ICON.lock}</div>
+        <h2 id="mh-login-title">Admin sign in</h2>
+
+        <form id="mh-login">
+            <p class="mh-lead" style="margin:-8px 0 2px">
+                Sign in to manage lectures on MedHub.
+            </p>
+            <div class="mh-field">
+                <label for="mh-email">Email</label>
+                <input id="mh-email" type="email" inputmode="email"
+                    autocomplete="username" required>
+            </div>
+            <div class="mh-field">
+                <label for="mh-password">Password</label>
+                <div class="mh-pw">
+                    <input id="mh-password" type="password"
+                        autocomplete="current-password" required>
+                    <button id="mh-pw-toggle" type="button"
+                        aria-label="Show password"
+                        aria-pressed="false">${ICON.eye}</button>
+                </div>
+            </div>
+            <div id="mh-login-error" class="mh-alert" role="alert" hidden></div>
+            <button id="mh-signin" class="mh-btn mh-btn-primary">
+                <span class="mh-spinner" aria-hidden="true"></span>
+                <span class="mh-btn-text">Sign in</span>
+            </button>
+        </form>
+
+        <div id="mh-account" class="mh-account" hidden>
+            <div class="mh-account-card">
+                <div id="mh-avatar" class="mh-avatar" aria-hidden="true"></div>
+                <div>
+                    <strong id="mh-account-email"></strong>
+                    <span>Admin account</span>
+                </div>
+            </div>
+            <p class="mh-lead">
+                Open a subject's lecture page to add, edit, replace, re-order
+                or delete lectures.
+            </p>
+            <div class="mh-actions">
+                <button id="mh-signout" type="button"
+                    class="mh-btn mh-btn-ghost">Sign out</button>
+                <button id="mh-account-done" type="button"
+                    class="mh-btn mh-btn-primary">Done</button>
+            </div>
+        </div>
+    `, "mh-login-title");
+    loginDialog.id = "mh-login-dialog";
+
+    /* ---------- Upload sheet (one or many PDFs) ---------- */
+    const sheet = makeDialog("mh-sheet", `
+        <form id="mh-upload" class="mh-sheet-form" novalidate>
+            <div class="mh-sheet-head">
+                <div class="mh-grab" aria-hidden="true"></div>
+                <div class="mh-head-row">
+                    <div>
+                        <h2 id="mh-sheet-title">Add lectures</h2>
+                        <p id="mh-dest" class="mh-dest"
+                            aria-label="Publishing to"></p>
+                    </div>
+                    <button id="mh-sheet-close" class="mh-icon-btn"
+                        type="button" aria-label="Close">${ICON.close}</button>
+                </div>
+            </div>
+
+            <div class="mh-sheet-body">
+                <label id="mh-drop" class="mh-drop" for="mh-file">
+                    <span id="mh-drop-icon" class="mh-drop-icon">${ICON.pdf}</span>
+                    <strong id="mh-drop-title">Choose PDFs</strong>
+                    <small id="mh-drop-sub">Tap to browse. Pick several at once. Up to 50 MB each.</small>
+                    <input id="mh-file" type="file" multiple
+                        accept=".pdf,application/pdf">
+                </label>
+
+                <div id="mh-queue" class="mh-queue" aria-live="polite"></div>
+                <div id="mh-summary" class="mh-summary" hidden></div>
+                <div id="mh-status" class="mh-alert" role="status"
+                    aria-live="polite" hidden></div>
+            </div>
+
+            <div class="mh-sheet-foot">
+                <button id="mh-cancel" type="button"
+                    class="mh-btn mh-btn-ghost">Cancel</button>
+                <button id="mh-publish" class="mh-btn mh-btn-primary">
+                    <span class="mh-spinner" aria-hidden="true"></span>
+                    <span class="mh-btn-text">Publish lecture</span>
+                </button>
+            </div>
+        </form>
+    `, "mh-sheet-title");
+
+    /* ---------- Edit dialog ---------- */
+    const editDialog = makeDialog("mh-sheet", `
+        <form id="mh-edit" class="mh-sheet-form" novalidate>
+            <div class="mh-sheet-head">
+                <div class="mh-grab" aria-hidden="true"></div>
+                <div class="mh-head-row">
+                    <div>
+                        <h2 id="mh-edit-heading">Edit lecture</h2>
+                        <p id="mh-edit-dest" class="mh-dest"></p>
+                    </div>
+                    <button id="mh-edit-close" class="mh-icon-btn"
+                        type="button" aria-label="Close">${ICON.close}</button>
+                </div>
+            </div>
+            <div class="mh-sheet-body">
+                <label class="mh-field">
+                    <span class="mh-flabel">Lecture title</span>
+                    <input id="mh-edit-title" type="text" maxlength="200"
+                        autocomplete="off" required>
+                </label>
+                <fieldset class="mh-field">
+                    <legend>Type</legend>
+                    <div id="mh-edit-types" class="mh-types"></div>
+                </fieldset>
+                <label class="mh-field">
+                    <span class="mh-flabel">Label<span class="mh-opt">Optional</span></span>
+                    <input id="mh-edit-desc" type="text" maxlength="200"
+                        autocomplete="off" placeholder="e.g. Lab 8">
+                </label>
+                <label class="mh-field mh-date-field">
+                    <span class="mh-flabel">Lecture date <span class="mh-opt">Optional · actual teaching date</span></span>
+                    <input id="mh-edit-date" type="date" aria-label="Actual lecture date">
+                </label>
+                <div class="mh-note">${ICON.info}<span>
+                    The PDF file and the lecture's position stay the same.
+                    Use “Replace PDF” in the ⋮ menu to change the file.
+                </span></div>
+                <div id="mh-edit-status" class="mh-alert" role="status"
+                    aria-live="polite" hidden></div>
+            </div>
+            <div class="mh-sheet-foot">
+                <button id="mh-edit-cancel" type="button"
+                    class="mh-btn mh-btn-ghost">Cancel</button>
+                <button id="mh-edit-save" class="mh-btn mh-btn-primary">
+                    <span class="mh-spinner" aria-hidden="true"></span>
+                    <span class="mh-btn-text">Save changes</span>
+                </button>
+            </div>
+        </form>
+    `, "mh-edit-heading");
+
+    /* ---------- Replace-PDF dialog ---------- */
+    const replaceDialog = makeDialog("mh-sheet", `
+        <form id="mh-replace" class="mh-sheet-form" novalidate>
+            <div class="mh-sheet-head">
+                <div class="mh-grab" aria-hidden="true"></div>
+                <div class="mh-head-row">
+                    <div>
+                        <h2 id="mh-replace-heading">Replace PDF</h2>
+                        <p id="mh-replace-dest" class="mh-dest"></p>
+                    </div>
+                    <button id="mh-replace-close" class="mh-icon-btn"
+                        type="button" aria-label="Close">${ICON.close}</button>
+                </div>
+            </div>
+            <div class="mh-sheet-body">
+                <div class="mh-note">${ICON.info}<span>
+                    Title, type, label and position are kept. Only the PDF
+                    changes, and the old PDF file is deleted from storage.
+                </span></div>
+                <label id="mh-rdrop" class="mh-drop" for="mh-rfile">
+                    <span id="mh-rdrop-icon" class="mh-drop-icon">${ICON.pdf}</span>
+                    <strong id="mh-rdrop-title">Choose the new PDF</strong>
+                    <small id="mh-rdrop-sub">Tap to browse. Up to 50 MB.</small>
+                    <input id="mh-rfile" type="file"
+                        accept=".pdf,application/pdf">
+                </label>
+                <button id="mh-rpreview" type="button"
+                    class="mh-btn mh-btn-ghost" hidden>
+                    ${ICON.eye}<span>Preview new PDF</span>
+                </button>
+                <div id="mh-rprogress" class="mh-progress" hidden>
+                    <span id="mh-rprogress-text">Uploading…</span>
+                    <div class="mh-bar"><span id="mh-rbar"></span></div>
+                </div>
+                <div id="mh-replace-status" class="mh-alert" role="status"
+                    aria-live="polite" hidden></div>
+            </div>
+            <div class="mh-sheet-foot">
+                <button id="mh-replace-cancel" type="button"
+                    class="mh-btn mh-btn-ghost">Cancel</button>
+                <button id="mh-replace-save" class="mh-btn mh-btn-primary">
+                    <span class="mh-spinner" aria-hidden="true"></span>
+                    <span class="mh-btn-text">Replace PDF</span>
+                </button>
+            </div>
+        </form>
+    `, "mh-replace-heading");
+
+    /* ---------- Delete confirmation ---------- */
+    const confirmDialog = makeDialog("mh-confirm", `
+        <div class="mh-badge is-danger">${ICON.warn}</div>
+        <h2 id="mh-confirm-title">Delete this lecture?</h2>
+        <div class="mh-body">
+            <div id="mh-confirm-name" class="mh-confirm-name"></div>
+            <p class="mh-lead" style="margin:0 !important">
+                The lecture disappears from MedHub for every student, and its
+                PDF file is <strong>permanently deleted from storage</strong>.
+                This cannot be undone.
+            </p>
+            <div id="mh-confirm-status" class="mh-alert" role="alert" hidden></div>
+        </div>
+        <div class="mh-actions">
+            <button id="mh-confirm-cancel" type="button"
+                class="mh-btn mh-btn-ghost">Cancel</button>
+            <button id="mh-confirm-delete" type="button"
+                class="mh-btn mh-btn-danger">
+                <span class="mh-spinner" aria-hidden="true"></span>
+                <span class="mh-btn-text">Delete</span>
+            </button>
+        </div>
+    `, "mh-confirm-title");
+
+    /* ---------- PDF preview ---------- */
+    const previewDialog = makeDialog("mh-preview", `
+        <div class="mh-prev-head">
+            <div>
+                <h2 id="mh-prev-title">Preview</h2>
+                <p id="mh-prev-sub"></p>
+            </div>
+            <button id="mh-prev-x" class="mh-icon-btn" type="button"
+                aria-label="Close preview">${ICON.close}</button>
+        </div>
+        <div id="mh-prev-body" class="mh-prev-body"></div>
+        <div class="mh-prev-foot">
+            <a id="mh-prev-open" class="mh-btn mh-btn-ghost"
+                target="_blank" rel="noopener">Open in new tab</a>
+            <button id="mh-prev-close" type="button"
+                class="mh-btn mh-btn-primary">Done</button>
+        </div>
+    `, "mh-prev-title");
+
+    const toastEl = el("div", "mh-toast");
+    toastEl.setAttribute("role", "status");
+    toastEl.setAttribute("aria-live", "polite");
+
+    const notice = el("div");
+    notice.id = "mh-cloud-status";
+    notice.setAttribute("role", "status");
+
+    document.body.append(toastEl, notice);
+
+    let toastTimer;
+
+    function toast(text, kind = "info") {
+        toastEl.textContent = text;
+        toastEl.dataset.kind = kind;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(
+            () => toastEl.classList.remove("show"),
+            kind === "error" ? 7000 : 4500
+        );
+    }
+
+    /* ---------- Catalog of subjects (built from your cards) ---------- */
+    /* Remember all existing GitHub lectures. */
+    const original = Object.fromEntries(
+        Object.entries(subjectMap).map(([key, subject]) => [
+            key,
+            subject.resources.slice()
+        ])
     );
 
-    if (!tappedClickable && document.activeElement) {
-        document.activeElement.blur();
-    }
-}, { passive: true });
+    const catalog = [];
 
-/* Android Back returning from the PDF Reader: restore the exact MedHub
-   section instead of reopening the homepage. No visual Back button needed. */
-const medhubUrl = new URL(window.location.href);
-const returningFromReader = medhubUrl.searchParams.get('medhubResume') === '1';
-let initialMedhubState = history.state || { v:'home', d:0 };
-if (returningFromReader) {
-    try {
-        const incoming = JSON.parse(medhubUrl.searchParams.get('medhubView') || '{}');
-        const allowedViews = ['home','stage1','block','stage2','s2block','split','res'];
-        if (incoming && allowedViews.includes(incoming.v)) {
-            const safe = { v: incoming.v, d: Number.isInteger(incoming.d) ? Math.max(0, Math.min(30, incoming.d)) : 0 };
-            if (incoming.v === 'block' && [1, 2].includes(incoming.b)) safe.b = incoming.b;
-            if (incoming.v === 's2block' && stage2Blocks.some(block => block.n === incoming.b)) safe.b = incoming.b;
-            if (incoming.v === 'res' && typeof incoming.key === 'string' && subjectMap[incoming.key]) safe.key = incoming.key;
-            if (incoming.v === 'split' && ['microbiology','biophysics','biochemistry'].includes(incoming.key)) {
-                safe.key = incoming.key;
-                safe.group = incoming.group === 'hdsf' ? 'hdsf' : 'bbb';
-                safe.title = {microbiology:'Microbiology',biophysics:'Biophysics',biochemistry:'Biochemistry'}[incoming.key];
+    for (const [container, block] of [
+        ["block1-content", 1],
+        ["subjects-content", 2]
+    ]) {
+        for (const card of $(container).querySelectorAll(
+            ".subject-card"
+        )) {
+            const action = card.getAttribute("onclick") || "";
+
+            const match = action.match(
+                /(?:loadResources|showSplitCards)\('([^']+)'/
+            );
+
+            if (!match) continue;
+
+            const name = card.querySelector(".card-name").textContent;
+            const split = action.includes("showSplitCards");
+
+            const keys = split
+                ? [match[1] + "-theory", match[1] + "-practical"]
+                : [match[1]];
+
+            for (const key of keys) {
+                if (!subjectMap[key]) continue;
+
+                const suffix = split
+                    ? key.endsWith("-theory")
+                        ? " · Theory"
+                        : " · Practical"
+                    : "";
+
+                catalog.push({
+                    stage: 1,
+                    block,
+                    blockLabel: "Block " + block,
+                    key,
+                    name: name + suffix
+                });
             }
-            // An incomplete or invalid state should fall back to home.
-            if ((safe.v === 'block' || safe.v === 's2block') && !safe.b) safe.v = 'home';
-            if ((safe.v === 'res' || safe.v === 'split') && !safe.key) safe.v = 'home';
-            initialMedhubState = safe;
         }
-    } catch (error) {
-        console.warn('MedHub return state could not be restored:', error);
     }
-    var medhubReturnScroll = Math.max(0, Math.min(100000, Number(medhubUrl.searchParams.get('medhubScroll')) || 0));
-    medhubUrl.searchParams.delete('medhubResume');
-    medhubUrl.searchParams.delete('medhubView');
-    medhubUrl.searchParams.delete('medhubScroll');
-    // Clean the address while retaining the restored view in browser history.
-    history.replaceState(initialMedhubState, '', medhubUrl.pathname + medhubUrl.search + medhubUrl.hash);
-} else {
-    history.replaceState(initialMedhubState, '');
-}
-render(initialMedhubState);
-if (returningFromReader) {
-    // Allow the lecture cards to finish mounting before restoring scroll.
-    const desiredScroll = medhubReturnScroll;
-    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
-}
 
-// Update return context at the moment of the click, not when cards render.
-document.addEventListener('click', event => {
-    const link = event.target.closest('a.btn-open');
-    if (!link) return;
-    const url = new URL(link.href, window.location.href);
-    if (url.origin !== window.location.origin || !url.pathname.includes('/reader/')) return;
-    url.searchParams.set('fromMedHub', '1');
-    url.searchParams.set('medhubView', JSON.stringify(history.state || {v:'home',d:0}));
-    url.searchParams.set('medhubScroll', String(Math.round(window.scrollY)));
-    link.href = url.href;
-}, true);
+    for (const block of stage2Blocks) {
+        for (const module of block.modules) {
+            catalog.push({
+                stage: 2,
+                block: block.n,
+                blockLabel: block.code,
+                key: module.key,
+                name: module.name
+            });
+        }
+    }
 
-/* Embedded Reader: same PWA window, no new browser tab, no visible Back button.
-   The iframe is fullscreen, but belongs to the original homepage's history.
-   This is intentionally separate from EmbedPDF's rendering and touch handling. */
-document.addEventListener('click', event => {
-    const link = event.target.closest('a.btn-open');
-    if (!link || event.defaultPrevented || event.button !== 0 ||
-        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    const readerUrl = new URL(link.href, location.href);
-    if (readerUrl.origin !== location.origin ||
-        !readerUrl.pathname.startsWith(new URL('./reader/', location.href).pathname)) return;
+    /* The subject whose lecture page is open right now. */
+    function currentSubject() {
+        const state = history.state;
 
-    event.preventDefault();
-    // Important: the old Reader Back workaround must NOT run inside the frame.
-    // That workaround creates a second history entry and can intercept Android Back.
-    readerUrl.searchParams.delete('fromMedHub');
-    readerUrl.searchParams.delete('medhubView');
-    readerUrl.searchParams.delete('medhubScroll');
+        if (!state || state.v !== "res") return null;
 
-    if (medhubPdfFrame) return;
-    medhubPdfScroll = window.scrollY;
-    medhubPdfPreviousOverflow = document.body.style.overflow;
-    const frame = document.createElement('iframe');
-    frame.setAttribute('title', 'MedHub PDF Reader');
-    frame.setAttribute('allow', 'fullscreen');
-    frame.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;background:#fff;z-index:2147483647;display:block';
-    medhubPdfFrame = frame;
-    // Push onto the HOST page's history before the frame starts loading.
-    history.pushState({...history.state, medhubPdfOverlay:true}, '', location.href);
-    document.body.style.overflow = 'hidden';
-    frame.src = readerUrl.href;
-    document.body.appendChild(frame);
-}, false);
+        return catalog.find(subject => subject.key === state.key) || null;
+    }
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', { scope: './' })
-            .catch(err => console.warn('Service worker failed:', err));
+    /* Uploaded lectures (database rows) for one subject, in display order. */
+    function rowsFor(subject) {
+        return lastRows.filter(row =>
+            row.subject === subject.key &&
+            row.stage === subject.stage &&
+            row.block === subject.block
+        );
+    }
+
+    function sortRows() {
+        lastRows.sort((a, b) => {
+            const left = Number(a.sort_order);
+            const right = Number(b.sort_order);
+
+            if (left !== right && Number.isFinite(left) && Number.isFinite(right)) {
+                return left - right;
+            }
+
+            return String(a.created_at || "").localeCompare(String(b.created_at || "")) ||
+                String(a.id).localeCompare(String(b.id));
+        });
+    }
+
+    /* Rebuild every subject's list: GitHub originals first, then uploads. */
+    function applyRows() {
+        for (const [key, resources] of Object.entries(original)) {
+            subjectMap[key].resources = resources.slice();
+        }
+
+        for (const row of lastRows) {
+            const subject = catalog.find(item =>
+                item.key === row.subject &&
+                item.stage === row.stage &&
+                item.block === row.block
+            );
+
+            if (!subject || !safeStoragePath(row.file_path)) continue;
+
+            const url = pdfURL(row.file_path);
+
+            subjectMap[subject.key].resources.push({
+                title: row.title,
+                description: row.description || row.category,
+                url,
+                downloadUrl: url + "?download=" +
+                    encodeURIComponent(row.title + ".pdf"),
+                lectureDate: row.lecture_date || null,
+                fileSizeBytes: Number(row.file_size_bytes) || null,
+                row
+            });
+        }
+    }
+
+    function rerender() {
+        closeMenu();
+
+        if (history.state?.v === "res") {
+            renderResourcePage(history.state.key);
+        }
+    }
+
+    /* ---------- Admin controls (only after sign-in) ---------- */
+    function ensureToolbar() {
+        if (toolbar) return;
+
+        toolbar = el("div", "mh-toolbar");
+        toolbar.hidden = true;
+        toolbar.innerHTML = `
+            <div class="mh-toolbar-text">
+                <strong>Admin</strong>
+                <span id="mh-toolbar-sub"></span>
+            </div>
+            <button id="mh-arrange-toggle" type="button" class="mh-chip-btn"
+                aria-pressed="false">${ICON.sort}<span>Arrange</span></button>
+        `;
+
+        const grid = $("resource-grid");
+        grid.parentNode.insertBefore(toolbar, grid);
+
+        $("mh-arrange-toggle").onclick = () => {
+            arranging = !arranging;
+            rerender();
+        };
+    }
+
+    function updateToolbar(items) {
+        if (!toolbar) return;
+
+        const uploaded = items.filter(item => item.row).length;
+        const originals = items.length - uploaded;
+
+        if (arranging && uploaded < 2) arranging = false;
+
+        $("mh-toolbar-sub").textContent = arranging
+            ? "Use the arrows to re-order uploaded lectures."
+            : uploaded + " uploaded · " + originals +
+              " original (GitHub). Uploads appear after the originals.";
+
+        const toggle = $("mh-arrange-toggle");
+        toggle.disabled = uploaded < 2;
+        toggle.setAttribute("aria-pressed", String(arranging));
+        toggle.querySelector("span").textContent = arranging ? "Done" : "Arrange";
+    }
+
+    function syncAdmin() {
+        if (!session) {
+            fab?.remove();
+            fab = null;
+            acct?.remove();
+            acct = null;
+            toolbar?.remove();
+            toolbar = null;
+            arranging = false;
+            closeMenu();
+            document.body.classList.remove("mh-has-fab");
+            return;
+        }
+
+        const subject = currentSubject();
+
+        if (!acct) {
+            acct = el("button", "mh-acct");
+            acct.type = "button";
+            acct.title = "Admin account";
+            acct.setAttribute("aria-label", "Admin account menu");
+            acct.setAttribute("aria-haspopup", "menu");
+            acct.setAttribute("aria-expanded", "false");
+            acct.onclick = openAccountMenu;
+            document.body.append(acct);
+        }
+
+        acct.textContent = (session.user?.email || "A").charAt(0).toUpperCase();
+
+        if (!fab) {
+            fab = el("button", "mh-fab");
+            fab.type = "button";
+            fab.title = "Add lectures";
+            fab.setAttribute("aria-label", "Add lectures");
+            fab.setAttribute("aria-haspopup", "dialog");
+            fab.innerHTML = ICON.plus;
+            fab.hidden = true;
+            fab.onclick = openSheet;
+            document.body.append(fab);
+        }
+
+        ensureToolbar();
+
+        fab.hidden = !subject;
+        toolbar.hidden = !subject;
+        document.body.classList.toggle("mh-has-fab", Boolean(subject));
+
+        if (!subject) arranging = false;
+
+        if (!busy) {
+            if (!subject) {
+                for (const dialog of [sheet, editDialog, replaceDialog, confirmDialog]) {
+                    if (dialog.open) dialog.close();
+                }
+            } else if (sheet.open && subject.key !== sheetKey) {
+                sheet.close();
+            }
+        }
+    }
+
+    /* Sign-in state changed: refresh the controls and the cards. */
+    function setSession(next) {
+    const was = Boolean(session);
+    session = next;
+    saveSession(next);
+
+        if (!next) {
+            queue = [];
+            sheetKey = null;
+            replaceState = null;
+        }
+
+        syncAdmin();
+
+        if (was !== Boolean(next)) rerender();
+    }
+
+    /* Run after every page change made by the website. */
+    if (typeof render === "function") {
+        const baseRender = render;
+
+        render = function () {
+            const result = baseRender.apply(this, arguments);
+            syncAdmin();
+            return result;
+        };
+    }
+
+    /* ---------- Pop-over menu (⋮ on cards, account) ---------- */
+    let menuLayer = null;
+    let menuAnchor = null;
+
+    function closeMenu() {
+        menuLayer?.remove();
+        menuLayer = null;
+        menuAnchor?.setAttribute("aria-expanded", "false");
+        menuAnchor = null;
+    }
+
+    function openMenu(anchor, spec) {
+        const same = menuAnchor === anchor;
+        closeMenu();
+        if (same) return;
+
+        const layer = el("div", "mh-menu-layer");
+        const menu = el("div", "mh-menu");
+        menu.setAttribute("role", "menu");
+
+        if (spec.header) {
+            const head = el("div", "mh-menu-head");
+
+            if (spec.header.avatar) {
+                head.append(el("div", "mh-avatar", spec.header.avatar));
+            }
+
+            const text = el("div");
+            text.append(
+                el("strong", "", spec.header.title),
+                el("span", "", spec.header.sub || "")
+            );
+            head.append(text);
+            menu.append(head);
+        }
+
+        for (const item of spec.items || []) {
+            const button = el("button", "mh-menu-item" +
+                (item.danger ? " is-danger" : ""));
+            button.type = "button";
+            button.setAttribute("role", "menuitem");
+            button.disabled = Boolean(item.disabled);
+            button.innerHTML = item.icon || "";
+            button.append(el("span", "", item.label));
+            button.onclick = () => {
+                closeMenu();
+                item.run();
+            };
+            menu.append(button);
+        }
+
+        if (spec.note) menu.append(el("p", "mh-menu-note", spec.note));
+
+        layer.append(menu);
+        layer.addEventListener("pointerdown", event => {
+            if (event.target === layer) closeMenu();
+        });
+
+        document.body.append(layer);
+        menuLayer = layer;
+        menuAnchor = anchor;
+        anchor.setAttribute("aria-expanded", "true");
+
+        /* Anchored pop-over on tablets and desktops (phones use CSS). */
+        const rect = anchor.getBoundingClientRect();
+        const width = menu.offsetWidth;
+        const height = menu.offsetHeight;
+        const left = Math.min(
+            Math.max(8, rect.right - width),
+            innerWidth - width - 8
+        );
+        let top = rect.bottom + 6;
+
+        if (top + height > innerHeight - 8) top = rect.top - height - 6;
+
+        menu.style.left = left + "px";
+        menu.style.top = Math.max(8, top) + "px";
+
+        menu.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
+    }
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && menuLayer) {
+            const anchor = menuAnchor;
+            closeMenu();
+            anchor?.focus?.();
+        }
     });
+
+    window.addEventListener("resize", closeMenu);
+    window.addEventListener("scroll", closeMenu, { capture: true, passive: true });
+
+    function openAccountMenu() {
+        const email = session?.user?.email || "Admin";
+
+        openMenu(acct, {
+            header: {
+                avatar: email.charAt(0).toUpperCase(),
+                title: email,
+                sub: "Admin account"
+            },
+            items: [
+                {
+                    label: "Refresh lectures",
+                    icon: ICON.refresh,
+                    run: async () => {
+                        if (busy || saving) return;
+                        const ok = await refreshLectures();
+                        toast(
+                            ok ? "Lectures are up to date." : "Could not refresh lectures.",
+                            ok ? "success" : "error"
+                        );
+                    }
+                },
+                { label: "Sign out", icon: ICON.logout, run: signOut }
+            ]
+        });
+    }
+
+    function menuForCard(item, position, total) {
+        if (!item.row) {
+            return {
+                header: { title: item.title, sub: "Original lecture · GitHub" },
+                items: [],
+                note:
+                    "This PDF is hosted in your GitHub repository, so it can't " +
+                    "be edited, re-ordered or deleted from here. To change it, " +
+                    "update the PDF and its entry in index.html on GitHub."
+            };
+        }
+
+        return {
+            header: { title: item.title, sub: "Uploaded lecture" },
+            items: [
+                { label: "Edit details", icon: ICON.edit, run: () => openEdit(item.row) },
+                { label: "Replace PDF", icon: ICON.replace, run: () => openReplace(item.row) },
+                {
+                    label: "Move earlier",
+                    icon: ICON.up,
+                    disabled: position === 0,
+                    run: () => moveLecture(item.row.id, -1)
+                },
+                {
+                    label: "Move later",
+                    icon: ICON.down,
+                    disabled: position === total - 1,
+                    run: () => moveLecture(item.row.id, 1)
+                },
+                { label: "Delete lecture", icon: ICON.trash, danger: true, run: () => openDelete(item.row) }
+            ]
+        };
+    }
+
+    /* ---------- Supabase requests ---------- */
+    async function request(path, options = {}) {
+        const controller = new AbortController();
+
+        const timer = setTimeout(
+            () => controller.abort(),
+            120000
+        );
+
+        try {
+            const response = await fetch(SUPABASE_URL + path, {
+                method: options.method || "GET",
+                body: options.body,
+                cache: "no-store",
+                signal: controller.signal,
+                headers: {
+                    apikey: PUBLIC_KEY,
+                    ...(options.token
+                        ? { Authorization: "Bearer " + options.token }
+                        : {}),
+                    ...options.headers
+                }
+            });
+
+            const text = await response.text();
+            let data;
+
+            try {
+                data = JSON.parse(text);
+            } catch {
+                data = text;
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data?.msg ||
+                    data?.message ||
+                    data?.error_description ||
+                    data?.error ||
+                    "Request failed: " + response.status
+                );
+            }
+
+            return data;
+        } catch (error) {
+            if (error.name === "AbortError") {
+                throw new Error(
+                    "Request timed out. Check your connection and try again."
+                );
+            }
+
+            throw error;
+        } finally {
+            clearTimeout(timer);
+        }
+    }
+
+    /* Upload with a progress callback and a timeout suited to large PDFs. */
+    function uploadPDF(path, file, token, onProgress) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+
+            xhr.open(
+                "POST",
+                SUPABASE_URL + "/storage/v1/object/" + BUCKET + "/" + encodePath(path)
+            );
+
+            xhr.setRequestHeader("apikey", PUBLIC_KEY);
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+            xhr.setRequestHeader("Content-Type", "application/pdf");
+            xhr.setRequestHeader("x-upsert", "false");
+            xhr.timeout = 15 * 60 * 1000;
+
+            xhr.upload.onprogress = event => {
+                if (event.lengthComputable) {
+                    onProgress(event.loaded / event.total);
+                }
+            };
+
+            xhr.onload = () => {
+                if (xhr.status >= 200 && xhr.status < 300) return resolve();
+
+                let detail;
+
+                try {
+                    const data = JSON.parse(xhr.responseText);
+                    detail = data.message || data.error || data.msg;
+                } catch {}
+
+                reject(new Error(
+                    detail ||
+                    (xhr.status === 403 || xhr.status === 401
+                        ? "Not allowed to upload. Check the Supabase storage policies."
+                        : "Upload failed: " + xhr.status)
+                ));
+            };
+
+            xhr.onerror = () => reject(new Error(
+                "Network error. Check your connection and try again."
+            ));
+
+            xhr.ontimeout = () => reject(new Error(
+                "The upload took too long. Check your connection and try again."
+            ));
+
+            xhr.send(file);
+        });
+    }
+
+    async function accessToken() {
+        if (!session) throw new Error("Please sign in again.");
+
+        if (Date.now() > session.expires - 60000) {
+            if (!refreshing) {
+                const refreshToken = session.refresh_token;
+
+                refreshing = request(
+                    "/auth/v1/token?grant_type=refresh_token",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ refresh_token: refreshToken })
+                    }
+                )
+                    .then(data => {
+    setSession({
+        ...data,
+        user: data.user || session.user,
+        expires: Date.now() + data.expires_in * 1000
+    });
+})
+                    .finally(() => { refreshing = null; });
+            }
+
+            try {
+                await refreshing;
+            } catch {
+                setSession(null);
+
+                throw new Error(
+                    "Your session ended. Open #admin to sign in again."
+                );
+            }
+        }
+
+        return session.access_token;
+    }
+
+    /* PATCH / DELETE on the lectures table. Row-level security hides rows
+       the caller may not change, so an empty result means "not allowed". */
+    async function changeRow(method, id, fields) {
+        const rows = await request(
+            "/rest/v1/lectures?id=eq." + encodeURIComponent(id),
+            {
+                method,
+                token: await accessToken(),
+                headers: {
+                    "Content-Type": "application/json",
+                    Prefer: "return=representation"
+                },
+                body: fields ? JSON.stringify(fields) : undefined
+            }
+        );
+
+        if (!Array.isArray(rows) || !rows.length) {
+            throw new Error(
+                "The change was not saved. Your account may not have " +
+                "permission, or the lecture no longer exists."
+            );
+        }
+
+        return rows[0];
+    }
+
+    async function removeStoredFile(path) {
+        await request(
+            "/storage/v1/object/" + BUCKET + "/" + encodePath(path),
+            { method: "DELETE", token: await accessToken() }
+        );
+    }
+
+    /* ---------- Sign in and out ---------- */
+    function openAdmin() {
+        if (location.hash !== "#admin") return;
+
+        if (dialogs.some(dialog => dialog !== loginDialog && dialog.open)) return;
+
+        $("mh-login").hidden = Boolean(session);
+        $("mh-account").hidden = !session;
+
+        if (session) {
+            const email = session.user?.email || "Admin";
+            $("mh-account-email").textContent = email;
+            $("mh-avatar").textContent = email.charAt(0).toUpperCase();
+        }
+
+        message($("mh-login-error"), "");
+
+        if (!loginDialog.open) openModal(loginDialog);
+
+        if (!session) $("mh-email").focus();
+    }
+
+    window.addEventListener("hashchange", openAdmin);
+    openAdmin();
+
+    $("mh-login-close").onclick = () => loginDialog.close();
+    $("mh-account-done").onclick = () => loginDialog.close();
+
+    $("mh-pw-toggle").onclick = () => {
+        const input = $("mh-password");
+        const show = input.type === "password";
+
+        input.type = show ? "text" : "password";
+        $("mh-pw-toggle").innerHTML = show ? ICON.eyeOff : ICON.eye;
+        $("mh-pw-toggle").setAttribute("aria-pressed", String(show));
+        $("mh-pw-toggle").setAttribute(
+            "aria-label",
+            show ? "Hide password" : "Show password"
+        );
+    };
+
+    $("mh-login").onsubmit = async event => {
+        event.preventDefault();
+
+        setBusyButton($("mh-signin"), true, "Signing in…");
+        $("mh-signin").disabled = true;
+        message($("mh-login-error"), "");
+
+        try {
+            const data = await request(
+                "/auth/v1/token?grant_type=password",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: $("mh-email").value.trim(),
+                        password: $("mh-password").value
+                    })
+                }
+            );
+
+            $("mh-password").value = "";
+
+            if (!isAdmin(data.user?.id)) {
+                request("/auth/v1/logout", {
+                    method: "POST",
+                    token: data.access_token
+                }).catch(() => {});
+
+                throw new Error(
+                    "This account does not have admin access."
+                );
+            }
+
+            loginDialog.close();
+
+            setSession({
+                ...data,
+                expires: Date.now() + data.expires_in * 1000
+            });
+
+            toast(
+                currentSubject()
+                    ? "Signed in. Tap + to add lectures."
+                    : "Signed in. Open a subject to manage its lectures.",
+                "success"
+            );
+        } catch (error) {
+            message($("mh-login-error"), error.message);
+        } finally {
+            setBusyButton($("mh-signin"), false, "Sign in");
+            $("mh-signin").disabled = false;
+        }
+    };
+
+    function signOut() {
+        if (busy || saving) {
+            return toast("Wait for the current save to finish, then sign out.");
+        }
+
+        const token = session?.access_token;
+
+        for (const dialog of dialogs) if (dialog.open) dialog.close();
+
+        setSession(null);
+        toast("Signed out.");
+
+        if (token) {
+            request("/auth/v1/logout", {
+                method: "POST",
+                token
+            }).catch(() => {});
+        }
+    }
+
+    $("mh-signout").onclick = signOut;
+
+    /* ---------- PDF preview (pdf.js, loaded only when needed) ---------- */
+    let pdfjsPromise = null;
+    let previewToken = 0;
+    let previewUrl = null;
+    let previewDoc = null;
+
+    // Use the existing local PDF.js build when possible. On devices where it
+    // cannot initialize, retry with a matching hosted API + worker pair.
+    const PREVIEW_PDFJS_CDN =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/";
+
+    function loadPdfJs(useFallback = false) {
+        if (!useFallback && window.pdfjsLib) {
+            return Promise.resolve(window.pdfjsLib);
+        }
+
+        if (useFallback) {
+            return import(PREVIEW_PDFJS_CDN + "pdf.min.mjs")
+                .then(pdfjs => {
+                    pdfjs.GlobalWorkerOptions.workerSrc =
+                        PREVIEW_PDFJS_CDN + "pdf.worker.min.mjs";
+                    return pdfjs;
+                });
+        }
+
+        if (!pdfjsPromise) {
+            pdfjsPromise = import("./pdfjs/build/pdf.mjs")
+                .then(pdfjs => {
+                    pdfjs.GlobalWorkerOptions.workerSrc =
+                        "./pdfjs/build/pdf.worker.mjs";
+                    window.pdfjsLib = pdfjs;
+                    return pdfjs;
+                })
+                .catch(error => {
+                    console.warn("Local PDF preview engine unavailable:", error);
+                    pdfjsPromise = null;
+                    return loadPdfJs(true);
+                });
+        }
+
+        return pdfjsPromise;
+    }
+
+    function cleanupPreview() {
+        previewToken++;
+
+        if (previewDoc) {
+            previewDoc.destroy?.();
+            previewDoc = null;
+        }
+
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+        }
+
+        $("mh-prev-body").replaceChildren();
+    }
+
+    previewDialog.addEventListener("close", cleanupPreview);
+    $("mh-prev-x").onclick = () => previewDialog.close();
+    $("mh-prev-close").onclick = () => previewDialog.close();
+
+    async function previewPDF(file, title) {
+        cleanupPreview();
+
+        const token = ++previewToken;
+        const body = $("mh-prev-body");
+
+        $("mh-prev-title").textContent = title || file.name;
+        $("mh-prev-sub").textContent = file.name + " · " + formatSize(file.size);
+
+        const wait = el("div", "mh-prev-wait");
+        wait.append(el("span", "mh-spinner is-dark"), el("span", "", "Preparing preview…"));
+        body.replaceChildren(wait);
+
+        previewUrl = URL.createObjectURL(file);
+        $("mh-prev-open").href = previewUrl;
+        openModal(previewDialog);
+
+        // Rendering a large number of full-page canvases can exhaust Android
+        // tablet memory. Show the first few pages on touch devices instead.
+        const isTabletOrPhone = matchMedia("(pointer: coarse)").matches;
+        const pageLimit = isTabletOrPhone ? 6 : MAX_PREVIEW_PAGES;
+        const pixelRatio = isTabletOrPhone
+            ? Math.min(window.devicePixelRatio || 1, 1.25)
+            : Math.min(window.devicePixelRatio || 1, 2);
+
+        async function renderWith(pdfjs) {
+            const data = await file.arrayBuffer();
+            if (token !== previewToken) return;
+
+            const task = pdfjs.getDocument({ data: new Uint8Array(data) });
+            const doc = await task.promise;
+            if (token !== previewToken) {
+                await doc.destroy();
+                return;
+            }
+
+            previewDoc = doc;
+            body.replaceChildren();
+            const width = Math.max(body.clientWidth - 28, 280);
+            const pages = Math.min(doc.numPages, pageLimit);
+
+            for (let number = 1; number <= pages; number++) {
+                if (token !== previewToken) return;
+                const page = await doc.getPage(number);
+                const base = page.getViewport({ scale: 1 });
+                const viewport = page.getViewport({
+                    scale: (width * pixelRatio) / base.width
+                });
+                const canvas = document.createElement("canvas");
+                canvas.width = Math.floor(viewport.width);
+                canvas.height = Math.floor(viewport.height);
+                canvas.setAttribute("aria-label", "Page " + number + " of " + doc.numPages);
+                body.append(canvas);
+                await page.render({
+                    canvasContext: canvas.getContext("2d"),
+                    viewport
+                }).promise;
+                page.cleanup?.();
+            }
+
+            if (doc.numPages > pages) {
+                body.append(el(
+                    "p", "mh-prev-more",
+                    "Previewing the first " + pages + " of " + doc.numPages +
+                    " pages. Use “Open in new tab” for the full PDF."
+                ));
+            }
+        }
+
+        try {
+            await renderWith(await loadPdfJs());
+        } catch (firstError) {
+            if (token !== previewToken) return;
+            console.warn("PDF preview render failed; retrying:", firstError);
+            // If the local PDF.js engine fails on Samsung Chrome, retry with
+            // the matching hosted version rather than an Android blob iframe.
+            try {
+                if (previewDoc) {
+                    await previewDoc.destroy?.().catch?.(() => {});
+                    previewDoc = null;
+                }
+                body.replaceChildren(wait);
+                await renderWith(await loadPdfJs(true));
+            } catch (secondError) {
+                if (token !== previewToken) return;
+                console.error("PDF preview unavailable:", secondError);
+                body.replaceChildren();
+                const errorMessage = el(
+                    "div", "mh-prev-wait",
+                    "Preview unavailable in this browser. Tap “Open in new tab” below to view the PDF."
+                );
+                body.append(errorMessage);
+            }
+        }
+    }
+
+    /* ---------- Upload sheet ---------- */
+    function renderDestination(node, subject, lecture) {
+        node.replaceChildren();
+        node.insertAdjacentHTML("beforeend", ICON.folder);
+
+        const parts = [
+            "Stage " + subject.stage,
+            subject.blockLabel,
+            subject.name
+        ];
+
+        if (lecture) parts.push(lecture);
+
+        for (const text of parts) {
+            node.append(el("span", "", text));
+        }
+    }
+
+    function updateDropBox() {
+        const has = queue.length > 0;
+
+        $("mh-drop").classList.toggle("is-compact", has);
+        $("mh-drop-title").textContent = has ? "Add more PDFs" : "Choose PDFs";
+        $("mh-drop-sub").textContent = has
+            ? queue.length + " selected · up to " + MAX_FILES + " per batch"
+            : "Tap to browse. Pick several at once. Up to 50 MB each.";
+    }
+
+    function updatePublishLabel() {
+        if (busy) return;
+
+        const label = queue.length > 1
+            ? "Publish " + queue.length + " lectures"
+            : "Publish lecture";
+
+        $("mh-publish").querySelector(".mh-btn-text").textContent = label;
+        $("mh-sheet-title").textContent =
+            queue.length > 1 ? "Add lectures" : "Add a lecture";
+    }
+
+    function resetQueue() {
+        queue = [];
+        $("mh-queue").replaceChildren();
+        $("mh-file").value = "";
+        message($("mh-status"), "");
+        $("mh-summary").hidden = true;
+        updateDropBox();
+        updatePublishLabel();
+    }
+
+    function openSheet() {
+        const subject = currentSubject();
+
+        if (!session || !subject) return;
+
+        if (sheetKey !== subject.key) {
+            resetQueue();
+            sheetKey = subject.key;
+        }
+
+        renderDestination($("mh-dest"), subject);
+        message($("mh-status"), "");
+
+        openModal(sheet);
+    }
+
+    $("mh-sheet-close").onclick = () => sheet.close();
+    $("mh-cancel").onclick = () => sheet.close();
+
+    // A dismissed upload sheet must never keep unpublished PDF drafts.
+    // Covers Cancel, the X button, backdrop taps and navigation away.
+    sheet.addEventListener("close", () => {
+        if (busy) return;
+        closeLectureTypePickers();
+        resetQueue();
+        sheetKey = null;
+    });
+
+    function setItemState(item, state, value, text) {
+        const node = item.node;
+        node.dataset.state = state;
+
+        const progress = node.querySelector(".mh-qprog");
+        const bar = node.querySelector(".mh-bar span");
+        const label = node.querySelector(".mh-qstate");
+
+        progress.hidden = state === "queued";
+
+        if (state === "uploading") {
+            const percent = Math.round((value || 0) * 100);
+            bar.style.width = percent + "%";
+            label.textContent = "Uploading… " + percent + "%";
+        } else if (state === "saving") {
+            bar.style.width = "100%";
+            label.textContent = "Saving details…";
+        } else if (state === "done") {
+            bar.style.width = "100%";
+            label.textContent = "Published";
+        } else if (state === "error") {
+            label.textContent = text || "Something went wrong.";
+        }
+    }
+
+    /* ---------- Polished lecture-type picker (upload queue only) ---------- */
+    function closeLectureTypePickers(except = null) {
+        document.querySelectorAll(".mh-type-picker.is-open").forEach(picker => {
+            if (picker === except) return;
+            picker.classList.remove("is-open");
+            const trigger = picker.querySelector(".mh-type-trigger");
+            if (trigger) trigger.setAttribute("aria-expanded", "false");
+        });
+    }
+
+    function decorateLectureTypeSelect(select) {
+        const picker = el("div", "mh-type-picker");
+        const trigger = el("button", "mh-type-trigger");
+        const menu = el("div", "mh-type-options");
+        const label = el("span", "mh-type-current", select.value || TYPES[0]);
+
+        trigger.type = "button";
+        trigger.setAttribute("aria-label", "Choose lecture type");
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.append(label);
+        trigger.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>');
+        menu.setAttribute("aria-label", "Lecture types");
+
+        const redraw = () => {
+            label.textContent = select.value;
+            menu.querySelectorAll(".mh-type-option").forEach(option => {
+                const chosen = option.dataset.value === select.value;
+                option.classList.toggle("is-selected", chosen);
+                option.setAttribute("aria-pressed", String(chosen));
+            });
+        };
+
+        for (const type of TYPES) {
+            const option = el("button", "mh-type-option");
+            option.type = "button";
+            option.dataset.value = type;
+            option.append(el("span", "", type));
+            option.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>');
+            option.addEventListener("click", () => {
+                if (select.value !== type) {
+                    select.value = type;
+                    select.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+                redraw();
+                closeLectureTypePickers();
+                trigger.focus({ preventScroll: true });
+            });
+            menu.append(option);
+        }
+
+        trigger.addEventListener("click", () => {
+            const opening = !picker.classList.contains("is-open");
+            closeLectureTypePickers();
+            picker.classList.toggle("is-open", opening);
+            trigger.setAttribute("aria-expanded", String(opening));
+            if (opening) {
+                trigger.scrollIntoView({ block: "nearest", behavior: "instant" });
+            }
+        });
+        trigger.addEventListener("keydown", event => {
+            if (event.key === "ArrowDown" && !picker.classList.contains("is-open")) {
+                event.preventDefault();
+                trigger.click();
+            }
+            if (event.key === "Escape") closeLectureTypePickers();
+        });
+        menu.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeLectureTypePickers();
+                trigger.focus();
+            }
+        });
+        select.addEventListener("change", redraw);
+        select.classList.add("mh-type-native");
+        select.setAttribute("aria-hidden", "true");
+        select.tabIndex = -1;
+        select.parentNode.insertBefore(picker, select);
+        picker.append(select, trigger, menu);
+        redraw();
+    }
+
+    document.addEventListener("pointerdown", event => {
+        if (!event.target.closest(".mh-type-picker")) closeLectureTypePickers();
+    });
+
+    function buildQueueItem(file) {
+        const item = {
+            id: ++queueId,
+            file,
+            title: titleFromName(file.name),
+            category: TYPES[0],
+            description: "",
+            lectureDate: "",
+            path: null,
+            rowId: null,
+            order: null,
+            uploaded: false,
+            checked: false,
+            done: false,
+            node: null
+        };
+
+        const node = el("article", "mh-qitem");
+        node.dataset.state = "queued";
+        node.dataset.id = String(item.id);
+        node.innerHTML = `
+            <div class="mh-qhead">
+                <span class="mh-qicon">${ICON.file}</span>
+                <div class="mh-qmeta">
+                    <strong class="mh-qname"></strong>
+                    <small></small>
+                </div>
+                <button type="button" class="mh-icon-btn mh-sm" data-act="preview"
+                    aria-label="Preview PDF">${ICON.eye}</button>
+                <button type="button" class="mh-icon-btn mh-sm" data-act="remove"
+                    aria-label="Remove from list">${ICON.close}</button>
+            </div>
+            <label class="mh-field">
+                <span class="mh-flabel">Title</span>
+                <input type="text" class="mh-qtitle" maxlength="200"
+                    autocomplete="off" placeholder="Lecture title">
+            </label>
+            <div class="mh-qrow">
+                <label class="mh-field">
+                    <span class="mh-flabel">Type</span>
+                    <select class="mh-select mh-qcat"></select>
+                </label>
+                <label class="mh-field">
+                    <span class="mh-flabel">Label<span class="mh-opt">Optional</span></span>
+                    <input type="text" class="mh-qdesc" maxlength="200"
+                        autocomplete="off" placeholder="e.g. Lab 8">
+                </label>
+            </div>
+            <label class="mh-field mh-date-field">
+                <span class="mh-flabel">Lecture date <span class="mh-opt">Optional · actual teaching date</span></span>
+                <input type="date" class="mh-qdate" aria-label="Actual lecture date">
+            </label>
+            <div class="mh-qprog" hidden>
+                <div class="mh-bar"><span></span></div>
+                <small class="mh-qstate"></small>
+            </div>
+        `;
+
+        node.querySelector(".mh-qname").textContent = file.name;
+        node.querySelector("small").textContent = formatSize(file.size);
+        node.querySelector(".mh-qtitle").value = item.title;
+
+        const select = node.querySelector(".mh-qcat");
+        for (const type of TYPES) select.append(new Option(type, type));
+        decorateLectureTypeSelect(select);
+
+        item.node = node;
+        return item;
+    }
+
+    function addFiles(files) {
+        const problems = [];
+
+        for (const file of files) {
+            if (queue.length >= MAX_FILES) {
+                problems.push("Only " + MAX_FILES + " PDFs can be added at a time.");
+                break;
+            }
+
+            if (!isPDFFile(file)) {
+                problems.push(file.name + " is not a PDF.");
+                continue;
+            }
+
+            if (!file.size || file.size > MAX_BYTES) {
+                problems.push(file.name + " is empty or larger than 50 MB.");
+                continue;
+            }
+
+            if (queue.some(entry =>
+                entry.file.name === file.name &&
+                entry.file.size === file.size &&
+                entry.file.lastModified === file.lastModified
+            )) continue;
+
+            const item = buildQueueItem(file);
+            queue.push(item);
+            $("mh-queue").append(item.node);
+        }
+
+        message($("mh-status"), problems.join(" "));
+        $("mh-summary").hidden = true;
+        updateDropBox();
+        updatePublishLabel();
+    }
+
+    $("mh-file").addEventListener("change", () => {
+        const files = [...$("mh-file").files];
+
+        /* Reset so the same file can be picked again after removing it. */
+        $("mh-file").value = "";
+
+        if (files.length) addFiles(files);
+    });
+
+    /* Edits and buttons inside the queue. */
+    function itemFrom(target) {
+        const node = target.closest(".mh-qitem");
+        return node && queue.find(item => item.node === node);
+    }
+
+    $("mh-queue").addEventListener("input", event => {
+        const item = itemFrom(event.target);
+        if (!item) return;
+
+        if (event.target.classList.contains("mh-qtitle")) {
+            item.title = event.target.value;
+            event.target.removeAttribute("aria-invalid");
+        } else if (event.target.classList.contains("mh-qdesc")) {
+            item.description = event.target.value;
+        }
+    });
+
+    $("mh-queue").addEventListener("change", event => {
+        const item = itemFrom(event.target);
+
+        if (!item) return;
+        if (event.target.classList.contains("mh-qcat")) {
+            item.category = event.target.value;
+        } else if (event.target.classList.contains("mh-qdate")) {
+            item.lectureDate = event.target.value;
+        }
+    });
+
+    $("mh-queue").addEventListener("click", event => {
+        const button = event.target.closest("button[data-act]");
+        const item = button && itemFrom(button);
+
+        if (!item || busy) return;
+
+        if (button.dataset.act === "preview") {
+            previewPDF(item.file, item.title.trim() || item.file.name);
+        } else if (button.dataset.act === "remove") {
+            queue = queue.filter(entry => entry !== item);
+            item.node.remove();
+            updateDropBox();
+            updatePublishLabel();
+        }
+    });
+
+    const drop = $("mh-drop");
+
+    ["dragenter", "dragover"].forEach(name =>
+        drop.addEventListener(name, event => {
+            event.preventDefault();
+            drop.classList.add("is-over");
+        })
+    );
+
+    ["dragleave", "drop"].forEach(name =>
+        drop.addEventListener(name, () => drop.classList.remove("is-over"))
+    );
+
+    drop.addEventListener("drop", event => {
+        event.preventDefault();
+
+        const files = [...(event.dataTransfer?.files || [])];
+
+        if (files.length) addFiles(files);
+    });
+
+    /* New lectures go after the existing ones in this subject. */
+    function nextOrder(subject) {
+        let highest = -1;
+
+        for (const row of rowsFor(subject)) {
+            const order = Number(row.sort_order);
+
+            if (Number.isFinite(order)) highest = Math.max(highest, order);
+        }
+
+        return highest + 1;
+    }
+
+    async function hasPDFHeader(file) {
+        const header = new TextDecoder().decode(
+            await file.slice(0, 1024).arrayBuffer()
+        );
+
+        return header.includes("%PDF-");
+    }
+
+    /* Upload one PDF, then save its lecture details. Safe to retry. */
+    async function publishItem(item, subject) {
+        try {
+            if (!item.checked) {
+                if (!(await hasPDFHeader(item.file))) {
+                    throw new Error("This file does not appear to be a PDF.");
+                }
+
+                item.checked = true;
+            }
+
+            const token = await accessToken();
+
+            if (!item.path) {
+                item.path = session.user.id + "/" + crypto.randomUUID() + ".pdf";
+                item.rowId = crypto.randomUUID();
+            }
+
+            if (!item.uploaded) {
+                setItemState(item, "uploading", 0);
+
+                await uploadPDF(item.path, item.file, token, fraction =>
+                    setItemState(item, "uploading", fraction)
+                );
+
+                item.uploaded = true;
+            }
+
+            setItemState(item, "saving");
+
+            await request("/rest/v1/lectures?on_conflict=id", {
+                method: "POST",
+                token: await accessToken(),
+                headers: {
+                    "Content-Type": "application/json",
+                    Prefer: "resolution=ignore-duplicates,return=minimal"
+                },
+                body: JSON.stringify({
+                    id: item.rowId,
+                    title: item.title.trim(),
+                    stage: subject.stage,
+                    block: subject.block,
+                    subject: subject.key,
+                    category: item.category,
+                    description: item.description.trim(),
+                    lecture_date: item.lectureDate || null,
+                    file_size_bytes: item.file.size,
+                    sort_order: item.order,
+                    file_path: item.path
+                })
+            });
+
+            item.done = true;
+            setItemState(item, "done");
+        } catch (error) {
+            setItemState(
+                item,
+                "error",
+                0,
+                error.message +
+                (item.uploaded
+                    ? " The PDF is uploaded; press Publish to retry saving its details."
+                    : "")
+            );
+        }
+    }
+
+    async function runPool(items, size, worker) {
+        let next = 0;
+
+        await Promise.all(
+            Array.from({ length: Math.min(size, items.length) }, async () => {
+                while (next < items.length) await worker(items[next++]);
+            })
+        );
+    }
+
+    function setSheetBusy(on) {
+        busy = on;
+
+        for (const control of $("mh-upload").elements) {
+            control.disabled = on;
+        }
+
+        $("mh-sheet-close").disabled = on;
+        $("mh-drop").style.pointerEvents = on ? "none" : "";
+        $("mh-drop").style.opacity = on ? "0.6" : "";
+
+        setBusyButton(
+            $("mh-publish"),
+            on,
+            on ? "Publishing…" : "Publish lecture"
+        );
+
+        if (!on) updatePublishLabel();
+    }
+
+    $("mh-upload").onsubmit = async event => {
+        event.preventDefault();
+        if (busy) return;
+
+        const subject = currentSubject();
+
+        if (!session || !subject || subject.key !== sheetKey) {
+            return message(
+                $("mh-status"),
+                "Open the subject's lecture page and try again."
+            );
+        }
+
+        if (!queue.length) {
+            return message($("mh-status"), "Choose at least one PDF to upload.");
+        }
+
+        const missing = queue.find(item => !item.title.trim());
+
+        if (missing) {
+            const input = missing.node.querySelector(".mh-qtitle");
+            input.setAttribute("aria-invalid", "true");
+            input.focus();
+            return message($("mh-status"), "Every lecture needs a title.");
+        }
+
+        message($("mh-status"), "");
+        $("mh-summary").hidden = true;
+
+        const base = nextOrder(subject);
+
+        queue.forEach((item, index) => {
+            if (item.order == null) item.order = Math.min(base + index, 100000);
+        });
+
+        const batch = queue.slice();
+        let finished = 0;
+
+        $("mh-summary").hidden = false;
+        $("mh-summary").textContent = "0 of " + batch.length + " finished";
+
+        setSheetBusy(true);
+
+        await runPool(batch, CONCURRENCY, async item => {
+            await publishItem(item, subject);
+            finished++;
+            $("mh-summary").textContent =
+                finished + " of " + batch.length + " finished";
+        });
+
+        setSheetBusy(false);
+
+        const published = batch.filter(item => item.done);
+        const failed = batch.filter(item => !item.done);
+
+        queue = queue.filter(item => !item.done);
+        published.forEach(item => item.node.remove());
+
+        updateDropBox();
+        updatePublishLabel();
+
+        if (failed.length) {
+            message(
+                $("mh-status"),
+                (published.length
+                    ? published.length + " published, " + failed.length + " failed. "
+                    : "Nothing was published. ") +
+                "Fix the problems below, then press Publish again to retry.",
+                "error"
+            );
+        } else {
+            resetQueue();
+            sheetKey = null;
+            sheet.close();
+        }
+
+        if (!published.length) return;
+
+        while (loading) {
+            await new Promise(resolve => setTimeout(resolve, 120));
+        }
+
+        const refreshed = await refreshLectures();
+        const noun = published.length === 1
+            ? "“" + published[0].title.trim() + "”"
+            : published.length + " lectures";
+
+        if (refreshed) {
+            toast("Published. " + noun + " added to " + subject.name + ".", "success");
+            highlight(pdfURL(published[published.length - 1].path));
+        } else {
+            toast("Published. Refresh the page to see the new lectures.", "success");
+        }
+    };
+
+    function highlight(url, className = "mh-new") {
+        requestAnimationFrame(() => {
+            const card = [...$("resource-grid").children]
+                .find(item => item.dataset.url === url);
+
+            if (!card) return;
+
+            card.scrollIntoView({
+                behavior: reduceMotion.matches ? "auto" : "smooth",
+                block: "center"
+            });
+
+            card.classList.add(className);
+            setTimeout(() => card.classList.remove(className), 4000);
+        });
+    }
+
+    /* ---------- Edit details ---------- */
+    function buildEditChips(selected) {
+        const types = TYPES.includes(selected) || !selected
+            ? TYPES
+            : [...TYPES, selected];
+
+        const wrap = $("mh-edit-types");
+        wrap.replaceChildren();
+
+        for (const type of types) {
+            const label = el("label", "mh-chip");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "mh-edit-category";
+            input.value = type;
+            input.checked = type === (selected || TYPES[0]);
+
+            label.append(input, el("span", "", type));
+            wrap.append(label);
+        }
+    }
+
+    function openEdit(row) {
+        const subject = currentSubject();
+        if (!subject) return;
+
+        editRow = row;
+        $("mh-edit-title").value = row.title || "";
+        $("mh-edit-title").removeAttribute("aria-invalid");
+        $("mh-edit-desc").value = row.description || "";
+        $("mh-edit-date").value = row.lecture_date || "";
+        buildEditChips(row.category);
+        message($("mh-edit-status"), "");
+        renderDestination($("mh-edit-dest"), subject);
+
+        openModal(editDialog);
+    }
+
+    $("mh-edit-close").onclick = () => editDialog.close();
+    $("mh-edit-cancel").onclick = () => editDialog.close();
+
+    $("mh-edit").onsubmit = async event => {
+        event.preventDefault();
+        if (busy || !editRow) return;
+
+        const row = editRow;
+        const title = $("mh-edit-title").value.trim();
+        const description = $("mh-edit-desc").value.trim();
+        const lectureDate = $("mh-edit-date").value || null;
+        const category = $("mh-edit")
+            .querySelector('input[name="mh-edit-category"]:checked')?.value ||
+            row.category;
+
+        if (!title) {
+            $("mh-edit-title").setAttribute("aria-invalid", "true");
+            $("mh-edit-title").focus();
+            return message($("mh-edit-status"), "Enter the lecture title.");
+        }
+
+        if (
+            title === row.title &&
+            description === (row.description || "") &&
+            lectureDate === (row.lecture_date || null) &&
+            category === row.category
+        ) {
+            return editDialog.close();
+        }
+
+        busy = true;
+        setBusyButton($("mh-edit-save"), true, "Saving…");
+        for (const control of $("mh-edit").elements) control.disabled = true;
+        message($("mh-edit-status"), "");
+
+        try {
+            const saved = await changeRow("PATCH", row.id, {
+                title,
+                category,
+                description,
+                lecture_date: lectureDate
+            });
+
+            Object.assign(row, saved);
+            applyRows();
+            busy = false;
+            editDialog.close();
+            rerender();
+            toast("Lecture details saved.", "success");
+            highlight(pdfURL(row.file_path), "mh-moved");
+        } catch (error) {
+            message($("mh-edit-status"), error.message);
+        } finally {
+            busy = false;
+            setBusyButton($("mh-edit-save"), false, "Save changes");
+            for (const control of $("mh-edit").elements) control.disabled = false;
+        }
+    };
+
+    /* ---------- Delete (database row AND the stored PDF) ---------- */
+    function openDelete(row) {
+        deleteRow = row;
+        $("mh-confirm-name").textContent = row.title;
+        message($("mh-confirm-status"), "");
+        openModal(confirmDialog);
+        $("mh-confirm-cancel").focus();
+    }
+
+    $("mh-confirm-cancel").onclick = () => confirmDialog.close();
+
+    $("mh-confirm-delete").onclick = async () => {
+        if (busy || !deleteRow) return;
+
+        const row = deleteRow;
+
+        busy = true;
+        $("mh-confirm-cancel").disabled = true;
+        $("mh-confirm-delete").disabled = true;
+        setBusyButton($("mh-confirm-delete"), true, "Deleting…");
+        message($("mh-confirm-status"), "");
+
+        let fileWarning = "";
+
+        try {
+            /* 1. Remove the lecture so students stop seeing it. */
+            await changeRow("DELETE", row.id);
+
+            lastRows = lastRows.filter(item => item.id !== row.id);
+            applyRows();
+
+            /* 2. Remove the PDF from storage. */
+            if (safeStoragePath(row.file_path)) {
+                try {
+                    await removeStoredFile(row.file_path);
+                } catch (error) {
+                    fileWarning = error.message;
+                }
+            }
+
+            busy = false;
+            confirmDialog.close();
+            deleteRow = null;
+            rerender();
+
+            toast(
+                fileWarning
+                    ? "Lecture deleted, but its PDF file could not be removed from storage: " + fileWarning
+                    : "Lecture and its PDF file deleted.",
+                fileWarning ? "error" : "success"
+            );
+        } catch (error) {
+            message($("mh-confirm-status"), error.message);
+        } finally {
+            busy = false;
+            $("mh-confirm-cancel").disabled = false;
+            $("mh-confirm-delete").disabled = false;
+            setBusyButton($("mh-confirm-delete"), false, "Delete");
+        }
+    };
+
+    /* ---------- Replace a PDF, keep the lecture details ---------- */
+    function updateReplaceBox() {
+        const file = $("mh-rfile").files[0];
+
+        $("mh-rdrop").classList.toggle("has-file", Boolean(file));
+        $("mh-rdrop-icon").innerHTML = file ? ICON.check : ICON.pdf;
+        $("mh-rdrop-title").textContent = file ? file.name : "Choose the new PDF";
+        $("mh-rdrop-sub").textContent = file
+            ? formatSize(file.size) + ". Tap to change."
+            : "Tap to browse. Up to 50 MB.";
+        $("mh-rpreview").hidden = !file;
+    }
+
+    function openReplace(row) {
+        const subject = currentSubject();
+        if (!subject) return;
+
+        replaceRow = row;
+        replaceState = null;
+        $("mh-rfile").value = "";
+        updateReplaceBox();
+        message($("mh-replace-status"), "");
+        $("mh-rprogress").hidden = true;
+        $("mh-rbar").style.width = "0";
+        renderDestination($("mh-replace-dest"), subject, row.title);
+
+        openModal(replaceDialog);
+    }
+
+    $("mh-replace-close").onclick = () => replaceDialog.close();
+    $("mh-replace-cancel").onclick = () => replaceDialog.close();
+
+    $("mh-rfile").addEventListener("change", () => {
+        const file = $("mh-rfile").files[0];
+
+        replaceState = null;
+        message($("mh-replace-status"), "");
+
+        if (file && (!isPDFFile(file) || !file.size || file.size > MAX_BYTES)) {
+            $("mh-rfile").value = "";
+            message(
+                $("mh-replace-status"),
+                !isPDFFile(file)
+                    ? "Choose a PDF file."
+                    : "Choose a PDF no larger than 50 MB."
+            );
+        }
+
+        updateReplaceBox();
+    });
+
+    $("mh-rpreview").onclick = () => {
+        const file = $("mh-rfile").files[0];
+
+        if (file) previewPDF(file, replaceRow?.title);
+    };
+
+    $("mh-replace").onsubmit = async event => {
+        event.preventDefault();
+        if (busy || !replaceRow) return;
+
+        const row = replaceRow;
+        const file = $("mh-rfile").files[0];
+
+        if (!file) {
+            return message($("mh-replace-status"), "Choose the new PDF first.");
+        }
+
+        busy = true;
+        for (const control of $("mh-replace").elements) control.disabled = true;
+        setBusyButton($("mh-replace-save"), true, "Replacing…");
+        message($("mh-replace-status"), "");
+
+        const oldPath = row.file_path;
+        let cleanupWarning = "";
+        let newPath = null;
+
+        try {
+            if (!(await hasPDFHeader(file))) {
+                throw new Error("This file does not appear to be a PDF.");
+            }
+
+            const token = await accessToken();
+
+            /* A new file name means students never see a cached old copy,
+               and a failed attempt can never damage the current PDF. */
+            if (!replaceState || replaceState.file !== file) {
+                replaceState = {
+                    file,
+                    path: session.user.id + "/" + crypto.randomUUID() + ".pdf",
+                    uploaded: false
+                };
+            }
+
+            if (!replaceState.uploaded) {
+                $("mh-rprogress").hidden = false;
+                $("mh-rprogress-text").textContent = "Uploading PDF… 0%";
+                $("mh-rbar").style.width = "0";
+
+                await uploadPDF(replaceState.path, file, token, fraction => {
+                    const percent = Math.round(fraction * 100);
+                    $("mh-rbar").style.width = percent + "%";
+                    $("mh-rprogress-text").textContent =
+                        "Uploading PDF… " + percent + "%";
+                });
+
+                replaceState.uploaded = true;
+            }
+
+            $("mh-rbar").style.width = "100%";
+            $("mh-rprogress-text").textContent = "Switching the lecture to the new PDF…";
+
+            newPath = replaceState.path;
+
+            const saved = await changeRow("PATCH", row.id, { file_path: newPath });
+
+            Object.assign(row, saved);
+
+            /* Only now is the old PDF unused, so remove it. */
+            if (safeStoragePath(oldPath) && oldPath !== newPath) {
+                try {
+                    await removeStoredFile(oldPath);
+                } catch (error) {
+                    cleanupWarning = error.message;
+                }
+            }
+
+            applyRows();
+            replaceState = null;
+            busy = false;
+            replaceDialog.close();
+            rerender();
+
+            toast(
+                cleanupWarning
+                    ? "PDF replaced, but the old file could not be removed from storage: " + cleanupWarning
+                    : "PDF replaced. Lecture details were kept.",
+                cleanupWarning ? "error" : "success"
+            );
+
+            highlight(pdfURL(newPath), "mh-moved");
+        } catch (error) {
+            message(
+                $("mh-replace-status"),
+                error.message +
+                (replaceState?.uploaded
+                    ? " The new PDF is uploaded; press Replace PDF to retry."
+                    : "")
+            );
+
+            $("mh-rprogress").hidden = true;
+        } finally {
+            busy = false;
+            for (const control of $("mh-replace").elements) control.disabled = false;
+            setBusyButton($("mh-replace-save"), false, "Replace PDF");
+        }
+    };
+
+    /* ---------- Re-order ---------- */
+    async function moveLecture(id, direction) {
+        if (saving || busy) return;
+
+        const subject = currentSubject();
+        if (!subject) return;
+
+        const list = rowsFor(subject);
+        const index = list.findIndex(row => row.id === id);
+        const target = index + direction;
+
+        if (index < 0 || target < 0 || target >= list.length) return;
+
+        const reordered = list.slice();
+        [reordered[index], reordered[target]] = [reordered[target], reordered[index]];
+
+        const changes = [];
+
+        reordered.forEach((row, position) => {
+            if (Number(row.sort_order) !== position) {
+                changes.push({ row, position, before: row.sort_order });
+            }
+        });
+
+        saving = true;
+
+        /* Show the new order straight away; undo it if saving fails. */
+        changes.forEach(change => { change.row.sort_order = change.position; });
+        sortRows();
+        applyRows();
+        rerender();
+
+        const moved = list[index];
+        highlight(pdfURL(moved.file_path), "mh-moved");
+
+        try {
+            await Promise.all(
+                changes.map(change =>
+                    changeRow("PATCH", change.row.id, { sort_order: change.position })
+                )
+            );
+
+            toast("Order saved.", "success");
+        } catch (error) {
+            changes.forEach(change => { change.row.sort_order = change.before; });
+            sortRows();
+            applyRows();
+            toast("Could not save the new order: " + error.message, "error");
+        } finally {
+            saving = false;
+            rerender();
+        }
+    }
+
+    /* ---------- Lecture cards (rendered safely) ---------- */
+    renderResources = function (items, group, subjectTitle) {
+        const grid = $("resource-grid");
+        grid.replaceChildren();
+
+        const admin = Boolean(session);
+        // Sort by the actual session label, not upload order or PDF number.
+        // Uploaded lectures carry their type in row.category and their number
+        // normally in row.description (for example "SGL 4" or "LG 2").
+        function sessionKey(item) {
+            const fields = [
+                item.row?.description,
+                item.description,
+                item.row?.category,
+                item.title
+            ].map(value => String(value || ""));
+            const typeRank = { SGL: 0, LG: 1, LAB: 2, PRACTICAL: 2 };
+            for (const field of fields) {
+                const match = field.match(/\b(SGL|LG|LAB|PRACTICAL)\s*[-_.#:]?\s*0*(\d+)\b/i);
+                if (match) return [typeRank[match[1].toUpperCase()], Number(match[2])];
+            }
+            const category = String(item.row?.category || "").trim().toUpperCase();
+            if (category in typeRank) return [typeRank[category], Infinity];
+            for (const field of fields) {
+                const match = field.match(/\b(SGL|LG|LAB|PRACTICAL)\b/i);
+                if (match) return [typeRank[match[1].toUpperCase()], Infinity];
+            }
+            return [3, Infinity];
+        }
+        const sortedItems = [...items].sort((a, b) => {
+            const x = sessionKey(a), y = sessionKey(b);
+            return (x[0] - y[0]) || (x[1] - y[1]);
+        });
+        const uploaded = sortedItems.filter(item => item.row);
+
+        sortedItems.forEach((item, index) => {
+            const card = document.createElement("article");
+            card.className = "resource-card" +
+                (group === "bbb" ? " bbb-resource" : "");
+
+            card.dataset.url = item.url;
+            if (item.row) card.dataset.id = item.row.id;
+
+            card.style.animationDelay =
+                Math.min(index * 0.05, 0.5) + "s";
+
+            function add(tag, className, text) {
+                const node = document.createElement(tag);
+                node.className = className;
+                node.textContent = text;
+                card.append(node);
+                return node;
+            }
+
+            add("div", "resource-icon", "📄");
+
+            const indexLabel = add(
+                "div",
+                "resource-index",
+                "PDF " + String(index + 1).padStart(2, "0")
+            );
+
+            if (admin) {
+                indexLabel.append(el(
+                    "span",
+                    "mh-src " + (item.row ? "is-up" : "is-orig"),
+                    item.row ? "Uploaded" : "Original"
+                ));
+            }
+
+            add("h3", "", item.title);
+            add("p", "", item.description);
+
+            const position = uploaded.indexOf(item);
+
+            if (admin && arranging && item.row) {
+                const bar = el("div", "mh-arrange");
+                bar.append(el(
+                    "span",
+                    "",
+                    "Position " + (position + 1) + " of " + uploaded.length
+                ));
+
+                const buttons = el("div");
+
+                for (const [direction, glyph, label] of [
+                    [-1, ICON.up, "Move earlier"],
+                    [1, ICON.down, "Move later"]
+                ]) {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.innerHTML = glyph;
+                    button.setAttribute("aria-label", label + ": " + item.title);
+                    button.disabled = saving ||
+                        (direction < 0 ? position === 0 : position === uploaded.length - 1);
+                    button.onclick = () => moveLecture(item.row.id, direction);
+                    buttons.append(button);
+                }
+
+                bar.append(buttons);
+                card.append(bar);
+            }
+
+            // Academic metadata: show only genuine sizes and lecture dates.
+            // Original GitHub PDFs have no stored lecture date; never invent one.
+            const meta = document.createElement("div");
+            meta.className = "mh-lecture-meta";
+
+            const iconMarkup = kind => kind === "date"
+                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>'
+                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
+            const addMeta = (kind, value) => {
+                const cell = document.createElement("span");
+                cell.className = "mh-lecture-meta-item";
+                cell.innerHTML = iconMarkup(kind);
+                const valueSpan = document.createElement("span");
+                valueSpan.textContent = value;
+                cell.append(valueSpan);
+                meta.append(cell);
+                return valueSpan;
+            };
+
+            if (/^\d{4}-\d{2}-\d{2}$/.test(item.lectureDate || "")) {
+                const date = new Date(item.lectureDate + "T12:00:00Z");
+                if (!Number.isNaN(date.getTime())) {
+                    addMeta("date", date.toLocaleDateString("en-GB", {
+                        day: "numeric", month: "short", year: "numeric", timeZone: "UTC"
+                    }));
+                }
+            }
+            if (meta.children.length) card.append(meta);
+
+            // One primary action. Download remains available inside the Reader.
+            const actions = add("div", "resource-actions", "");
+            const open = document.createElement("a");
+            open.className = "btn-link btn-open";
+            open.textContent = "Open PDF";
+            open.href = item.url;
+            try {
+                // Reuse the homepage's viewer URL, including Samsung Back state.
+                if (typeof viewerURL === "function") {
+                    open.href = viewerURL(item.url, item.title);
+                }
+            } catch (error) {
+                console.warn("Using the original PDF link:", error);
+            }
+            actions.append(open);
+
+if (admin) {
+    const more = document.createElement("button");
+    more.type = "button";
+    more.className = "mh-more";
+    more.innerHTML = ICON.more;
+    more.setAttribute(
+        "aria-label",
+        "Lecture options: " + item.title
+    );
+    more.setAttribute("aria-haspopup", "menu");
+    more.setAttribute("aria-expanded", "false");
+
+    more.onclick = event => {
+        event.stopPropagation();
+        openMenu(
+            more,
+            menuForCard(item, position, uploaded.length)
+        );
+    };
+
+    card.append(more);
 }
 
-</script>
+grid.append(card);
 
-<script>
-/* MedHub — pen hover (S Pen / Apple Pencil). Native :hover is not applied on
-   touch-first tablets, so pen/mouse hover is mirrored onto a CSS class.
-   One delegated listener set covers every card, including dynamic ones.
-   Finger touch is ignored, so taps open cards with no sticky hover. */
-(function () {
-    var SEL = '.block-card, .subject-card, .split-card, .resource-card';
-    var desktopMouse = window.matchMedia('(hover: hover) and (pointer: fine)');
-    var cur = null;
-    function clear() { if (cur) { cur.classList.remove('mh-hover'); cur = null; } }
-    document.addEventListener('pointerover', function (e) {
-        if (e.pointerType === 'touch' || (e.pointerType === 'mouse' && desktopMouse.matches)) { clear(); return; }
-        var card = e.target.closest ? e.target.closest(SEL) : null;
-        if (card === cur) return;
-        clear();
-        if (card) { card.classList.add('mh-hover'); cur = card; }
-    }, { passive: true });
-    document.addEventListener('pointerout', function (e) {
-        if (cur && !cur.contains(e.relatedTarget)) clear();
-    }, { passive: true });
-    document.addEventListener('pointerdown', clear, { passive: true });
-    document.addEventListener('pointercancel', clear, { passive: true });
-    window.addEventListener('pagehide', clear);
-    window.addEventListener('blur', clear);
+});
+
+// Resolve actual file sizes for original GitHub PDFs (no guessed metadata).
+if (typeof mhObserveOriginalFileSizes === "function") {
+    mhObserveOriginalFileSizes(grid);
+}
+
+if (admin) {
+    ensureToolbar();
+    toolbar.hidden = !currentSubject();
+    updateToolbar(items);
+}
+};
+
+/* Fetch uploaded lectures without changing the original ones. */
+async function refreshLectures() {
+    if (loading) return false;
+
+    loading = true;
+    notice.textContent = "Checking for new lectures…";
+
+    try {
+        const rows = [];
+
+        for (let offset = 0; ; offset += 1000) {
+            const page = await request(
+                "/rest/v1/lectures?select=*" +
+                "&order=sort_order.asc,created_at.asc,id.asc" +
+                "&limit=1000&offset=" + offset
+            );
+
+            if (!Array.isArray(page)) {
+                throw new Error("Unexpected lecture response.");
+            }
+
+            rows.push(...page);
+            if (page.length < 1000) break;
+        }
+
+        lastRows = rows;
+        applyRows();
+        rerender();
+
+        notice.textContent = "";
+        return true;
+
+    } catch {
+        notice.replaceChildren(
+            document.createTextNode(
+                "New lectures could not load. " +
+                "Existing lectures are still available. "
+            )
+        );
+
+        const retry = document.createElement("button");
+        retry.id = "mh-retry";
+        retry.textContent = "Retry";
+        retry.onclick = refreshLectures;
+        notice.append(retry);
+
+        return false;
+
+    } finally {
+        loading = false;
+    }
+}
+
+syncAdmin();
+rerender();
+refreshLectures();
+
+/* Don't refresh in the middle of a save. */
+window.addEventListener("focus", () => {
+    if (!busy && !saving) refreshLectures();
+});
 })();
-</script>
-<script src="./admin.js?v=20261113-dateonly"></script>
-</body>
-</html>
