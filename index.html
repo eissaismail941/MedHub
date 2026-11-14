@@ -3275,11 +3275,44 @@ title = lectureTitles[filename] || title;
         }, { rootMargin:'250px' });
         pending.forEach(node => observer.observe(node));
     }
+    // Sort lecture cards by session type and numeric session number.
+    // Display labels and PDF links remain unchanged.
+    function mhLectureSortKey(item) {
+        const description = String(item.description || '');
+        const title = String(item.title || '');
+        const filename = String(item.url || '').split(/[?#]/)[0].split('/').pop() || '';
+        const fields = [description, title, filename];
+        const patterns = [
+            { rank: 0, regex: /\bSGL[\s._-]*0*(\d+)\b/i },
+            { rank: 1, regex: /\bLG[\s._-]*0*(\d+)\b/i },
+            { rank: 2, regex: /\b(?:LAB|PRACTICAL)[\s._-]*0*(\d+)\b/i }
+        ];
+        for (const {rank, regex} of patterns) {
+            for (const field of fields) {
+                const match = field.match(regex);
+                if (match) return {rank, number: Number(match[1])};
+            }
+        }
+        // Recognize type-only labels without guessing a session number.
+        for (const [rank, regex] of [
+            [0, /\bSGL\b/i], [1, /\bLG\b/i], [2, /\b(?:LAB|PRACTICAL)\b/i]
+        ]) {
+            if (fields.some(field => regex.test(field))) return {rank, number: Infinity};
+        }
+        return {rank: 3, number: Infinity};
+    }
+    function mhSortLectures(items) {
+        return [...items].sort((a, b) => {
+            const x = mhLectureSortKey(a);
+            const y = mhLectureSortKey(b);
+            return (x.rank - y.rank) || (x.number === y.number ? 0 : x.number - y.number);
+        });
+    }
     function renderResources(items, group, subjectTitle) {
         const grid = document.getElementById('resource-grid');
         const isBBB = group === 'bbb';
         const escapeAttr = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-        grid.innerHTML = items.map((item, index) => {
+        grid.innerHTML = mhSortLectures(items).map((item, index) => {
             const when = mhFormatLectureDate(item.lectureDate);
             return `
             <article class="resource-card${isBBB ? ' bbb-resource' : ''}" style="animation-delay: ${index * 0.05}s">
