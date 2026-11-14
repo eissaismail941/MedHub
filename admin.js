@@ -12,7 +12,7 @@
 
     const ADMIN_IDS = [
     "475f2fec-d7da-4443-91dc-d75e03dfacbd",
-    "02bec3ff-297a-4ff9-8d84-4f004e9b0f80"
+    "a20b0d64-3ec4-469c-8999-150a464b312b"
 ];
 
 const isAdmin = (userId) => ADMIN_IDS.includes(userId);
