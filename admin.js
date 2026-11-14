@@ -353,6 +353,7 @@ let session = readSavedSession();
                 <label class="mh-field mh-date-field">
                     <span class="mh-flabel">Lecture date <span class="mh-opt">Optional · actual teaching date</span></span>
                     <input id="mh-edit-date" type="date" aria-label="Actual lecture date">
+                    <button id="mh-clear-date" type="button" class="mh-btn mh-btn-ghost" style="margin-top:8px;padding:8px 14px" aria-label="Clear lecture date">Clear date</button>
                 </label>
                 <div class="mh-note">${ICON.info}<span>
                     The PDF file and the lecture's position stay the same.
@@ -1999,6 +2000,11 @@ let session = readSavedSession();
 
         openModal(editDialog);
     }
+
+    $("mh-clear-date").onclick = () => {
+        $("mh-edit-date").value = "";
+        $("mh-edit-date").dispatchEvent(new Event("change", { bubbles: true }));
+    };
 
     $("mh-edit-close").onclick = () => editDialog.close();
     $("mh-edit-cancel").onclick = () => editDialog.close();
