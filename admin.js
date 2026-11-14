@@ -2342,22 +2342,25 @@ let session = readSavedSession();
         // Uploaded lectures carry their type in row.category and their number
         // normally in row.description (for example "SGL 4" or "LG 2").
         function sessionKey(item) {
-            const fields = [
-                item.row?.description,
-                item.description,
-                item.row?.category,
-                item.title
-            ].map(value => String(value || ""));
-            const typeRank = { SGL: 0, LG: 1, LAB: 2, PRACTICAL: 2 };
+            // Display sorting only. Never change database rows or lecture loading.
+            const label = String(item.row?.description || item.description || '').trim();
+            const category = String(item.row?.category || '').trim();
+            const title = String(item.title || '');
+            const fields = [label, category, title];
+            const ranks = { SGL: 0, LG: 1, LAB: 2, PRACTICAL: 2 };
+            const numberPattern = /\b(SGL|LG|LAB|PRACTICAL)\s*[-_.#:]?\s*0*(\d+)\b/i;
             for (const field of fields) {
-                const match = field.match(/\b(SGL|LG|LAB|PRACTICAL)\s*[-_.#:]?\s*0*(\d+)\b/i);
-                if (match) return [typeRank[match[1].toUpperCase()], Number(match[2])];
+                const match = field.match(numberPattern);
+                if (match) return [ranks[match[1].toUpperCase()], Number(match[2])];
             }
-            const category = String(item.row?.category || "").trim().toUpperCase();
-            if (category in typeRank) return [typeRank[category], Infinity];
+            // If the label contains only a number, use its explicit category.
+            const bareNumber = label.match(/^\s*#?0*(\d+)\s*$/);
+            if (bareNumber && category.toUpperCase() in ranks) {
+                return [ranks[category.toUpperCase()], Number(bareNumber[1])];
+            }
             for (const field of fields) {
                 const match = field.match(/\b(SGL|LG|LAB|PRACTICAL)\b/i);
-                if (match) return [typeRank[match[1].toUpperCase()], Infinity];
+                if (match) return [ranks[match[1].toUpperCase()], Infinity];
             }
             return [3, Infinity];
         }
