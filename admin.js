@@ -2347,6 +2347,18 @@ let session = readSavedSession();
             const category = String(item.row?.category || '').trim();
             const title = String(item.title || '');
             const fields = [label, category, title];
+            // IBS Stage 2 Biochemistry only: numbered lectures precede labs.
+            // Leave every other subject's existing sorting untouched.
+            if (history.state?.key?.startsWith('s2b1m') &&
+                /^Biochemistry(?:\s|\(|$)/i.test(String(subjectTitle || ''))) {
+                const lectureMatch = fields.map(field =>
+                    field.match(/\b(?:LECTURE|LEC)\s*[-_.#:]?\s*0*(\d+)\b/i)
+                ).find(Boolean);
+                if (lectureMatch) return [-1, Number(lectureMatch[1])];
+                if (fields.some(field => /\b(?:LECTURE|LEC)\b/i.test(field))) {
+                    return [-1, Infinity];
+                }
+            }
             const ranks = { SGL: 0, LG: 1, LAB: 2, PRACTICAL: 2 };
             const numberPattern = /\b(SGL|LG|LAB|PRACTICAL)\s*[-_.#:]?\s*0*(\d+)\b/i;
             for (const field of fields) {
