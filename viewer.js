@@ -337,6 +337,31 @@ function back() {
 
 /* ───────── wiring ───────── */
 $('btnBack').onclick = $('errBack').onclick = back;
+
+/* Reposition the existing Back control without changing navigation or PDF rendering. */
+(function setupFloatingBack() {
+  const button = $('btnBack');
+  if (!button || !main) return;
+  button.classList.add('mh-floating-back');
+  button.setAttribute('aria-label', 'Back to lecture list');
+  button.setAttribute('title', 'Back to lecture list');
+  button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+  document.body.appendChild(button);
+  const position = () => {
+    const top = main.getBoundingClientRect().top;
+    button.style.setProperty('--mh-back-top', Math.round(top + 14) + 'px');
+  };
+  position();
+  window.addEventListener('resize', position, { passive: true });
+  if (window.ResizeObserver) {
+    const observer = new ResizeObserver(position);
+    const header = document.querySelector('.top');
+    if (header) observer.observe(header);
+    const toolbar = document.querySelector('.bar');
+    if (toolbar) observer.observe(toolbar);
+  }
+})();
+
 $('btnRetry').onclick = () => { meta = null; start(); };
 $('btnCopy').onclick = copyLink; $('btnDownload').onclick = download;
 $('prev').onclick = () => goTo(cur); $('next').onclick = () => goTo(cur + 2);
