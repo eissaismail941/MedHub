@@ -1766,6 +1766,32 @@ body.ios-device .resource-actions {
     #subject-page #block-entrance .block-grid .block-card { transition: none; }
 }
 
+
+/* MedHub mobile admin avatar: fully visible and easy to tap. */
+@media (max-width: 767px) {
+  body .mh-acct {
+    position: fixed !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+    left: calc(18px + env(safe-area-inset-left, 0px)) !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    font-size: 20px !important;
+    transform: none !important;
+    z-index: 9990 !important;
+    touch-action: manipulation;
+  }
+}
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
@@ -3503,6 +3529,6 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('blur', clear);
 })();
 </script>
-<script src="./admin.js?v=20261113-dateonly"></script>
+<script src="./admin.js?v=20261115-mobile-avatar"></script>
 </body>
 </html>
