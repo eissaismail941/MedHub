@@ -37,7 +37,7 @@
       'use strict';
       var back = document.getElementById('medhub-floating-back');
       if (!back) return;
-      back.addEventListener('click', function () {
+      function handleBack() {
         // The MedHub homepage embeds this Reader in an iframe and adds a
         // history entry. Going back triggers its existing popstate handler,
         // which closes the iframe and restores the lecture-list scroll.
