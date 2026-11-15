@@ -269,3 +269,37 @@ main:focus-visible{outline-offset:-4px}
     padding: 0 10px;
   }
 }
+
+
+/* Apple-style floating back control — visual layer only. */
+#btnBack.mh-floating-back {
+  position: fixed !important;
+  top: var(--mh-back-top, 90px);
+  left: max(16px, env(safe-area-inset-left, 0px));
+  z-index: 15;
+  display: grid !important;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 !important;
+  margin: 0;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.78) !important;
+  background: rgba(255,255,255,.88) !important;
+  color: #1677ff !important;
+  box-shadow: 0 3px 14px rgba(15,23,42,.11), 0 1px 3px rgba(15,23,42,.06) !important;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+#btnBack.mh-floating-back svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2.2; fill: none; }
+#btnBack.mh-floating-back .lbl { display: none !important; }
+#btnBack.mh-floating-back:hover { background: #fff !important; box-shadow: 0 5px 20px rgba(15,23,42,.14) !important; }
+#btnBack.mh-floating-back:active { transform: scale(.94) !important; }
+@media (max-width: 720px) {
+  #btnBack.mh-floating-back { width: 40px; height: 40px; min-width: 40px; min-height: 40px; left: max(10px, env(safe-area-inset-left, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { #btnBack.mh-floating-back { transition: none; } }
