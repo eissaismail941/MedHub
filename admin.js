@@ -831,7 +831,10 @@ let session = readSavedSession();
         menu.style.left = left + "px";
         menu.style.top = Math.max(8, top) + "px";
 
-        menu.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
+        // Do not automatically focus a menu item on mobile.
+if (window.innerWidth > 767) {
+    menu.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
+}
     }
 
     document.addEventListener("keydown", event => {
@@ -843,7 +846,7 @@ let session = readSavedSession();
     });
 
     window.addEventListener("resize", closeMenu);
-    window.addEventListener("scroll", () => {     if (window.innerWidth > 767) closeMenu(); }, { capture: true, passive: true });
+    //window.addEventListener("scroll", () => {     if (window.innerWidth > 767) closeMenu(); }, { capture: true, passive: true });
 
     function openAccountMenu() {
         const email = session?.user?.email || "Admin";
