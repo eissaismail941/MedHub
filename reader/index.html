@@ -64,7 +64,20 @@
           } catch (e) {}
         }
         window.location.assign('/MedHub/');
-      });
+          }
+    var backHandled = false;
+
+    function navigateOnce() {
+      if (backHandled) return;
+      backHandled = true;
+      handleBack();
+    }
+
+    back.addEventListener('pointerup', function (event) {
+      if (event.isPrimary && event.button === 0) navigateOnce();
+    }, { passive: true });
+
+    back.addEventListener('click', navigateOnce);
     }());
 </script>
   </body>
