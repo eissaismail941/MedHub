@@ -843,7 +843,7 @@ let session = readSavedSession();
     });
 
     window.addEventListener("resize", closeMenu);
-    window.addEventListener("scroll", closeMenu, { capture: true, passive: true });
+    window.addEventListener("scroll", () => {     if (window.innerWidth > 767) closeMenu(); }, { capture: true, passive: true });
 
     function openAccountMenu() {
         const email = session?.user?.email || "Admin";
