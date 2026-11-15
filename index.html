@@ -1767,32 +1767,33 @@ body.ios-device .resource-actions {
 }
 
 
-/* Mobile admin avatar: upper-right, unobstructed and touch-friendly. */
+/* MedHub mobile admin avatar: fully visible and easy to tap. */
 @media (max-width: 767px) {
   body .mh-acct {
     position: fixed !important;
-    top: calc(14px + env(safe-area-inset-top, 0px)) !important;
-    right: calc(16px + env(safe-area-inset-right, 0px)) !important;
-    bottom: auto !important;
-    left: auto !important;
-    width: 46px !important;
-    height: 46px !important;
-    min-width: 46px !important;
-    min-height: 46px !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+    left: calc(18px + env(safe-area-inset-left, 0px)) !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
     padding: 0 !important;
     margin: 0 !important;
     border-radius: 50% !important;
-    display: grid !important;
-    place-items: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     line-height: 1 !important;
-    font-size: 17px !important;
+    font-size: 20px !important;
     transform: none !important;
-    z-index: 1600 !important;
+    z-index: 9990 !important;
     touch-action: manipulation;
   }
 }
 </style>
-<link rel="stylesheet" href="./admin.css?v=20261115-profile-v2">
+<link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
 
 <body>
@@ -3246,7 +3247,7 @@ title = lectureTitles[filename] || title;
         fromMedHub: '1',
         medhubView: JSON.stringify(backState)
     });
-    return './reader/index.html?v=20261115-3&' + params.toString();
+    return './reader/index.html?' + params.toString();
     }
     function mhFormatFileSize(bytes) {
         const n = Number(bytes);
@@ -3528,6 +3529,6 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('blur', clear);
 })();
 </script>
-<script src="./admin.js?v=20261115-profile-v2"></script>
+<script src="./admin.js?v=20261115-mobile-avatar"></script>
 </body>
 </html>
