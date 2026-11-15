@@ -37,17 +37,7 @@
       'use strict';
       var back = document.getElementById('medhub-floating-back');
       if (!back) return;
-      var lastBackTap = 0;
-
-function handleBack(event) {
-  if (event.type === 'pointerdown') {
-    if (event.pointerType === 'mouse') return;
-    event.preventDefault();
-  }
-
-  var now = Date.now();
-  if (now - lastBackTap < 800) return;
-  lastBackTap = now;
+      back.addEventListener('click', function () {
         // The MedHub homepage embeds this Reader in an iframe and adds a
         // history entry. Going back triggers its existing popstate handler,
         // which closes the iframe and restores the lecture-list scroll.
@@ -74,10 +64,7 @@ function handleBack(event) {
           } catch (e) {}
         }
         window.location.assign('/MedHub/');
-            }
-
-      back.addEventListener('pointerdown', handleBack);
-      back.addEventListener('click', handleBack);
+      });
     }());
 </script>
   </body>
