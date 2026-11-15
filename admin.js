@@ -201,7 +201,7 @@ let session = readSavedSession();
                 document.documentElement.classList.remove("mh-lock");
             }
 
-            /* Closing the account dialog must not alter the page URL or viewport. */
+            if (dialog === loginDialog) cleanHash();
         });
 
         dialogs.push(dialog);
@@ -831,10 +831,7 @@ let session = readSavedSession();
         menu.style.left = left + "px";
         menu.style.top = Math.max(8, top) + "px";
 
-        /* Avoid a mobile focus/scroll event immediately dismissing the menu. */
-        if (matchMedia("(min-width: 768px)").matches) {
-            menu.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
-        }
+        menu.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
     }
 
     document.addEventListener("keydown", event => {
@@ -846,10 +843,7 @@ let session = readSavedSession();
     });
 
     window.addEventListener("resize", closeMenu);
-    window.addEventListener("scroll", event => {
-        if (menuLayer && !menuLayer.contains(event.target) &&
-            matchMedia("(min-width: 768px)").matches) closeMenu();
-    }, { capture: true, passive: true });
+    window.addEventListener("scroll", closeMenu, { capture: true, passive: true });
 
     function openAccountMenu() {
         const email = session?.user?.email || "Admin";
