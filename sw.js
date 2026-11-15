@@ -1,5 +1,5 @@
 
-/* MedHub Service Worker v6
+/* MedHub Service Worker v7
  * Fresh admin.js and admin.css
  * Network-first homepage
  * Offline fallback
@@ -7,7 +7,7 @@
  */
 
 const CACHE_PREFIX = 'medhub-';
-const CACHE_VERSION = 'v6';
+const CACHE_VERSION = 'v7';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 const ROOT_URL = new URL('./', self.location.href).href;
@@ -94,7 +94,8 @@ self.addEventListener('fetch', event => {
   // Admin JS and CSS: always check for fresh versions.
   if (
     url.pathname.endsWith('/admin.js') ||
-    url.pathname.endsWith('/admin.css')
+    url.pathname.endsWith('/admin.css') ||
+    url.pathname.startsWith(new URL('./reader/assets/', ROOT_URL).pathname)
   ) {
     event.respondWith(networkFirstAsset(request));
     return;
