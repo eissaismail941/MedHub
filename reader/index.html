@@ -30,6 +30,38 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Prevent swipes during PDF preparation -->
+<div id="medhub-loading-guard" style="
+  position:fixed;
+  top:64px;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:100;
+  touch-action:none;
+  background:transparent;
+"></div>
+
+<script>
+(function () {
+  const guard = document.getElementById('medhub-loading-guard');
+  const root = document.getElementById('root');
+
+  let loadingSeen = false; const observer = new MutationObserver(() => {   if (root.querySelector('.mh-loading-screen')) loadingSeen = true;
+    if (loadingSeen && !root.querySelector('.mh-loading-screen')) {
+      guard.remove();
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(root, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+  });
+})();
+</script>
     <button id="medhub-floating-back" type="button" aria-label="Back to lectures" title="Back to lectures">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg>
     </button>
