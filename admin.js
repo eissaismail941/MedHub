@@ -807,9 +807,13 @@ let session = readSavedSession();
         if (spec.note) menu.append(el("p", "mh-menu-note", spec.note));
 
         layer.append(menu);
-        layer.addEventListener("pointerdown", event => {
-            if (event.target === layer) closeMenu();
-        });
+        layer.addEventListener("click", event => {
+    if (event.target !== layer) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    closeMenu();
+});
 
         document.body.append(layer);
         menuLayer = layer;
