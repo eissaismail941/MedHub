@@ -903,3 +903,9 @@ body.mh-has-fab #resources-page { padding-bottom: 130px; }
   width: 100%; z-index: 50;
   box-shadow: 0 16px 40px rgba(11,23,48,.14);
 }
+
+/* Mobile profile menu: ensure overlay and account sheet remain clickable. */
+@media (max-width: 767px) {
+  .mh-menu-layer { z-index: 1700; }
+  .mh-menu-layer .mh-menu { z-index: 1701; }
+}
