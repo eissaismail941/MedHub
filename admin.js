@@ -845,7 +845,7 @@ if (window.innerWidth > 767) {
         }
     });
 
-    window.addEventListener("resize", closeMenu);
+    window.addEventListener("resize", () => {     if (window.innerWidth > 767) closeMenu(); });
     //window.addEventListener("scroll", () => {     if (window.innerWidth > 767) closeMenu(); }, { capture: true, passive: true });
 
     function openAccountMenu() {
