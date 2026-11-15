@@ -1793,6 +1793,17 @@ left: auto !important;
     z-index: 9990 !important;
     touch-action: manipulation;
   }
+    
+  /* Extra space for the fixed profile button */
+  #home-page,
+  #stage2-page,
+  #s2block-page,
+  #subject-page,
+  #split-page,
+  #resources-page {
+    padding-top: calc(100px + env(safe-area-inset-top, 0px)) !important;
+  }
+
 }
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
