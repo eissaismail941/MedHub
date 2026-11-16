@@ -397,7 +397,7 @@ let session = readSavedSession();
             <div class="mh-sheet-body">
                 <div class="mh-note">${ICON.info}<span>
                     Title, type, label and position are kept. Only the PDF
-                    changes. Supabase files are deleted; R2 files remain until secure deletion is enabled.
+                    changes. The old PDF is deleted from storage after replacement succeeds.
                 </span></div>
                 <label id="mh-rdrop" class="mh-drop" for="mh-rfile">
                     <span id="mh-rdrop-icon" class="mh-drop-icon">${ICON.pdf}</span>
@@ -436,7 +436,7 @@ let session = readSavedSession();
             <div id="mh-confirm-name" class="mh-confirm-name"></div>
             <p class="mh-lead" style="margin:0 !important">
                 The lecture disappears from MedHub for every student, and its
-                PDF file is deleted from Supabase Storage, or retained in R2 pending secure cleanup.
+                PDF file is also deleted from its storage provider.
                 This cannot be undone.
             </p>
             <div id="mh-confirm-status" class="mh-alert" role="alert" hidden></div>
@@ -1124,7 +1124,17 @@ if (window.innerWidth > 767) {
 
     async function removeStoredFile(path) {
         if (isR2Path(path)) {
-            throw new Error("R2 file retained: secure deletion endpoint not configured yet.");
+            const key = path.slice(R2_PREFIX.length);
+            const response = await fetch(R2_API + "/file?key=" + encodeURIComponent(key), {
+                method: "DELETE",
+                headers: { Authorization: "Bearer " + await accessToken() },
+                cache: "no-store"
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.ok) {
+                throw new Error(data.error || "Could not delete R2 PDF (HTTP " + response.status + ")");
+            }
+            return;
         }
         await request(
             "/storage/v1/object/" + BUCKET + "/" + encodePath(path),
