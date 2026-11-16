@@ -18,6 +18,12 @@
 const isAdmin = (userId) => ADMIN_IDS.includes(userId);
 
     const BUCKET = "lectures";
+    // Experimental R2 upload route. Existing Supabase lecture paths remain valid.
+    const R2_API = "https://medhub-api.eissaismail941.workers.dev";
+    const R2_PUBLIC = "https://pub-681ff110769849699153517b61f29a22.r2.dev";
+    const R2_PREFIX = "r2:";
+    const isR2Path = path => typeof path === "string" && path.startsWith(R2_PREFIX);
+
     const MAX_BYTES = 50 * 1024 * 1024;
     const MAX_FILES = 20;
     const CONCURRENCY = 2;
@@ -145,6 +151,7 @@ let session = readSavedSession();
     }
 
     function pdfURL(path) {
+        if (isR2Path(path)) return R2_PUBLIC + "/" + encodePath(path.slice(R2_PREFIX.length));
         return SUPABASE_URL + "/storage/v1/object/public/" + BUCKET + "/" +
             encodePath(path);
     }
@@ -390,7 +397,7 @@ let session = readSavedSession();
             <div class="mh-sheet-body">
                 <div class="mh-note">${ICON.info}<span>
                     Title, type, label and position are kept. Only the PDF
-                    changes, and the old PDF file is deleted from storage.
+                    changes. Supabase files are deleted; R2 files remain until secure deletion is enabled.
                 </span></div>
                 <label id="mh-rdrop" class="mh-drop" for="mh-rfile">
                     <span id="mh-rdrop-icon" class="mh-drop-icon">${ICON.pdf}</span>
@@ -429,7 +436,7 @@ let session = readSavedSession();
             <div id="mh-confirm-name" class="mh-confirm-name"></div>
             <p class="mh-lead" style="margin:0 !important">
                 The lecture disappears from MedHub for every student, and its
-                PDF file is <strong>permanently deleted from storage</strong>.
+                PDF file is deleted from Supabase Storage, or retained in R2 pending secure cleanup.
                 This cannot be undone.
             </p>
             <div id="mh-confirm-status" class="mh-alert" role="alert" hidden></div>
@@ -605,7 +612,7 @@ let session = readSavedSession();
                 title: row.title,
                 description: row.description || row.category,
                 url,
-                downloadUrl: url + "?download=" +
+                downloadUrl: isR2Path(row.file_path) ? url : url + "?download=" +
                     encodeURIComponent(row.title + ".pdf"),
                 lectureDate: row.lecture_date || null,
                 fileSizeBytes: Number(row.file_size_bytes) || null,
@@ -1022,6 +1029,34 @@ if (window.innerWidth > 767) {
         });
     }
 
+    // Worker checks the Supabase user token and admin ID before writing to R2.
+    // Returns an R2-prefixed path for storage in the existing lectures table.
+    function uploadR2PDF(file, token, onProgress) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", R2_API + "/upload");
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+            xhr.setRequestHeader("Content-Type", "application/pdf");
+            xhr.timeout = 15 * 60 * 1000;
+            xhr.upload.onprogress = event => {
+                if (event.lengthComputable) onProgress(event.loaded / event.total);
+            };
+            xhr.onload = () => {
+                let data;
+                try { data = JSON.parse(xhr.responseText); } catch {}
+                if (xhr.status === 201 && data?.ok &&
+                    typeof data.key === "string" && data.key.startsWith("uploads/")) {
+                    resolve(R2_PREFIX + data.key);
+                } else {
+                    reject(new Error(data?.error || "R2 upload failed: " + xhr.status));
+                }
+            };
+            xhr.onerror = () => reject(new Error("Could not reach the Cloudflare Worker. Check its CORS settings and network."));
+            xhr.ontimeout = () => reject(new Error("R2 upload timed out."));
+            xhr.send(file);
+        });
+    }
+
     async function accessToken() {
         if (!session) throw new Error("Please sign in again.");
 
@@ -1088,6 +1123,9 @@ if (window.innerWidth > 767) {
     }
 
     async function removeStoredFile(path) {
+        if (isR2Path(path)) {
+            throw new Error("R2 file retained: secure deletion endpoint not configured yet.");
+        }
         await request(
             "/storage/v1/object/" + BUCKET + "/" + encodePath(path),
             { method: "DELETE", token: await accessToken() }
@@ -1782,7 +1820,7 @@ if (window.innerWidth > 767) {
             if (!item.uploaded) {
                 setItemState(item, "uploading", 0);
 
-                await uploadPDF(item.path, item.file, token, fraction =>
+                item.path = await uploadR2PDF(item.file, token, fraction =>
                     setItemState(item, "uploading", fraction)
                 );
 
@@ -2119,7 +2157,7 @@ if (window.innerWidth > 767) {
 
             toast(
                 fileWarning
-                    ? "Lecture deleted, but its PDF file could not be removed from storage: " + fileWarning
+                    ? "Lecture deleted; storage cleanup pending: " + fileWarning
                     : "Lecture and its PDF file deleted.",
                 fileWarning ? "error" : "success"
             );
@@ -2232,7 +2270,7 @@ if (window.innerWidth > 767) {
                 $("mh-rprogress-text").textContent = "Uploading PDF… 0%";
                 $("mh-rbar").style.width = "0";
 
-                await uploadPDF(replaceState.path, file, token, fraction => {
+                replaceState.path = await uploadR2PDF(file, token, fraction => {
                     const percent = Math.round(fraction * 100);
                     $("mh-rbar").style.width = percent + "%";
                     $("mh-rprogress-text").textContent =
