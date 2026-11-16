@@ -983,7 +983,6 @@ if (window.innerWidth > 767) {
             xhr.setRequestHeader("apikey", PUBLIC_KEY);
             xhr.setRequestHeader("Authorization", "Bearer " + token);
             xhr.setRequestHeader("Content-Type", "application/pdf");
-            xhr.setRequestHeader("cache-control", "max-age=3600");
             xhr.setRequestHeader("x-upsert", "false");
             xhr.timeout = 15 * 60 * 1000;
 
