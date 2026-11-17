@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f8fc">
+  <title>MedHub — Opening lecture</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f6f8fc;color:#26344b}
+    /* Original MedHub Reader skeleton loader copied from your supplied production bundle. */
+/* Premium document-opening experience: presentation only. */
+        .mh-loading-screen{position:fixed;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;opacity:1;visibility:visible;background:radial-gradient(ellipse 65% 50% at 50% 42%,#fff 0%,#f6f8fc 66%,#f3f5f9 100%);transition:opacity .42s cubic-bezier(.2,.7,.2,1),visibility .42s ease;}
+        .mh-loading-screen.is-ready{opacity:0;visibility:hidden;}
+        .mh-loader-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;max-height:100%;padding:26px 24px 34px;}
+        .mh-loader-stage{position:relative;width:min(330px,calc(100vw - 110px),calc((100dvh - 225px)*.74));min-width:min(225px,calc(100vw - 110px));aspect-ratio:.74;flex:none;animation:mh-sheet-arrive .65s cubic-bezier(.16,1,.3,1) both;}
+        .mh-loader-back{position:absolute;inset:0;border-radius:9px;background:white;border:1px solid #e9edf4;box-shadow:0 9px 30px rgba(32,55,90,.035);transform:translate(12px,9px) rotate(2.2deg);}
+        .mh-loader-back.second{transform:translate(-8px,5px) rotate(-1.6deg);opacity:.8;}
+        .mh-loading-page{position:absolute;inset:0;border-radius:9px;background:#fff;border:1px solid #e8ecf3;box-shadow:0 22px 65px rgba(25,48,85,.10),0 4px 13px rgba(25,48,85,.04);overflow:hidden;display:flex;flex-direction:column;padding:clamp(22px,7%,31px);gap:12px;}
+        .mh-loader-accent{position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#B5D4FF,#1677FF,#7DB7FF);opacity:.9;}
+        .mh-loader-head{display:flex;align-items:center;gap:9px;margin-bottom:16px;}
+        .mh-loader-icon{display:grid;place-items:center;flex:none;width:29px;height:34px;border-radius:8px;background:#edf5ff;color:#1677ff;}
+        .mh-loader-tag{display:flex;flex-direction:column;gap:5px;flex:1;}
+        .mh-loading-block{position:relative;height:7px;flex-shrink:0;border-radius:5px;background:#edf1f6;overflow:hidden;}
+        .mh-loading-block::after{content:'';position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);animation:mh-loader-shimmer 1.8s ease-in-out infinite;}
+        .mh-loading-block.heading{height:13px;margin-bottom:11px;background:#e6ebf4;}
+        .mh-loading-block.small{height:5px;background:#f0f3f8;}
+        .mh-loading-space{height:10px;flex-shrink:0;}
+        .mh-loader-divider{height:1px;background:#f1f3f7;margin:2px 0 3px;}
+        .mh-loader-picture{height:18%;min-height:38px;max-height:85px;border-radius:8px;background:linear-gradient(115deg,#f2f6fd,#eaf2fc 55%,#f5f8fe);border:1px solid #eef2f8;display:flex;align-items:center;justify-content:center;gap:8px;}
+        .mh-loader-picture span{display:block;width:22%;height:40%;border-radius:5px;background:rgba(22,119,255,.07);}
+        .mh-loading-caption{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;}
+        .mh-loading-caption strong{font-size:13px;letter-spacing:-.15px;color:#26344b;font-weight:630;}
+        .mh-loading-caption small{font-size:11px;letter-spacing:.1px;color:#919caf;font-weight:450;}
+        .mh-loader-progress{height:3px;width:126px;border-radius:4px;background:#e8eff8;overflow:hidden;margin-top:5px;}
+        .mh-loader-progress::after{content:'';display:block;width:38%;height:100%;border-radius:4px;background:#1677ff;animation:mh-progress 1.45s ease-in-out infinite;}
+        .mh-loader-progress.mh-loader-percent{position:relative;width:180px;height:20px;margin-top:3px;background:transparent;overflow:visible;border-radius:0;display:flex;align-items:flex-start;justify-content:center;padding-top:0;}
+        .mh-loader-percent::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;border-radius:99px;background:#e8eff8;}
+        .mh-loader-percent::after{display:none!important;content:none!important;animation:none!important;}
+        .mh-loader-percent .mh-loader-fill{position:absolute;top:0;left:0;height:5px;border-radius:99px;background:#1677ff;transition:width .18s ease;}
+        .mh-loader-percent .mh-loader-percent-label{position:absolute;top:8px;left:0;right:0;font-size:10px;font-weight:600;color:#1677ff;text-align:center;line-height:12px;}
+
+        @keyframes mh-sheet-arrive{from{opacity:0;transform:translateY(14px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+        @keyframes mh-loader-shimmer{to{transform:translateX(120%)}}
+        @keyframes mh-progress{0%{transform:translateX(-120%)}100%{transform:translateX(365%)}}
+        @media(max-height:530px){.mh-loader-wrap{gap:13px;padding:10px}.mh-loader-stage{width:min(240px,calc((100dvh - 132px)*.74))}.mh-loading-page{gap:7px;padding:18px}.mh-loader-head{margin-bottom:4px}.mh-loader-picture{display:none}}
+        @media(prefers-reduced-motion:reduce){.mh-loading-screen{transition:none}.mh-loader-stage,.mh-loading-block::after,.mh-loader-progress::after{animation:none}.mh-loader-progress::after{transform:none}}
+      
+    .mh-loading-screen{pointer-events:auto}
+    .mh-loader-progress{width:140px;height:4px;margin-top:6px}
+    .native-error{display:none;max-width:350px;text-align:center;padding:18px;color:#7b2942}
+    .native-error:not([hidden]){display:block}
+    .native-error button{border:1px solid #cfdcf2;background:#fff;color:#1677ff;border-radius:12px;padding:11px 18px;font:600 13px inherit;cursor:pointer;margin-top:12px}
+    .native-help{display:none;max-width:360px;text-align:center;font-size:12px;color:#77849b;line-height:1.5;padding:0 24px}
+    .native-help a{color:#1677ff;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+    .native-help:not([hidden]){display:block}
+    @media(prefers-reduced-motion:reduce){.mh-loader-progress::after{animation:none;transform:none;width:100%}}
+  </style>
+</head>
+<body>
+  <main class="mh-loading-screen" role="status" aria-label="Opening your document">
+    <div class="mh-loader-wrap">
+      <div class="mh-loader-stage" aria-hidden="true">
+        <div class="mh-loader-back second"></div>
+        <div class="mh-loader-back"></div>
+        <div class="mh-loading-page">
+          <div class="mh-loader-accent"></div>
+          <div class="mh-loader-head">
+            <span class="mh-loader-icon">
+              <svg width="17" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 2.75h7l5 5V20a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 20V4.75A2 2 0 0 1 7 2.75Z"/>
+                <path d="M14 3v5h5M8.5 12h7M8.5 16h7"/>
+              </svg>
+            </span>
+            <div class="mh-loader-tag"><div class="mh-loading-block" style="width:42%;height:8px"></div><div class="mh-loading-block small" style="width:27%"></div></div>
+          </div>
+          <div class="mh-loading-block heading" style="width:71%"></div>
+          <div class="mh-loading-block" style="width:95%"></div>
+          <div class="mh-loading-block" style="width:89%"></div>
+          <div class="mh-loading-block" style="width:98%"></div>
+          <div class="mh-loading-block" style="width:62%"></div>
+          <div class="mh-loading-space"></div>
+          <div class="mh-loader-picture"><span></span><span></span><span></span></div>
+          <div class="mh-loading-space"></div>
+          <div class="mh-loader-divider"></div>
+          <div class="mh-loading-block" style="width:91%"></div>
+          <div class="mh-loading-block" style="width:96%"></div>
+          <div class="mh-loading-block" style="width:73%"></div>
+        </div>
+      </div>
+      <div class="mh-loading-caption">
+        <strong>Opening your document</strong>
+        <small>Preparing a clear reading experience</small>
+        <div class="mh-loader-progress" aria-label="Opening PDF"></div>
+      </div>
+      <div class="native-error" id="native-error" hidden>
+        This PDF link cannot be opened from MedHub.<div><button id="go-back" type="button">Back to lectures</button></div>
+      </div>
+      <div class="native-help" id="native-help" hidden>
+        If the browser did not open the PDF, <a id="manual-open" href="#">open the PDF directly</a>.
+      </div>
+    </div>
+  </main>
+  <script>
+  (() => {
+    'use strict';
+    const query = new URLSearchParams(location.search);
+    const error = document.getElementById('native-error');
+    const help = document.getElementById('native-help');
+    const manual = document.getElementById('manual-open');
+    document.getElementById('go-back').addEventListener('click', () => {
+      if (history.length > 1) history.back();
+      else location.replace('../index.html');
+    });
+
+    // Preview mode only for inspecting the loader locally. No PDF opens.
+    if (query.get('preview') === '1') return;
+
+    const source = (query.get('file') || '').trim();
+    let pdfUrl = null;
+    try {
+      if (!source) throw new Error('Missing file parameter');
+      const candidate = new URL(source, location.href);
+      if (candidate.protocol !== 'https:' && !(candidate.protocol === 'http:' && candidate.origin === location.origin)) {
+        throw new Error('Unsupported protocol');
+      }
+      const isMedHub = candidate.origin === location.origin ||
+        (candidate.origin === 'https://eissaismail941.github.io' && candidate.pathname.startsWith('/MedHub/'));
+      const isR2 = candidate.origin === 'https://pub-681ff110769849699153517b61f29a22.r2.dev';
+      const isSupabase = candidate.origin === 'https://lxmxsymxmpulkkngjfjo.supabase.co' &&
+        candidate.pathname.startsWith('/storage/v1/object/public/lectures/');
+      if (!/\.pdf$/i.test(candidate.pathname) || !(isMedHub || isR2 || isSupabase)) {
+        throw new Error('Unrecognized PDF location');
+      }
+      pdfUrl = candidate.href;
+    } catch (e) {
+      error.hidden = false;
+      help.hidden = true;
+      return;
+    }
+
+    manual.href = pdfUrl;
+    manual.rel = 'noreferrer';
+
+    // A SHORT, FIXED DESIGN TRANSITION, not a download percentage or readiness signal.
+    // No fetch()/Blob()/PDF.js/EmbedPDF: browser will request the PDF directly.
+    const HANDOFF_MS = 750;
+    // This rescue link is unlikely to be shown on a successful redirect; it is here for test failures.
+    window.setTimeout(() => { help.hidden = false; }, 4000);
+    window.setTimeout(() => {
+      // Main MedHub test page navigates here in the top-level browsing context.
+      // When embedded by a legacy iframe, exit it so the PDF is truly browser-native.
+      try {
+        if (window.top && window.top !== window && window.top.location.origin === window.location.origin) {
+          window.top.location.replace(pdfUrl);
+          return;
+        }
+      } catch (_ignore) { /* Navigate this frame as a fallback. */ }
+      window.location.replace(pdfUrl);
+    }, HANDOFF_MS);
+  })();
+  </script>
+</body>
+</html>
