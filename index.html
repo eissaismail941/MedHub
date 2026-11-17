@@ -9,6 +9,7 @@
 
   gtag('config', 'G-F498HHBGMM');
 </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedHub | Portal</title>
@@ -1136,6 +1137,15 @@
         .resource-card { min-height:0; }
         .resource-card .resource-actions { margin-top:auto; padding-top:8px; }
         .resource-card .resource-actions .btn-open { width:100%; flex:1 1 100%; }
+        /* Native Reader: two vertically stacked lecture actions. */
+        .resource-card .resource-actions .btn-download {
+            width: 100%; flex: 1 1 100%;
+            font-family: inherit; cursor: pointer;
+        }
+        .resource-card .resource-actions .btn-download:disabled {
+            cursor: wait; opacity: .72;
+        }
+
         .resource-card .mh-lecture-meta {
             display:flex; flex-wrap:wrap; align-items:center; gap:7px 16px;
             color:#64748b; font-size:.78rem; font-weight:500; margin-top:0;
@@ -1369,10 +1379,7 @@ button,
         transform: scale(0.97);
     }
 }
-    /* iOS only: show one clean button */
-body.ios-device .btn-download {
-    display: none !important;
-}
+    /* Both lecture actions remain visible on iOS as well. */
 
 body.ios-device .btn-open {
     width: 100% !important;
@@ -1804,6 +1811,29 @@ left: auto !important;
     padding-top: calc(100px + env(safe-area-inset-top, 0px)) !important;
   }
 
+}
+
+/* MedHub two-action layout — all devices */
+.resource-card .resource-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  width: 100%;
+}
+.resource-card .resource-actions > .btn-open,
+.resource-card .resource-actions > .mh-download-pdf {
+  display: inline-flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  flex: 0 0 auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  box-sizing: border-box !important;
+}
+.resource-card .resource-actions > .mh-download-pdf {
+  justify-content: center;
+  min-height: 44px;
 }
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
@@ -3260,7 +3290,7 @@ title = lectureTitles[filename] || title;
         fromMedHub: '1',
         medhubView: JSON.stringify(backState)
     });
-    return './reader/index.html?' + params.toString();
+    return './reader-native/index.html?' + params.toString();
     }
     function mhFormatFileSize(bytes) {
         const n = Number(bytes);
@@ -3362,13 +3392,73 @@ title = lectureTitles[filename] || title;
                 <div class="mh-lecture-meta">${mhMetaCell('date', when)}</div>
                 <div class="resource-actions">
                     <a class="btn-link btn-open" href="${viewerURL(item.url, readerTitleFor(item, items))}">
-                        ${isIOS ? 'Open / Save PDF' : 'Open PDF'}
+                        Open PDF
                     </a>
+                    <button type="button" class="btn-link btn-download mh-download-pdf"
+                        data-pdf-url="${escapeAttr(item.url)}"
+                        data-pdf-title="${escapeAttr(readerTitleFor(item, items))}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg>
+                        <span>Download</span>
+                    </button>
                 </div>
             </article>`;
         }).join('');
 
     }
+
+    // Separate, real download: never invoked by the Open PDF action.
+    // Same-origin PDFs: browser download attribute. Public R2/Supabase PDFs:
+    // fetch the bytes ONLY after the student chooses Download, then save a Blob.
+    // Cross-origin storage needs a CORS policy permitting the MedHub origin.
+    document.addEventListener('click', async (event) => {
+        const btn = event.target.closest('button.mh-download-pdf');
+        if (!btn || btn.disabled) return;
+        const originalHTML = btn.innerHTML;
+        const oldTitle = btn.title;
+        btn.disabled = true;
+        btn.textContent = 'Preparing download…';
+        let objectURL = null;
+        try {
+            const url = new URL(btn.dataset.pdfUrl || '', location.href);
+            if (!['http:', 'https:'].includes(url.protocol) || !/\.pdf$/i.test(url.pathname)) {
+                throw new Error('Invalid PDF URL');
+            }
+            const title = (btn.dataset.pdfTitle || 'MedHub lecture')
+                .replace(/[<>:"/\\|?*\x00-\x1f]/g, '-')
+                .replace(/\s+/g, ' ').trim().slice(0, 120).replace(/\.+$/, '') || 'MedHub lecture';
+            const filename = title + '.pdf';
+            let downloadURL = url.href;
+            if (url.origin !== location.origin) {
+                // A cross-origin `download` attribute alone is not reliable.
+                // This fetch runs for Download only; Open PDF stays native and fast.
+                const response = await fetch(url.href, { mode: 'cors', credentials: 'omit' });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const blob = await response.blob();
+                objectURL = URL.createObjectURL(blob);
+                downloadURL = objectURL;
+            }
+            const link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = filename;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            btn.textContent = 'Download started';
+        } catch (error) {
+            console.warn('MedHub PDF download could not start:', error);
+            btn.textContent = 'Download unavailable';
+            btn.title = 'Open the PDF and use your browser\'s Download button.';
+            window.alert('Automatic download could not start. Please select Open PDF and use the browser Download button.');
+        } finally {
+            if (objectURL) setTimeout(() => URL.revokeObjectURL(objectURL), 60000);
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.title = oldTitle;
+                btn.innerHTML = originalHTML;
+            }, 2200);
+        }
+    });
 
     function showDownloadState(btn) {
         if (btn.classList.contains('is-downloading') || btn.classList.contains('is-success')) return;
@@ -3543,5 +3633,58 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 <script src="./admin.js?v=20261115-mobile-avatar"></script>
+<script>
+/* MedHub lecture-card UI compatibility patch.
+   admin.js replaces renderResources and recreates cards with Open PDF alone.
+   Restore the separate Download button after that renderer updates the grid.
+   No authentication, database, or upload behavior is changed. */
+(function () {
+  'use strict';
+  var grid = document.getElementById('resource-grid');
+  if (!grid) return;
+
+  function addMissingDownloadButtons() {
+    grid.querySelectorAll('.resource-card .resource-actions').forEach(function (actions) {
+      if (actions.querySelector('.mh-download-pdf')) return;
+      var card = actions.closest('.resource-card');
+      var open = actions.querySelector('a.btn-open');
+      if (!card || !open) return;
+
+      // admin.js sets data-url to the actual PDF address before rendering.
+      var pdf = card.dataset.url;
+      if (!pdf) {
+        try {
+          var link = new URL(open.href, location.href);
+          pdf = link.searchParams.get('file') || (link.pathname.toLowerCase().endsWith('.pdf') ? link.href : '');
+        } catch (e) { return; }
+      }
+      if (!pdf) return;
+
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn-link btn-download mh-download-pdf';
+      button.dataset.pdfUrl = pdf;
+      button.dataset.pdfTitle = (card.querySelector('h3')?.textContent || 'MedHub lecture').trim();
+      button.setAttribute('aria-label', 'Download ' + button.dataset.pdfTitle);
+      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg><span>Download</span>';
+      actions.append(button);
+    });
+  }
+
+  var scheduled = false;
+  function scheduleUpdate() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(function () {
+      scheduled = false;
+      addMissingDownloadButtons();
+    });
+  }
+  // The admin renderer calls replaceChildren() and appends freshly built cards.
+  // Observe changes at the grid level; the button's own insertion is not watched.
+  new MutationObserver(scheduleUpdate).observe(grid, { childList: true });
+  addMissingDownloadButtons();
+})();
+</script>
 </body>
 </html>
