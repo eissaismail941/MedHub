@@ -1,1 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/MedHub/reader/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>medhub-reader</title>
+    <script type="module" crossorigin src="/MedHub/reader/assets/index-CTIbb8PT.js"></script>
+    <link rel="stylesheet" crossorigin href="/MedHub/reader/assets/index-B4kL-dSf.css">
+  <style>
+    /* MedHub floating back control: isolated from the PDF rendering engine. */
+    #medhub-floating-back {
+      position: fixed; top: 78px; left: 18px; z-index: 2147483000;
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(225,231,240,.92);
+      background: rgba(255,255,255,.92); color: #1677FF;
+      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+      box-shadow: 0 3px 14px rgba(30,48,75,.10), 0 1px 3px rgba(30,48,75,.05);
+      cursor: pointer; padding: 0; -webkit-tap-highlight-color: transparent;
+      transition: background-color .15s ease, box-shadow .15s ease;
+    }
+    #medhub-floating-back:hover { background: #fff; box-shadow: 0 5px 18px rgba(30,48,75,.14); }
+    #medhub-floating-back:active { background: #EDF5FF; }
+    #medhub-floating-back:focus-visible { outline: 2px solid #1677FF; outline-offset: 3px; }
+    #medhub-floating-back svg { width: 18px; height: 18px; display: block; }
+    @media (max-width: 600px) { #medhub-floating-back { top: 72px; left: 12px; width: 38px; height: 38px; } }
 
+  </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <button id="medhub-floating-back" type="button" aria-label="Back to lectures" title="Back to lectures">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg>
+    </button>
+    <script>
+    (function () {
+      'use strict';
+      var back = document.getElementById('medhub-floating-back');
+      if (!back) return;
+      function handleBack() {
+        // The MedHub homepage embeds this Reader in an iframe and adds a
+        // history entry. Going back triggers its existing popstate handler,
+        // which closes the iframe and restores the lecture-list scroll.
+        if (window.parent !== window) {
+          try {
+            if (window.parent.location.origin === window.location.origin &&
+                window.parent.history.state && window.parent.history.state.medhubPdfOverlay) {
+              window.parent.history.back();
+              return;
+            }
+            if (typeof window.parent.closeMedhubPdfFrame === 'function') {
+              window.parent.closeMedhubPdfFrame();
+              return;
+            }
+          } catch (e) { /* Cross-origin parent: use regular navigation. */ }
+        }
+        // Standalone Reader: return to the previous page when available.
+        if (document.referrer) {
+          try {
+            if (new URL(document.referrer).origin === window.location.origin) {
+              window.history.back();
+              return;
+            }
+          } catch (e) {}
+        }
+        window.location.assign('/MedHub/');
+          }
+    var backHandled = false;
+
+    function navigateOnce() {
+      if (backHandled) return;
+      backHandled = true;
+      handleBack();
+    }
+
+    back.addEventListener('pointerup', function (event) {
+      if (event.isPrimary && event.button === 0) navigateOnce();
+    }, { passive: true });
+
+    back.addEventListener('click', navigateOnce);
+    }());
+</script>
+  </body>
+</html>
