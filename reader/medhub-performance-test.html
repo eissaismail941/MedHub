@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedHub Reader • Performance Test</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#13213a;background:#f4f7fc}
+*{box-sizing:border-box}body{margin:0}.top{padding:14px 18px;background:white;border-bottom:1px solid #dce5f0}
+h1{font-size:17px;margin:0 0 5px}.sub{color:#54657d;font-size:12px}.layout{display:grid;grid-template-columns:minmax(280px,340px) 1fr;min-height:calc(100vh - 76px)}
+.side{padding:16px;background:#fff;border-right:1px solid #dce5f0;overflow:auto;max-height:calc(100vh - 76px)}.reader{position:relative;min-height:650px}iframe{border:0;width:100%;height:calc(100vh - 76px);min-height:650px}
+.metric{padding:10px 0;border-bottom:1px solid #e8edf3;display:flex;justify-content:space-between;gap:12px;font-size:13px}.value{font-variant-numeric:tabular-nums;font-weight:650;white-space:nowrap}.note{font-size:12px;color:#54657d;line-height:1.5}button{border:0;border-radius:9px;padding:10px 12px;background:#1677ff;color:white;font-weight:600;cursor:pointer;margin:12px 6px 12px 0}button.secondary{background:#eef3fb;color:#173052}pre{font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7fc;border-radius:8px;padding:10px;max-height:250px;overflow:auto}
+@media(max-width:760px){.layout{display:flex;flex-direction:column}.side{max-height:none}.reader iframe{height:75vh;min-height:450px}}
+</style>
+</head><body>
+<div class="top"><h1>MedHub Reader — read-only performance test</h1><div class="sub">Loads the existing reader inside an iframe. No changes to the PDF engine, renderer, gestures, or reader files.</div></div>
+<div class="layout"><aside class="side">
+<div class="metric"><span>Reader navigation start</span><span class="value" id="nav">—</span></div>
+<div class="metric"><span>Reader load event</span><span class="value" id="load">—</span></div>
+<div class="metric"><span>PDF request completed</span><span class="value" id="pdf">—</span></div>
+<div class="metric"><span>WASM request completed</span><span class="value" id="wasm">—</span></div>
+<div class="metric"><span>First large page image*</span><span class="value" id="page">—</span></div>
+<button id="copy">Copy report</button><button class="secondary" id="again">Reload test</button>
+<p class="note">*First large image is an observational proxy, not a guaranteed exact first-page render timestamp. Resource timings may be hidden for cross-origin files without Timing-Allow-Origin headers. This does not measure the internal document-open phase. Use Network/Performance DevTools for detailed breakdowns.</p>
+<strong style="font-size:13px">Resource report</strong><pre id="resources">Collecting…</pre>
+<p class="note">Run three times with a normal browser cache, then one time with DevTools → Network → Disable cache. Compare warm vs cold starts.</p>
+</aside><main class="reader"><iframe id="reader" title="MedHub PDF Reader"></iframe></main></div>
+<script>
+(()=>{'use strict';
+ const frame=document.getElementById('reader'), $=id=>document.getElementById(id);let poll,observer,seenPage=false;
+ const query=location.search, base='./index.html'+query;
+ const fmt=n=>Number.isFinite(n)?`${Math.round(n)} ms`:'—';
+ const keyRes=r=>/\.pdf(?:[?#]|$)|\/storage\/v1\/object\/|\.wasm(?:[?#]|$)|index-[\w-]+\.js|embedpdf-worker/.test(r.name);
+ function getReport(){let win;try{win=frame.contentWindow;let perf=win.performance, nav=perf.getEntriesByType('navigation')[0];let resources=perf.getEntriesByType('resource').filter(keyRes).sort((a,b)=>a.startTime-b.startTime);let pdf=resources.filter(r=>/\.pdf(?:[?#]|$)|\/storage\/v1\/object\//i.test(r.name)), wasm=resources.filter(r=>/\.wasm(?:[?#]|$)/i.test(r.name));$('load').textContent=fmt(nav?.loadEventEnd || NaN);$('pdf').textContent=fmt(pdf.length?Math.max(...pdf.map(r=>r.responseEnd)):NaN);$('wasm').textContent=fmt(wasm.length?Math.max(...wasm.map(r=>r.responseEnd)):NaN);$('resources').textContent=resources.map(r=>`${(r.startTime/1000).toFixed(2)}s → ${(r.responseEnd/1000).toFixed(2)}s | ${Math.round(r.duration)}ms | ${r.transferSize?Math.round(r.transferSize/1024)+' KiB':'size unavailable/cache'} | ${r.name.split('/').pop().slice(0,76)}`).join('\n')||'No matching resources yet';return {navigation:nav?{loadEventEnd:nav.loadEventEnd,domContentLoadedEventEnd:nav.domContentLoadedEventEnd}:null,resources:resources.map(r=>({name:r.name,startMs:r.startTime,endMs:r.responseEnd,durationMs:r.duration,transferSize:r.transferSize})),firstLargePageImage:$('page').textContent};}catch(e){$('resources').textContent='Cannot access the iframe. Both files must be hosted on the same origin. '+e.message;return {error:e.message}}}
+ function watch(){clearInterval(poll);observer?.disconnect();seenPage=false;$('page').textContent='—';poll=setInterval(getReport,400);try{const w=frame.contentWindow;const target=w.document.documentElement;const check=()=>{if(seenPage)return;const images=Array.from(w.document.querySelectorAll('img,canvas'));for(const im of images){const b=im.getBoundingClientRect();const large=b.width>180&&b.height>180&&b.top<w.innerHeight&&b.bottom>0;const ready=im.tagName==='CANVAS'?(im.width>150&&im.height>150):(im.complete&&im.naturalWidth>150);if(large&&ready){seenPage=true;$('page').textContent=fmt(w.performance.now());break}}};observer=new MutationObserver(check);observer.observe(target,{childList:true,subtree:true,attributes:true,attributeFilter:['src','style','width','height']});w.addEventListener('load',check);setInterval(check,700);}catch(e){}getReport()}
+ frame.addEventListener('load',watch);$('again').addEventListener('click',()=>{clearInterval(poll);observer?.disconnect();frame.src=base});$('copy').addEventListener('click',()=>{const report=getReport();const txt=JSON.stringify({url:frame.src,timestamp:new Date().toISOString(),...report},null,2);navigator.clipboard?.writeText(txt).then(()=>{$('copy').textContent='Copied!';setTimeout(()=>$('copy').textContent='Copy report',1500)}).catch(()=>prompt('Copy this report:',txt))});frame.src=base;
+})();
+</script>
+</body></html>
