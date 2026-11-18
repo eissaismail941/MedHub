@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">a
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f6f8fc">
   <title>MedHub — Opening lecture</title>
   <style>
@@ -105,6 +105,23 @@
   (() => {
     'use strict';
     const query = new URLSearchParams(location.search);
+
+    // Fallback for links created by an older cached version of MedHub.
+    // The updated MedHub no longer visits this page during normal PDF opening.
+    function returnToMedHub() {
+      if (query.get('fromMedHub') !== '1' || query.get('preview') === '1') return false;
+      const back = new URL('../index.html', location.href);
+      back.searchParams.set('medhubResume', '1');
+      if (query.has('medhubView')) back.searchParams.set('medhubView', query.get('medhubView'));
+      if (query.has('medhubScroll')) back.searchParams.set('medhubScroll', query.get('medhubScroll'));
+      location.replace(back.href);
+      return true;
+    }
+    const navigationEntry = performance.getEntriesByType('navigation')[0];
+    if (navigationEntry && navigationEntry.type === 'back_forward' && returnToMedHub()) return;
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) returnToMedHub();
+    });
     const error = document.getElementById('native-error');
     const help = document.getElementById('native-help');
     const manual = document.getElementById('manual-open');
