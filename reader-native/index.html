@@ -164,6 +164,17 @@
     const HANDOFF_MS = 750;
     // This rescue link is unlikely to be shown on a successful redirect; it is here for test failures.
     window.setTimeout(() => { help.hidden = false; }, 4000);
+    // On browsers that download PDFs instead of displaying them, the page
+    // remains here. Give the student an immediate, reliable way back.
+    window.setTimeout(() => {
+      if (document.visibilityState !== 'visible') return;
+      const backButton = document.getElementById('go-back');
+      if (backButton) {
+        backButton.textContent = 'Back to lectures';
+        error.hidden = false;
+        error.firstChild.textContent = 'If your PDF downloaded, return to your lectures.';
+      }
+    }, 2600);
     window.setTimeout(() => {
       // Main MedHub test page navigates here in the top-level browsing context.
       // When embedded by a legacy iframe, exit it so the PDF is truly browser-native.
