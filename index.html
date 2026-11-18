@@ -3793,6 +3793,14 @@ document.addEventListener('click', event => {
             if (!nativeOverlay || thisLaunch !== nativeLaunchId ||
                 !history.state?.medhubNativeLoading) return;
             try {
+                // Samsung Internet may briefly paint the cached MedHub page on
+                // returning from its native PDF viewer. Remove the skeleton
+                // BEFORE navigation so its BFCache snapshot cannot flash.
+                // Do not cancel the launch or pop the loading history entry.
+                nativeOverlay.style.transition = 'none';
+                nativeOverlay.style.animation = 'none';
+                nativeOverlay.style.opacity = '0';
+                nativeOverlay.style.visibility = 'hidden';
                 window.location.replace(pdf.href);
             } catch (error) {
                 dismissNativeOverlay();
