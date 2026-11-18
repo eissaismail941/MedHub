@@ -119,8 +119,17 @@
     }
     const navigationEntry = performance.getEntriesByType('navigation')[0];
     if (navigationEntry && navigationEntry.type === 'back_forward' && returnToMedHub()) return;
+    let helpTimer = 0, handoffRaf = 0;
+    function cancelPending() {
+      window.clearTimeout(helpTimer);
+      window.cancelAnimationFrame(handoffRaf);
+    }
+    // Never auto-open from a cached/restored copy of this page.
+    window.addEventListener('pagehide', cancelPending);
     window.addEventListener('pageshow', function (event) {
-      if (event.persisted) returnToMedHub();
+      if (!event.persisted) return;
+      cancelPending();
+      if (!returnToMedHub()) document.getElementById('native-help').hidden = false;
     });
     const error = document.getElementById('native-error');
     const help = document.getElementById('native-help');
@@ -159,12 +168,12 @@
     manual.href = pdfUrl;
     manual.rel = 'noreferrer';
 
-    // A SHORT, FIXED DESIGN TRANSITION, not a download percentage or readiness signal.
     // No fetch()/Blob()/PDF.js/EmbedPDF: browser will request the PDF directly.
-    const HANDOFF_MS = 750;
+    // Hand off right after the loader has painted (no fixed delay); the loader stays
+    // visible until the browser commits the PDF navigation.
     // This rescue link is unlikely to be shown on a successful redirect; it is here for test failures.
-    window.setTimeout(() => { help.hidden = false; }, 4000);
-    window.setTimeout(() => {
+    helpTimer = window.setTimeout(() => { help.hidden = false; }, 4000);
+    handoffRaf = window.requestAnimationFrame(() => { handoffRaf = window.requestAnimationFrame(() => {
       // Main MedHub test page navigates here in the top-level browsing context.
       // When embedded by a legacy iframe, exit it so the PDF is truly browser-native.
       try {
@@ -174,7 +183,7 @@
         }
       } catch (_ignore) { /* Navigate this frame as a fallback. */ }
       window.location.replace(pdfUrl);
-    }, HANDOFF_MS);
+    }); });
   })();
   </script>
 </body>
