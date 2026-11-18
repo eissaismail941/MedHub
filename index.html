@@ -1835,6 +1835,50 @@ left: auto !important;
   justify-content: center;
   min-height: 44px;
 }
+
+/* Native PDF loading animation in the *MedHub page* (not browser history). */
+/* Original MedHub Reader skeleton loader copied from your supplied production bundle. */
+/* Premium document-opening experience: presentation only. */
+        .mh-loading-screen{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;opacity:1;visibility:visible;background:radial-gradient(ellipse 65% 50% at 50% 42%,#fff 0%,#f6f8fc 66%,#f3f5f9 100%);transition:opacity .42s cubic-bezier(.2,.7,.2,1),visibility .42s ease;}
+        .mh-loading-screen.is-ready{opacity:0;visibility:hidden;}
+        .mh-loader-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;max-height:100%;padding:26px 24px 34px;}
+        .mh-loader-stage{position:relative;width:min(330px,calc(100vw - 110px),calc((100dvh - 225px)*.74));min-width:min(225px,calc(100vw - 110px));aspect-ratio:.74;flex:none;animation:mh-sheet-arrive .65s cubic-bezier(.16,1,.3,1) both;}
+        .mh-loader-back{position:absolute;inset:0;border-radius:9px;background:white;border:1px solid #e9edf4;box-shadow:0 9px 30px rgba(32,55,90,.035);transform:translate(12px,9px) rotate(2.2deg);}
+        .mh-loader-back.second{transform:translate(-8px,5px) rotate(-1.6deg);opacity:.8;}
+        .mh-loading-page{position:absolute;inset:0;border-radius:9px;background:#fff;border:1px solid #e8ecf3;box-shadow:0 22px 65px rgba(25,48,85,.10),0 4px 13px rgba(25,48,85,.04);overflow:hidden;display:flex;flex-direction:column;padding:clamp(22px,7%,31px);gap:12px;}
+        .mh-loader-accent{position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#B5D4FF,#1677FF,#7DB7FF);opacity:.9;}
+        .mh-loader-head{display:flex;align-items:center;gap:9px;margin-bottom:16px;}
+        .mh-loader-icon{display:grid;place-items:center;flex:none;width:29px;height:34px;border-radius:8px;background:#edf5ff;color:#1677ff;}
+        .mh-loader-tag{display:flex;flex-direction:column;gap:5px;flex:1;}
+        .mh-loading-block{position:relative;height:7px;flex-shrink:0;border-radius:5px;background:#edf1f6;overflow:hidden;}
+        .mh-loading-block::after{content:'';position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);animation:mh-loader-shimmer 1.8s ease-in-out infinite;}
+        .mh-loading-block.heading{height:13px;margin-bottom:11px;background:#e6ebf4;}
+        .mh-loading-block.small{height:5px;background:#f0f3f8;}
+        .mh-loading-space{height:10px;flex-shrink:0;}
+        .mh-loader-divider{height:1px;background:#f1f3f7;margin:2px 0 3px;}
+        .mh-loader-picture{height:18%;min-height:38px;max-height:85px;border-radius:8px;background:linear-gradient(115deg,#f2f6fd,#eaf2fc 55%,#f5f8fe);border:1px solid #eef2f8;display:flex;align-items:center;justify-content:center;gap:8px;}
+        .mh-loader-picture span{display:block;width:22%;height:40%;border-radius:5px;background:rgba(22,119,255,.07);}
+        .mh-loading-caption{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;}
+        .mh-loading-caption strong{font-size:13px;letter-spacing:-.15px;color:#26344b;font-weight:630;}
+        .mh-loading-caption small{font-size:11px;letter-spacing:.1px;color:#919caf;font-weight:450;}
+        .mh-loader-progress{height:3px;width:126px;border-radius:4px;background:#e8eff8;overflow:hidden;margin-top:5px;}
+        .mh-loader-progress::after{content:'';display:block;width:38%;height:100%;border-radius:4px;background:#1677ff;animation:mh-progress 1.45s ease-in-out infinite;}
+        .mh-loader-progress.mh-loader-percent{position:relative;width:180px;height:20px;margin-top:3px;background:transparent;overflow:visible;border-radius:0;display:flex;align-items:flex-start;justify-content:center;padding-top:0;}
+        .mh-loader-percent::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;border-radius:99px;background:#e8eff8;}
+        .mh-loader-percent::after{display:none!important;content:none!important;animation:none!important;}
+        .mh-loader-percent .mh-loader-fill{position:absolute;top:0;left:0;height:5px;border-radius:99px;background:#1677ff;transition:width .18s ease;}
+        .mh-loader-percent .mh-loader-percent-label{position:absolute;top:8px;left:0;right:0;font-size:10px;font-weight:600;color:#1677ff;text-align:center;line-height:12px;}
+
+        @keyframes mh-sheet-arrive{from{opacity:0;transform:translateY(14px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+        @keyframes mh-loader-shimmer{to{transform:translateX(120%)}}
+        @keyframes mh-progress{0%{transform:translateX(-120%)}100%{transform:translateX(365%)}}
+        @media(max-height:530px){.mh-loader-wrap{gap:13px;padding:10px}.mh-loader-stage{width:min(240px,calc((100dvh - 132px)*.74))}.mh-loading-page{gap:7px;padding:18px}.mh-loader-head{margin-bottom:4px}.mh-loader-picture{display:none}}
+        @media(prefers-reduced-motion:reduce){.mh-loading-screen{transition:none}.mh-loader-stage,.mh-loading-block::after,.mh-loader-progress::after{animation:none}.mh-loader-progress::after{transform:none}}
+      
+    .mh-loading-screen{pointer-events:auto}
+    .mh-loader-progress{width:140px;height:4px;margin-top:6px}
+ .mh-loading-screen{pointer-events:auto;}
+
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
@@ -3122,7 +3166,13 @@ window.addEventListener('popstate', e => {
         requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, savedScroll)));
         return;
     }
-    if (!e.state?.medhubPdfOverlay) render(e.state);
+    if (!e.state?.medhubPdfOverlay) {
+        render(e.state);
+        if (Number.isFinite(e.state?.mhReturnScroll)) {
+            const y = e.state.mhReturnScroll;
+            requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, y)));
+        }
+    }
 });
 
 function openStage(n)   { go({ v: n === 1 ? 'stage1' : 'stage2' }); }
@@ -3550,6 +3600,9 @@ if (returningFromReader) {
     // Allow the lecture cards to finish mounting before restoring scroll.
     const desiredScroll = medhubReturnScroll;
     requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
+} else if (Number.isFinite(initialMedhubState.mhReturnScroll)) {
+    const desiredScroll = initialMedhubState.mhReturnScroll;
+    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
 }
 
 // Update return context at the moment of the click, not when cards render.
@@ -3596,6 +3649,135 @@ document.addEventListener('click', event => {
     frame.src = readerUrl.href;
     document.body.appendChild(frame);
 }, false);
+
+
+/* ── Samsung/Android native PDF Back fix ──
+   Show the same original loading animation in the current page, then navigate
+   straight from MedHub to the browser PDF engine. The loader NEVER becomes
+   a separate top-level history entry. Samsung Back returns to the lecture list.
+   No PDF bytes are prefetched and the native PDF viewer remains untouched. */
+(function () {
+    'use strict';
+    let nativeOverlay = null;
+    let priorBodyOverflow = '';
+
+    function dismissNativeOverlay() {
+        if (!nativeOverlay) return;
+        nativeOverlay.remove();
+        nativeOverlay = null;
+        document.body.style.overflow = priorBodyOverflow;
+    }
+
+    function restoreLectureScroll() {
+        const y = history.state && history.state.mhReturnScroll;
+        if (!Number.isFinite(y)) return;
+        requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, y)));
+    }
+
+    // Before the page enters back-forward cache, remove the temporary overlay.
+    window.addEventListener('pagehide', dismissNativeOverlay);
+    window.addEventListener('pageshow', function () {
+        dismissNativeOverlay();
+        restoreLectureScroll();
+    });
+
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('a.btn-open');
+        if (!link || event.defaultPrevented || event.button !== 0 ||
+            event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
+        // Only intercept the current browser-native PDF launch page.
+        // Leave older /reader/ links, their reader engine and Downloads alone.
+        const launchUrl = new URL(link.href, location.href);
+        const nativePath = new URL('./reader-native/index.html', location.href).pathname;
+        if (launchUrl.origin !== location.origin || launchUrl.pathname !== nativePath) return;
+
+        const file = launchUrl.searchParams.get('file');
+        let pdf;
+        try {
+            if (!file) throw new Error('Missing PDF link');
+            pdf = new URL(file, location.href);
+            const allowed = pdf.origin === location.origin ||
+                (pdf.origin === 'https://eissaismail941.github.io' && pdf.pathname.startsWith('/MedHub/')) ||
+                pdf.origin === 'https://pub-681ff110769849699153517b61f29a22.r2.dev' ||
+                (pdf.origin === 'https://lxmxsymxmpulkkngjfjo.supabase.co' &&
+                 pdf.pathname.startsWith('/storage/v1/object/public/lectures/'));
+            if (!allowed || !/\.pdf$/i.test(pdf.pathname) ||
+                !['https:', 'http:'].includes(pdf.protocol)) {
+                throw new Error('Unsupported PDF address');
+            }
+        } catch (e) {
+            // Allow the reader-native page to display its normal error handling.
+            return;
+        }
+
+        event.preventDefault();
+        if (nativeOverlay) return;
+
+        // Keep the existing Stage/Block/Subject browser-history state untouched.
+        // Store scroll in that same entry, not in a new history entry.
+        history.replaceState({
+            ...(history.state || { v: 'home', d: 0 }),
+            mhReturnScroll: Math.max(0, Math.round(window.scrollY))
+        }, '', location.href);
+
+        priorBodyOverflow = document.body.style.overflow;
+        const template = document.createElement('template');
+        template.innerHTML = `<main class="mh-loading-screen" role="status" aria-label="Opening your document">
+    <div class="mh-loader-wrap">
+      <div class="mh-loader-stage" aria-hidden="true">
+        <div class="mh-loader-back second"></div>
+        <div class="mh-loader-back"></div>
+        <div class="mh-loading-page">
+          <div class="mh-loader-accent"></div>
+          <div class="mh-loader-head">
+            <span class="mh-loader-icon">
+              <svg width="17" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 2.75h7l5 5V20a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 20V4.75A2 2 0 0 1 7 2.75Z"/>
+                <path d="M14 3v5h5M8.5 12h7M8.5 16h7"/>
+              </svg>
+            </span>
+            <div class="mh-loader-tag"><div class="mh-loading-block" style="width:42%;height:8px"></div><div class="mh-loading-block small" style="width:27%"></div></div>
+          </div>
+          <div class="mh-loading-block heading" style="width:71%"></div>
+          <div class="mh-loading-block" style="width:95%"></div>
+          <div class="mh-loading-block" style="width:89%"></div>
+          <div class="mh-loading-block" style="width:98%"></div>
+          <div class="mh-loading-block" style="width:62%"></div>
+          <div class="mh-loading-space"></div>
+          <div class="mh-loader-picture"><span></span><span></span><span></span></div>
+          <div class="mh-loading-space"></div>
+          <div class="mh-loader-divider"></div>
+          <div class="mh-loading-block" style="width:91%"></div>
+          <div class="mh-loading-block" style="width:96%"></div>
+          <div class="mh-loading-block" style="width:73%"></div>
+        </div>
+      </div>
+      <div class="mh-loading-caption">
+        <strong>Opening your document</strong>
+        <small>Preparing a clear reading experience</small>
+        <div class="mh-loader-progress" aria-label="Opening PDF"></div>
+      </div>
+    </div>
+  </main>`;
+        nativeOverlay = template.content.firstElementChild;
+        document.body.appendChild(nativeOverlay);
+        document.body.style.overflow = 'hidden';
+
+        // One short visual transition, then direct native PDF viewing.
+        // assign() preserves the preceding *MedHub lecture page* for Back.
+        setTimeout(function () {
+            if (!nativeOverlay) return;
+            try {
+                window.location.assign(pdf.href);
+            } catch (error) {
+                dismissNativeOverlay();
+                console.warn('Could not open PDF:', error);
+                window.alert('Unable to open this PDF. Please try again.');
+            }
+        }, 750);
+    }, true);
+})();
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
