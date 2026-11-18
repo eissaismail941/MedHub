@@ -1878,6 +1878,11 @@ left: auto !important;
     .mh-loading-screen{pointer-events:auto}
     .mh-loader-progress{width:140px;height:4px;margin-top:6px}
  .mh-loading-screen{pointer-events:auto;}
+    /* Recovery path shown only if the browser has not left this page after a while. */
+    .mh-native-recovery{display:none;flex-direction:column;align-items:center;gap:10px;max-width:360px;text-align:center;font-size:12px;color:#77849b;line-height:1.5;padding:0 24px}
+    .mh-native-recovery.is-visible{display:flex}
+    .mh-native-recovery a{color:#1677ff;text-decoration:underline;text-underline-offset:3px}
+    .mh-native-recovery button{border:1px solid #cfdcf2;background:#fff;color:#1677ff;border-radius:12px;padding:11px 18px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer}
 
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
@@ -3119,6 +3124,7 @@ function goBack() {
 
 function render(st) {
     st = st || { v:'home', d:0 };
+    if (mhScrollCancel) mhScrollCancel();
     PAGES.forEach(p => setShow(p, false));
     SUBVIEWS.forEach(p => setShow(p, false));
     switch (st.v) {
@@ -3157,7 +3163,43 @@ function closeMedhubPdfFrame() {
     document.body.style.overflow = medhubPdfPreviousOverflow;
 }
 
+// Shared with the native-PDF launcher further down.
+// active === true while its temporary loading entry / overlay exists; the launcher
+// then owns the next popstate (the Back press that cancels or leaves that entry).
+const mhPdfLoader = { active: false };
+let mhScrollCancel = null;
+
+// Restore scroll robustly: dynamic (Supabase) lecture cards are rendered AFTER the
+// page loads, so an early scrollTo() is clamped to a short page. Retry whenever the
+// card grid changes, until the target is reached, the user scrolls, or the view changes.
+function mhRestoreScroll(y) {
+    if (mhScrollCancel) mhScrollCancel();
+    if (!Number.isFinite(y) || y <= 0) return;
+    const grid = document.getElementById('resource-grid');
+    const userEvents = ['touchstart', 'wheel', 'keydown', 'mousedown'];
+    let obs = null, deadline = 0;
+    const stop = () => {
+        if (obs) obs.disconnect();
+        clearTimeout(deadline);
+        userEvents.forEach(t => window.removeEventListener(t, stop, true));
+        if (mhScrollCancel === stop) mhScrollCancel = null;
+    };
+    const attempt = () => {
+        window.scrollTo(0, y);
+        if (Math.abs(window.scrollY - y) <= 1) stop();
+    };
+    mhScrollCancel = stop;
+    userEvents.forEach(t => window.addEventListener(t, stop, { capture: true, passive: true }));
+    if (grid) {
+        obs = new MutationObserver(() => requestAnimationFrame(attempt));
+        obs.observe(grid, { childList: true, subtree: true });
+    }
+    deadline = setTimeout(stop, 8000); // safety bound for observers only, not a UI delay
+    requestAnimationFrame(() => requestAnimationFrame(attempt));
+}
+
 window.addEventListener('popstate', e => {
+    if (mhPdfLoader.active) return; // handled by the native-PDF launcher
     if (medhubPdfFrame && !e.state?.medhubPdfOverlay) {
         const savedScroll = medhubPdfScroll;
         closeMedhubPdfFrame();
@@ -3168,10 +3210,7 @@ window.addEventListener('popstate', e => {
     }
     if (!e.state?.medhubPdfOverlay) {
         render(e.state);
-        if (Number.isFinite(e.state?.mhReturnScroll)) {
-            const y = e.state.mhReturnScroll;
-            requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, y)));
-        }
+        if (Number.isFinite(e.state?.mhReturnScroll)) mhRestoreScroll(e.state.mhReturnScroll);
     }
 });
 
@@ -3564,6 +3603,11 @@ document.addEventListener('touchend', function (e) {
 const medhubUrl = new URL(window.location.href);
 const returningFromReader = medhubUrl.searchParams.get('medhubResume') === '1';
 let initialMedhubState = history.state || { v:'home', d:0 };
+if (initialMedhubState.mhPdfLoading) {
+    // Stale temporary loading entry (e.g. reload): keep the view, drop the loading marker.
+    const { mhPdfLoading: _stale, ...cleanState } = initialMedhubState;
+    initialMedhubState = cleanState;
+}
 if (returningFromReader) {
     try {
         const incoming = JSON.parse(medhubUrl.searchParams.get('medhubView') || '{}');
@@ -3598,11 +3642,9 @@ if (returningFromReader) {
 render(initialMedhubState);
 if (returningFromReader) {
     // Allow the lecture cards to finish mounting before restoring scroll.
-    const desiredScroll = medhubReturnScroll;
-    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
+    mhRestoreScroll(medhubReturnScroll);
 } else if (Number.isFinite(initialMedhubState.mhReturnScroll)) {
-    const desiredScroll = initialMedhubState.mhReturnScroll;
-    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
+    mhRestoreScroll(initialMedhubState.mhReturnScroll);
 }
 
 // Update return context at the moment of the click, not when cards render.
@@ -3651,35 +3693,110 @@ document.addEventListener('click', event => {
 }, false);
 
 
-/* ── Samsung/Android native PDF Back fix ──
-   Show the same original loading animation in the current page, then navigate
-   straight from MedHub to the browser PDF engine. The loader NEVER becomes
-   a separate top-level history entry. Samsung Back returns to the lecture list.
-   No PDF bytes are prefetched and the native PDF viewer remains untouched. */
+/* ── Samsung/Android native PDF launcher ──
+   History model (the important part):
+     [ lecture view A ]  ->  click  ->  [ A ][ A + loading marker ]  ->  location.replace(pdf)
+                                     ->  [ A ][ PDF ]
+   The loading overlay lives on a temporary history entry that is REPLACED by the PDF,
+   so it can never be revisited. System Back from the PDF lands directly on A. Back
+   pressed while the overlay is still visible pops the temporary entry, which cancels
+   the open and leaves the lecture cards on screen. No PDF bytes are prefetched and the
+   browser's native PDF viewer is untouched. */
 (function () {
     'use strict';
-    let nativeOverlay = null;
-    let priorBodyOverflow = '';
+    const LOADING_FLAG = 'mhPdfLoading';
+    const RECOVERY_MS = 8000;   // only reveals a manual escape hatch; nothing is hidden or delayed
+    let overlay = null, priorBodyOverflow = '';
+    let pdfHref = '', launchSig = '';
+    let handedOff = false, sawHidden = false;
+    let navRaf = 0, recoveryTimer = 0;
 
-    function dismissNativeOverlay() {
-        if (!nativeOverlay) return;
-        nativeOverlay.remove();
-        nativeOverlay = null;
+    const sig = s => s ? [s.v, s.b, s.key, s.group].join('|') : '';
+
+    function stopPending() {
+        cancelAnimationFrame(navRaf);
+        clearTimeout(recoveryTimer);
+        navRaf = 0; recoveryTimer = 0;
+    }
+
+    function removeOverlayDom() {
+        if (!overlay) return;
+        overlay.remove();
+        overlay = null;
         document.body.style.overflow = priorBodyOverflow;
     }
 
-    function restoreLectureScroll() {
-        const y = history.state && history.state.mhReturnScroll;
-        if (!Number.isFinite(y)) return;
-        requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, y)));
+    // Tear everything down. popEntry: also remove the temporary history entry when it is
+    // still the current one (the browser stayed on this page, e.g. PDF opened in a custom
+    // tab / download, or the page was restored on the loading entry).
+    function dismiss(popEntry) {
+        stopPending();
+        removeOverlayDom();
+        handedOff = false; sawHidden = false;
+        if (popEntry && history.state && history.state[LOADING_FLAG]) {
+            mhPdfLoader.active = true;       // the resulting popstate is ours; do not re-render
+            history.back();
+        } else {
+            mhPdfLoader.active = false;
+        }
     }
 
-    // Before the page enters back-forward cache, remove the temporary overlay.
-    window.addEventListener('pagehide', dismissNativeOverlay);
-    window.addEventListener('pageshow', function () {
-        dismissNativeOverlay();
-        restoreLectureScroll();
+    // The page is being left for the PDF (or cached): the overlay must not travel into the
+    // back/forward cache or a restored page. DOM-only here, no history calls in pagehide.
+    window.addEventListener('pagehide', function () {
+        stopPending();
+        removeOverlayDom();
+        mhPdfLoader.active = false;
+        handedOff = false; sawHidden = false;
     });
+
+    window.addEventListener('pageshow', function (event) {
+        if (overlay || (event.persisted && history.state && history.state[LOADING_FLAG])) dismiss(true);
+        const y = history.state && history.state.mhReturnScroll;
+        if (event.persisted && Number.isFinite(y)) mhRestoreScroll(y);
+    });
+
+    // PDF opened outside this document (installed-app custom tab, new tab): the page is not
+    // unloaded, so pagehide never fires. When the user comes back, clear the overlay.
+    document.addEventListener('visibilitychange', function () {
+        if (!overlay) return;
+        if (document.visibilityState === 'hidden') sawHidden = true;
+        else if (sawHidden) dismiss(true);
+    });
+
+    // Back pressed while the loading entry is current: cancel the open, keep the cards.
+    window.addEventListener('popstate', function (event) {
+        if (!mhPdfLoader.active) return;
+        const hadOverlay = !!overlay;
+        if (handedOff && hadOverlay) { try { window.stop(); } catch (_) {} } // abort a not-yet-committed PDF navigation
+        stopPending();
+        removeOverlayDom();
+        mhPdfLoader.active = false;
+        handedOff = false; sawHidden = false;
+        const st = event.state;
+        if (st && sig(st) !== launchSig) render(st); // normal view change (e.g. Forward)
+        if (st && Number.isFinite(st.mhReturnScroll)) mhRestoreScroll(st.mhReturnScroll);
+    });
+
+    function showRecovery() {
+        if (!overlay) return;
+        const box = overlay.querySelector('.mh-native-recovery');
+        if (box) box.classList.add('is-visible');
+    }
+
+    function handOff() {
+        navRaf = 0;
+        if (!overlay) return;
+        handedOff = true;
+        try {
+            // replace(): the temporary loading entry becomes the PDF entry.
+            window.location.replace(pdfHref);
+        } catch (error) {
+            console.warn('Could not open PDF:', error);
+            handedOff = false;
+            showRecovery();
+        }
+    }
 
     document.addEventListener('click', function (event) {
         const link = event.target.closest('a.btn-open');
@@ -3712,14 +3829,19 @@ document.addEventListener('click', event => {
         }
 
         event.preventDefault();
-        if (nativeOverlay) return;
+        if (overlay) return;
 
-        // Keep the existing Stage/Block/Subject browser-history state untouched.
-        // Store scroll in that same entry, not in a new history entry.
-        history.replaceState({
-            ...(history.state || { v: 'home', d: 0 }),
-            mhReturnScroll: Math.max(0, Math.round(window.scrollY))
-        }, '', location.href);
+        pdfHref = pdf.href;
+        const current = history.state || { v: 'home', d: 0 };
+        launchSig = sig(current);
+        const y = Math.max(0, Math.round(window.scrollY));
+
+        // 1) Remember scroll on the lecture view's own entry (Stage/Block/Subject untouched).
+        history.replaceState({ ...current, mhReturnScroll: y }, '', location.href);
+        // 2) Temporary loading entry on top. Back cancels it; the PDF navigation replaces it.
+        history.pushState({ ...current, mhReturnScroll: y, d: (current.d || 0) + 1, [LOADING_FLAG]: true }, '', location.href);
+        mhPdfLoader.active = true;
+        sawHidden = false; handedOff = false;
 
         priorBodyOverflow = document.body.style.overflow;
         const template = document.createElement('template');
@@ -3758,24 +3880,24 @@ document.addEventListener('click', event => {
         <small>Preparing a clear reading experience</small>
         <div class="mh-loader-progress" aria-label="Opening PDF"></div>
       </div>
+      <div class="mh-native-recovery">
+        <div>This is taking longer than expected.</div>
+        <a class="mh-native-open" target="_blank" rel="noopener noreferrer">Open the PDF in a new tab</a>
+        <button type="button" class="mh-native-close">Back to lectures</button>
+      </div>
     </div>
   </main>`;
-        nativeOverlay = template.content.firstElementChild;
-        document.body.appendChild(nativeOverlay);
+        overlay = template.content.firstElementChild;
+        overlay.querySelector('.mh-native-open').href = pdfHref;
+        overlay.querySelector('.mh-native-close').addEventListener('click', function () { dismiss(true); });
+        document.body.appendChild(overlay);
         document.body.style.overflow = 'hidden';
 
-        // One short visual transition, then direct native PDF viewing.
-        // assign() preserves the preceding *MedHub lecture page* for Back.
-        setTimeout(function () {
-            if (!nativeOverlay) return;
-            try {
-                window.location.assign(pdf.href);
-            } catch (error) {
-                dismissNativeOverlay();
-                console.warn('Could not open PDF:', error);
-                window.alert('Unable to open this PDF. Please try again.');
-            }
-        }, 750);
+        // Navigate as soon as the overlay has been painted (no fixed delay). The overlay then
+        // stays up for exactly as long as the browser takes to commit the PDF navigation.
+        navRaf = requestAnimationFrame(function () { navRaf = requestAnimationFrame(handOff); });
+        // If the browser never leaves this page (blocked/download/failed), offer a way out.
+        recoveryTimer = setTimeout(showRecovery, RECOVERY_MS);
     }, true);
 })();
 
