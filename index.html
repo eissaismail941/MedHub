@@ -3552,17 +3552,52 @@ if (returningFromReader) {
     requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, desiredScroll)));
 }
 
-// Update return context at the moment of the click, not when cards render.
+// Preserve the precise subject and scroll position before opening a native PDF.
+// This also handles Android Chrome recreating the MedHub document on Back.
+const MH_PDF_RETURN_KEY = 'medhub-native-pdf-return-v1';
+function restoreNativePdfReturn() {
+    let saved;
+    try { saved = JSON.parse(sessionStorage.getItem(MH_PDF_RETURN_KEY) || 'null'); } catch (_) { return; }
+    if (!saved || !saved.state || Date.now() - saved.time > 30 * 60 * 1000) {
+        sessionStorage.removeItem(MH_PDF_RETURN_KEY);
+        return;
+    }
+    // Only restore when the browser returned to MedHub, not when a user
+    // intentionally navigated to a different section in the same document.
+    sessionStorage.removeItem(MH_PDF_RETURN_KEY);
+    const st = saved.state;
+    if (!['home','stage1','block','stage2','s2block','split','res'].includes(st.v)) return;
+    if (st.v === 'res' && !subjectMap[st.key]) return;
+    history.replaceState(st, '', location.pathname + location.search + location.hash);
+    render(st);
+    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, saved.scroll || 0)));
+}
+
 document.addEventListener('click', event => {
     const link = event.target.closest('a.btn-open');
     if (!link) return;
     const url = new URL(link.href, window.location.href);
-    if (url.origin !== window.location.origin || !url.pathname.includes('/reader/')) return;
+    const nativePath = new URL('./reader-native/', location.href).pathname;
+    if (url.origin !== location.origin || !url.pathname.startsWith(nativePath)) return;
+    const state = history.state || {v:'home',d:0};
+    const scroll = Math.round(window.scrollY);
+    try { sessionStorage.setItem(MH_PDF_RETURN_KEY, JSON.stringify({state, scroll, time:Date.now()})); } catch (_) {}
     url.searchParams.set('fromMedHub', '1');
-    url.searchParams.set('medhubView', JSON.stringify(history.state || {v:'home',d:0}));
-    url.searchParams.set('medhubScroll', String(Math.round(window.scrollY)));
+    url.searchParams.set('medhubView', JSON.stringify(state));
+    url.searchParams.set('medhubScroll', String(scroll));
     link.href = url.href;
 }, true);
+
+// If Chrome restores a cached document, preserve its existing section.
+// If it reloads the document, restore the saved subject and scroll position.
+window.addEventListener('pageshow', event => {
+    if (event.persisted) {
+        try { sessionStorage.removeItem(MH_PDF_RETURN_KEY); } catch (_) {}
+        render(history.state);
+    } else {
+        restoreNativePdfReturn();
+    }
+});
 
 /* Embedded Reader: same PWA window, no new browser tab, no visible Back button.
    The iframe is fullscreen, but belongs to the original homepage's history.
