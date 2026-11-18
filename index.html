@@ -1875,7 +1875,6 @@ left: auto !important;
         @media(max-height:530px){.mh-loader-wrap{gap:13px;padding:10px}.mh-loader-stage{width:min(240px,calc((100dvh - 132px)*.74))}.mh-loading-page{gap:7px;padding:18px}.mh-loader-head{margin-bottom:4px}.mh-loader-picture{display:none}}
         @media(prefers-reduced-motion:reduce){.mh-loading-screen{transition:none}.mh-loader-stage,.mh-loading-block::after,.mh-loader-progress::after{animation:none}.mh-loader-progress::after{transform:none}}
       
-
     .mh-loading-screen{pointer-events:auto}
     .mh-loader-progress{width:140px;height:4px;margin-top:6px}
  .mh-loading-screen{pointer-events:auto;}
@@ -3661,16 +3660,8 @@ document.addEventListener('click', event => {
     'use strict';
     let nativeOverlay = null;
     let priorBodyOverflow = '';
-    let nativeTimer = null;
-    let nativeReturnScroll = 0;
-    let nativeLaunchId = 0;
 
     function dismissNativeOverlay() {
-        nativeLaunchId++; // Invalidate any pending PDF launch.
-        if (nativeTimer !== null) {
-            clearTimeout(nativeTimer);
-            nativeTimer = null;
-        }
         if (!nativeOverlay) return;
         nativeOverlay.remove();
         nativeOverlay = null;
@@ -3683,16 +3674,7 @@ document.addEventListener('click', event => {
         requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, y)));
     }
 
-    // A loading screen is a REAL browser-history step. Samsung Back pops it,
-    // cancels the pending redirect, and leaves the student on the lecture list.
-    window.addEventListener('popstate', function (event) {
-        if (!nativeOverlay || event.state?.medhubNativeLoading) return;
-        const savedY = nativeReturnScroll;
-        dismissNativeOverlay();
-        requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, savedY)));
-    });
-
-    // Never resume a stale delayed navigation from the back-forward cache.
+    // Before the page enters back-forward cache, remove the temporary overlay.
     window.addEventListener('pagehide', dismissNativeOverlay);
     window.addEventListener('pageshow', function () {
         dismissNativeOverlay();
@@ -3739,11 +3721,7 @@ document.addEventListener('click', event => {
             mhReturnScroll: Math.max(0, Math.round(window.scrollY))
         }, '', location.href);
 
-        nativeReturnScroll = window.scrollY;
         priorBodyOverflow = document.body.style.overflow;
-        // Keep the lecture-list entry underneath this new temporary step.
-        history.pushState({ ...(history.state || {}), medhubNativeLoading: true }, '', location.href);
-        const thisLaunch = ++nativeLaunchId;
         const template = document.createElement('template');
         template.innerHTML = `<main class="mh-loading-screen" role="status" aria-label="Opening your document">
     <div class="mh-loader-wrap">
@@ -3786,22 +3764,12 @@ document.addEventListener('click', event => {
         document.body.appendChild(nativeOverlay);
         document.body.style.overflow = 'hidden';
 
-        // Replace ONLY the loading history step with the native PDF.
-        // This avoids both a stuck loader on Back and an extra Back press.
-        nativeTimer = setTimeout(function () {
-            nativeTimer = null;
-            if (!nativeOverlay || thisLaunch !== nativeLaunchId ||
-                !history.state?.medhubNativeLoading) return;
+        // One short visual transition, then direct native PDF viewing.
+        // assign() preserves the preceding *MedHub lecture page* for Back.
+        setTimeout(function () {
+            if (!nativeOverlay) return;
             try {
-                // Samsung Internet may briefly paint the cached MedHub page on
-                // returning from its native PDF viewer. Remove the skeleton
-                // BEFORE navigation so its BFCache snapshot cannot flash.
-                // Do not cancel the launch or pop the loading history entry.
-                nativeOverlay.style.transition = 'none';
-                nativeOverlay.style.animation = 'none';
-                nativeOverlay.style.opacity = '0';
-                nativeOverlay.style.visibility = 'hidden';
-                window.location.replace(pdf.href);
+                window.location.assign(pdf.href);
             } catch (error) {
                 dismissNativeOverlay();
                 console.warn('Could not open PDF:', error);
