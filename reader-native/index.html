@@ -104,6 +104,22 @@
   <script>
   (() => {
     'use strict';
+    // When Chrome restores this handoff page using Back from its native PDF viewer,
+    // skip the loader and return directly to the MedHub lecture list.
+    // A normal fresh visit still displays the loader as before.
+    const returnToLectures = () => window.location.replace('../index.html');
+    const isHistoryReturn = () => {
+      const entry = performance.getEntriesByType('navigation')[0];
+      return entry && entry.type === 'back_forward';
+    };
+    if (isHistoryReturn()) {
+      returnToLectures();
+      return;
+    }
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted || isHistoryReturn()) returnToLectures();
+    });
+
     const query = new URLSearchParams(location.search);
     const error = document.getElementById('native-error');
     const help = document.getElementById('native-help');
