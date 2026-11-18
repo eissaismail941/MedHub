@@ -3776,6 +3776,17 @@ document.addEventListener('click', event => {
                 window.alert('Unable to open this PDF. Please try again.');
             }
         }, 750);
+
+        // Samsung Internet can handle the PDF as a DOWNLOAD without navigating.
+        // If so, the pagehide/pageshow events never fire, and the full-screen
+        // loading animation would otherwise remain over the lecture cards.
+        // This safety cleanup does not interrupt a PDF that actually navigated.
+        window.setTimeout(function () {
+            if (nativeOverlay) {
+                dismissNativeOverlay();
+                restoreLectureScroll();
+            }
+        }, 2400);
     }, true);
 })();
 
