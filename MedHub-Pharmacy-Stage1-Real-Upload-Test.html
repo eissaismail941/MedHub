@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Cache-Control" content="no-store">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://lxmxsymxmpulkkngjfjo.supabase.co https://medhub-api-test.eissaismail941.workers.dev; form-action 'none'; base-uri 'none'; object-src 'none'">
+<title>MedHub — Pharmacy Stage 1 Upload Security Test</title>
+<style>
+:root{color-scheme:light;--blue:#1677ff;--ink:#10203d;--muted:#687891;--line:#e0e8f3;--bg:#f6f8fc;--ok:#0a7953;--err:#b32424}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{width:min(620px,calc(100% - 28px));margin:clamp(20px,5vw,55px) auto 50px}
+.brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:750;margin-bottom:19px}.logo{display:grid;place-items:center;background:var(--blue);width:42px;height:42px;border-radius:13px;color:white;font-weight:900;font-size:19px}.muted{color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:25px;padding:clamp(20px,5vw,31px);box-shadow:0 13px 40px #091e3a09;margin-bottom:14px}.eyebrow{display:inline-block;font-size:11px;letter-spacing:.035em;font-weight:850;background:#f0f6ff;color:#1465c8;border:1px solid #d8e6fa;border-radius:99px;padding:6px 12px}
+h1{font-size:clamp(25px,5vw,30px);letter-spacing:-.035em;line-height:1.16;margin:16px 0 10px}h2{font-size:17px;margin:0 0 10px}p{margin:0 0 18px;color:var(--muted);line-height:1.65}
+.field{margin:0 0 16px}label{display:block;font-size:13px;font-weight:750;margin-bottom:7px}input[type=email],input[type=password],input[type=file]{width:100%;border-radius:13px;border:1px solid #d5e0ed;padding:13px 14px;color:var(--ink);background:#fff;font:inherit;min-width:0}input[type=file]{font-size:13px}input:focus-visible,button:focus-visible{outline:3px solid #b7d6ff;outline-offset:2px}
+button{border:0;border-radius:13px;padding:13px 15px;font:750 15px system-ui,-apple-system,sans-serif;cursor:pointer}button.primary{background:var(--blue);color:#fff;width:100%;box-shadow:0 5px 15px #1677ff25}button.secondary{background:#edf2f8;color:#30425c}button:disabled{cursor:not-allowed;opacity:.48}
+.box{border:1px solid #deebfa;border-radius:14px;background:#f6f9ff;padding:14px 15px;font-size:13px;line-height:1.65;color:#3f5777;margin:15px 0}
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.scope>div{background:#f6f9fe;border:1px solid #e0e9f5;border-radius:13px;padding:11px 13px}.scope small{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}.scope strong{font-size:14px}
+.status{margin-top:14px;border:1px solid var(--line);background:#f6f9fd;border-radius:13px;padding:13px 15px;font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}.status.good{color:#095f41;border-color:#b9e6cf;background:#f0fcf5}.status.bad{color:#982525;border-color:#f1cece;background:#fff6f6}.hidden{display:none!important}
+.ack{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;margin:18px 0}.ack input{width:17px;height:17px;accent-color:var(--blue);flex:none;margin:1px 0 0}.tools{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.tools button{font-size:12px;padding:9px 12px}.small{font-size:12px;line-height:1.65;color:var(--muted)}footer{padding:5px;font-size:12px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+<main>
+<div class="brand"><span class="logo">M</span>MedHub <span class="muted">/ Secure Upload Lab</span></div>
+<section class="card">
+<span class="eyebrow">PRIVATE R2 TEST ONLY</span>
+<h1>Pharmacy Stage 1 PDF test</h1>
+<p>Sign in with the <strong>test representative account</strong>. This page verifies its assigned role, then uploads a PDF only to the private <strong>medhub-test-lectures</strong> bucket.</p>
+<div class="box">Use this page only on <strong>eissaismail941.github.io/MedHub/</strong>. Your login goes directly to Supabase. Passwords and access tokens are not saved in browser storage or shown on this page. Never use your Super Admin credentials here.</div>
+<form id="loginForm" autocomplete="off">
+<div class="field"><label for="email">Test representative email</label><input id="email" type="email" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Test account email" required></div>
+<div class="field"><label for="password">Test representative password</label><input id="password" type="password" autocomplete="off" placeholder="Password set during invitation" required></div>
+<button class="primary" id="login" type="submit">Verify representative account</button>
+</form>
+<div id="loginStatus" class="status hidden" role="status" aria-live="polite"></div>
+</section>
+<section id="uploadCard" class="card hidden">
+<div class="tools"><h2>Authorized test upload</h2><button class="secondary" id="clear" type="button">Clear session</button></div>
+<div class="scope"><div><small>College</small><strong>Pharmacy</strong></div><div><small>Stage</small><strong>Stage 1</strong></div></div>
+<div class="box"><strong>Scope locked:</strong> Your test representative account must have exactly one active assignment: <code>content_admin / pharmacy / stage 1</code>. The Worker independently checks permissions before storing a PDF.</div>
+<form id="uploadForm">
+<div class="field"><label for="pdf">Choose a small sample PDF</label><input type="file" id="pdf" accept="application/pdf,.pdf" required><div class="small" style="margin-top:7px">Recommended under 2 MB. Maximum for this test page: 10 MB. No private or confidential documents.</div></div>
+<label class="ack"><input type="checkbox" id="confirm"><span>I understand this is a <strong>test-only upload</strong>. Nothing is added to the live MedHub lecture library.</span></label>
+<button class="primary" id="send" type="submit" disabled>Upload to private test bucket</button>
+</form>
+<div id="uploadStatus" class="status hidden" role="status" aria-live="polite"></div>
+</section>
+<footer>Only <strong>medhub-api-test</strong> is contacted. The live <strong>medhub-api</strong> Worker, lecture database, and real PDF bucket are not changed. After testing, delete this temporary HTML file from GitHub. Never share passwords, auth tokens, or full authentication responses.</footer>
+</main>
+<script>
+(()=>{'use strict';
+const ORIGIN='https://eissaismail941.github.io';
+const SUPABASE='https://lxmxsymxmpulkkngjfjo.supabase.co';
+const PUBLISHABLE='sb_publishable_-7LnL-kzS1omjDFD5va_0A_Tjdh3m8h';
+const WORKER='https://medhub-api-test.eissaismail941.workers.dev';
+const MAX_BYTES=10*1024*1024;
+const $=id=>document.getElementById(id);
+let accessToken=null, expiresAt=0, verified=false;
+const setStatus=(id,type,message)=>{const n=$(id);n.className='status '+(type||'');n.textContent=message;n.classList.remove('hidden')};
+function clearSession(){accessToken=null;expiresAt=0;verified=false;$('loginForm').reset();$('uploadForm').reset();$('uploadCard').classList.add('hidden');$('loginForm').classList.remove('hidden');$('login').disabled=false;$('login').textContent='Verify representative account';$('loginStatus').classList.add('hidden');$('uploadStatus').classList.add('hidden');$('send').disabled=true}
+$('clear').addEventListener('click',clearSession);
+window.addEventListener('pagehide',()=>{accessToken=null;verified=false});
+if(location.origin!==ORIGIN||!location.pathname.startsWith('/MedHub/')){
+ $('login').disabled=true;
+ setStatus('loginStatus','bad','Open this page through your own MedHub GitHub Pages site. Do not sign in to a downloaded local HTML file or a different domain.');
+ return;
+}
+$('loginForm').addEventListener('submit',async event=>{
+ event.preventDefault();
+ const email=$('email').value.trim(), password=$('password').value;
+ $('login').disabled=true;$('login').textContent='Verifying…';$('loginStatus').classList.add('hidden');
+ try{
+  const response=await fetch(SUPABASE+'/auth/v1/token?grant_type=password',{
+   method:'POST',headers:{'Content-Type':'application/json',apikey:PUBLISHABLE},
+   body:JSON.stringify({email,password}),cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'
+  });
+  const data=await response.json();
+  $('password').value='';
+  if(!response.ok||typeof data.access_token!=='string')throw new Error('Sign-in failed. Check the test representative email and password.');
+  accessToken=data.access_token;
+  expiresAt=Date.now()+(Number(data.expires_in)||3600)*1000;
+  const who=await fetch(WORKER+'/whoami',{method:'GET',headers:{Authorization:'Bearer '+accessToken},cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});
+  const me=await who.json();
+  if(!who.ok)throw new Error('Test Worker authorization failed: '+(me.error||'Unknown error'));
+  const a=Array.isArray(me.assignments)?me.assignments:[];
+  const proper=a.length===1&&a[0].role==='content_admin'&&a[0].college==='pharmacy'&&a[0].stage===1&&a[0].is_active===true;
+  if(!proper)throw new Error('Wrong account or permissions. This test requires exactly one active Pharmacy Stage 1 content_admin assignment.');
+  verified=true;
+  $('loginForm').classList.add('hidden');$('uploadCard').classList.remove('hidden');
+  setStatus('loginStatus','good','Representative verified ✅ Pharmacy · Stage 1 · Content Admin. You can now upload a sample PDF.');
+ }catch(error){accessToken=null;verified=false;$('password').value='';setStatus('loginStatus','bad',error.message||'Could not verify the account');$('login').disabled=false;$('login').textContent='Verify representative account';}
+});
+$('pdf').addEventListener('change',()=>{$('uploadStatus').classList.add('hidden');$('send').disabled=!$('confirm').checked||!$('pdf').files?.length});
+$('confirm').addEventListener('change',()=>{$('send').disabled=!$('confirm').checked||!$('pdf').files?.length});
+$('uploadForm').addEventListener('submit',async event=>{
+ event.preventDefault();
+ if(!verified||!accessToken||Date.now()>expiresAt-30000){setStatus('uploadStatus','bad','Test session expired. Clear the session and sign in again.');return;}
+ const file=$('pdf').files?.[0];
+ if(!file||!$('confirm').checked){setStatus('uploadStatus','bad','Choose a PDF and confirm this is a test.');return;}
+ if(!file.size||file.size>MAX_BYTES){setStatus('uploadStatus','bad','Select a PDF smaller than 10 MB for this test.');return;}
+ if(!/\.pdf$/i.test(file.name)&&file.type!=='application/pdf'){setStatus('uploadStatus','bad','Choose a .pdf file.');return;}
+ $('send').disabled=true;$('send').textContent='Uploading…';$('uploadStatus').classList.add('hidden');
+ try{
+  const header=await file.slice(0,5).text();
+  if(header!=='%PDF-')throw new Error('File does not have a valid PDF header.');
+  const requestUrl=WORKER+'/upload?college=pharmacy&stage=1';
+  const response=await fetch(requestUrl,{
+   method:'POST',headers:{Authorization:'Bearer '+accessToken,'Content-Type':'application/pdf','Accept':'application/json'},
+   body:file,cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'
+  });
+  let data;try{data=await response.json()}catch{throw new Error('Worker returned an unexpected response (HTTP '+response.status+').');}
+  if(!response.ok)throw new Error('Worker rejected the upload (HTTP '+response.status+'): '+(data.error||'Unknown reason'));
+  if(response.status!==201||data.ok!==true||data.testOnly!==true||data.college!=='pharmacy'||data.stage!==1||typeof data.key!=='string'||!data.key.startsWith('test/pharmacy/stage-1/')){
+   throw new Error('Unexpected response. Do not treat the upload as verified; inspect the test Worker.');
+  }
+  setStatus('uploadStatus','good','Test PDF uploaded successfully ✅\n\nCollege: Pharmacy\nStage: 1\nSize: '+data.size+' bytes\nR2 object: '+data.key+'\n\nThis file is in the private medhub-test-lectures bucket. No live lecture was created.');
+  $('uploadForm').reset();
+  accessToken=null;verified=false;expiresAt=0;
+  $('send').disabled=true;
+  $('loginForm').classList.remove('hidden');$('login').disabled=false;$('login').textContent='Verify representative account';
+ }catch(error){setStatus('uploadStatus','bad',error.message||'Upload failed. Review Worker logs and try again.');}
+ finally{$('send').textContent='Upload to private test bucket';if(verified)$('send').disabled=!$('confirm').checked||!$('pdf').files?.length;}
+});
+})();
+</script>
+</body>
+</html>
