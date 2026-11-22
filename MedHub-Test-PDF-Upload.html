@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>MedHub — Secure Test PDF Upload</title>
+<style>
+:root{color-scheme:light;--blue:#1677ff;--ink:#0b1730;--muted:#65728a;--line:#e2e9f2;--bg:#f7f9fc;--ok:#16674b;--danger:#a42929}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+main{width:min(100% - 32px,560px);margin:clamp(28px,6vh,75px) auto 40px}.mark{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:750;margin-bottom:24px}.logo{background:var(--blue);color:white;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;font-size:18px}
+.card{padding:clamp(20px,5vw,34px);border:1px solid var(--line);border-radius:26px;box-shadow:0 14px 50px #18263b0a;background:white}h1{font-size:clamp(23px,5vw,30px);letter-spacing:-.8px;line-height:1.15;margin:0 0 12px}p{color:var(--muted);line-height:1.6;font-size:14px;margin:0 0 20px}.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #cee0ff;background:#f2f7ff;color:#135bc0;border-radius:50px;padding:7px 12px;font-size:12px;font-weight:700;margin-bottom:17px}.dot{width:7px;height:7px;border-radius:50px;background:var(--blue)}
+label{display:block;font-size:13px;font-weight:750;margin-bottom:7px}.field{margin:0 0 17px}.small{font-size:12px;color:var(--muted);line-height:1.5}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}select,input[type=file]{width:100%;background:#fff;color:var(--ink);border:1px solid #d6dfec;border-radius:12px;padding:13px;font:500 15px/1.3 inherit;font-family:inherit;min-width:0}input[type=file]{font-size:13px;cursor:pointer}select:focus,input:focus,button:focus-visible{outline:3px solid #bdd6ff;outline-offset:2px}button{background:var(--blue);color:white;border:none;border-radius:13px;width:100%;padding:15px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.note{padding:13px 15px;background:#f6f9ff;border:1px solid #e2ebfa;border-radius:14px;font-size:12px;line-height:1.6;color:#3b557b;margin-bottom:19px}.ack{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45;cursor:pointer;margin:12px 0 18px}.ack input{accent-color:var(--blue);width:17px;height:17px;margin:1px 0 0;flex:none}
+#result{margin-top:18px;border:1px solid var(--line);background:#f9fbff;border-radius:14px;padding:16px;display:none}#result[data-type="ok"]{border-color:#b2ddca;background:#f4fff8}#result[data-type="error"]{border-color:#f0c4c4;background:#fff8f8}#result h2{margin:0 0 7px;font-size:15px}#result p{margin:0;color:var(--ink);white-space:pre-line;overflow-wrap:anywhere}.foot{padding:16px 3px;color:var(--muted);font-size:12px;line-height:1.7}.foot strong{color:var(--ink)}@media(max-width:420px){.fields{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<div class="mark"><span class="logo">M</span> MedHub <span style="color:#98a2b2;font-weight:500">/ Upload Security Test</span></div>
+<section class="card">
+<span class="pill"><span class="dot"></span> PRIVATE R2 TEST ONLY</span>
+<h1>Test a PDF upload</h1>
+<p>This page uses your existing MedHub admin session to upload one PDF to the <strong>private test bucket only</strong>. It does not add lectures to the live site or change the Supabase lectures table.</p>
+<form id="uploadForm">
+<div class="fields">
+<div class="field"><label for="college">College</label><select id="college" required><option value="medicine">Medicine</option><option value="dentistry">Dentistry</option><option value="pharmacy" selected>Pharmacy</option><option value="nursing">Nursing</option><option value="health-sciences">Health Sciences</option></select></div>
+<div class="field"><label for="stage">Stage</label><select id="stage" required></select></div>
+</div>
+<div class="field"><label for="pdf">Test PDF (50 MB maximum)</label><input id="pdf" type="file" accept=".pdf,application/pdf" required><div class="small" style="margin-top:7px">Choose a non-sensitive sample PDF, not a personal or confidential document.</div></div>
+<div class="note">The Worker verifies your real Supabase identity and active admin assignment before accepting an upload. Testing with your Super Admin account confirms authorized uploading, but we must also test a stage-restricted account later.</div>
+<label class="ack"><input type="checkbox" id="ack"><span>I understand this is a test upload to <strong>medhub-test-lectures</strong>, not a real lecture publication.</span></label>
+<button type="submit" id="send" disabled>Upload test PDF</button>
+</form>
+<div id="result" role="status" aria-live="polite"><h2 id="heading"></h2><p id="details"></p></div>
+</section>
+<div class="foot"><strong>Safety:</strong> Use this page only on <strong>eissaismail941.github.io/MedHub/</strong>, after signing in to MedHub in the same browser. This page reads the existing admin session locally and sends the access token only to your Cloudflare test Worker. It does not display, copy or save tokens. Don't replace <strong>index.html</strong>. Remove this test file from GitHub after testing.</div>
+</main>
+<script>
+(()=>{
+'use strict';
+const MAX_BYTES=50*1024*1024;
+const MAX_STAGES={medicine:6,dentistry:5,pharmacy:5,nursing:4,'health-sciences':4};
+const college=document.getElementById('college'),stage=document.getElementById('stage'),pdf=document.getElementById('pdf'),ack=document.getElementById('ack'),send=document.getElementById('send');
+const result=document.getElementById('result'),heading=document.getElementById('heading'),details=document.getElementById('details'),form=document.getElementById('uploadForm');
+const ENDPOINT='https://medhub-api-test.eissaismail941.workers.dev/upload';
+function populateStages(){const previous=stage.value;stage.replaceChildren();for(let i=1;i<=MAX_STAGES[college.value];i++){const opt=new Option('Stage '+i,String(i));stage.add(opt)}if(previous&&Number(previous)<=MAX_STAGES[college.value])stage.value=previous;else stage.value='1'}
+function ready(){send.disabled=!ack.checked||!pdf.files?.length}
+function show(type,title,message){result.style.display='block';result.dataset.type=type;heading.textContent=title;details.textContent=message}
+college.addEventListener('change',populateStages);ack.addEventListener('change',ready);pdf.addEventListener('change',ready);populateStages();
+form.addEventListener('submit',async e=>{
+ e.preventDefault();result.style.display='none';
+ if(location.origin!=='https://eissaismail941.github.io'||!location.pathname.startsWith('/MedHub/')){show('error','Wrong website address','Upload this page as a separate file in your MedHub GitHub repository. Open it from GitHub Pages, not from Downloads or another website.');return}
+ const file=pdf.files?.[0];if(!file||!ack.checked){show('error','Select a test PDF','Choose a PDF file and confirm that this is a test.');return}
+ if(file.size<=0||file.size>MAX_BYTES){show('error','Invalid file size','The test file must be between 1 byte and 50 MB.');return}
+ if(!/\.pdf$/i.test(file.name)&&file.type!=='application/pdf'){show('error','PDF required','Choose a .pdf document.');return}
+ let session;try{session=JSON.parse(localStorage.getItem('medhub-admin-session')||'null')}catch{session=null}
+ if(!session?.access_token){show('error','No saved admin session','Sign in to MedHub with your Super Admin account in this browser, then return here.');return}
+ if(typeof session.expires==='number'&&Date.now()>=session.expires-30000){show('error','Saved session expired','Return to the normal MedHub website, sign in again if necessary, then retry this test.');return}
+ send.disabled=true;send.textContent='Uploading to private test bucket…';
+ try{
+  const url=new URL(ENDPOINT);url.searchParams.set('college',college.value);url.searchParams.set('stage',stage.value);
+  const response=await fetch(url.toString(),{method:'POST',headers:{Authorization:'Bearer '+session.access_token,'Content-Type':'application/pdf',Accept:'application/json'},body:file,cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});
+  let data;try{data=await response.json()}catch{data={error:'Server returned an unexpected response'}}
+  if(!response.ok){show('error',`Upload rejected — HTTP ${response.status}`,`${data?.error||'Unknown error'}\n\nIf your session expired, sign in again on your normal MedHub website. Do not share passwords or tokens.`);return}
+  if(data?.ok!==true||data?.testOnly!==true){show('error','Unexpected upload response','The server did not confirm a test-only upload. Check your test Worker configuration.');return}
+  show('ok','Test PDF uploaded successfully ✅',`Uploaded to the private test bucket.\n\nCollege: ${data.college}\nStage: ${data.stage}\nSize: ${data.size} bytes\nR2 key: ${data.key}\n\nNo live lecture was published. The object can be removed later from Cloudflare R2's test bucket.`);
+ }catch{show('error','Could not contact the test Worker','Check that you are online and that this page is hosted on your MedHub GitHub Pages website. If necessary, review the Worker logs.')}finally{send.textContent='Upload test PDF';ready()}
+});
+})();
+</script>
+</body>
+</html>
