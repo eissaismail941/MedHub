@@ -1885,74 +1885,119 @@ left: auto !important;
     .mh-native-recovery button{border:1px solid #cfdcf2;background:#fff;color:#1677ff;border-radius:12px;padding:11px 18px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer}
 
 
-/* === MedHub 5-college trial — self-contained navigation and styles === */
-:root { --mh-college-blue: #1677FF; }
-#college-select-page, #college-empty-page {
-  display: none; min-height: 100vh; background: #f8fbff;
-  padding: clamp(38px, 6vw, 70px) 18px 90px;
+/* ================================================================
+   MedHub — five-college entry, quiet and integrated with original UI.
+   Scoped styles; Medicine lecture screens and PDF viewer untouched.
+   ================================================================ */
+/* Keep the existing admin avatar on Medicine, not on the public chooser. */
+body[data-mh-view="colleges"] .mh-acct,
+body[data-mh-view="college-library"] .mh-acct { display:none !important; }
+#mh-college-chooser-page, #mh-college-library-page {
+    display: none;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: #f8faff;
+    color: #16233a;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-.mh-college-wrap { max-width: 820px; margin: 0 auto; }
-.mh-college-head { text-align: center; margin-bottom: 32px; }
-.mh-college-mark {
-  display: grid; place-items: center; width: 68px; height: 68px;
-  margin: 0 auto 17px; background: #eaf2ff; color: var(--mh-college-blue);
-  border: 1px solid #dceafe; border-radius: 22px;
+#mh-college-chooser-page {
+    padding: max(26px, env(safe-area-inset-top, 0px)) 22px 40px;
 }
-.mh-college-head h1 { font: 800 clamp(2.1rem, 5vw, 3rem)/1.12 'Syne', 'DM Sans', sans-serif; color: #102039; letter-spacing: -1.5px; }
-.mh-college-head .mh-college-eyebrow { color: #1677FF; font: 750 .77rem 'DM Sans', sans-serif; letter-spacing: 1.15px; text-transform: uppercase; margin-bottom: 9px; }
-.mh-college-head p { color: #65748b; font-size: .95rem; margin-top: 13px; line-height: 1.6; }
-.mh-college-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.mh-college-option {
-  display: flex; gap: 13px; align-items: center; text-align: left; width: 100%; min-height: 93px;
-  background: #fff; border: 1.5px solid #e3eaf5; border-radius: 19px;
-  padding: 18px; cursor: pointer; font-family: inherit; color: #172a44;
-  transition: border-color .16s, box-shadow .16s, background .16s;
-  -webkit-tap-highlight-color: transparent;
+.mh-col-shell { max-width: 620px; margin: 0 auto; }
+.mh-col-top { display: flex; align-items: center; gap: 12px; padding: 8px 0 0; }
+.mh-col-mark {
+    display: grid; place-items: center; flex: none;
+    width: 39px; height: 39px; border-radius: 12px;
+    background: #1677ff; color: white;
+    font-size: 19px; font-weight: 750; letter-spacing: -1px;
+    font-family: 'DM Sans', sans-serif;
 }
-.mh-college-option:last-child:nth-child(odd) { grid-column: 1 / -1; }
-.mh-college-option:hover { border-color: #98bcfc; box-shadow: 0 8px 24px rgba(22,119,255,.07); }
-.mh-college-option[aria-pressed="true"] { background: #f5f9ff; border-color: var(--mh-college-blue); box-shadow: 0 0 0 3px rgba(22,119,255,.07); }
-.mh-college-option:focus-visible, .mh-college-confirm:focus-visible, .mh-change-college:focus-visible { outline: 3px solid #8db9ff; outline-offset: 3px; }
-.mh-college-option-icon { display: grid; flex: 0 0 48px; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: #edf4ff; color: #1677FF; }
-.mh-college-option-text { flex: 1 1 auto; min-width: 0; }
-.mh-college-option-text strong { display: block; font-size: .97rem; font-weight: 750; line-height: 1.35; }
-.mh-college-option-text span { display: block; color: #8895a8; font-size: .78rem; margin-top: 4px; }
-.mh-college-option-check { width: 21px; height: 21px; border: 1.5px solid #d4deeb; border-radius: 50%; flex: 0 0 21px; display: grid; place-items: center; color: #fff; font-size: .76rem; }
-.mh-college-option[aria-pressed="true"] .mh-college-option-check { border-color: var(--mh-college-blue); background: var(--mh-college-blue); }
-.mh-college-confirm-panel { margin: 18px 0 0; padding: 17px 20px; background: #fff; border: 1px solid #e2ebf8; border-radius: 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.mh-college-confirm-panel[hidden] { display: none; }
-.mh-college-confirm-detail { flex: 1; min-width: 170px; }
-.mh-college-confirm-detail small { display: block; color: #71829b; font-size: .76rem; margin-bottom: 4px; }
-.mh-college-confirm-detail strong { display: block; color: #172a44; font-size: .97rem; }
-.mh-college-confirm {
-  min-height: 46px; padding: 12px 23px; border: none; border-radius: 12px;
-  font: 700 .88rem 'DM Sans', sans-serif; background: #1677FF; color: #fff;
-  cursor: pointer; -webkit-tap-highlight-color: transparent;
+.mh-col-wordmark { font-size: 18px; font-weight: 750; letter-spacing: -.65px; line-height: 1.2; }
+.mh-col-university { font-size: 11px; color: #8791a3; margin-top: 3px; letter-spacing: .12px; }
+.mh-col-intro { margin: clamp(44px, 8vh, 84px) 0 26px; }
+.mh-col-intro h1 {
+    font: 730 clamp(28px, 5vw, 38px)/1.16 'DM Sans', sans-serif;
+    letter-spacing: -1.4px; color: #17243a; margin: 0 0 11px;
 }
-.mh-college-hint { text-align: center; font-size: .77rem; color: #8a98ab; line-height: 1.6; margin-top: 19px; }
-.mh-college-bar { display:flex; align-items:center; justify-content:space-between; gap: 12px; max-width: 1100px; margin: 0 auto 28px; padding: 0 0 16px; border-bottom: 1px solid #e4ebf6; }
-.mh-college-bar-label { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.mh-college-bar-label small { color: #94a3b8; font-size: .73rem; }
-.mh-college-bar-label strong { color: #253954; font-size: .91rem; }
-.mh-change-college { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; gap: 7px; padding: 10px 14px; border: 1px solid #dbe7f7; border-radius: 12px; color:#1677FF; background: #fff; font:700 .82rem 'DM Sans', sans-serif; cursor:pointer; -webkit-tap-highlight-color: transparent; }
-#college-empty-page .mh-college-wrap { max-width: 960px; }
-.mh-empty-message { margin: clamp(20px,6vw,70px) auto 0; max-width: 540px; border:1px solid #e4ebf7; background: #fff; border-radius: 26px; padding: clamp(28px,5vw,48px) 25px; text-align:center; }
-.mh-empty-icon { width:66px; height:66px; margin: 0 auto 20px; background:#edf4ff; color:#1677FF; border-radius:20px; display:grid; place-items:center; }
-.mh-empty-message h2 { font:800 clamp(1.55rem,4vw,2.05rem)/1.2 'Syne',sans-serif; color:#162942; margin-bottom: 12px; }
-.mh-empty-message p { color:#687891; font-size:.94rem; line-height:1.7; }
-.mh-empty-message .mh-coming-note { display:inline-block; margin-top:19px; color:#42628a; background:#f2f7ff; font-size:.78rem; padding:9px 13px; border-radius:99px; }
-#home-page .mh-college-bar { margin-bottom: 24px; }
-body.mh-college-onboarding .mh-acct { display: none !important; }
-@media(max-width:620px) {
-  .mh-college-grid { grid-template-columns: 1fr; gap: 10px; }
-  .mh-college-option:last-child:nth-child(odd) { grid-column:auto; }
-  .mh-college-option { min-height: 75px; padding: 13px 15px; border-radius:17px; }
-  .mh-college-option-icon { width:44px; height:44px; flex-basis:44px; }
-  .mh-college-confirm-panel { align-items:stretch; }
-  .mh-college-confirm { width:100%; }
-  #college-select-page, #college-empty-page { padding-top: calc(48px + env(safe-area-inset-top, 0px)); }
+.mh-col-intro p { color: #7a8597; line-height: 1.6; font-size: 14px; margin: 0; }
+.mh-col-list {
+    border: 1px solid #e5eaf1; border-radius: 17px;
+    background: #fff; overflow: hidden;
+    box-shadow: 0 6px 32px rgba(27, 47, 76, .025);
 }
-@media(prefers-reduced-motion:reduce) { .mh-college-option { transition:none; } }
+.mh-col-choice {
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    width:100%; min-height:67px; padding: 17px 20px; border:0;
+    border-bottom: 1px solid #edf0f4;
+    background:#fff; color:#243147; font: 550 15px/1.45 'DM Sans', sans-serif;
+    text-align:left; cursor:pointer; transition:background .16s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.mh-col-choice:last-child { border-bottom: 0; }
+.mh-col-choice:hover { background: #f8fbff; }
+.mh-col-choice[aria-pressed='true'] { background: #f4f8ff; color:#145fc3; font-weight:650; }
+.mh-col-choice:focus-visible {outline: 2px solid #1677ff; outline-offset: -3px; z-index:1; position:relative;}
+.mh-col-choice .mh-col-radio {
+    width:21px; height:21px; flex:none; border:1.5px solid #cdd6e2;
+    border-radius:50%; display:grid; place-items:center; background:#fff;
+    transition: background .15s, border-color .15s;
+}
+.mh-col-choice[aria-pressed='true'] .mh-col-radio {background:#1677ff; border-color:#1677ff;}
+.mh-col-choice .mh-col-radio svg {display:none; width:13px; height:13px; color:#fff;}
+.mh-col-choice[aria-pressed='true'] .mh-col-radio svg {display:block;}
+.mh-col-bottom { margin-top:22px; }
+.mh-col-continue {
+    width:100%; min-height:51px; border:0; border-radius:12px;
+    background:#1677ff; color:#fff; font:650 14px 'DM Sans',sans-serif;
+    cursor:pointer; display:flex; justify-content:center; align-items:center; gap:10px;
+    transition: background .15s, opacity .15s;
+}
+.mh-col-continue:hover:not(:disabled) {background:#0968ea;}
+.mh-col-continue:disabled {background:#e7edf6; color:#9da9b8; cursor:not-allowed;}
+.mh-col-continue svg { width:16px; height:16px; }
+.mh-col-hint {text-align:center; color:#97a1ae; font-size:12px; line-height:1.6; margin-top:15px;}
+#mh-college-library-page {padding: max(28px, env(safe-area-inset-top, 0px)) 22px 55px;}
+.mh-col-library-shell {max-width: 1000px; margin: 0 auto;}
+.mh-col-library-head, .mh-med-home-head {
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.mh-col-library-head {padding-bottom:22px; border-bottom:1px solid #e5eaf1;}
+.mh-col-library-head strong {font-size:18px; letter-spacing:-.5px; color:#1c2b42;}
+.mh-col-library-head p {color:#8791a3; font-size:12px; margin-top:4px;}
+.mh-col-switch {
+    display:inline-flex; align-items:center; gap:6px;
+    flex:none; font:600 12px 'DM Sans',sans-serif; color:#46617f;
+    background:white; border:1px solid #e1e8f2; border-radius:999px;
+    padding:10px 14px; cursor:pointer; -webkit-tap-highlight-color:transparent;
+}
+.mh-col-switch:hover {background:#f0f6ff; color:#1677ff;}
+.mh-col-switch:focus-visible,.mh-col-continue:focus-visible {outline:3px solid #bad7ff;outline-offset:2px;}
+.mh-col-empty {
+    margin: clamp(64px, 13vh, 132px) auto 0;
+    text-align:center; padding:0 15px; max-width:420px;
+}
+.mh-col-empty-symbol {
+    width:58px; height:58px; display:grid; place-items:center;
+    margin:0 auto 20px; border-radius:17px;
+    background:#eaf3ff; color:#1677ff;
+}
+.mh-col-empty h2 {font:700 22px/1.25 'DM Sans',sans-serif; letter-spacing:-.7px; color:#25354c;}
+.mh-col-empty p {font-size:14px; line-height:1.65; margin-top:10px; color:#8791a3;}
+.mh-med-home-head {margin:0 0 30px; padding: 0 1px 18px; border-bottom:1px solid #e4eaf4;}
+.mh-med-home-head h1 {font:750 clamp(22px,4vw,30px)/1.25 'DM Sans',sans-serif; letter-spacing:-.7px; color:#192942; margin:0;}
+.mh-med-home-head p {font-size:12px; color:#8791a3; margin-top:5px;}
+@media(max-width:540px) {
+  #mh-college-chooser-page {padding: max(25px, env(safe-area-inset-top, 0px)) 18px 32px;}
+  .mh-col-intro {margin: 53px 0 25px;}
+  .mh-col-choice {min-height:64px; padding:17px 17px; font-size:14px;}
+  .mh-col-library-head {align-items:flex-start;}
+  .mh-col-library-head strong {font-size:16px;}
+  .mh-med-home-head {align-items:flex-start; gap:10px; margin-top:12px;}
+  .mh-col-switch {font-size:11px; padding:9px 11px;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .mh-col-choice,.mh-col-radio,.mh-col-continue {transition:none;}
+}
 
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
@@ -1960,64 +2005,50 @@ body.mh-college-onboarding .mh-acct { display: none !important; }
 
 <body>
 
-<!-- Five-college selection; no made-up stages or course structures -->
-<section id="college-select-page" aria-labelledby="mh-college-heading">
-  <div class="mh-college-wrap">
-    <header class="mh-college-head">
-      <div class="mh-college-mark" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 10 10-6 10 6-10 6-10-6Z"/><path d="M6 12.5V18c3.5 2.3 8.5 2.3 12 0v-5.5"/><path d="M22 10v7"/></svg>
-      </div>
-      <div class="mh-college-eyebrow">Hawler Medical University</div>
-      <h1 id="mh-college-heading">Welcome to MedHub</h1>
-      <p>Choose your college to access its academic resources.</p>
+
+<!-- Five-college entry; the existing Medicine resources below are unchanged. -->
+<section id="mh-college-chooser-page" aria-labelledby="mh-college-title">
+  <div class="mh-col-shell">
+    <header class="mh-col-top">
+      <span class="mh-col-mark" aria-hidden="true">m</span>
+      <div><div class="mh-col-wordmark">MedHub</div><div class="mh-col-university">Hawler Medical University</div></div>
     </header>
-    <div class="mh-college-grid" role="group" aria-label="Choose your college">
-      <button type="button" class="mh-college-option" data-college="medicine" aria-pressed="false" onclick="mhPickCollege('medicine')">
-        <span class="mh-college-option-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M5.4 12h4l1.8-3 2.2 6 1.6-3H19"/></svg></span>
-        <span class="mh-college-option-text"><strong>College of Medicine</strong><span>Existing lecture library</span></span><span class="mh-college-option-check" aria-hidden="true"></span>
-      </button>
-      <button type="button" class="mh-college-option" data-college="dentistry" aria-pressed="false" onclick="mhPickCollege('dentistry')">
-        <span class="mh-college-option-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 3c-4 0-5.8 3.2-5 7 .8 3.4 3 4.9 3.3 8.1.2 2 1.5 3.1 2.5 2.4l2.1-5.3c.4-.9 1.8-.9 2.2 0l2.1 5.3c1.1.7 2.3-.4 2.5-2.4.4-3.2 2.5-4.7 3.3-8.1.8-3.8-1-7-5-7-2 0-3 1-4 1S10 3 8 3Z"/></svg></span>
-        <span class="mh-college-option-text"><strong>College of Dentistry</strong><span>Lecture space</span></span><span class="mh-college-option-check" aria-hidden="true"></span>
-      </button>
-      <button type="button" class="mh-college-option" data-college="pharmacy" aria-pressed="false" onclick="mhPickCollege('pharmacy')">
-        <span class="mh-college-option-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8.5 3.5a5 5 0 0 1 7 0l5 5a5 5 0 0 1-7 7l-5-5a5 5 0 0 1 0-7Z"/><path d="m10.5 12.5 7-7"/><path d="M3 21h8"/></svg></span>
-        <span class="mh-college-option-text"><strong>College of Pharmacy</strong><span>Lecture space</span></span><span class="mh-college-option-check" aria-hidden="true"></span>
-      </button>
-      <button type="button" class="mh-college-option" data-college="nursing" aria-pressed="false" onclick="mhPickCollege('nursing')">
-        <span class="mh-college-option-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 3v4a6 6 0 0 0 12 0V3"/><path d="M6 3H4v3h2M18 3h2v3h-2M12 13v3a4 4 0 0 0 8 0v-2"/><circle cx="20" cy="13" r="2"/></svg></span>
-        <span class="mh-college-option-text"><strong>College of Nursing</strong><span>Lecture space</span></span><span class="mh-college-option-check" aria-hidden="true"></span>
-      </button>
-      <button type="button" class="mh-college-option" data-college="health-sciences" aria-pressed="false" onclick="mhPickCollege('health-sciences')">
-        <span class="mh-college-option-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M12 3v8M9 11h6M8 19h8M6 22h12"/><path d="M9 11 6 16v3h12v-3l-3-5"/><path d="M12 15v4"/></svg></span>
-        <span class="mh-college-option-text"><strong>College of Health Sciences</strong><span>Lecture space</span></span><span class="mh-college-option-check" aria-hidden="true"></span>
-      </button>
+    <div class="mh-col-intro">
+      <h1 id="mh-college-title">Choose your college</h1>
+      <p>Find the lectures and resources for your college.</p>
     </div>
-    <div id="mh-college-confirm-panel" class="mh-college-confirm-panel" hidden aria-live="polite">
-      <div class="mh-college-confirm-detail"><small>Selected college — is this correct?</small><strong id="mh-selected-college-name"></strong></div>
-      <button type="button" class="mh-college-confirm" onclick="mhConfirmCollege()">Continue to college</button>
+    <div class="mh-col-list" role="group" aria-label="Colleges">
+      <button type="button" class="mh-col-choice" data-college="medicine" aria-pressed="false"><span>College of Medicine</span><span class="mh-col-radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span></button>
+      <button type="button" class="mh-col-choice" data-college="dentistry" aria-pressed="false"><span>College of Dentistry</span><span class="mh-col-radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span></button>
+      <button type="button" class="mh-col-choice" data-college="pharmacy" aria-pressed="false"><span>College of Pharmacy</span><span class="mh-col-radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span></button>
+      <button type="button" class="mh-col-choice" data-college="nursing" aria-pressed="false"><span>College of Nursing</span><span class="mh-col-radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span></button>
+      <button type="button" class="mh-col-choice" data-college="health-sciences" aria-pressed="false"><span>College of Health Sciences</span><span class="mh-col-radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span></button>
     </div>
-    <p class="mh-college-hint">No email or password needed for this trial. You can change your college anytime.</p>
+    <div class="mh-col-bottom">
+      <button id="mh-col-continue" type="button" class="mh-col-continue" disabled>Continue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+      <p class="mh-col-hint">You can change your college anytime.</p>
+    </div>
   </div>
 </section>
-<section id="college-empty-page" aria-labelledby="mh-empty-college-name">
-  <div class="mh-college-wrap">
-    <div class="mh-college-bar"><div class="mh-college-bar-label"><small>MedHub · Hawler Medical University</small><strong id="mh-empty-college-label">Your college</strong></div><button type="button" class="mh-change-college" onclick="mhShowCollegeChooser()">Change college</button></div>
-    <div class="mh-empty-message">
-      <div class="mh-empty-icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h6m-6 4h4"/></svg></div>
-      <h2 id="mh-empty-college-name">Your college</h2>
-      <p>There are no lectures uploaded for this college yet. As soon as materials are added, they will appear here.</p>
-      <span class="mh-coming-note">College lecture library · setup preview</span>
+<section id="mh-college-library-page" aria-labelledby="mh-col-library-title">
+  <div class="mh-col-library-shell">
+    <header class="mh-col-library-head">
+      <div><strong>MedHub</strong><p>Hawler Medical University</p></div>
+      <button class="mh-col-switch" type="button" onclick="mhChangeCollege()">Change college</button>
+    </header>
+    <div class="mh-col-empty">
+      <div class="mh-col-empty-symbol" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5H8Z"/><path d="M16 3v5h5M8 13h8M8 17h6"/></svg></div>
+      <h2 id="mh-col-library-title">Your lecture library</h2>
+      <p id="mh-col-library-description">Lectures will appear here when they're uploaded.</p>
     </div>
   </div>
 </section>
 
 <section id="home-page">
   <div class="home-wrap">
-
-    <div class="mh-college-bar" aria-label="Current college">
-      <div class="mh-college-bar-label"><small>MedHub · Hawler Medical University</small><strong>College of Medicine</strong></div>
-      <button type="button" class="mh-change-college" onclick="mhShowCollegeChooser()">Change college</button>
+    <div class="mh-med-home-head">
+      <div><h1>College of Medicine</h1><p>Select your stage to view lectures.</p></div>
+      <button class="mh-col-switch" type="button" onclick="mhChangeCollege()">Change college</button>
     </div>
 
 
@@ -3236,62 +3267,61 @@ stage2Blocks.forEach(blk => blk.modules.forEach((m, i) => {
 
 /* ───────────── NAVIGATION (browser-history based) ───────────── */
 let currentBlock = 2;
-const PAGES = ['college-select-page','college-empty-page','home-page','subject-page','stage2-page','s2block-page','split-page','resources-page'];
+const PAGES = ['mh-college-chooser-page','mh-college-library-page','home-page','subject-page','stage2-page','s2block-page','split-page','resources-page'];
 const SUBVIEWS = ['block-entrance','block1-content','subjects-content'];
-
-/* Five-college selection — lightweight preference, not authentication. */
-const MH_COLLEGES = Object.freeze({
-    'medicine': 'College of Medicine',
-    'dentistry': 'College of Dentistry',
-    'pharmacy': 'College of Pharmacy',
-    'nursing': 'College of Nursing',
-    'health-sciences': 'College of Health Sciences'
-});
-const MH_COLLEGE_PREF_KEY = 'medhub-college-selection-v1';
-function mhSavedCollege() {
-    try {
-        const value = localStorage.getItem(MH_COLLEGE_PREF_KEY);
-        return Object.hasOwn(MH_COLLEGES, value) ? value : null;
-    } catch (_) { return null; }
-}
-let mhCurrentCollege = mhSavedCollege();
-let mhPendingCollege = null;
-function mhPickCollege(slug) {
-    if (!Object.hasOwn(MH_COLLEGES, slug)) return;
-    mhPendingCollege = slug;
-    document.querySelectorAll('.mh-college-option').forEach(button => {
-        const active = button.dataset.college === slug;
-        button.setAttribute('aria-pressed', String(active));
-        const check = button.querySelector('.mh-college-option-check');
-        if (check) check.textContent = active ? '✓' : '';
-    });
-    document.getElementById('mh-selected-college-name').textContent = MH_COLLEGES[slug];
-    document.getElementById('mh-college-confirm-panel').hidden = false;
-}
-function mhConfirmCollege() {
-    if (!mhPendingCollege || !Object.hasOwn(MH_COLLEGES, mhPendingCollege)) return;
-    mhCurrentCollege = mhPendingCollege;
-    try { localStorage.setItem(MH_COLLEGE_PREF_KEY, mhCurrentCollege); } catch (_) {}
-    go(mhCurrentCollege === 'medicine' ? { v: 'home' } : { v: 'college-empty', college: mhCurrentCollege });
-}
-function mhShowCollegeChooser() {
-    mhPendingCollege = null;
-    document.querySelectorAll('.mh-college-option').forEach(button => {
-        button.setAttribute('aria-pressed', 'false');
-        const check = button.querySelector('.mh-college-option-check');
-        if (check) check.textContent = '';
-    });
-    document.getElementById('mh-college-confirm-panel').hidden = true;
-    go({ v: 'college-select' });
-}
-function mhRenderEmptyCollege(slug) {
-    const name = MH_COLLEGES[slug] || MH_COLLEGES[mhCurrentCollege] || 'Your college';
-    document.getElementById('mh-empty-college-label').textContent = name;
-    document.getElementById('mh-empty-college-name').textContent = name;
-}
-
 const $ = id => document.getElementById(id);
 const setShow = (id, on) => { $(id).style.display = on ? 'block' : 'none'; };
+
+// Simple college preference (not authentication or access restriction).
+const mhCollegeNames = {
+    medicine: 'Medicine', dentistry: 'Dentistry', pharmacy: 'Pharmacy',
+    nursing: 'Nursing', 'health-sciences': 'Health Sciences'
+};
+const mhCollegeStoreKey = 'medhub-selected-college-v1';
+function mhGetCollege() {
+    try {
+        const saved = localStorage.getItem(mhCollegeStoreKey);
+        return Object.prototype.hasOwnProperty.call(mhCollegeNames, saved) ? saved : '';
+    } catch (e) { return ''; }
+}
+let mhActiveCollege = mhGetCollege();
+let mhPendingCollege = '';
+function mhChooseCollege(id) {
+    if (!Object.prototype.hasOwnProperty.call(mhCollegeNames, id)) return;
+    mhPendingCollege = id;
+    document.querySelectorAll('.mh-col-choice').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(btn.dataset.college === id));
+    });
+    $('mh-col-continue').disabled = false;
+}
+function mhRenderCollegeSelection() {
+    const id = mhActiveCollege || mhGetCollege();
+    if (!mhPendingCollege && id) mhChooseCollege(id);
+    if (!mhPendingCollege) {
+        $('mh-col-continue').disabled = true;
+        document.querySelectorAll('.mh-col-choice').forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+    }
+}
+function mhEnterCollege() {
+    if (!Object.prototype.hasOwnProperty.call(mhCollegeNames, mhPendingCollege)) return;
+    mhActiveCollege = mhPendingCollege;
+    try { localStorage.setItem(mhCollegeStoreKey, mhActiveCollege); } catch (e) {}
+    go({ v: mhActiveCollege === 'medicine' ? 'home' : 'college-library' });
+}
+function mhChangeCollege() {
+    mhPendingCollege = mhActiveCollege;
+    go({ v:'colleges' });
+}
+function mhRenderCollegeLibrary() {
+    const name = mhCollegeNames[mhActiveCollege] || 'Your college';
+    $('mh-col-library-title').textContent = 'College of ' + name;
+    $('mh-col-library-description').textContent = 'No lectures have been uploaded here yet. They will appear when they are published.';
+}
+document.querySelectorAll('.mh-col-choice').forEach(btn => {
+    btn.addEventListener('click', () => mhChooseCollege(btn.dataset.college));
+});
+$('mh-col-continue').addEventListener('click', mhEnterCollege);
+
 
 function go(st) {
     st.d = ((history.state && history.state.d) || 0) + 1;
@@ -3300,24 +3330,20 @@ function go(st) {
 }
 function goBack() {
     if (history.state && history.state.d > 0) history.back();
-    else render({ v:'college-select', d:0 });
+    else render({ v:'home', d:0 });
 }
 
 function render(st) {
-    st = st || (mhCurrentCollege === 'medicine' ? { v:'home', d:0 } : mhCurrentCollege ? { v:'college-empty', college:mhCurrentCollege, d:0 } : { v:'college-select', d:0 });
-    // An old Medicine history entry should never appear under another college's dashboard.
-    if (['home','stage1','block','stage2','s2block','split','res'].includes(st.v) && mhCurrentCollege !== 'medicine') {
-        st = mhCurrentCollege ? { v:'college-empty', college:mhCurrentCollege, d:st.d || 0 } : { v:'college-select', d:st.d || 0 };
-    }
+    st = st || { v: mhActiveCollege ? (mhActiveCollege === 'medicine' ? 'home' : 'college-library') : 'colleges', d:0 };
+    document.body.dataset.mhView = st.v || 'home';
     if (mhScrollCancel) mhScrollCancel();
     PAGES.forEach(p => setShow(p, false));
     SUBVIEWS.forEach(p => setShow(p, false));
-    document.body.classList.toggle('mh-college-onboarding', st.v === 'college-select');
     switch (st.v) {
-        case 'college-select':
-            setShow('college-select-page', true); break;
-        case 'college-empty':
-            mhRenderEmptyCollege(st.college); setShow('college-empty-page', true); break;
+        case 'colleges':
+            setShow('mh-college-chooser-page', true); mhRenderCollegeSelection(); break;
+        case 'college-library':
+            mhRenderCollegeLibrary(); setShow('mh-college-library-page', true); break;
         case 'stage1':
             setShow('subject-page', true); setShow('block-entrance', true); break;
         case 'block':
@@ -3334,9 +3360,7 @@ function render(st) {
             if (!renderResourcePage(st.key)) { setShow('home-page', true); break; }
             setShow('resources-page', true); break;
         default:
-            if (mhCurrentCollege === 'medicine') setShow('home-page', true);
-            else if (mhCurrentCollege) { mhRenderEmptyCollege(mhCurrentCollege); setShow('college-empty-page', true); }
-            else setShow('college-select-page', true);
+            setShow('home-page', true);
     }
     window.scrollTo(0, 0);
 }
@@ -3794,25 +3818,25 @@ document.addEventListener('touchend', function (e) {
    section instead of reopening the homepage. No visual Back button needed. */
 const medhubUrl = new URL(window.location.href);
 const returningFromReader = medhubUrl.searchParams.get('medhubResume') === '1';
-let initialMedhubState = history.state || (mhCurrentCollege === 'medicine' ? { v:'home', d:0 } : mhCurrentCollege ? { v:'college-empty', college:mhCurrentCollege, d:0 } : { v:'college-select', d:0 });
-// A pre-upgrade saved browser state must not override a different/new college preference.
-if (!mhCurrentCollege && initialMedhubState.v !== 'college-select') {
-    initialMedhubState = { v:'college-select', d:0 };
-} else if (mhCurrentCollege && initialMedhubState.v === 'home' && mhCurrentCollege !== 'medicine') {
-    initialMedhubState = { v:'college-empty', college:mhCurrentCollege, d:0 };
+let initialMedhubState = history.state || { v:'home', d:0 };
+if (!returningFromReader && initialMedhubState.v === 'home' && !initialMedhubState.d) {
+    initialMedhubState = {
+        v: mhActiveCollege ? (mhActiveCollege === 'medicine' ? 'home' : 'college-library') : 'colleges', d:0
+    };
 }
+
 if (initialMedhubState.mhPdfLoading) {
     // Stale temporary loading entry (e.g. reload): keep the view, drop the loading marker.
     const { mhPdfLoading: _stale, ...cleanState } = initialMedhubState;
     initialMedhubState = cleanState;
 }
 if (returningFromReader) {
+    mhActiveCollege = 'medicine'; // Existing Medicine PDF return flow
     try {
         const incoming = JSON.parse(medhubUrl.searchParams.get('medhubView') || '{}');
-        const allowedViews = ['college-select','college-empty','home','stage1','block','stage2','s2block','split','res'];
+        const allowedViews = ['home','stage1','block','stage2','s2block','split','res'];
         if (incoming && allowedViews.includes(incoming.v)) {
             const safe = { v: incoming.v, d: Number.isInteger(incoming.d) ? Math.max(0, Math.min(30, incoming.d)) : 0 };
-            if (incoming.v === 'college-empty' && typeof incoming.college === 'string' && Object.hasOwn(MH_COLLEGES, incoming.college)) safe.college = incoming.college;
             if (incoming.v === 'block' && [1, 2].includes(incoming.b)) safe.b = incoming.b;
             if (incoming.v === 's2block' && stage2Blocks.some(block => block.n === incoming.b)) safe.b = incoming.b;
             if (incoming.v === 'res' && typeof incoming.key === 'string' && subjectMap[incoming.key]) safe.key = incoming.key;
@@ -3824,7 +3848,6 @@ if (returningFromReader) {
             // An incomplete or invalid state should fall back to home.
             if ((safe.v === 'block' || safe.v === 's2block') && !safe.b) safe.v = 'home';
             if ((safe.v === 'res' || safe.v === 'split') && !safe.key) safe.v = 'home';
-            if (safe.v === 'college-empty' && !safe.college) safe.v = 'college-select';
             initialMedhubState = safe;
         }
     } catch (error) {
@@ -4101,7 +4124,12 @@ document.addEventListener('click', event => {
     }, true);
 })();
 
-// Separate five-college test file: do not register/update the live site's service worker here.
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js', { scope: './' })
+            .catch(err => console.warn('Service worker failed:', err));
+    });
+}
 
 </script>
 
