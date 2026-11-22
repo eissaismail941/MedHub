@@ -2223,6 +2223,54 @@ body[data-mh-view="college-library"] .mh-acct { display:none !important; }
   #resources-page .resource-meta {margin-left:auto;}
 }
 
+
+/* HMU Stage Selection — follows existing quiet, cozy five-college design. */
+body[data-mh-view="stage-select"] .mh-acct { display:none!important; }
+#mh-stage-chooser-page {
+  display:none; min-height:100vh; min-height:100dvh;
+  background:#f8f9fb; color:#1c2638;
+  padding:clamp(27px,4.4vh,58px) 22px 40px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter','DM Sans',sans-serif;
+}
+.mh-stage-shell{max-width:690px;margin:0 auto;}
+.mh-stage-top{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.mh-stage-logo{display:block;width:150px;height:104px;object-fit:contain;margin-bottom:3px;}
+.mh-stage-top strong{font-size:19px;font-weight:720;letter-spacing:-.5px;line-height:1.35;color:#1d293b;}
+.mh-stage-top>span{font-size:12px;font-weight:500;color:#798596;}
+.mh-stage-intro{text-align:center;margin:clamp(26px,4.3vh,43px) 0 24px;}
+.mh-stage-college{font-size:13px!important;font-weight:650;color:#1677ff!important;margin-bottom:8px!important;}
+.mh-stage-intro h1{font-size:clamp(27px,3.2vw,34px);letter-spacing:-1.15px;font-weight:735;line-height:1.18;color:#202d41;margin:0 0 9px;}
+.mh-stage-intro>p:last-child{color:#798596;font-size:14px;line-height:1.5;}
+.mh-stage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.mh-stage-choice{
+  appearance:none;-webkit-appearance:none;display:flex;align-items:center;justify-content:space-between;
+  min-height:78px;text-align:left;padding:19px 21px;border:1px solid #e3e7ed;
+  border-radius:16px;background:#fff;color:#263247;cursor:pointer;
+  font:650 16px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI','Inter','DM Sans',sans-serif;
+  transition:border-color .17s, background .17s, box-shadow .17s;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+}
+.mh-stage-choice[aria-pressed="true"]{background:#f1f6ff;color:#145bb1;border-color:#96c3ff;box-shadow:0 0 0 1px rgba(22,119,255,.07);}
+.mh-stage-check{flex:0 0 auto;width:21px;height:21px;border:1.6px solid #cbd3dd;border-radius:50%;display:grid;place-items:center;color:#fff;}
+.mh-stage-check svg{width:13px;height:13px;opacity:0;}
+.mh-stage-choice[aria-pressed="true"] .mh-stage-check{background:#1677ff;border-color:#1677ff;}
+.mh-stage-choice[aria-pressed="true"] .mh-stage-check svg{opacity:1;}
+.mh-stage-choice:focus-visible{outline:3px solid #9dc8ff;outline-offset:2px;}
+#mh-stage-chooser-page .mh-stage-continue{margin-top:22px;width:100%;}
+.mh-stage-back{display:block;margin:14px auto 0;padding:7px 14px;background:transparent;border:0;cursor:pointer;color:#596a82;font-family:inherit;font-size:13px;font-weight:600;line-height:1.4;}
+.mh-stage-note{text-align:center;margin-top:6px;font-size:12px;color:#8d99a8;}
+.mh-lib-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end;}
+@media(max-width:600px){
+  #mh-stage-chooser-page{padding:24px 18px 32px;}
+  .mh-stage-logo{width:124px;height:84px;}
+  .mh-stage-top strong{font-size:16px;}
+  .mh-stage-intro{margin:24px 0 21px;}
+  .mh-stage-choice{min-height:68px;padding:16px 16px;font-size:15px;}
+  .mh-stage-grid{gap:10px;}
+  .mh-lib-actions{gap:6px;}
+}
+@media(prefers-reduced-motion:reduce){.mh-stage-choice{transition:none;}}
+
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
@@ -2254,11 +2302,32 @@ body[data-mh-view="college-library"] .mh-acct { display:none !important; }
     </div>
   </div>
 </section>
+<!-- Stage chooser: simple academic navigation, not a user login. -->
+<section id="mh-stage-chooser-page" aria-labelledby="mh-stage-title">
+  <div class="mh-stage-shell">
+    <header class="mh-stage-top">
+      <img src="./reader/assets/hmu-logo.jpg" alt="Hawler Medical University logo" class="mh-stage-logo">
+      <strong>Hawler Medical University</strong>
+      <span>Lecture Notes <span aria-hidden="true">·</span> MedHub</span>
+    </header>
+    <div class="mh-stage-intro">
+      <p id="mh-stage-college" class="mh-stage-college">College of Medicine</p>
+      <h1 id="mh-stage-title">Choose your stage</h1>
+      <p>Select your academic stage to continue.</p>
+    </div>
+    <div class="mh-stage-grid" id="mh-stage-grid" role="group" aria-label="Academic stages"></div>
+    <button class="mh-col-continue mh-stage-continue" id="mh-stage-continue" type="button" disabled>
+      Continue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+    </button>
+    <button class="mh-stage-back" type="button" onclick="goBack()">Change college</button>
+    <p class="mh-stage-note">You can change your selection anytime.</p>
+  </div>
+</section>
 <section id="mh-college-library-page" aria-labelledby="mh-col-library-title">
   <div class="mh-col-library-shell">
     <header class="mh-col-library-head">
       <div class="mh-col-lib-brand"><span class="mh-hmu-emblem"><img class="mh-hmu-logo" src="./reader/assets/hmu-logo.jpg" alt="Hawler Medical University logo"><span class="mh-hmu-fallback" hidden aria-hidden="true">HMU</span></span><div><strong>Hawler Medical University</strong><p>Lecture Notes <span aria-hidden="true">·</span> MedHub</p></div></div>
-      <button class="mh-col-switch" type="button" onclick="mhChangeCollege()">Change college</button>
+      <div class="mh-lib-actions"><button class="mh-col-switch" type="button" onclick="goBack()">Change stage</button><button class="mh-col-switch" type="button" onclick="mhChangeCollege()">Change college</button></div>
     </header>
     <div class="mh-col-empty">
       <div class="mh-col-empty-symbol" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5H8Z"/><path d="M16 3v5h5M8 13h8M8 17h6"/></svg></div>
@@ -3540,7 +3609,7 @@ stage2Blocks.forEach(blk => blk.modules.forEach((m, i) => {
 
 /* ───────────── NAVIGATION (browser-history based) ───────────── */
 let currentBlock = 2;
-const PAGES = ['mh-college-chooser-page','mh-college-library-page','home-page','subject-page','stage2-page','s2block-page','split-page','resources-page'];
+const PAGES = ['mh-college-chooser-page','mh-stage-chooser-page','mh-college-library-page','home-page','subject-page','stage2-page','s2block-page','split-page','resources-page'];
 const SUBVIEWS = ['block-entrance','block1-content','subjects-content'];
 const $ = id => document.getElementById(id);
 const setShow = (id, on) => { $(id).style.display = on ? 'block' : 'none'; };
@@ -3568,18 +3637,65 @@ function mhChooseCollege(id) {
     $('mh-col-continue').disabled = false;
 }
 function mhRenderCollegeSelection() {
-    const id = mhActiveCollege || mhGetCollege();
-    if (!mhPendingCollege && id) mhChooseCollege(id);
-    if (!mhPendingCollege) {
-        $('mh-col-continue').disabled = true;
-        document.querySelectorAll('.mh-col-choice').forEach(btn => btn.setAttribute('aria-pressed', 'false'));
-    }
+    // Only an explicit click selects a college. Refreshing/reopening the
+    // college chooser must not preselect a previously saved college.
+    const selected = Object.prototype.hasOwnProperty.call(mhCollegeNames, mhPendingCollege)
+        ? mhPendingCollege : '';
+    document.querySelectorAll('.mh-col-choice').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(btn.dataset.college === selected));
+    });
+    $('mh-col-continue').disabled = !selected;
+}
+// Stage choices are provisional labels only. We can adjust the ranges for each
+// college later when HMU supplies its confirmed academic structure.
+const mhStagesByCollege = {
+    medicine: [1,2,3,4,5,6], dentistry: [1,2,3,4,5,6],
+    pharmacy: [1,2,3,4,5,6], nursing: [1,2,3,4,5,6],
+    'health-sciences': [1,2,3,4,5,6]
+};
+// A stage is a temporary choice for the current visit, never an automatic default.
+// Even when the student chooses the same college again, all stages start unselected.
+let mhSelectedStage = null;
+function mhSelectStage(n) {
+    n = Number(n);
+    if (!mhStagesByCollege[mhActiveCollege]?.includes(n)) return;
+    mhSelectedStage = n;
+    document.querySelectorAll('.mh-stage-choice').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(Number(btn.dataset.stage) === n));
+    });
+    $('mh-stage-continue').disabled = false;
+}
+function mhRenderStageSelection() {
+    const college = mhCollegeNames[mhActiveCollege] || 'Your college';
+    $('mh-stage-college').textContent = 'College of ' + college;
+    const options = mhStagesByCollege[mhActiveCollege] || [];
+    // Only populate generic stage labels; no blocks, semesters or subjects assumed.
+    $('mh-stage-grid').innerHTML = options.map(n => `
+      <button type="button" class="mh-stage-choice" data-stage="${n}" aria-pressed="false">
+        <span>Stage ${n}</span>
+        <span class="mh-stage-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span>
+      </button>`).join('');
+    document.querySelectorAll('.mh-stage-choice').forEach(btn => {
+        btn.addEventListener('click', () => mhSelectStage(btn.dataset.stage));
+    });
+    if (mhSelectedStage && options.includes(mhSelectedStage)) mhSelectStage(mhSelectedStage);
+    else $('mh-stage-continue').disabled = true;
 }
 function mhEnterCollege() {
     if (!Object.prototype.hasOwnProperty.call(mhCollegeNames, mhPendingCollege)) return;
     mhActiveCollege = mhPendingCollege;
-    try { localStorage.setItem(mhCollegeStoreKey, mhActiveCollege); } catch (e) {}
-    go({ v: mhActiveCollege === 'medicine' ? 'home' : 'college-library' });
+    // Always require an explicit stage click on each new entry to a college.
+    mhSelectedStage = null;
+    try { localStorage.setItem(mhCollegeStoreKey, mhActiveCollege); } catch(e) {}
+    go({v:'stage-select'});
+}
+function mhEnterStage() {
+    if (!mhStagesByCollege[mhActiveCollege]?.includes(mhSelectedStage)) return;
+    const n = mhSelectedStage;
+    // Do not save the stage for next time; selection is only for this visit.
+    // Existing Medicine Stage 1 / Stage 2 data and PDFs are opened directly.
+    if (mhActiveCollege === 'medicine' && n <= 2) go({v:n===1?'stage1':'stage2'});
+    else go({v:'college-library', stage:n});
 }
 // On Change College, return to the original history root instead of pushing
 // a fresh chooser entry over all of the old Medicine screens.
@@ -3587,6 +3703,7 @@ let mhResettingToCollegeRoot = false;
 function mhShowCollegeRoot() {
     mhResettingToCollegeRoot = false;
     mhPendingCollege = mhActiveCollege;
+    mhSelectedStage = null;
     const root = { v: 'colleges', d: 0 };
     history.replaceState(root, '', location.href);
     render(root);
@@ -3602,13 +3719,14 @@ function mhChangeCollege() {
 }
 function mhRenderCollegeLibrary() {
     const name = mhCollegeNames[mhActiveCollege] || 'Your college';
-    $('mh-col-library-title').textContent = 'College of ' + name;
-    $('mh-col-library-description').textContent = 'No lectures have been uploaded here yet. They will appear when they are published.';
+    $('mh-col-library-title').textContent = 'College of ' + name + (mhSelectedStage ? ' · Stage ' + mhSelectedStage : '');
+    $('mh-col-library-description').textContent = 'No lectures have been uploaded for this stage yet. They will appear when they are published.';
 }
 document.querySelectorAll('.mh-col-choice').forEach(btn => {
     btn.addEventListener('click', () => mhChooseCollege(btn.dataset.college));
 });
 $('mh-col-continue').addEventListener('click', mhEnterCollege);
+$('mh-stage-continue').addEventListener('click', mhEnterStage);
 
 
 function go(st) {
@@ -3618,19 +3736,24 @@ function go(st) {
 }
 function goBack() {
     if (history.state && history.state.d > 0) history.back();
-    else render({ v:'home', d:0 });
+    else render({ v:'colleges', d:0 });
 }
 
 function render(st) {
-    st = st || { v: mhActiveCollege ? (mhActiveCollege === 'medicine' ? 'home' : 'college-library') : 'colleges', d:0 };
+    st = st || { v:'colleges', d:0 };
     document.body.dataset.mhView = st.v || 'home';
     if (mhScrollCancel) mhScrollCancel();
     PAGES.forEach(p => setShow(p, false));
     SUBVIEWS.forEach(p => setShow(p, false));
     switch (st.v) {
         case 'colleges':
+            // Going back to college selection starts a fresh stage choice.
+            mhSelectedStage = null;
             setShow('mh-college-chooser-page', true); mhRenderCollegeSelection(); break;
+        case 'stage-select':
+            mhRenderStageSelection(); setShow('mh-stage-chooser-page', true); break;
         case 'college-library':
+            if (Number.isInteger(st.stage)) mhSelectedStage=st.stage;
             mhRenderCollegeLibrary(); setShow('mh-college-library-page', true); break;
         case 'stage1':
             setShow('subject-page', true); setShow('block-entrance', true); break;
@@ -4112,11 +4235,12 @@ document.addEventListener('touchend', function (e) {
    section instead of reopening the homepage. No visual Back button needed. */
 const medhubUrl = new URL(window.location.href);
 const returningFromReader = medhubUrl.searchParams.get('medhubResume') === '1';
-let initialMedhubState = history.state || { v:'home', d:0 };
+let initialMedhubState = history.state || {v:'colleges',d:0};
 if (!returningFromReader && initialMedhubState.v === 'home' && !initialMedhubState.d) {
-    initialMedhubState = {
-        v: mhActiveCollege ? (mhActiveCollege === 'medicine' ? 'home' : 'college-library') : 'colleges', d:0
-    };
+    initialMedhubState = {v:'colleges',d:0};
+}
+if (!returningFromReader && initialMedhubState.v === 'college-library' && !initialMedhubState.d) {
+    initialMedhubState = {v:'colleges',d:0};
 }
 
 if (initialMedhubState.mhPdfLoading) {
