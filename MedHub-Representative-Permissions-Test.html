@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<meta name="referrer" content="no-referrer" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://lxmxsymxmpulkkngjfjo.supabase.co https://medhub-api-test.eissaismail941.workers.dev; form-action 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'" />
+<title>MedHub — Representative Permissions Test</title>
+<style>
+  :root{color-scheme:light;--blue:#1677FF;--ink:#10203D;--muted:#66758E;--line:#E1E9F4;--bg:#F5F8FD;--ok:#09774F;--bad:#B42318}
+  *{box-sizing:border-box}body{background:var(--bg);margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px}
+  main{width:min(640px,calc(100% - 28px));margin:40px auto 60px}.brand{display:flex;align-items:center;gap:12px;margin:0 0 22px;font-weight:750}
+  .logo{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--blue);color:#fff;font-weight:850;font-size:19px}
+  .muted{color:var(--muted)}.card{padding:30px 30px 26px;border:1px solid var(--line);border-radius:26px;box-shadow:0 16px 60px rgba(21,49,96,.045);background:#fff;margin-bottom:14px}
+  .eyebrow{display:inline-block;border:1px solid #DDE7F6;background:#F4F8FF;color:#2363AF;padding:7px 12px;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:.04em}
+  h1{font-size:27px;letter-spacing:-.035em;line-height:1.15;margin:17px 0 10px}h2{font-size:17px;letter-spacing:-.01em;margin:0 0 9px}p{line-height:1.6;margin:0 0 17px}.field{margin:13px 0 16px}label{font-weight:700;font-size:13px;display:block;margin-bottom:7px}
+  input{width:100%;border:1px solid #D5E0EF;border-radius:13px;padding:14px 15px;font:inherit;color:var(--ink);outline:none}
+  input:focus{border-color:var(--blue);box-shadow:0 0 0 4px #1677FF19}button{border:0;cursor:pointer;font:inherit;font-weight:750;border-radius:13px;padding:14px 15px}
+  button.primary{color:white;background:var(--blue);width:100%;box-shadow:0 6px 18px #1677FF20}button.subtle{color:var(--ink);background:#EDF3FA}button:disabled{opacity:.45;cursor:not-allowed}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:15px}.row button{padding:9px 12px;font-size:12px}
+  .note{background:#F5F8FD;border:1px solid #E4EAF2;padding:13px 15px;border-radius:14px;color:#425574;line-height:1.6;font-size:13px;margin:18px 0}
+  .status{white-space:pre-wrap;overflow-wrap:anywhere;border-radius:14px;padding:13px 15px;line-height:1.55;font-size:13px;margin:14px 0 0;background:#F5F8FD;border:1px solid var(--line)}
+  .status.good{color:#086C49;border-color:#BBE9D2;background:#EFFBF4}.status.bad{color:#9D2525;border-color:#F3C4C4;background:#FFF5F5}
+  .testrow{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #EDF1F6;gap:12px}.testrow:last-child{border-bottom:0}
+  .tag{border-radius:99px;padding:6px 11px;font-size:12px;font-weight:750;white-space:nowrap;background:#F1F5FA;color:#63748B}
+  .tag.good{color:var(--ok);background:#EAF9F0}.tag.bad{color:var(--bad);background:#FFF0EE}
+  .small{font-size:12px;line-height:1.65;color:var(--muted)}.hidden{display:none!important}
+  footer{font-size:12px;line-height:1.65;color:#6E7C93;margin-top:20px;padding:0 4px}
+  @media(max-width:500px){main{margin:20px auto 45px}.card{padding:22px 19px;border-radius:23px}h1{font-size:25px}.testrow{gap:4px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><div class="logo">M</div><div>MedHub <span class="muted">/ Security Lab</span></div></div>
+  <section class="card">
+    <span class="eyebrow">PRIVATE TEST WORKER ONLY</span>
+    <h1>Representative access test</h1>
+    <p class="muted">Sign in with the <strong>new test representative</strong> account and check Pharmacy Stage 1 permissions. This page doesn't change your live MedHub account or lecture records.</p>
+    <div class="note"><strong>Safety:</strong> Use only the real <strong>eissaismail941.github.io/MedHub/</strong> page. Email and password are sent directly to your Supabase project over HTTPS. No credentials or tokens are saved in browser storage or displayed on screen.</div>
+    <form id="loginForm" autocomplete="off">
+      <div class="field"><label for="email">Test representative email</label><input type="email" id="email" autocomplete="off" placeholder="Enter the new test email" required /></div>
+      <div class="field"><label for="password">Test representative password</label><input type="password" id="password" autocomplete="off" placeholder="Password created during setup" required /></div>
+      <button class="primary" id="loginButton" type="submit">Sign in to test account</button>
+    </form>
+    <div id="loginStatus" role="status" aria-live="polite" class="status hidden"></div>
+  </section>
+  <section class="card hidden" id="testPanel">
+    <div class="row"><h2>Permission checks</h2><button class="subtle" id="clearButton" type="button">Clear session</button></div>
+    <p class="muted">All checks use your private <strong>medhub-api-test</strong> Worker. They test authorization <strong>without uploading PDFs</strong>.</p>
+    <div class="testrow"><div>Pharmacy · Stage 1<div class="small">Should allow access</div></div><span class="tag" id="t0">Not tested</span></div>
+    <div class="testrow"><div>Pharmacy · Stage 2<div class="small">Should be blocked</div></div><span class="tag" id="t1">Not tested</span></div>
+    <div class="testrow"><div>Dentistry · Stage 5<div class="small">Should be blocked</div></div><span class="tag" id="t2">Not tested</span></div>
+    <div class="testrow"><div>Medicine · Stage 2<div class="small">Should be blocked</div></div><span class="tag" id="t3">Not tested</span></div>
+    <button class="primary" id="testButton" type="button" style="margin-top:21px">Run all four security checks</button>
+    <div class="status hidden" id="result" role="status" aria-live="polite"></div>
+    <div class="note"><strong>How this avoids creating test objects:</strong> We intentionally send a non-PDF request. The current Worker checks permissions first. HTTP <strong>415</strong> means permission passed but the fake file was rejected; HTTP <strong>403</strong> means that stage was denied. Other results count as a failed/inconclusive test.</div>
+  </section>
+  <footer>Security testing only. Do not use your Super Admin credentials here. The test account must be restricted to Pharmacy Stage 1. Remove this page from GitHub after testing. Never share your email/password, token, or the full browser response containing tokens in chat.</footer>
+</main>
+<script>
+(()=>{'use strict';
+const EXPECTED_ORIGIN='https://eissaismail941.github.io';
+const SUPABASE='https://lxmxsymxmpulkkngjfjo.supabase.co';
+const PUBLISHABLE='sb_publishable_-7LnL-kzS1omjDFD5va_0A_Tjdh3m8h';
+const WORKER='https://medhub-api-test.eissaismail941.workers.dev';
+const $=id=>document.getElementById(id);
+let accessToken=null, expiresAt=0;
+function status(id,kind,text){const node=$(id);node.className='status '+(kind||'');node.textContent=text;node.classList.remove('hidden')}
+function clearSession(){accessToken=null;expiresAt=0;$('loginForm').reset();$('loginForm').classList.remove('hidden');$('testPanel').classList.add('hidden');$('loginButton').disabled=false;$('loginButton').textContent='Sign in to test account';$('loginStatus').classList.add('hidden');$('result').classList.add('hidden');for(let i=0;i<4;i++){const t=$('t'+i);t.textContent='Not tested';t.className='tag'}}
+$('clearButton').addEventListener('click',clearSession);
+window.addEventListener('pagehide',()=>{accessToken=null;expiresAt=0});
+if(location.origin!==EXPECTED_ORIGIN || !location.pathname.startsWith('/MedHub/')){
+  $('loginButton').disabled=true;
+  status('loginStatus','bad','Open the HTML file from your GitHub Pages MedHub website, not from Downloads or an unfamiliar domain.');
+  return;
+}
+$('loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const email=$('email').value.trim(), password=$('password').value;
+  $('loginButton').disabled=true;$('loginButton').textContent='Checking account…';
+  try{
+    const r=await fetch(SUPABASE+'/auth/v1/token?grant_type=password',{
+      method:'POST',headers:{'Content-Type':'application/json',apikey:PUBLISHABLE},
+      body:JSON.stringify({email,password}),cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'
+    });
+    const data=await r.json();
+    if(!r.ok || typeof data.access_token!=='string')throw new Error('Could not sign in. Verify the new representative email and password.');
+    accessToken=data.access_token;expiresAt=Date.now()+((Number(data.expires_in)||3600)*1000);
+    // Never keep the representative password in the page after authentication.
+    $('password').value='';
+    const who=await fetch(WORKER+'/whoami',{headers:{Authorization:'Bearer '+accessToken},cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});
+    const me=await who.json();
+    if(!who.ok)throw new Error('The test Worker rejected the session: '+(me.error||'Unknown error'));
+    const assignments=Array.isArray(me.assignments)?me.assignments:[];
+    const only=assignments.length===1&&assignments[0].role==='content_admin'&&assignments[0].college==='pharmacy'&&assignments[0].stage===1&&assignments[0].is_active===true;
+    if(!only){accessToken=null;throw new Error('This is not the restricted Pharmacy Stage 1 content_admin account. Expected exactly one active assignment. Stop here and check the account.');}
+    $('loginForm').classList.add('hidden');$('testPanel').classList.remove('hidden');
+    status('loginStatus','good','Restricted Pharmacy Stage 1 test account verified. You can run the four no-file permission checks.');
+  }catch(err){accessToken=null;status('loginStatus','bad',err.message||'Sign-in failed');$('loginButton').disabled=false;$('loginButton').textContent='Sign in to test account'}
+});
+const cases=[
+ {college:'pharmacy',stage:1,allow:true},
+ {college:'pharmacy',stage:2,allow:false},
+ {college:'dentistry',stage:5,allow:false},
+ {college:'medicine',stage:2,allow:false}
+];
+$('testButton').addEventListener('click',async()=>{
+ if(!accessToken||Date.now()>expiresAt-30000){status('result','bad','Session expired. Reload the page and sign in again.');return;}
+ $('testButton').disabled=true;$('testButton').textContent='Testing permissions…';let passed=0;let lines=[];
+ for(let i=0;i<cases.length;i++){
+  const t=$('t'+i),c=cases[i];t.textContent='Checking…';t.className='tag';
+  try{
+   const u=new URL(WORKER+'/upload');u.searchParams.set('college',c.college);u.searchParams.set('stage',String(c.stage));
+   const r=await fetch(u.href,{method:'POST',headers:{Authorization:'Bearer '+accessToken,'Content-Type':'application/octet-stream'},body:'permission-check-only',cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});
+   const expected=c.allow?415:403;const good=r.status===expected;
+   t.textContent=good?'PASS':'FAIL ('+r.status+')';t.className='tag '+(good?'good':'bad');
+   if(good)passed++;else lines.push(c.college+' stage '+c.stage+': expected '+expected+', received '+r.status);
+  }catch(err){t.textContent='ERROR';t.className='tag bad';lines.push(c.college+' stage '+c.stage+': network/request failure')}
+ }
+ status('result',passed===4?'good':'bad',passed===4?'4 / 4 checks passed. Pharmacy Stage 1 allowed; other stages blocked. No PDF files were uploaded.':'Only '+passed+' / 4 checks passed. Do NOT activate real representatives.\n'+lines.join('\n'));
+ $('testButton').disabled=false;$('testButton').textContent='Run all four security checks';
+});
+})();
+</script>
+</body>
+</html>
