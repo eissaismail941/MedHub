@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f9fd">
+<meta name="referrer" content="no-referrer">
+<title>MedHub | Invite Admin Test</title>
+<style>
+
+:root{--blue:#1677ff;--ink:#142036;--muted:#718099;--line:#e4eaf3;--bg:#f7f9fd;--white:#fff;--radius:18px;--shadow:0 8px 34px rgba(22,39,76,.045)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.app{display:grid;grid-template-columns:242px minmax(0,1fr);min-height:100dvh}.side{background:#fff;border-right:1px solid var(--line);padding:27px 17px;display:flex;flex-direction:column;gap:27px}.brand{display:flex;align-items:center;gap:10px;padding:1px 12px;font-size:20px;font-weight:800;letter-spacing:-.6px}.logo{display:grid;place-items:center;background:var(--blue);color:#fff;width:35px;height:35px;border-radius:11px;font-size:19px;font-weight:800}.brand small{display:block;font-size:10px;color:var(--muted);font-weight:550;letter-spacing:1.3px;text-transform:uppercase;margin-top:2px}.nav-group{display:grid;gap:5px}.nav-label{padding:4px 14px 10px;color:#99a5b8;font-size:11px;font-weight:750;letter-spacing:1.5px}.nav-btn{border:0;background:none;color:#65748a;text-align:left;border-radius:12px;padding:13px 14px;display:flex;align-items:center;gap:11px;font-weight:650;width:100%;transition:.2s}.nav-btn:hover{background:#f3f7fd;color:var(--ink)}.nav-btn.active{background:#eaf3ff;color:#0866db}.nav-ico{font-size:18px;width:22px;text-align:center;opacity:.85}.side-bottom{margin-top:auto;border:1px solid var(--line);border-radius:15px;padding:12px;background:#fbfcfe}.side-bottom b{font-size:12px}.side-bottom p{font-size:12px;line-height:1.5;color:var(--muted);margin:6px 0 0}.main{min-width:0;padding:0 38px 54px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;height:82px;border-bottom:1px solid var(--line);margin-bottom:30px}.eyebrow{font-size:12px;color:var(--muted);font-weight:600}.super{display:flex;align-items:center;gap:9px;font-size:12px;color:#55637a;font-weight:650}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#eaf1fd;color:#0a6cea;font-weight:800}.content{max-width:1170px;margin:auto}.heading{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}h1{font-size:clamp(24px,2.6vw,32px);letter-spacing:-1.1px;margin:0 0 8px;font-weight:780}h2{font-size:19px;margin:0;letter-spacing:-.5px}h3{font-size:15px;margin:0}p{line-height:1.55}.heading p{color:var(--muted);margin:0;font-size:13px}.btn{border:1px solid var(--line);background:#fff;color:#273b55;padding:11px 17px;border-radius:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:43px}.btn:hover{background:#f8fafc}.btn-primary{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 6px 15px rgba(22,119,255,.15)}.btn-primary:hover{background:#0769ed}.btn-danger{color:#dc3b49}.btn-small{padding:7px 11px;min-height:33px;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:24px}.stat{background:white;border:1px solid var(--line);border-radius:17px;padding:21px 20px;box-shadow:var(--shadow)}.stat .label{color:#7b879b;font-size:12px;font-weight:650}.stat .value{font-size:31px;font-weight:800;letter-spacing:-1px;margin-top:12px}.stat .foot{font-size:11px;color:#99a3b4;margin-top:4px}.panel{background:white;border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:20px 21px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.panel-head p{margin:6px 0 0;color:var(--muted);font-size:12px}.filters{display:flex;gap:9px;flex-wrap:wrap;padding:0 21px 17px}.control{border:1px solid #dfe7f2;background:#fff;border-radius:11px;height:40px;padding:0 12px;color:#3c4e67;outline:none;min-width:0}.control:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1677ff18}.search{flex:1;min-width:170px}.table-wrap{overflow-x:auto}.table{width:100%;border-collapse:collapse;min-width:720px}.table th{text-align:left;color:#8a95a8;background:#fbfcff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:13px 21px}.table td{border-bottom:1px solid #f0f3f8;padding:16px 21px;vertical-align:middle;font-size:12px}.table tbody tr:last-child td{border-bottom:0}.person{display:flex;align-items:center;gap:10px;min-width:180px}.person .circle{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#e8f1ff;color:#0d6ff5;flex:none;font-weight:800}.person strong{display:block;font-size:13px}.person small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.tag{display:inline-block;border-radius:8px;padding:6px 9px;background:#f2f5fa;color:#53647d;font-size:11px;font-weight:750;white-space:nowrap}.tag.ok{background:#e8f8f0;color:#188659}.tag.off{background:#fff0f1;color:#ba4753}.tag.pending{background:#fff5de;color:#966a0c}.actions{display:flex;gap:6px}.empty{text-align:center;padding:38px 15px;color:var(--muted)}.notice{display:flex;gap:12px;align-items:flex-start;background:#eef5ff;border:1px solid #d9e8ff;color:#3d5f8e;border-radius:13px;padding:13px 15px;margin-bottom:20px;font-size:12px;line-height:1.5}.notice b{color:#2156a7}.colleges{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:15px}.college-card{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:var(--shadow)}.college-card .college-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#eef5ff;color:var(--blue);font-size:18px;margin-bottom:14px}.college-card strong{display:block;font-size:15px}.college-card p{margin:6px 0 15px;color:var(--muted);font-size:12px}.two{display:grid;grid-template-columns:1.3fr .7fr;gap:15px}.activity{padding:0 20px 12px}.activity-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #eff2f6;line-height:1.5}.activity-item:last-child{border-bottom:0}.activity-dot{width:8px;height:8px;background:#9ac7ff;border-radius:50%;margin-top:5px;flex:none}.activity-item b{font-size:12px}.activity-item small{display:block;color:#919dae;margin-top:4px}.modal{border:0;padding:0;max-height:calc(100dvh - 28px);width:min(480px,calc(100% - 24px));border-radius:22px;box-shadow:0 28px 100px #1023443d;color:var(--ink)}.modal::backdrop{background:rgba(17,30,56,.48);backdrop-filter:blur(5px)}.modal-inner{padding:26px;overflow:auto;max-height:calc(100dvh - 28px)}.modal-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}.modal p{color:var(--muted);font-size:12px;margin:0 0 18px}.x{border:0;border-radius:9px;background:#f2f5f9;width:32px;height:32px;font-size:18px}.fields{display:grid;gap:14px}.field{display:grid;gap:7px}.field label{font-weight:700;font-size:12px}.field input,.field select{height:43px;border:1px solid #dce5f1;border-radius:11px;padding:0 12px;outline:0;width:100%;background:#fff;color:#26374d;font-size:14px}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1677ff18}.modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:23px}.help{font-size:11px;color:#8793a5;line-height:1.5}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,30px);background:#193353;color:#fff;border-radius:12px;padding:12px 16px;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 8px 30px #15243a33;z-index:5;max-width:90vw}.toast.show{opacity:1;transform:translate(-50%,0)}[hidden]{display:none!important}
+@media(max-width:950px){.app{grid-template-columns:75px minmax(0,1fr)}.side{padding:22px 9px}.brand{padding:0;justify-content:center}.brand .brand-text,.nav-label,.nav-btn .nav-text,.side-bottom{display:none}.nav-btn{justify-content:center;padding:14px}.nav-ico{font-size:21px}.main{padding:0 24px 40px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:610px){.app{display:block}.side{position:sticky;top:0;z-index:2;display:flex;flex-direction:row;align-items:center;gap:8px;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin-right:auto}.nav-group{display:flex;gap:3px}.nav-btn{padding:8px 10px}.nav-ico{font-size:19px}.main{padding:0 13px 34px}.top{height:54px;margin-bottom:23px}.heading{align-items:flex-start}.heading .btn{width:100%}.stats{gap:9px}.stat{padding:16px}.stat .value{font-size:27px}.filters{padding:0 13px 13px;gap:7px}.panel-head{padding:17px 14px}.search{flex-basis:100%}.table th,.table td{padding:13px}.two{grid-template-columns:1fr}.modal-inner{padding:20px}}
+
+/* Read-only live directory extensions */
+.sidebar-warning{padding:13px;border:1px solid #dfe9fb;background:#f5f9ff;border-radius:14px;font-size:12px;line-height:1.6;color:#516884}
+.side{position:sticky;top:0;height:100dvh}
+.tag.role{background:#eaf3ff;color:#095bbd}
+.hero-panel{padding:22px;border-radius:19px;border:1px solid #dfeafc;background:linear-gradient(116deg,#eef5ff,#ffffff);margin-bottom:22px}
+.hero-panel b{color:#0c60ca}
+.hero-panel p{color:#667b93;margin:8px 0 0}
+.table{min-width:760px}
+.table-wrap{width:100%;overflow-x:auto}
+.signin-tip{border:1px solid #f1d9be;background:#fff9ed;color:#75552e;padding:15px 17px;border-radius:13px;line-height:1.65;margin-bottom:20px}
+.status-line{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.status-dot{width:8px;height:8px;background:#f0ad45;border-radius:50%}
+.status-dot.ok{background:#13ac79}
+.status-dot.err{background:#eb5365}
+.empty-list{padding:28px;text-align:center;color:#667891}
+.small{font-size:12px;color:#72839b}
+.profile-name{font-weight:750;color:#223550;overflow-wrap:anywhere}
+.role-note{margin:20px 0 0;font-size:12px;line-height:1.6;color:#71819a}
+.stage-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:14px 0}
+.stage-card{background:#fff;border:1px solid var(--line);padding:17px;border-radius:15px}
+.stage-card strong{display:block;margin-bottom:8px}
+.stage-card p{font-size:12px;color:var(--muted);margin:0}
+.btn-secondary{background:#fff}
+.link{color:#0866db;text-decoration:none;font-weight:650}
+.notice-alert{background:#fff4ee;border-color:#f5d5cb;color:#995342}
+#load-status{min-height:30px;display:flex;align-items:center;gap:8px}
+#empty{display:none}
+body[data-error="1"] #empty{display:block}
+@media(max-width:610px){.app{display:block}.side{position:static;height:auto}.side .nav-group{display:none}.top{align-items:center}.super{max-width:60vw;overflow:hidden}.hero-panel{padding:15px}.main{padding:0 14px 35px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.table{min-width:680px}}
+</style>
+<style>
+.invite-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.invite-modal{border:0;padding:0;width:min(510px,calc(100vw - 28px));max-height:calc(100dvh - 28px);border-radius:23px;box-shadow:0 25px 90px #15253f55;color:#142036;font:inherit}
+.invite-modal::backdrop{background:rgba(13,24,43,.52);backdrop-filter:blur(4px)}
+.invite-inner{padding:clamp(19px,4vw,29px);max-height:calc(100dvh - 28px);overflow:auto}
+.invite-modal .invite-head{display:flex;align-items:start;justify-content:space-between;gap:10px}
+.invite-modal h2{font-size:23px;letter-spacing:-.7px}
+.invite-modal p{color:#687892;font-size:13px;line-height:1.65;margin:10px 0 18px}
+.invite-modal .field{margin-bottom:14px}
+.invite-modal .field label{display:block;margin-bottom:7px;color:#35455e;font-size:12px;font-weight:730}
+.invite-modal .field input,.invite-modal .field select{width:100%;height:45px;border:1px solid #dbe5f0;border-radius:12px;padding:0 12px;background:#fff;color:#1b2a43;outline:none;font-size:14px}
+.invite-modal .field :is(input,select):focus{border-color:#1677ff;box-shadow:0 0 0 3px #1677ff17}
+.invite-tip{border:1px solid #d6e5fb;background:#f3f8ff;border-radius:13px;padding:12px 13px;color:#385a88;font-size:12px;line-height:1.6}
+.invite-consent{display:flex;align-items:start;gap:10px;margin:15px 0;font-size:12px;color:#43516a;line-height:1.55}
+.invite-consent input{margin-top:3px;width:17px;height:17px;accent-color:#1677ff;flex:none}
+.invite-feedback{white-space:pre-line;border-radius:12px;border:1px solid #dce6f3;background:#f6f9fc;padding:11px 12px;font-size:12px;line-height:1.65;margin:12px 0}
+.invite-feedback[data-type="error"]{border-color:#efc4c4;background:#fff6f6;color:#892d2d}
+.invite-feedback[data-type="ok"]{border-color:#b6dfca;background:#eefaf4;color:#166a45}
+.invite-foot{display:flex;gap:9px;justify-content:flex-end;margin-top:15px}
+.invite-foot button{min-width:110px}
+@media(max-width:610px){.invite-actions{width:100%}.invite-actions button{flex:1}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand"><span class="logo">M</span><span class="brand-text">MedHub<small>Administration</small></span></div>
+  <nav class="nav-group" aria-label="Navigation">
+    <div class="nav-label">MANAGEMENT</div>
+    <a href="#overview" class="nav-btn active"><span class="nav-ico">▦</span><span class="nav-text">Overview</span></a>
+    <a href="#directory" class="nav-btn"><span class="nav-ico">♙</span><span class="nav-text">Administrators</span></a>
+    <a href="#colleges" class="nav-btn"><span class="nav-ico">▤</span><span class="nav-text">Colleges & stages</span></a>
+  </nav>
+  <div class="side-bottom"><b>Secure invitation pilot</b><p>Invitations can create a real Supabase user and inactive role. No live lectures or uploads are changed.</p></div>
+</aside>
+<main class="main">
+  <div class="top">
+    <span class="eyebrow">Five-college portal / Admin Management</span>
+    <span class="super"><span class="avatar">S</span><span id="identity">Super Admin check</span></span>
+  </div>
+  <div class="content">
+    <section id="overview">
+      <div class="heading">
+        <div><h1>Admin Management</h1><p>Real administrator directory · invitation pilot</p></div>
+        <div class="invite-actions"><button id="refresh" class="btn" type="button">↻ Refresh</button><button id="open-invite" class="btn btn-primary" type="button" hidden>＋ Invite administrator</button></div>
+      </div>
+      <div class="hero-panel"><b>Phase 2 — Secure invitation pilot</b><p>Your Super Admin can invite a NEW Content Admin into one college and stage. The invitation creates an INACTIVE assignment; activation is a later, separate approval step. Invitations send real email and create Supabase Auth users.</p></div>
+      <div id="load-status" role="status" aria-live="polite"><span class="status-dot" id="status-dot"></span><span id="status-text">Checking your MedHub session…</span></div>
+      <div class="signin-tip" id="session-tip" hidden>Open the <a class="link" href="https://eissaismail941.github.io/MedHub/">normal MedHub website</a> in the same browser and sign in with your Super Admin account. Then return and tap <b>Refresh directory</b>. Do not paste an access token into chat.</div>
+      <div class="stats">
+        <div class="stat"><div class="label">Admin assignments</div><div class="value" id="stat-total">—</div><div class="foot">Real database rows</div></div>
+        <div class="stat"><div class="label">Active admins</div><div class="value" id="stat-active">—</div><div class="foot">Assigned accounts</div></div>
+        <div class="stat"><div class="label">Colleges covered</div><div class="value" id="stat-colleges">—</div><div class="foot">With stage/college admins</div></div>
+        <div class="stat"><div class="label">Super Admins</div><div class="value" id="stat-super">—</div><div class="foot">Active assignments</div></div>
+      </div>
+    </section>
+    <section id="directory" class="panel">
+      <div class="panel-head"><div><h2>Administrators</h2><p>Actual Supabase assignments — no demo accounts</p></div><span id="count" class="tag">Not loaded</span></div>
+      <div class="filters">
+        <input class="control search" id="search" placeholder="Search email, role, college…" aria-label="Search administrators">
+        <select class="control" id="college-filter" aria-label="Filter college"><option value="all">All colleges</option><option value="medicine">Medicine</option><option value="dentistry">Dentistry</option><option value="pharmacy">Pharmacy</option><option value="nursing">Nursing</option><option value="health-sciences">Health Sciences</option><option value="_super">Super Admins</option></select>
+        <select class="control" id="stage-filter" aria-label="Filter stage"><option value="all">All stages</option></select>
+        <select class="control" id="status-filter" aria-label="Filter status"><option value="all">All statuses</option><option value="active">Active</option><option value="disabled">Inactive / pending</option></select>
+      </div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Administrator</th><th>Role</th><th>College</th><th>Stage</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+      <div id="empty" class="empty-list">No matching administrators yet.</div>
+      <div style="padding:17px 21px;border-top:1px solid var(--line)" class="small">The original second administrator has not yet been given an assignment in this new table. Their old permissions have not been changed.</div>
+    </section>
+    <section id="colleges" style="margin-top:30px">
+      <div class="heading"><div><h2>Colleges & stages</h2><p>Configured five-college structure</p></div></div>
+      <div id="colleges-cards" class="colleges"></div>
+      <p class="role-note">These five stage counts come from your current MedHub configuration. Changes to college structure are deliberately disabled in this test. The directory only displays assignments that already exist.</p>
+    </section>
+    <div class="notice" style="margin-top:28px"><span aria-hidden="true">🔒</span><div><b>Security-first rollout</b> · Invitations are real; new assignments remain inactive. This pilot cannot edit, activate, delete or upload. Never replace <code>index.html</code> with this file. Only upload it as a separate GitHub test page. Remove test pages once testing is complete.</div></div>
+  </div>
+</main>
+</div>
+<script>
+(() => {
+'use strict';
+const SUPABASE_URL='https://lxmxsymxmpulkkngjfjo.supabase.co';
+const PUB='sb_publishable_-7LnL-kzS1omjDFD5va_0A_Tjdh3m8h';
+const SKEY='medhub-admin-session';
+const ADMIN_TEST_API='https://medhub-admin-api-test.eissaismail941.workers.dev';
+const COUNTS=[['medicine','Medicine',6],['dentistry','Dentistry',5],['pharmacy','Pharmacy',5],['nursing','Nursing',4],['health-sciences','Health Sciences',4]];
+const $=id=>document.getElementById(id);
+let items=[];let loaded=false;
+function setStatus(msg,type='wait'){$('status-text').textContent=msg;$('status-dot').className='status-dot'+(type==='ok'?' ok':type==='error'?' err':'');}
+function getSession(){try{return JSON.parse(localStorage.getItem(SKEY)||'null')}catch{return null}}
+function label(x){return ({super_admin:'Super Admin',college_admin:'College Admin',stage_admin:'Stage Admin',content_admin:'Content Admin'})[x]||x||'Unknown';}
+function coll(x){return COUNTS.find(c=>c[0]===x)?.[1]||x||'All colleges';}
+function node(tag,text,cls){const x=document.createElement(tag);if(text!==undefined)x.textContent=String(text);if(cls)x.className=cls;return x;}
+function makeCell(text){const td=node('td');td.append(node('span',text));return td;}
+function populateStages(){let options=[['all','All stages']];const col=$('college-filter').value;let max=col==='all'?6:COUNTS.find(c=>c[0]===col)?.[2]||0;for(let i=1;i<=max;i++)options.push([String(i),'Stage '+i]);const previous=$('stage-filter').value;$('stage-filter').replaceChildren(...options.map(([value,t])=>{const o=node('option',t);o.value=value;return o}));$('stage-filter').value=options.some(a=>a[0]===previous)?previous:'all';}
+function render(){if(!loaded)return;const q=$('search').value.toLowerCase().trim(),col=$('college-filter').value,stage=$('stage-filter').value,status=$('status-filter').value;const view=items.filter(a=>(!q||[a.email,a.role,a.college,a.stage].some(v=>String(v??'').toLowerCase().includes(q)))&&(col==='all'||(col==='_super'?a.role==='super_admin':a.college===col))&&(stage==='all'||String(a.stage)===stage)&&(status==='all'||(status==='active'?a.is_active:!a.is_active)));const tb=$('rows');tb.replaceChildren();for(const a of view){const tr=node('tr'),id=node('td'),box=node('div',undefined,'person'),circle=node('span',(a.email||'?')[0]?.toUpperCase()||'?','circle'),detail=node('div'),title=node('strong',a.email||'No email'),short=node('small','User ID: '+String(a.user_id||'').slice(0,8)+'…');detail.append(title,short);box.append(circle,detail);id.append(box);tr.append(id);const role=makeCell('');role.replaceChildren(node('span',label(a.role),'tag role'));tr.append(role,makeCell(a.college?coll(a.college):'All colleges'),makeCell(a.stage==null?'All stages':'Stage '+a.stage));const statusCol=node('td');statusCol.append(node('span',a.is_active?'Active':'Inactive / pending','tag '+(a.is_active?'ok':'off')));tr.append(statusCol);tb.append(tr)}$('count').textContent=view.length+' shown';$('empty').style.display=view.length?'none':'block';}
+function stats(){const active=items.filter(a=>a.is_active);$('stat-total').textContent=items.length;$('stat-active').textContent=new Set(active.map(a=>a.user_id)).size;$('stat-colleges').textContent=new Set(active.map(a=>a.college).filter(Boolean)).size+'/5';$('stat-super').textContent=active.filter(a=>a.role==='super_admin').length;let list=$('colleges-cards');list.replaceChildren();for(let [id,name,stages] of COUNTS){const panel=node('div',undefined,'college-card'),ico=node('span','▤','college-icon'),title=node('strong',name),count=active.filter(a=>a.college===id),desc=node('p',stages+' stages · '+count.length+' active assignment'+(count.length===1?'':'s')),foot=node('p','Stage coverage: '+new Set(count.map(a=>a.stage).filter(Boolean)).size+' / '+stages);panel.append(ico,title,desc,foot);list.append(panel)}}
+async function load(){if(location.origin!=='https://eissaismail941.github.io'||!location.pathname.startsWith('/MedHub/')){setStatus('Open this test from your MedHub GitHub Pages website, not Downloads.','error');$('session-tip').hidden=false;return}const session=getSession();$('session-tip').hidden=true;loaded=false;$('open-invite').hidden=true;if(!session?.access_token||!session?.user?.id){setStatus('No MedHub admin session found. Sign in to your normal MedHub first.','error');$('session-tip').hidden=false;return}if(typeof session.expires==='number'&&Date.now()>session.expires-30000){setStatus('Your MedHub login has expired. Sign in again on the normal website.','error');$('session-tip').hidden=false;return}setStatus('Verifying Super Admin and loading real directory…');$('refresh').disabled=true;try{const response=await fetch(SUPABASE_URL+'/rest/v1/rpc/medhub_admin_directory',{method:'POST',headers:{apikey:PUB,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json',Accept:'application/json'},body:'{}',cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});let data;try{data=await response.json()}catch{throw new Error('Unexpected database response (HTTP '+response.status+').')}if(!response.ok){if(response.status===401||response.status===403)throw new Error('Access denied. Sign in as your active Super Admin account. HTTP '+response.status+'.');if(response.status===404||data.code==='PGRST202')throw new Error('Directory function not found. Run the supplied SQL in Supabase and refresh.');throw new Error((data.message||data.error||'Supabase rejected request')+' (HTTP '+response.status+')')}if(!Array.isArray(data))throw new Error('Directory did not return an array.');items=data;loaded=true;$('identity').textContent=session.user.email||'Super Admin';setStatus('Connected · Live directory · '+items.length+' assignment(s)','ok');$('open-invite').hidden=false;stats();render()}catch(e){setStatus('Could not load: '+e.message,'error');$('session-tip').hidden=false}finally{$('refresh').disabled=false}}
+$('refresh').addEventListener('click',load);$('search').addEventListener('input',render);$('college-filter').addEventListener('change',()=>{populateStages();$('stage-filter').value='all';render()});$('stage-filter').addEventListener('change',render);$('status-filter').addEventListener('change',render);populateStages();
+
+function inviteMessage(msg,kind='info'){const el=$('invite-result');el.textContent=msg;el.dataset.type=kind;el.hidden=!msg;}
+function populateInviteStages(){const college=$('invite-college').value;const count=COUNTS.find(c=>c[0]===college)?.[2]||0;const previous=Number($('invite-stage').value)||1;$('invite-stage').replaceChildren(...Array.from({length:count},(_,i)=>{const o=node('option','Stage '+(i+1));o.value=String(i+1);return o}));$('invite-stage').value=String(Math.min(previous,count));}
+$('invite-college').addEventListener('change',populateInviteStages);
+$('open-invite').addEventListener('click',()=>{if(!loaded)return;populateInviteStages();inviteMessage('');$('invite-dialog').showModal()});
+function closeInvite(){if(!$('send-invite').disabled)$('invite-dialog').close();}
+$('close-invite').addEventListener('click',closeInvite);
+$('cancel-invite').addEventListener('click',closeInvite);
+$('invite-dialog').addEventListener('cancel',e=>{if($('send-invite').disabled)e.preventDefault()});
+$('invite-form').addEventListener('submit', async event=>{
+  event.preventDefault();inviteMessage('');
+  if(!loaded)return inviteMessage('Super Admin directory not loaded.','error');
+  const sess=getSession();
+  if(!sess?.access_token)return inviteMessage('Sign in to MedHub again, then refresh the directory.','error');
+  const email=$('invite-email').value.trim();
+  const college=$('invite-college').value;
+  const stage=Number($('invite-stage').value);
+  if(!$('invite-confirm').checked)return inviteMessage('Please verify the representative and tick the confirmation box.','error');
+  if(!window.confirm(`Send a real invitation to ${email} for ${coll(college)}, Stage ${stage}?\n\nThe assignment will remain INACTIVE until separately approved.`))return;
+  const button=$('send-invite');button.disabled=true;button.textContent='Sending…';
+  try{
+    const r=await fetch(ADMIN_TEST_API+'/invite',{
+      method:'POST',headers:{Authorization:'Bearer '+sess.access_token,'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({email,college,stage,role:'content_admin',confirm:'invite-inactive'}),
+      credentials:'omit',cache:'no-store',referrerPolicy:'no-referrer',
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error((data.error||'Could not send invitation')+' (HTTP '+r.status+')');
+    inviteMessage('Invitation sent to '+email+'!\n'+coll(college)+' · Stage '+stage+' · Content Admin\nAssignment status: INACTIVE (requires later approval).\nCheck the email inbox and then refresh the administrator directory.','ok');
+    $('invite-confirm').checked=false;
+    await load();
+  }catch(e){inviteMessage('Could not finish invitation: '+e.message+'\nIf it may have sent, do NOT resend until you review the user and assignments in Supabase.','error');}
+  finally{button.disabled=false;button.textContent='Send invitation';}
+});
+populateInviteStages();
+
+load();
+})();
+</script>
+<dialog id="invite-dialog" class="invite-modal" aria-labelledby="invite-heading">
+<div class="invite-inner">
+  <div class="invite-head"><div><h2 id="invite-heading">Invite a representative</h2><p>Assign one college and stage. Every person needs their own account.</p></div><button id="close-invite" class="x" type="button" aria-label="Close invitation">×</button></div>
+  <form id="invite-form">
+    <div class="field"><label for="invite-email">Representative email</label><input id="invite-email" autocomplete="off" type="email" maxlength="254" placeholder="representative@example.com" required></div>
+    <div class="field"><label for="invite-college">College</label><select id="invite-college" required><option value="medicine">Medicine</option><option value="dentistry">Dentistry</option><option value="pharmacy" selected>Pharmacy</option><option value="nursing">Nursing</option><option value="health-sciences">Health Sciences</option></select></div>
+    <div class="field"><label for="invite-stage">Stage</label><select id="invite-stage" required></select></div>
+    <div class="field"><label for="invite-role">Role (pilot)</label><select id="invite-role" disabled><option>Content Admin — PDF uploads only (after activation)</option></select></div>
+    <div class="invite-tip"><b>Pending until approved:</b> An email is sent and an inactive assignment is recorded. The representative cannot upload or manage live lectures from this invitation alone.</div>
+    <label class="invite-consent"><input type="checkbox" id="invite-confirm" required><span>I verified this person is a class representative and understand a real Supabase invitation email will be sent.</span></label>
+    <div class="invite-feedback" id="invite-result" role="status" aria-live="polite" hidden></div>
+    <div class="invite-foot"><button class="btn" type="button" id="cancel-invite">Cancel</button><button class="btn btn-primary" id="send-invite" type="submit">Send invitation</button></div>
+  </form>
+</div>
+</dialog>
+</body>
+</html>
