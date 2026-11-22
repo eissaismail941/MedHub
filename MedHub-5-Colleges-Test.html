@@ -12,7 +12,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedHub | Portal</title>
+    <title>Lecture Notes | Hawler Medical University</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#f8fbff">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="MedHub">
+    <meta name="apple-mobile-web-app-title" content="HMU Lecture Notes">
     <link rel="apple-touch-icon" href="./icon-192.png.png">
 <link rel="icon" type="image/png" href="./icon-192.png.png">
     <style>
@@ -1999,6 +1999,37 @@ body[data-mh-view="college-library"] .mh-acct { display:none !important; }
   .mh-col-choice,.mh-col-radio,.mh-col-continue {transition:none;}
 }
 
+
+/* HMU academic identity — same original MedHub design with restrained emblem. */
+.mh-hmu-emblem {display:flex;align-items:center;justify-content:center;flex:0 0 auto; width:76px; height:56px;}
+.mh-hmu-logo {width:76px;height:auto;max-height:56px;object-fit:contain;display:block;}
+.mh-hmu-logo[hidden],.mh-hmu-fallback[hidden]{display:none !important;}
+.mh-hmu-fallback{width:56px;height:42px;align-items:center;justify-content:center;border:1px solid #e3e9f1;border-radius:10px;color:#6a7b90;font-weight:700;font-size:12px;}
+.mh-col-top{align-items:center;gap:14px;}
+.mh-col-wordmark{font-size:16px;letter-spacing:-.45px;line-height:1.25;color:#1c2b42;}
+.mh-col-university{font-size:12px;margin-top:5px;color:#8290a3;}
+.mh-col-lib-brand,.mh-med-title-brand{display:flex;align-items:center;gap:14px;min-width:0;}
+.mh-col-lib-brand .mh-hmu-emblem{width:62px;height:46px;}
+.mh-col-lib-brand .mh-hmu-logo{width:62px;max-height:46px;}
+.mh-col-lib-brand strong{font-size:15px;letter-spacing:-.3px;}
+.mh-med-title-brand .mh-hmu-emblem{width:63px;height:48px;}
+.mh-med-title-brand .mh-hmu-logo{width:63px;max-height:48px;}
+.mh-col-top,.mh-col-lib-brand,.mh-med-title-brand{color:#1c2b42;}
+@media(max-width:540px){
+ .mh-hmu-emblem{width:69px;height:51px;}
+ .mh-hmu-logo{width:69px;max-height:51px;}
+ .mh-col-wordmark{font-size:14px;}
+ .mh-col-university{font-size:11px;}
+ .mh-col-lib-brand{gap:10px;}
+ .mh-col-lib-brand .mh-hmu-emblem{width:52px;height:40px;}
+ .mh-col-lib-brand .mh-hmu-logo{width:52px;max-height:40px;}
+ .mh-col-lib-brand strong{font-size:13px;}
+ .mh-med-title-brand{gap:11px;}
+ .mh-med-title-brand .mh-hmu-emblem{width:51px;height:40px;}
+ .mh-med-title-brand .mh-hmu-logo{width:51px;max-height:40px;}
+ .mh-med-home-head h1{font-size:21px;}
+}
+
 </style>
 <link rel="stylesheet" href="./admin.css?v=20261113-v11">
 </head>
@@ -2010,8 +2041,8 @@ body[data-mh-view="college-library"] .mh-acct { display:none !important; }
 <section id="mh-college-chooser-page" aria-labelledby="mh-college-title">
   <div class="mh-col-shell">
     <header class="mh-col-top">
-      <span class="mh-col-mark" aria-hidden="true">m</span>
-      <div><div class="mh-col-wordmark">MedHub</div><div class="mh-col-university">Hawler Medical University</div></div>
+      <span class="mh-hmu-emblem"><img class="mh-hmu-logo" src="./assets/hmu-logo.png" alt="Hawler Medical University logo" onerror="if(!this.dataset.rootTried){this.dataset.rootTried='1';this.src='./hmu-logo.png'}else{this.hidden=true;this.nextElementSibling.hidden=false}"><span class="mh-hmu-fallback" hidden aria-hidden="true">HMU</span></span>
+      <div><div class="mh-col-wordmark">Hawler Medical University</div><div class="mh-col-university">Lecture Notes <span aria-hidden="true">·</span> MedHub</div></div>
     </header>
     <div class="mh-col-intro">
       <h1 id="mh-college-title">Choose your college</h1>
@@ -2033,7 +2064,7 @@ body[data-mh-view="college-library"] .mh-acct { display:none !important; }
 <section id="mh-college-library-page" aria-labelledby="mh-col-library-title">
   <div class="mh-col-library-shell">
     <header class="mh-col-library-head">
-      <div><strong>MedHub</strong><p>Hawler Medical University</p></div>
+      <div class="mh-col-lib-brand"><span class="mh-hmu-emblem"><img class="mh-hmu-logo" src="./assets/hmu-logo.png" alt="Hawler Medical University logo" onerror="if(!this.dataset.rootTried){this.dataset.rootTried='1';this.src='./hmu-logo.png'}else{this.hidden=true;this.nextElementSibling.hidden=false}"><span class="mh-hmu-fallback" hidden aria-hidden="true">HMU</span></span><div><strong>Hawler Medical University</strong><p>Lecture Notes <span aria-hidden="true">·</span> MedHub</p></div></div>
       <button class="mh-col-switch" type="button" onclick="mhChangeCollege()">Change college</button>
     </header>
     <div class="mh-col-empty">
@@ -2047,7 +2078,7 @@ body[data-mh-view="college-library"] .mh-acct { display:none !important; }
 <section id="home-page">
   <div class="home-wrap">
     <div class="mh-med-home-head">
-      <div><h1>College of Medicine</h1><p>Select your stage to view lectures.</p></div>
+      <div class="mh-med-title-brand"><span class="mh-hmu-emblem"><img class="mh-hmu-logo" src="./assets/hmu-logo.png" alt="Hawler Medical University logo" onerror="if(!this.dataset.rootTried){this.dataset.rootTried='1';this.src='./hmu-logo.png'}else{this.hidden=true;this.nextElementSibling.hidden=false}"><span class="mh-hmu-fallback" hidden aria-hidden="true">HMU</span></span><div><h1>College of Medicine</h1><p>Select your stage to view lectures.</p></div></div>
       <button class="mh-col-switch" type="button" onclick="mhChangeCollege()">Change college</button>
     </div>
 
