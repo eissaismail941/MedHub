@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>HMU · Phase 9 Direct PDF Security Test</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172743;background:#f6f8fb;font-synthesis:none}*{box-sizing:border-box}body{margin:0}header{background:#fff;border-bottom:1px solid #e7edf4;padding:20px 5vw}header .brand{max-width:1000px;margin:auto;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:750}header .logo{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#eaf3ff;color:#1677ff;font-weight:800}header small{display:block;margin-top:5px;font-size:10px;font-weight:700;letter-spacing:1.3px;color:#8b9caf}main{max-width:930px;margin:46px auto;padding:0 20px 65px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#547596}h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-1.2px;line-height:1.2;margin:12px 0}p{font-size:13px;line-height:1.7;color:#728198;margin:0 0 22px}.muted{color:#77879c}.pill{font-size:10px;border-radius:18px;color:#1677ff;background:#eaf3ff;padding:7px 10px;font-weight:750}.panel{border:1px solid #e1e9f1;background:#fff;border-radius:21px;padding:clamp(21px,3vw,29px);margin:18px 0;box-shadow:0 8px 28px #21345108}.row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}h2{font-size:17px;margin:0 0 7px;letter-spacing:-.4px}.tag{font-size:11px;color:#7a8799}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.field{display:grid;gap:7px}.field label{font-size:11px;font-weight:750;color:#324762}input{width:100%;font:inherit;font-size:14px;padding:13px 14px;border-radius:11px;border:1px solid #dce5ef;outline:none;min-height:47px}input:focus{border-color:#1677ff;box-shadow:0 0 0 3px #1677ff1c}button{font:inherit;font-size:12px;font-weight:750;cursor:pointer;border:1px solid #dfe6ee;border-radius:11px;min-height:45px;padding:11px 18px;color:#243c5c;background:#fff}button.primary{background:#1677ff;border-color:#1677ff;color:#fff}button:disabled{opacity:.5;cursor:not-allowed}.notice{font-size:12px;line-height:1.6;border-radius:12px;padding:14px 16px;background:#f3f7fc;color:#3a536f;border:1px solid #dfe8f3;margin-top:15px}.notice.good{background:#f1faf5;color:#236548;border-color:#cfeada}.notice.bad{background:#fff6f6;color:#9a4545;border-color:#efd4d4}.notice[hidden]{display:none}.step{border-radius:10px;background:#f1f6fd;color:#176fe5;font-size:11px;font-weight:800;padding:7px 10px}.result{border-top:1px solid #e5edf3;margin-top:14px;padding-top:15px;color:#3a536f;font-size:12px;line-height:1.7}.result strong{color:#142c4b}.info{border:1px solid #dbe6f1;background:#f2f7fc;border-radius:14px;padding:17px 18px;color:#496780;font-size:12px;line-height:1.7}footer{font-size:11px;color:#92a1b1;text-align:center;padding:25px}code{font-size:11px;word-break:break-word}#key{font-size:12px;color:#617b93;word-break:break-all}@media(max-width:650px){main{margin:28px auto}.form{grid-template-columns:1fr}.panel{padding:20px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">HMU</div><div>Hawler Medical University<small>PRIVATE PDF SECURITY LAB · PHASE 9</small></div></div></header>
+<main>
+<div class="row"><span class="eyebrow">MEDICINE · CONTROLLED TEST ONLY</span><span class="pill">READ-ONLY CHECK</span></div>
+<h1>Verify stage-based PDF protection</h1>
+<p>This checks a real Stage 2 PDF with a Stage 2 login, then tries the same PDF with a Stage 1 login. The expected result is <strong>HTTP 403</strong> for Stage 1. No PDFs or accounts are modified.</p>
+<div class="info">Use only your two fictional test accounts. Passwords and session tokens stay in this page's memory; no passwords are stored. This is not a production security audit. Do not share screenshots containing passwords.</div>
+<section class="panel" aria-labelledby="s2title">
+  <div class="row"><h2 id="s2title">Stage 2 — confirm the PDF exists</h2><span class="step">STEP 1</span></div>
+  <p>Enter the email and current password of the Stage 2 test student who can open your MSD test PDF.</p>
+  <form id="form2">
+    <div class="form"><div class="field"><label for="email2">Stage 2 test email</label><input id="email2" type="email" autocomplete="off" required placeholder="Student test email"></div><div class="field"><label for="pw2">Current password</label><input id="pw2" type="password" autocomplete="off" required placeholder="Student password"></div></div>
+    <button class="primary" id="run2" type="submit">Verify a real Stage 2 PDF</button>
+  </form>
+  <div id="status2" class="notice" role="status" aria-live="polite" hidden></div>
+  <div id="fileinfo" class="result" hidden><strong>Verified test PDF:</strong><div id="filename"></div><div id="key" hidden></div></div>
+</section>
+<section class="panel" aria-labelledby="s1title">
+  <div class="row"><h2 id="s1title">Stage 1 — attempt the same PDF</h2><span class="step">STEP 2</span></div>
+  <p>Enter the email and current password of the Stage 1 test student. This page will try the Stage 2 PDF with the Stage 1 account.</p>
+  <form id="form1">
+    <div class="form"><div class="field"><label for="email1">Stage 1 test email</label><input id="email1" type="email" autocomplete="off" required placeholder="Student test email"></div><div class="field"><label for="pw1">Current password</label><input id="pw1" type="password" autocomplete="off" required placeholder="Student password"></div></div>
+    <button class="primary" id="run1" type="submit" disabled>Test direct PDF access (expect HTTP 403)</button>
+  </form>
+  <div id="status1" class="notice" role="status" aria-live="polite" hidden></div>
+</section>
+<div class="info">The test verifies server responses at the private Cloudflare Worker, not just whether a PDF card is hidden. A previously downloaded PDF remains on the student's device and cannot be recalled.</div>
+</main>
+<footer>Hawler Medical University · Isolated Phase 9 read-only test · No live lecture changes</footer>
+<script>
+(()=>{'use strict';
+const SUPABASE='https://lxmxsymxmpulkkngjfjo.supabase.co';
+const PUBLIC_KEY='sb_publishable_-7LnL-kzS1omjDFD5va_0A_Tjdh3m8h';
+const WORKER='https://hmu-student-library-test.eissaismail941.workers.dev';
+let verifiedKey=null;
+const $=id=>document.getElementById(id);
+function status(id,message,type){const el=$(id);el.textContent=message;el.className='notice'+(type?' '+type:'');el.hidden=false;}
+async function signIn(email,password){
+  const r=await fetch(SUPABASE+'/auth/v1/token?grant_type=password',{
+    method:'POST',headers:{apikey:PUBLIC_KEY,'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({email,password}),cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});
+  const x=await r.json().catch(()=>({}));
+  if(!r.ok||!x.access_token)throw new Error('Sign-in failed (HTTP '+r.status+'). Check this test account email and current password.');
+  return x.access_token;
+}
+async function request(path,token){
+  return fetch(WORKER+path,{headers:{Authorization:'Bearer '+token,Accept:'application/json'},cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer'});
+}
+async function asJson(response){return response.json().catch(()=>({}));}
+$('form2').addEventListener('submit',async event=>{
+  event.preventDefault();const btn=$('run2');btn.disabled=true;verifiedKey=null;$('run1').disabled=true;$('fileinfo').hidden=true;
+  status('status2','Checking the Stage 2 account and the private PDF…');
+  try{
+    const email=$('email2').value.trim().toLowerCase(),password=$('pw2').value;
+    let token=await signIn(email,password);$('pw2').value='';
+    let r=await request('/p9/catalog',token);const profile=await asJson(r);
+    if(!r.ok||profile.stage!==2)throw new Error('This is not an active Stage 2 test student (HTTP '+r.status+').');
+    r=await request('/p9/files?block=msd',token);const data=await asJson(r);
+    if(!r.ok)throw new Error('Stage 2 library could not be listed (HTTP '+r.status+').');
+    if(!Array.isArray(data.files)||!data.files.length)throw new Error('No Stage 2 MSD test PDF found. Upload one in the private admin library first.');
+    const key=data.files[0].key;
+    const file=await request('/p9/file?key='+encodeURIComponent(key),token);
+    if(!file.ok)throw new Error('Stage 2 PDF read returned HTTP '+file.status+'.');
+    if((file.headers.get('Content-Type')||'').split(';')[0].trim()!=='application/pdf')throw new Error('Unexpected PDF content type.');
+    await file.body?.cancel();
+    verifiedKey=key;token=null;
+    $('filename').textContent=data.files[0].title+' · '+data.files[0].subject;
+    $('fileinfo').hidden=false;
+    $('run1').disabled=false;
+    status('status2','Passed: active Stage 2 student successfully accessed a real Stage 2 PDF (HTTP 200).','good');
+  }catch(e){$('pw2').value='';status('status2',e.message||'Test failed.','bad');}
+  finally{btn.disabled=false;}
+});
+$('form1').addEventListener('submit',async event=>{
+  event.preventDefault();const btn=$('run1');btn.disabled=true;status('status1','Testing the same PDF with the Stage 1 account…');
+  try{
+    if(!verifiedKey)throw new Error('Complete Step 1 first.');
+    const token=await signIn($('email1').value.trim().toLowerCase(),$('pw1').value);$('pw1').value='';
+    let r=await request('/p9/catalog',token);let data=await asJson(r);
+    if(!r.ok||data.stage!==1)throw new Error('This is not an active Stage 1 test student (HTTP '+r.status+').');
+    r=await request('/p9/file?key='+encodeURIComponent(verifiedKey),token);
+    if(r.status!==403){await r.body?.cancel();throw new Error('Direct PDF test did NOT return HTTP 403; it returned HTTP '+r.status+'. Stop testing and inspect the Worker.');}
+    data=await asJson(r);
+    if(!/outside your assigned stage/i.test(data.error||''))throw new Error('HTTP 403 returned, but not the expected stage restriction. Message: '+(data.error||'none'));
+    r=await request('/p9/files?block=msd',token);
+    if(r.status!==403){await r.body?.cancel();throw new Error('Stage 2 library listing test did NOT return HTTP 403; got HTTP '+r.status+'.');}
+    await asJson(r);
+    status('status1','SECURITY TEST PASSED: Stage 1 was denied direct access to the verified Stage 2 PDF (HTTP 403). The Stage 2 MSD listing also returned HTTP 403.','good');
+  }catch(e){$('pw1').value='';status('status1',e.message||'Test failed.','bad');}
+  finally{btn.disabled=!verifiedKey;}
+});
+})();
+</script>
+</body>
+</html>
